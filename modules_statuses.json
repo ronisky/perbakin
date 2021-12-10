@@ -1,0 +1,12 @@
+{
+    "UserGroup": true,
+    "Dashboard": true,
+    "Users": true,
+    "SysMenu": true,
+    "SysModule": true,
+    "SysRole": true,
+    "SysTask": true,
+    "Home": true,
+    "RecomendationLetter": true,
+    "LetterCategory": true
+}

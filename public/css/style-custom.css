@@ -1,0 +1,116 @@
+.breadcrumb {
+  padding: 0 0.5rem !important;
+  background: white !important;
+}
+
+table {
+  font-size: 14px;
+}
+
+.switch {
+  display: block;
+  height: 17px;
+  position: relative;
+  width: 30px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  background-color: #dc3545;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  background-color: #fff;
+  bottom: 2px;
+  content: "";
+  height: 13px;
+  left: 2px;
+  position: absolute;
+  -webkit-transition: .4s;
+  transition: .4s;
+  width: 13px;
+}
+
+input:checked + .slider {
+  background-color: #4bbf73;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+          transform: translateX(13px);
+}
+
+.slider.round {
+  border-radius: 17px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.nav-tabs .nav-link.active {
+  background: #3f80ea !important;
+  color: #fff !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #3f81eaab;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3f80ea;
+}
+
+.loading {
+  width: 100%;
+  display: block;
+}
+
+.load-data-view {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 100%;
+}
+
+.load-data-img {
+  margin-left: auto;
+  margin-right: auto;
+  display: inherit;
+  height: 50px;
+}
+
+.dataTables_processing {
+  top: 0px !important;
+  left: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+  width: 100% !important;
+  height: 70px !important;
+}
+/*# sourceMappingURL=style-custom.css.map */

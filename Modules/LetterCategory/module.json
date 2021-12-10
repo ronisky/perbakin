@@ -1,0 +1,13 @@
+{
+    "name": "LetterCategory",
+    "alias": "lettercategory",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\LetterCategory\\Providers\\LetterCategoryServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
