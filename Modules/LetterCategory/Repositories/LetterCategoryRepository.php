@@ -3,6 +3,8 @@
 namespace Modules\LetterCategory\Repositories;
 
 use App\Implementations\QueryBuilderImplementation;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class LetterCategoryRepository extends QueryBuilderImplementation
 {
@@ -13,5 +15,15 @@ class LetterCategoryRepository extends QueryBuilderImplementation
     {
         $this->table = 'letter_categories';
         $this->pk = 'letter_category_id';
+    }
+    public function getAll()
+    {
+        try {
+            return DB::connection($this->db)
+                ->table($this->table)
+                ->get();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

@@ -54,10 +54,10 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="addData">
+                <div class="addData mb-3">
                     <a href="javascript:void(0)" class="btn btn-success btnAdd">
                         <i data-feather="plus" width="16" height="16" class="me-2"></i>
-                        Tambah Menu
+                        Tambah pengajuan surat rekomendasi
                     </a>
                 </div>
                 <div class="table-responsive">
@@ -124,86 +124,434 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Menu</h5>
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('sysmenu/store') }}" method="POST" id="addForm">
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addForm">
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
                         <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Jenis Surat Rekomendasi</label>
+                                    <select class="form-control" name="letter_category_id" id="letter_category_id">
+                                        <option value="">- Pilih Jenis Surat Rekomendasi -</option>
+                                        @if(sizeof($letter_categories) > 0)
+                                        @foreach($letter_categories as $letter_category)
+                                        <option value="{{ $letter_category->letter_category_id }}">
+                                            {{ $letter_category->letter_category_name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                        placeholder="Masukan tempat surat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Surat <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                        placeholder="Masukan tanggal surat">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
+                            </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Nama <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="menu_name" id="menu_name"
-                                        placeholder="Masukan nama menu">
+                                    <input type="string" class="form-control" name="name" id="name"
+                                        placeholder="Masukan nama">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Modul </label>
-                                    <select class="form-control" name="module_id" id="module_id">
-                                        <option value="">- Pilih Modul -</option>
-                                        {{-- @if(sizeof($modules) > 0)
-                                        @foreach($modules as $module)
-                                        <option value="{{ $module->module_id }}">{{ $module->module_name }}</option>
+                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
+                                        placeholder="Masukan tempat lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                                        placeholder="Masukan tanggal lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan / Jabatan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="occupation" id="occupation"
+                                        placeholder="Masukan pekerjaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="address" id="address"
+                                        placeholder="Masukan alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Klub / Perkumpulan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="club" id="club"
+                                        placeholder="Masukan klub / perkumupulan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor KTA PB-Perbakin <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
+                                        placeholder="Masukan nomor KTA PB-Perbakin">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Keanggotaan Cabang <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="membership" id="membership"
+                                        placeholder="Masukan keanggotaan cabang">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Jenis Senjata</label>
+                                    <select class="form-control" name="firearm_category_id" id="firearm_category_id">
+                                        <option value="">- Pilih Jenis Senjata -</option>
+                                        @if(sizeof($firearm_categories) > 0)
+                                        @foreach($firearm_categories as $firearm_category)
+                                        <option value="{{ $firearm_category->firearm_category_id }}">
+                                            {{ $firearm_category->firearm_category_name }}</option>
                                         @endforeach
-                                        @endif --}}
+                                        @endif
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">URL <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="menu_url" id="menu_url"
-                                        placeholder="Masukan alamat URL">
-                                    <small>Untuk menu parent diisi: javascript:void(0)</small>
+                                    <label class="form-label">Merek <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="merek" id="merek"
+                                        placeholder="Masukan merek">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Sub menu ? <span class="text-danger">*</span></label>
-                                    <select name="menu_is_sub" id="menu_is_sub" class="form-control">
-                                        <option value="0">Bukan</option>
-                                        <option value="1">Ya</option>
-                                    </select>
+                                    <label class="form-label">Kaliber <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="kaliber" id="kaliber"
+                                        placeholder="Masukan kaliber">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Ikon</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="menu_icon" id="menu_icon"
-                                            placeholder="Masukan kode ikon">
-                                        <div class="input-group-append">
-                                            <a href="https://feathericons.com/" class="btn btn-outline-info"
-                                                target="blank">Lihat</a>
-                                        </div>
+                                    <label class="form-label">Nomor Pebrik <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_pabrik" id="no_pabrik"
+                                        placeholder="Masukan nomor pabrik">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor Buku Pas Senpi <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_buku_pas_senpi"
+                                        id="no_buku_pas_senpi" placeholder="Masukan nomor buku pas senpi">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Pemilik <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="nama_pemilik" id="nama_pemilik"
+                                        placeholder="Masukan nama pemilik">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Jumlah <span class="text-danger">*</span></label>
+                                    <input type="integer" class="form-control" name="jumlah" id="jumlah"
+                                        placeholder="Masukan jumlah">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Penyimpanan / Gudang<span
+                                            class="text-danger">*</span></label>
+                                    <input type="integer" class="form-control" name="penyimpanan" id="penyimpanan"
+                                        placeholder="Masukan penyimpanan / gudang">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+
+                            <div class="col-md-6 mb-3 option-2">
+                                <label class="col-sm-12 col-form-label">Pilih Surat Pernyataan Hibah Senpi</label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_surat_pernyataan"
+                                            id="file_surat_pernyataan" name="file_surat_pernyataan" required>
+                                        <label class="custom-file-label" for="file_surat_pernyataan"
+                                            data-browse="Cari">Pilih
+                                            file...</label>
                                     </div>
+                                    @if ($errors->has('file_surat_pernyataan'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
+                            <div class="col-md-6 mb-3 option-1">
+                                <label class="col-sm-12 col-form-label">Pilih Buku Pas Senpi</label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_buku_pas_senpi"
+                                            id="file_buku_pas_senpi" name="file_buku_pas_senpi" required>
+                                        <label class="custom-file-label" for="file_buku_pas_senpi"
+                                            data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_buku_pas_senpi'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-2">
+                                <label class="col-sm-12 col-form-label">Pilih Foto Senjata</label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_foto_senjata"
+                                            id="file_foto_senjata" name="file_foto_senjata" required>
+                                        <label class="custom-file-label" for="file_foto_senjata"
+                                            data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_foto_senjata'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (jpg/jpeg/png) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-1">
+                                <label class="col-sm-12 col-form-label">Pilih KTA Perbakin</label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_kta_perbakin"
+                                            id="file_kta_perbakin" name="file_kta_perbakin" required>
+                                        <label class="custom-file-label" for="file_kta_perbakin"
+                                            data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_kta_perbakin'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (jpg/jpeg/png) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-1">
+                                <label class="col-sm-12 col-form-label">Pilih KTP</label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_ktp" id="file_ktp"
+                                            name="file_ktp" required>
+                                        <label class="custom-file-label" for="file_ktp" data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_ktp'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (jpg/jpeg/png) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-2">
+                                <label class="col-sm-12 col-form-label">Pilih Sertifikat Lulus Penataran Menembak
+                                    Perbakin Bid Berburu / Reaksi </label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_sertifikat"
+                                            id="file_sertifikat" name="file_sertifikat" required>
+                                        <label class="custom-file-label" for="file_sertifikat" data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_sertifikat'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-2">
+                                <label class="col-sm-12 col-form-label">Pilih SKCK</label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_skck" id="file_skck"
+                                            name="file_skck" required>
+                                        <label class="custom-file-label" for="file_skck" data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_skck'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-2">
+                                <label class="col-sm-12 col-form-label">Pilih Surat Sehat dari Dokter Polda</label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_surat_sehat"
+                                            id="file_surat_sehat" name="file_surat_sehat" required>
+                                        <label class="custom-file-label" for="file_surat_sehat" data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_surat_sehat'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-2">
+                                <label class="col-sm-12 col-form-label">Pilih Hasil lulus Tes Psikotes dari
+                                    Kepolisian/Polda</label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_hasil_psikotes"
+                                            id="file_hasil_psikotes" name="file_hasil_psikotes" required>
+                                        <label class="custom-file-label" for="file_hasil_psikotes"
+                                            data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_hasil_psikotes'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-2">
+                                <label class="col-sm-12 col-form-label">Pilih Kartu Keluarga</label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_kartu_keluarga"
+                                            id="file_kartu_keluarga" name="file_kartu_keluarga" required>
+                                        <label class="custom-file-label" for="file_kartu_keluarga"
+                                            data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_kartu_keluarga'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-2">
+                                <label class="col-sm-12 col-form-label">Pilih Pas Foto (Latar Merah)</label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_pas_foto_23"
+                                            id="file_pas_foto_23" name="file_pas_foto_23" required>
+                                        <label class="custom-file-label" for="file_pas_foto_23" data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_pas_foto_23'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-2">
+                                <label class="col-sm-12 col-form-label">Pilih Pas Foto 3x4 (Latar Merah) </label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_pas_foto_34"
+                                            id="file_pas_foto_34" name="file_pas_foto_34" required>
+                                        <label class="custom-file-label" for="file_pas_foto_34" data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_pas_foto_34'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 option-1">
+                                <label class="col-sm-12 col-form-label">Pilih Pas Foto 4x6 (Latar Merah) </label>
+                                <div class="col-sm-12">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input file_pas_foto_46"
+                                            id="file_pas_foto_46" name="file_pas_foto_46" required>
+                                        <label class="custom-file-label" for="file_pas_foto_46" data-browse="Cari">Pilih
+                                            file...</label>
+                                    </div>
+                                    @if ($errors->has('file_pas_foto_46'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
+                                            format
+                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Menu Parent</label>
-                                    <select class="form-control" name="menu_parent_id" id="menu_parent_id"
-                                        disabled="disabled">
-                                        <option value="">- Pilih Menu -</option>
-                                        {{-- @if(sizeof($parents) > 0)
-                                        @foreach($parents as $parent)
-                                        <option value="{{ $parent->menu_id }}">{{ $parent->menu_name }}</option>
-                                        @endforeach
-                                        @endif --}}
-                                    </select>
+                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
+                                    <input type="integer" class="form-control" name="pemohon" id="pemohon"
+                                        placeholder="Masukan pemohon">
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Posisi <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="menu_position" id="menu_position"
-                                        placeholder="Masukan posisi">
-                                    <small>Semakin kecil, semakin atas (0)</small>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -220,11 +568,28 @@
 
 @section('script')
 <script type="text/javascript">
+    //start set default value date input
+    $('#letter_date').val(new Date().toJSON().slice(0, 10));
+
+    // set option persyaratan file
+    $('#letter_category_id').change(function () {
+        let letter = $('#letter_category_id').val();
+        if (letter == 1) {
+            $('.option-1').show();
+        } else {
+            $('.option-1').show();
+            $('.option-2').show();
+        }
+    });
+
+    // add data 
     $('.btnAdd').click(function () {
-        $('#module_id').val('');
-        $('#task_name').val('');
-        $('.addModal form').attr('action', "{{ url('lettercategory/store') }}");
-        $('.addModal .modal-title').text('Tambah Task');
+
+        $('.option-1').hide();
+        $('.option-2').hide();
+        document.getElementById("addForm").reset();
+        $('.addModal form').attr('action', "{{ url('recomendationletter/store') }}");
+        $('.addModal .modal-title').text('Tambah pengajuan surat rekomendasi');
         $('.addModal').modal('show');
     });
 
@@ -236,9 +601,9 @@
     $('.btnEdit').click(function () {
 
         var id = $(this).attr('data-id');
-        var url = "{{ url('lettercategory/getdata') }}";
+        var url = "{{ url('recomendationletter/getdata') }}";
 
-        $('.addModal form').attr('action', "{{ url('lettercategory/update') }}" + '/' + id);
+        $('.addModal form').attr('action', "{{ url('recomendationletter/update') }}" + '/' + id);
 
         $.ajax({
             type: 'GET',
@@ -263,10 +628,10 @@
 
     $("#addForm").validate({
         rules: {
-            letter_category_name: "required",
+            letter_category_id: "required",
         },
         messages: {
-            letter_category_name: "Nama surat rekomendasi tidak boleh kosong",
+            letter_category_id: "Jenis surat rekomendasi harus dipilih",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

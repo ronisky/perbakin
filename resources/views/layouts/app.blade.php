@@ -52,7 +52,7 @@
                     <i class="hamburger align-self-center"></i>
                 </a>
 
-                <a href="/" class="btn btn-outline-secondary mr-4">Home Website</a>
+                <a href="/" target="blank" class="btn btn-outline-secondary mr-4">Home Website</a>
                 <br>
 
                 {{-- <form class="d-none d-sm-inline-block">

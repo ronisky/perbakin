@@ -15,7 +15,7 @@ class CreateFirearmCategories extends Migration
     {
         Schema::create('firearm_categories', function (Blueprint $table) {
             $table->bigIncrements('firearm_category_id');
-            $table->string('name');
+            $table->string('firearm_category_name');
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();
             $table->dateTime('updated_at')->nullable();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\LetterCategory\Http\Controllers;
+namespace Modules\FirearmCategory\Http\Controllers;
 
 use App\Helpers\DataHelper;
 use App\Helpers\LogHelper;
@@ -10,17 +10,17 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
-use Modules\LetterCategory\Repositories\LetterCategoryRepository;
+use Modules\FirearmCategory\Repositories\FirearmCategoryRepository;
 
-class LetterCategoryController extends Controller
+class FirearmCategoryController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
 
-        $this->_letterCategoryRepository = new LetterCategoryRepository;
-        $this->_logHelper           = new LogHelper;
-        $this->module               = "letterCategory";
+        $this->_firearmCategoryRepository   = new FirearmCategoryRepository;
+        $this->_logHelper                   = new LogHelper;
+        $this->module                       = "FirearmCategory";
     }
 
     /**
@@ -34,9 +34,9 @@ class LetterCategoryController extends Controller
             return redirect('unauthorize');
         }
 
-        $letter_categories    = $this->_letterCategoryRepository->getAll();
+        $firearm_categories    = $this->_firearmCategoryRepository->getAll();
 
-        return view('lettercategory::index', compact('letter_categories'));
+        return view('firearmcategory::index', compact('firearm_categories'));
     }
 
     /**
@@ -49,8 +49,7 @@ class LetterCategoryController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
-
-        return view('lettercategory::create');
+        return view('firearmcategory::create');
     }
 
     /**
@@ -68,17 +67,17 @@ class LetterCategoryController extends Controller
         $validator = Validator::make($request->all(), $this->_validationRules(''));
 
         if ($validator->fails()) {
-            return redirect('lettercategory')
+            return redirect('firearmcategory')
                 ->withErrors($validator)
                 ->withInput();
         }
 
         DB::beginTransaction();
-        $this->_letterCategoryRepository->insert(DataHelper::_normalizeParams($request->all(), true));
-        $this->_logHelper->store($this->module, $request->letter_category_name, 'create');
+        $this->_firearmCategoryRepository->insert(DataHelper::_normalizeParams($request->all(), true));
+        $this->_logHelper->store($this->module, $request->firearm_category_name, 'create');
         DB::commit();
 
-        return redirect('lettercategory')->with('successMessage', 'Surat rekomendasi berhasil ditambahkan');
+        return redirect('firearmcategory')->with('successMessage', 'Jenis senjata berhasil ditambahkan');
     }
 
     /**
@@ -92,7 +91,7 @@ class LetterCategoryController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
-        return view('lettercategory::show');
+        return view('firearmcategory::show');
     }
 
     /**
@@ -106,7 +105,7 @@ class LetterCategoryController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
-        return view('lettercategory::edit');
+        return view('firearmcategory::edit');
     }
 
     /**
@@ -125,19 +124,19 @@ class LetterCategoryController extends Controller
         $validator = Validator::make($request->all(), $this->_validationRules($id));
 
         if ($validator->fails()) {
-            return redirect('lettercategory')
+            return redirect('firearmcategory')
                 ->withErrors($validator)
                 ->withInput();
         }
 
         DB::beginTransaction();
 
-        $this->_letterCategoryRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
-        $this->_logHelper->store($this->module, $request->letter_category_name, 'update');
+        $this->_firearmCategoryRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
+        $this->_logHelper->store($this->module, $request->firearm_category_name, 'update');
 
         DB::commit();
 
-        return redirect('lettercategory')->with('successMessage', 'Surat rekomendasi berhasil diubah');
+        return redirect('firearmcategory')->with('successMessage', 'Jenis senjata berhasil diubah');
     }
 
     /**
@@ -152,20 +151,20 @@ class LetterCategoryController extends Controller
             return redirect('unauthorize');
         }
         // Check detail to db
-        $detail  = $this->_letterCategoryRepository->getById($id);
+        $detail  = $this->_firearmCategoryRepository->getById($id);
 
         if (!$detail) {
-            return redirect('lettercategory');
+            return redirect('firearmcategory');
         }
 
         DB::beginTransaction();
 
-        $this->_letterCategoryRepository->delete($id);
-        $this->_logHelper->store($this->module, $detail->letter_category_name, 'delete');
+        $this->_firearmCategoryRepository->delete($id);
+        $this->_logHelper->store($this->module, $detail->firearm_category_name, 'delete');
 
         DB::commit();
 
-        return redirect('lettercategory')->with('successMessage', 'Surat rekomendasi berhasil dihapus');
+        return redirect('firearmcategory')->with('successMessage', 'Jenis senjata berhasil dihapus');
     }
 
     /**
@@ -175,7 +174,7 @@ class LetterCategoryController extends Controller
      */
     public function getdata($id)
     {
-        $getDetail  = $this->_letterCategoryRepository->getById($id);
+        $getDetail  = $this->_firearmCategoryRepository->getById($id);
         if ($getDetail)
             return DataHelper::_successResponse($getDetail, 'Data berhasil ditemukan');
         else
@@ -186,11 +185,11 @@ class LetterCategoryController extends Controller
     {
         if ($id == '') {
             return [
-                'letter_category_name' => 'required|unique:letter_categories',
+                'firearm_category_name' => 'required|unique:firearm_categories',
             ];
         } else {
             return [
-                'letter_category_name' => 'required|unique:letter_categories,letter_category_name,' . $id . ',letter_category_id',
+                'firearm_category_name' => 'required|unique:firearm_categories,firearm_category_name,' . $id . ',firearm_category_id',
             ];
         }
     }

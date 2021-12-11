@@ -8,5 +8,6 @@
     "SysTask": true,
     "Home": true,
     "RecomendationLetter": true,
-    "LetterCategory": true
+    "LetterCategory": true,
+    "FirearmCategory": true
 }

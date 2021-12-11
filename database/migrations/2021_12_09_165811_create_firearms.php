@@ -16,13 +16,13 @@ class CreateFirearms extends Migration
         Schema::create('firearms', function (Blueprint $table) {
             $table->bigIncrements('firearm_id');
             $table->unsignedBigInteger('firearm_category_id')->nullable();
-            $table->string('merek');
-            $table->string('kaliber');
-            $table->string('no_pabrik');
-            $table->string('no_buku_pas_senpi');
-            $table->string('nama_pemilik');
-            $table->string('jumlah');
-            $table->string('penyimpanan');
+            $table->string('merek', 100);
+            $table->string('kaliber', 100);
+            $table->string('no_pabrik', 100);
+            $table->string('no_buku_pas_senpi', 100);
+            $table->string('nama_pemilik', 100);
+            $table->integer('jumlah');
+            $table->string('penyimpanan', 100);
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();
             $table->dateTime('updated_at')->nullable();

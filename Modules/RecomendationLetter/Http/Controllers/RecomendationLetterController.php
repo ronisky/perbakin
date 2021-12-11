@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Modules\FirearmCategory\Repositories\FirearmCategoryRepository;
+use Modules\LetterCategory\Repositories\LetterCategoryRepository;
 use Modules\RecomendationLetter\Repositories\RecomendationLetterRepository;
 
 class RecomendationLetterController extends Controller
@@ -17,6 +19,8 @@ class RecomendationLetterController extends Controller
         $this->middleware('auth');
 
         $this->_recomendationLetterRepository   = new RecomendationLetterRepository;
+        $this->_letterCategoryRepository   = new LetterCategoryRepository;
+        $this->_firearmCategoryRepository   = new FirearmCategoryRepository;
         $this->module = "RecomendationLetter";
 
         $this->_logHelper       = new LogHelper;
@@ -34,8 +38,10 @@ class RecomendationLetterController extends Controller
         }
 
         $letters = $this->_recomendationLetterRepository->getAll();
+        $letter_categories = $this->_letterCategoryRepository->getAll();
+        $firearm_categories = $this->_firearmCategoryRepository->getAll();
 
-        return view('recomendationletter::index', compact('letters'));
+        return view('recomendationletter::index', compact('letters', 'letter_categories', 'firearm_categories'));
     }
 
     /**
@@ -54,7 +60,7 @@ class RecomendationLetterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

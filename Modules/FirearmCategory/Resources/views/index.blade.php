@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Jenis Surat Rekomendasi')
+@section('title', 'Jenis Senjata')
 
 @section('content')
 <!-- Start Page Content -->
@@ -14,7 +14,7 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="h3">Jenis Surat Rekomendasi</h3>
+                        <h3 class="h3">Jenis Senjata</h3>
                     </div>
                     <div class="col-md-6">
                         <nav aria-label="breadcrumb" class="float-right">
@@ -24,8 +24,8 @@
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
-                                <li class="breadcrumb-item"><a disabled>Rekomendasi</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Jenis Surat Rekomendasi</a></li>
+                                <li class="breadcrumb-item"><a disabled>Master</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Jenis Senjata</a></li>
                             </ol>
                         </nav>
                     </div>
@@ -35,7 +35,7 @@
                 <div class="addData">
                     <a href="javascript:void(0)" class="btn btn-success btnAdd">
                         <i data-feather="plus" width="16" height="16" class="me-2"></i>
-                        Tambah Surat Rekomendasi
+                        Tambah Jenis Senjata
                     </a>
                 </div>
                 <div class="table-responsive">
@@ -43,29 +43,29 @@
                         <thead>
                             <tr>
                                 <th width="5%">No</th>
-                                <th width="80%">Nama Jeni Surat Rekomendasi</th>
+                                <th width="80%">Nama Jeni Senjata</th>
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (sizeof($letter_categories) == 0)
+                            @if (sizeof($firearm_categories) == 0)
                             <tr>
                                 <td colspan="3" align="center">Data kosong</td>
                             </tr>
                             @else
-                            @foreach ($letter_categories as $letter_category)
+                            @foreach ($firearm_categories as $firearm_category)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $letter_category->letter_category_name }}</td>
+                                <td>{{ $firearm_category->firearm_category_name }}</td>
                                 <td>
-                                    @if($letter_category->letter_category_id > 0)
+                                    @if($firearm_category->firearm_category_id > 0)
                                     <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
-                                        data-id="{{ $letter_category->letter_category_id }}" data-toggle="tooltip"
+                                        data-id="{{ $firearm_category->firearm_category_id }}" data-toggle="tooltip"
                                         data-placement="top" title="Ubah">
                                         <i data-feather="edit" width="16" height="16"></i>
                                     </a>
                                     <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btnDelete"
-                                        data-url="{{ url('lettercategory/delete/'. $letter_category->letter_category_id) }}"
+                                        data-url="{{ url('firearmcategory/delete/'. $firearm_category->firearm_category_id) }}"
                                         data-toggle="tooltip" data-placement="top" title="Hapus">
                                         <i data-feather="trash-2" width="16" height="16"></i>
                                     </a>
@@ -88,26 +88,25 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Jenis Surat Rekomendasi</h5>
+                <h5 class="modal-title">Tambah Jenis Senjata</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('lettercategory/store') }}" method="POST" id="addForm">
+            <form action="{{ url('firearmcategory/store') }}" method="POST" id="addForm">
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Nama Surat Rekomendasi<span
+                                    <label class="form-label">Nama Jenis Senjata<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="letter_category_name"
-                                        id="letter_category_name" placeholder="Masukan nama module"
-                                        value="{{ old('letter_category_name') }}">
-                                    @if ($errors->has('letter_category_name'))
+                                    <input type="text" class="form-control" name="firearm_category_name"
+                                        id="firearm_category_name" placeholder="Masukan nama module"
+                                        value="{{ old('firearm_category_name') }}">
+                                    @if ($errors->has('firearm_category_name'))
                                     <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Nama surat
-                                            rekomendasi tidak
-                                            boleh sama</label>
+                                        <label id="basic-error" class="validation-error-label" for="basic">Nama jenis
+                                            senjata tidak boleh sama</label>
                                     </span>
                                     @endif
                                 </div>
@@ -130,7 +129,7 @@
 <script type="text/javascript">
     $('.btnAdd').click(function () {
         document.getElementById("addForm").reset();
-        $('.addModal form').attr('action', "{{ url('lettercategory/store') }}");
+        $('.addModal form').attr('action', "{{ url('firearmcategory/store') }}");
         $('.addModal .modal-title').text('Tambah Task');
         $('.addModal').modal('show');
     });
@@ -143,9 +142,9 @@
     $('.btnEdit').click(function () {
 
         var id = $(this).attr('data-id');
-        var url = "{{ url('lettercategory/getdata') }}";
+        var url = "{{ url('firearmcategory/getdata') }}";
 
-        $('.addModal form').attr('action', "{{ url('lettercategory/update') }}" + '/' + id);
+        $('.addModal form').attr('action', "{{ url('firearmcategory/update') }}" + '/' + id);
 
         $.ajax({
             type: 'GET',
@@ -153,8 +152,8 @@
             dataType: 'JSON',
             success: function (data) {
                 if (data.status == 1) {
-                    $('#letter_category_name').val(data.result.letter_category_name);
-                    $('.addModal .modal-title').text('Ubah Surat Rekomendasi');
+                    $('#firearm_category_name').val(data.result.firearm_category_name);
+                    $('.addModal .modal-title').text('Ubah Jenis Senjata');
                     $('.addModal').modal('show');
 
                 }
@@ -169,10 +168,10 @@
 
     $("#addForm").validate({
         rules: {
-            letter_category_name: "required",
+            firearm_category_name: "required",
         },
         messages: {
-            letter_category_name: "Nama surat rekomendasi tidak boleh kosong",
+            firearm_category_name: "Nama jenis senjata tidak boleh kosong",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

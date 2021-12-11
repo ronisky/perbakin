@@ -16,14 +16,20 @@ class CreateLetters extends Migration
         Schema::create('letters', function (Blueprint $table) {
             $table->bigIncrements('letter_id');
             $table->unsignedBigInteger('letter_category_id')->nullable();
+            $table->unsignedBigInteger('firearm_id')->nullable();
+            $table->string('letter_place', 20);
+            $table->date('letter_date');
+            $table->string('letter_purpose_name', 100);
+            $table->string('letter_purpose_place', 20);
             $table->string('name');
-            $table->string('place_of_birth');
+            $table->string('place_of_birth', 20);
             $table->date('date_of_birth');
             $table->string('occupation');
             $table->string('address');
-            $table->string('club');
-            $table->string('no_kta');
-            $table->string('membership');
+            $table->string('club', 100);
+            $table->string('no_kta', 30);
+            $table->string('membership', 100);
+            $table->string('pemohon', 100);
             $table->integer('letter_status');
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();
@@ -33,6 +39,10 @@ class CreateLetters extends Migration
             $table->foreign('letter_category_id')
                 ->references('letter_category_id')
                 ->on('letter_categories');
+
+            $table->foreign('firearm_id')
+                ->references('firearm_id')
+                ->on('firearms');
 
             $table->foreign('created_by')
                 ->references('user_id')

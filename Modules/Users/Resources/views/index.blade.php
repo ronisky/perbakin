@@ -232,7 +232,6 @@
 @section('script')
 <script type="text/javascript">
     $('.btnAdd').click(function () {
-        $('#module_name').val('');
         document.getElementById("addForm").reset();
         $('.addModal form').attr('action', "{{ url('users/store') }}");
 

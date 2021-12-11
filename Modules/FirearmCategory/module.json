@@ -1,0 +1,13 @@
+{
+    "name": "FirearmCategory",
+    "alias": "firearmcategory",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FirearmCategory\\Providers\\FirearmCategoryServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
