@@ -22,4 +22,5 @@ Route::prefix('recomendationletter')->group(function () {
     Route::post('/update/{id}', [RecomendationLetterController::class, 'update']);
     Route::get('/delete/{id}', [RecomendationLetterController::class, 'destroy']);
     Route::get('/getdata/{id}', [RecomendationLetterController::class, 'getdata']);
+    Route::get('/printletter/{id}', [RecomendationLetterController::class, 'printLetter']);
 });

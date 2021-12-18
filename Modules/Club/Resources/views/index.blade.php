@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Jenis Surat Rekomendasi')
+@section('title', 'Club')
 
 @section('content')
 <!-- Start Page Content -->
@@ -14,7 +14,7 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="h3">Jenis Surat Rekomendasi</h3>
+                        <h3 class="h3">Club</h3>
                     </div>
                     <div class="col-md-6">
                         <nav aria-label="breadcrumb" class="float-right">
@@ -24,8 +24,8 @@
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
-                                <li class="breadcrumb-item"><a disabled>Rekomendasi</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Jenis Surat Rekomendasi</a></li>
+                                <li class="breadcrumb-item"><a disabled>Club</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Club</a></li>
                             </ol>
                         </nav>
                     </div>
@@ -35,7 +35,7 @@
                 <div class="addData">
                     <a href="javascript:void(0)" class="btn btn-success btnAdd">
                         <i data-feather="plus" width="16" height="16" class="me-2"></i>
-                        Tambah Surat Rekomendasi
+                        Tambah Club
                     </a>
                 </div>
                 <div class="table-responsive">
@@ -43,30 +43,36 @@
                         <thead>
                             <tr>
                                 <th width="5%">No</th>
-                                <th width="80%">Nama Jeni Surat Rekomendasi</th>
+                                <th>Nama Club</th>
+                                <th>Telepon</th>
+                                <th>Instagram</th>
+                                <th>Deskripsi</th>
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (sizeof($letter_categories) == 0)
+                            @if (sizeof($clubs) == 0)
                             <tr>
-                                <td colspan="3" align="center">Data kosong</td>
+                                <td colspan="6" align="center">Data kosong</td>
                             </tr>
                             @else
-                            @foreach ($letter_categories as $letter_category)
+                            @foreach ($clubs as $club)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $letter_category->letter_category_name }}</td>
+                                <td>{{ $club->club_name }}</td>
+                                <td>{{ $club->club_phone }}</td>
+                                <td>{{ $club->club_instagram }}</td>
+                                <td>{{ $club->club_description }}</td>
                                 <td>
-                                    @if($letter_category->letter_category_id > 0)
+                                    @if($club->club_id > 0)
                                     <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
-                                        data-id="{{ $letter_category->letter_category_id }}" data-toggle="tooltip"
-                                        data-placement="top" title="Ubah">
+                                        data-id="{{ $club->club_id }}" data-toggle="tooltip" data-placement="top"
+                                        title="Ubah">
                                         <i data-feather="edit" width="16" height="16"></i>
                                     </a>
                                     <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btnDelete"
-                                        data-url="{{ url('lettercategory/delete/'. $letter_category->letter_category_id) }}"
-                                        data-toggle="tooltip" data-placement="top" title="Hapus">
+                                        data-url="{{ url('club/delete/'. $club->club_id) }}" data-toggle="tooltip"
+                                        data-placement="top" title="Hapus">
                                         <i data-feather="trash-2" width="16" height="16"></i>
                                     </a>
                                     @endif
@@ -88,28 +94,42 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Jenis Surat Rekomendasi</h5>
+                <h5 class="modal-title">Tambah Club</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('lettercategory/store') }}" method="POST" id="addForm">
+            <form action="{{ url('club/store') }}" method="POST" id="addForm">
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Nama Surat Rekomendasi<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="letter_category_name"
-                                        id="letter_category_name" placeholder="Masukan nama surat"
-                                        value="{{ old('letter_category_name') }}">
-                                    @if ($errors->has('letter_category_name'))
+                                    <label class="form-label">Nama Club<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="club_name" id="club_name"
+                                        placeholder="Masukan nama club" value="{{ old('club_name') }}">
+                                    @if ($errors->has('club_name'))
                                     <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Nama surat
-                                            rekomendasi tidak
+                                        <label id="basic-error" class="validation-error-label" for="basic">Nama club
+                                            tidak
                                             boleh sama</label>
                                     </span>
                                     @endif
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">No Telepon<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="club_phone" id="club_phone"
+                                        placeholder="Masukan telepon club" value="{{ old('club_phone') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Instagram Club<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="club_instagram" id="club_instagram"
+                                        placeholder="Masukan link instagram club" value="{{ old('club_instagram') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Deskripsi Club<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="club_description"
+                                        id="club_description" placeholder="Masukan deskripsi club"
+                                        value="{{ old('club_description') }}">
                                 </div>
                             </div>
                         </div>
@@ -130,8 +150,8 @@
 <script type="text/javascript">
     $('.btnAdd').click(function () {
         document.getElementById("addForm").reset();
-        $('.addModal form').attr('action', "{{ url('lettercategory/store') }}");
-        $('.addModal .modal-title').text('Tambah Jenis Surat Rekomendasi');
+        $('.addModal form').attr('action', "{{ url('club/store') }}");
+        $('.addModal .modal-title').text('Tambah Club');
         $('.addModal').modal('show');
     });
 
@@ -143,9 +163,9 @@
     $('.btnEdit').click(function () {
 
         var id = $(this).attr('data-id');
-        var url = "{{ url('lettercategory/getdata') }}";
+        var url = "{{ url('club/getdata') }}";
 
-        $('.addModal form').attr('action', "{{ url('lettercategory/update') }}" + '/' + id);
+        $('.addModal form').attr('action', "{{ url('club/update') }}" + '/' + id);
 
         $.ajax({
             type: 'GET',
@@ -154,7 +174,7 @@
             success: function (data) {
                 if (data.status == 1) {
                     $('#letter_category_name').val(data.result.letter_category_name);
-                    $('.addModal .modal-title').text('Ubah Surat Rekomendasi');
+                    $('.addModal .modal-title').text('Ubah Club');
                     $('.addModal').modal('show');
 
                 }
@@ -169,10 +189,14 @@
 
     $("#addForm").validate({
         rules: {
-            letter_category_name: "required",
+            club_name: "required",
+            club_phone: "required",
+            club_description: "required",
         },
         messages: {
-            letter_category_name: "Nama surat rekomendasi tidak boleh kosong",
+            club_name: "Nama surat rekomendasi tidak boleh kosong",
+            club_phone: "Telepon club tidak boleh kosong",
+            club_description: "Deskripsi club tidak boleh kosong",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

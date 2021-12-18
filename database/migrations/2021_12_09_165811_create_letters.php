@@ -8,14 +8,14 @@ class CreateLetters extends Migration
 {
     /**
      * Run the migrations.
-     *
+     *letter_category_id
      * @return void
      */
     public function up()
     {
         Schema::create('letters', function (Blueprint $table) {
             $table->bigIncrements('letter_id');
-            $table->unsignedBigInteger('letter_category_id')->nullable();
+            $table->unsignedBigInteger('')->nullable();
             $table->unsignedBigInteger('firearm_id')->nullable();
             $table->string('letter_place', 20);
             $table->date('letter_date');

@@ -33,4 +33,65 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
             return $e->getMessage();
         }
     }
+    public function getByIdLetter($id)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table($this->table)
+                ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
+                ->leftJoin('firearms', 'firearms.firearm_id', 'letters.firearm_id')
+                ->leftJoin('firearm_categories', 'firearm_categories.firearm_category_id', 'firearms.firearm_category_id')
+                ->select(
+                    'letters.*',
+                    'letter_categories.letter_category_name',
+                    'firearms.firearm_category_id',
+                    'firearms.merek',
+                    'firearms.kaliber',
+                    'firearms.no_pabrik',
+                    'firearms.no_buku_pas_senpi',
+                    'firearms.nama_pemilik',
+                    'firearms.jumlah',
+                    'firearms.penyimpanan',
+                    'firearm_categories.firearm_category_name',
+                )
+                ->where($this->pk, '=', $id)
+                ->first();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function insert(array $data)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table($this->table)
+                ->insert($data);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function insertGetId(array $data)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table('firearms')
+                ->insertGetId($data);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function deleteFirearm($id)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table('firearms')
+                ->where('firearm_id', '=', $id)
+                ->delete();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

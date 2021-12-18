@@ -57,7 +57,7 @@
                 <div class="addData mb-3">
                     <a href="javascript:void(0)" class="btn btn-success btnAdd">
                         <i data-feather="plus" width="16" height="16" class="me-2"></i>
-                        Tambah pengajuan surat rekomendasi
+                        Tambah Pengajuan Surat Rekomendasi
                     </a>
                 </div>
                 <div class="table-responsive">
@@ -85,9 +85,40 @@
                                 <td>{{ $letter->name }}</td>
                                 <td>{{ $letter->club }}</td>
                                 <td>{{ $letter->created_at }}</td>
-                                <td>{{ $letter->letter_status }}</td>
+                                <td>
+                                    @php
+                                    $status = $letter->letter_status;
+
+                                    if($status == 1){
+                                    $letter_status = 'Diajukan';
+                                    $class = 'badge badge-primary';
+                                    }elseif($status == 2){
+                                    $letter_status = 'Diproses';
+                                    $class = 'badge badge-warning';
+                                    }elseif($status == 3){
+                                    $letter_status = 'Diterima';
+                                    $class = 'badge badge-success';
+                                    }else {
+                                    $letter_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }
+
+                                    @endphp
+                                    <span class="{{ $class }}">{{ $letter_status }}</span>
+                                </td>
                                 <td>
                                     @if($letter->letter_id > 0)
+                                    <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
+                                        target="blank" class="btn btn-icon btnPrint btn-outline-secondary"
+                                        data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
+                                        title="Print">
+                                        <i data-feather="printer" width="16" height="16"></i>
+                                    </a>
+                                    <a href="javascript:void(0)" class="btn btn-icon btnDetail btn-outline-info"
+                                        data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
+                                        title="Detail">
+                                        <i data-feather="eye" width="16" height="16"></i>
+                                    </a>
                                     <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                         title="Ubah">
@@ -152,13 +183,6 @@
                                     <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="letter_place" id="letter_place"
                                         placeholder="Masukan tempat surat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Surat <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="letter_date" id="letter_date"
-                                        placeholder="Masukan tanggal surat">
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3 border-bottom border-dark">
@@ -280,7 +304,7 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Jumlah <span class="text-danger">*</span></label>
-                                    <input type="integer" class="form-control" name="jumlah" id="jumlah"
+                                    <input type="number" class="form-control" name="jumlah" id="jumlah"
                                         placeholder="Masukan jumlah">
                                 </div>
                             </div>
@@ -288,7 +312,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Penyimpanan / Gudang<span
                                             class="text-danger">*</span></label>
-                                    <input type="integer" class="form-control" name="penyimpanan" id="penyimpanan"
+                                    <input type="text" class="form-control" name="penyimpanan" id="penyimpanan"
                                         placeholder="Masukan penyimpanan / gudang">
                                 </div>
                             </div>
@@ -302,7 +326,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_surat_pernyataan"
-                                            id="file_surat_pernyataan" name="file_surat_pernyataan" required>
+                                            id="file_surat_pernyataan" name="file_surat_pernyataan">
                                         <label class="custom-file-label" for="file_surat_pernyataan"
                                             data-browse="Cari">Pilih
                                             file...</label>
@@ -321,7 +345,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_buku_pas_senpi"
-                                            id="file_buku_pas_senpi" name="file_buku_pas_senpi" required>
+                                            id="file_buku_pas_senpi" name="file_buku_pas_senpi">
                                         <label class="custom-file-label" for="file_buku_pas_senpi"
                                             data-browse="Cari">Pilih
                                             file...</label>
@@ -340,7 +364,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_foto_senjata"
-                                            id="file_foto_senjata" name="file_foto_senjata" required>
+                                            id="file_foto_senjata" name="file_foto_senjata">
                                         <label class="custom-file-label" for="file_foto_senjata"
                                             data-browse="Cari">Pilih
                                             file...</label>
@@ -359,7 +383,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_kta_perbakin"
-                                            id="file_kta_perbakin" name="file_kta_perbakin" required>
+                                            id="file_kta_perbakin" name="file_kta_perbakin">
                                         <label class="custom-file-label" for="file_kta_perbakin"
                                             data-browse="Cari">Pilih
                                             file...</label>
@@ -378,7 +402,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_ktp" id="file_ktp"
-                                            name="file_ktp" required>
+                                            name="file_ktp">
                                         <label class="custom-file-label" for="file_ktp" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
@@ -397,7 +421,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_sertifikat"
-                                            id="file_sertifikat" name="file_sertifikat" required>
+                                            id="file_sertifikat" name="file_sertifikat">
                                         <label class="custom-file-label" for="file_sertifikat" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
@@ -415,7 +439,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_skck" id="file_skck"
-                                            name="file_skck" required>
+                                            name="file_skck">
                                         <label class="custom-file-label" for="file_skck" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
@@ -433,7 +457,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_surat_sehat"
-                                            id="file_surat_sehat" name="file_surat_sehat" required>
+                                            id="file_surat_sehat" name="file_surat_sehat">
                                         <label class="custom-file-label" for="file_surat_sehat" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
@@ -452,7 +476,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_hasil_psikotes"
-                                            id="file_hasil_psikotes" name="file_hasil_psikotes" required>
+                                            id="file_hasil_psikotes" name="file_hasil_psikotes">
                                         <label class="custom-file-label" for="file_hasil_psikotes"
                                             data-browse="Cari">Pilih
                                             file...</label>
@@ -471,7 +495,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_kartu_keluarga"
-                                            id="file_kartu_keluarga" name="file_kartu_keluarga" required>
+                                            id="file_kartu_keluarga" name="file_kartu_keluarga">
                                         <label class="custom-file-label" for="file_kartu_keluarga"
                                             data-browse="Cari">Pilih
                                             file...</label>
@@ -490,7 +514,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_pas_foto_23"
-                                            id="file_pas_foto_23" name="file_pas_foto_23" required>
+                                            id="file_pas_foto_23" name="file_pas_foto_23">
                                         <label class="custom-file-label" for="file_pas_foto_23" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
@@ -508,7 +532,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_pas_foto_34"
-                                            id="file_pas_foto_34" name="file_pas_foto_34" required>
+                                            id="file_pas_foto_34" name="file_pas_foto_34">
                                         <label class="custom-file-label" for="file_pas_foto_34" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
@@ -526,7 +550,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_pas_foto_46"
-                                            id="file_pas_foto_46" name="file_pas_foto_46" required>
+                                            id="file_pas_foto_46" name="file_pas_foto_46">
                                         <label class="custom-file-label" for="file_pas_foto_46" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
@@ -541,13 +565,13 @@
                             </div>
 
                             <div class="col-md-12 mb-3 border-bottom border-dark">
-                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
                             </div>
 
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="integer" class="form-control" name="pemohon" id="pemohon"
+                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
                                         placeholder="Masukan pemohon">
                                 </div>
                             </div>
@@ -568,9 +592,6 @@
 
 @section('script')
 <script type="text/javascript">
-    //start set default value date input
-    $('#letter_date').val(new Date().toJSON().slice(0, 10));
-
     // set option persyaratan file
     $('#letter_category_id').change(function () {
         let letter = $('#letter_category_id').val();
@@ -580,6 +601,11 @@
             $('.option-1').show();
             $('.option-2').show();
         }
+    });
+    $("#name").keyup(function () {
+        let name = $("#name").val();
+        $('#nama_pemilik').val(name);
+        $('#pemohon').val(name);
     });
 
     // add data 
@@ -626,12 +652,16 @@
 
     });
 
+
+
     $("#addForm").validate({
         rules: {
             letter_category_id: "required",
+            letter_place: "required",
         },
         messages: {
             letter_category_id: "Jenis surat rekomendasi harus dipilih",
+            letter_place: "Alamat Surat tidak boleh kosong",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",
