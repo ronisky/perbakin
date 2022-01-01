@@ -28,9 +28,12 @@
                             <form action="{{ url('do_login') }}" method="post" autocomplete="off" id="loginForm">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Username Pengguna</label>
-                                    <input class="form-control form-control-lg" type="email" name="email" id="email"
-                                        placeholder="Masukan Username Pengguna" />
+                                    <label>Nomor KTA (Misal. 012312B)</label>
+                                    <input class="form-control form-control-lg" type="text" name="user_username"
+                                        id="user_username" placeholder="012312B" style="text-transform: uppercase;"
+                                        maxlength="7" />
+                                    <span class="text-info text-small">Masukan tanpa "/" dan tahun, No KTA
+                                        0123/12/B/2023 masukan 012312B </span>
                                 </div>
                                 <div class="form-group">
                                     <label>Kata Sandi</label>
@@ -55,13 +58,22 @@
 
 @section('script')
 <script type="text/javascript">
+    var userUsername = document.querySelector('#user_username');
+
+    userUsername.addEventListener('input', restrictAlfaNumber);
+
+    function restrictAlfaNumber(e) {
+        var newValue = this.value.replace(new RegExp(/[^a-zA-Z0-9]/gi), "");
+        this.value = newValue;
+    }
+
     $("#loginForm").validate({
         rules: {
-            email: "required",
+            user_username: "required",
             password: "required",
         },
         messages: {
-            email: "Email tidak boleh kosong",
+            user_username: "Nomor KTA tidak boleh kosong",
             password: "Password tidak boleh kosong",
         },
         errorElement: "em",

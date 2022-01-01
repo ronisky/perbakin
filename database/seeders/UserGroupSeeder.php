@@ -19,6 +19,18 @@ class UserGroupSeeder extends Seeder
                 'group_id'      => '1',
                 'group_name'     => 'Super Admin'
             ],
+            [
+                'group_id'      => '2',
+                'group_name'     => 'Admin'
+            ],
+            [
+                'group_id'      => '3',
+                'group_name'     => 'Sekhum'
+            ],
+            [
+                'group_id'      => '4',
+                'group_name'     => 'Ketua'
+            ],
         ]);
     }
 }

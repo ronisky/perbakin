@@ -10,5 +10,16 @@
     "RecomendationLetter": true,
     "LetterCategory": true,
     "FirearmCategory": true,
-    "Club": true
+    "Club": true,
+    "RecomendationLetterApproval": true,
+    "Article": true,
+    "ArticleCategory": true,
+    "Faq": true,
+    "Identity": true,
+    "Sponsorship": true,
+    "SponsorshipCategory": true,
+    "Gallery": true,
+    "Visitor": true,
+    "ApprovalStatus": true,
+    "Banner": true
 }

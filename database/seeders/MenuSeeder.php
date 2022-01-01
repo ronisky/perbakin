@@ -123,6 +123,30 @@ class MenuSeeder extends Seeder
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
+            [
+                'menu_id'            => '10',
+                'menu_name'         => 'Data Master',
+                'module_id'         => null,
+                'menu_url'          => 'javascript:void(0)',
+                'menu_icon'         => 'database',
+                'menu_is_sub'       => '0',
+                'menu_parent_id'    => NULL,
+                'menu_position'     => '4',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'menu_id'            => '11',
+                'menu_name'         => 'Status Persetujuan',
+                'module_id'         => '8',
+                'menu_url'             => 'approvalstatus',
+                'menu_icon'         => '',
+                'menu_is_sub'         => '1',
+                'menu_parent_id'     => '10',
+                'menu_position'     => '1',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
         ]);
     }
 }

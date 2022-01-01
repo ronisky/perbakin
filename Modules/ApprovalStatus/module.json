@@ -1,0 +1,13 @@
+{
+    "name": "ApprovalStatus",
+    "alias": "approvalstatus",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ApprovalStatus\\Providers\\ApprovalStatusServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

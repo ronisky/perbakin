@@ -73,7 +73,7 @@
         <div class="row align-items-center">
             <div class="col-lg-5 col-md-12 col-12">
                 <div class="hero-content">
-                    <h1 class="wow fadeInLeft" data-wow-delay=".4s">Perbakin Kabupaten Bandung</h1>
+                    <h1 class="wow fadeInLeft" data-wow-delay=".4s">Perbakin <br> Kabupaten Bandung</h1>
                     <p class="wow fadeInLeft" data-wow-delay=".6s">Mewujudkan Perbakin sebagai organisasi dengan tata
                         kelola yang profesional dan melahirkan atlit petembak yang berprestasi internasional secara
                         berkelanjutan dan mandiri.</p>
@@ -521,7 +521,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-12">
+            <div class="col-lg-6 col-md-6">
                 <!-- Start Single Feature -->
                 <div class="single-feature wow fadeInUp" data-wow-delay=".2s">
                     <h3>I PELINDUNG</h3>
@@ -542,19 +542,14 @@
                 </div>
                 <!-- End Single Feature -->
             </div>
-            <div class="col-lg-4 col-md-6 col-12">
+            <div class="col-lg-6 col-md-6">
                 <!-- Start Single Feature -->
                 <div class="single-feature wow fadeInUp" data-wow-delay=".4s">
                     <h3>II PEMBINA</h3>
                     <p>
                         KONI Kabupaten Bandung
                     </p>
-                </div>
-                <!-- End Single Feature -->
-            </div>
-            <div class="col-lg-4 col-md-6 col-12">
-                <!-- Start Single Feature -->
-                <div class="single-feature wow fadeInUp" data-wow-delay=".6s">
+                    <br>
                     <h3>III PENASIHAT</h3>
                     <p>
                         1. H. Dadang Moh Naser, S.H., S.Ip., M.Ip. <br>
@@ -567,9 +562,10 @@
                 </div>
                 <!-- End Single Feature -->
             </div>
+
         </div>
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-12">
+            <div class="col-lg-12 col-md-12">
                 <!-- Start Single Feature -->
                 <div class="single-feature wow fadeInUp" data-wow-delay=".8s">
                     <h3>IV SUSUNAN PENGURUS</h3>
@@ -649,90 +645,373 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p>
-                        Ketua Umum : Rudiyanto Dahlan, S.T., M.I.Pol<br>
-                        Wakil Ketua Umum / Ketua Harian : Agus Supartono<br>
-                        Sekertaris Umum : Drs. Agus A. Sujana<br>
-                        Komisi Perijinan dan Rekomendasi : Hudansah Murdanitas, A.Md<br>
-                        Komisi Sarpras : I Dewa Nyoman, Faizi Prayogi<br>
-                        Komisi Dokumentasi dan IT : Firdaus R Fadhlil, Ara Dwi Sagara<br>
-                        Staf Kesekertariatan : Missuwaryono, Erik Hermansyah, Kamelia Megasari<br>
-                        Bendahara Umum : Dikky Darmawan, S.Sos.<br>
-                        Wakil Bendahara : Dian Cahyani<br><br>
-
-                        BIDANG ORGANISASI <br>
-                        Ketua : Doni Siswoyo <br>
-                        Anggota : Ruslan Gunawan, M.Pd.<br><br>
-
-                        PEMBINAAN DAN PRESTASI<br>
-                        Agus Hindar Ruswanto, S.STP., M.Si.<br>
-                        Drs. H. Moch. Iwan Djajakusumah, M.Si. <br><br>
-
-                        BIDANG HUMAS<br>
-                        Ketua : Thomas<br>
-                        Anggota : <br>
-                        Muhammad A'la Al Maududi<br>
-                        Setia Tedy Narwan<br>
-                        Doni Saputra<br><br>
-
-                        BIDANG HUKUM DAN ETIKA <br>
-                        Ketua : Rizal Sitompul, S.Pd.<br>
-                        Anggota : <br>
-                        Rudi Hartono<br>
-                        Ade Karsa<br><br>
-
-                        BIDANG TEMBAK SASARAN <br>
-                        Ketua : Donny Surya Danu Kusuma, A.Md.<br>
-                        Wakil Ketua : Joko Prawoto<br>
-                        Anggota : <br>
-                        Armadi<br>
-                        Untung Gunadarma<br><br>
-
-                        BIDANG BERBURU <br>
-                        Ketua : Ir. Andi Ahmad Rahmatullah<br>
-                        Wakil Ketua : Arif Budiman<br>
-                        Anggota : <br>
-                        Dadang Iriandani<br>
-                        Hermanto<br><br>
-
-                        Komisi Metal Silhouette dan Benchrest : Tatang Taryana<br>
-                        Anggota : <br>
-                        Dany Kurniawan<br>
-                        Iwan Kurniawan<br><br>
-
-                        BIDANG TEMBAK REAKSI <br>
-                        Ketua : Obur Abdul Gopur<br>
-                        Wakil Ketua : H. Teddy Firmansyah<br>
-                        Anggota : Marcell Yoshua<br><br>
-
-                        Komisi AAIPSC : Jalil Farhan<br>
-                        Sandi Widjaja<br><br>
-
-                        BIDANG DANA DAN USAHA <br>
-                        Ketua : Rudi Kusmayadi, B.E., M.Si<br>
-                        Anggota : <br>
-                        Khoirul Anam<br>
-                        Muhammad Iqbal<br><br>
-
-                        BIDANG KEPELATIHAN<br>
-                        Ketua : Sugeng Handoko<br>
-                        Wakil Ketua : Winarko<br>
-                        Anggota: <br>
-                        Eko Suhendra<br>
-                        Dede Wahyu<br><br>
-
-                        BIDANG PERWaSITAN <br>
-                        Ketua : Sodikin <br>
-                        Anggota : Sudarno <br>
-
-
-
-
-
-                        Komisi Dokumentasi dan IT : Firdaus R Fadhlil, Ara Dwi Sagara<br>
-                    </p>
                 </div>
-                <!-- End Single Feature -->
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <!-- Start Single Feature -->
+                <div class="single-feature wow fadeInUp" data-wow-delay=".10s">
+                    <h6>BIDANG ORGANISASI</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Ketua</th>
+                                <td>:</td>
+                                <td>Doni Siswoyo</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Ruslan Gunawan, M.Pd.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6>PEMBINAAN DAN PRESTASI</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Agus Hindar Ruswanto, S.STP., M.Si.</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Drs. H. Moch. Iwan Djajakusumah, M.Si.</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6>BIDANG HUMAS</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Ketua</th>
+                                <td>:</td>
+                                <td>Thomas</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Muhammad A'la Al Maududi</td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>:</td>
+                                <td>Setia Tedy Narwan</td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>:</td>
+                                <td>Doni Saputra</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6>BIDANG HUKUM DAN ETIKA</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Ketua</th>
+                                <td>:</td>
+                                <td>Rizal Sitompul, S.Pd.</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Rudi Hartono</td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td>:</td>
+                                <td>Ade Karsa</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6>BIDANG TEMBAK SASARAN</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Ketua</th>
+                                <td>:</td>
+                                <td>Donny Surya Danu Kusuma, A.Md.</td>
+                            </tr>
+                            <tr>
+                                <th>Wakil Ketua</th>
+                                <td>:</td>
+                                <td>Joko Prawoto</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Armadi</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Untung Gunadarma</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <!-- Start Single Feature -->
+                <div class="single-feature wow fadeInUp" data-wow-delay=".12s">
+                    <h6>BIDANG BERBURU</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Ketua</th>
+                                <td>:</td>
+                                <td>Ir. Andi Ahmad Rahmatullah</td>
+                            </tr>
+                            <tr>
+                                <th>Wakil Ketua</th>
+                                <td>:</td>
+                                <td>Arif Budiman</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Dadang Iriandani</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Hermanto</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6>Komisi Metal Silhouette dan Benchrest</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Ketua</th>
+                                <td>:</td>
+                                <td>Tatang Taryana</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Dany Kurniawan</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Iwan Kurniawan</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6>BIDANG TEMBAK REAKSI</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Ketua</th>
+                                <td>:</td>
+                                <td>Obur Abdul Gopur</td>
+                            </tr>
+                            <tr>
+                                <th>Wakil Ketua</th>
+                                <td>:</td>
+                                <td>H. Teddy Firmansyah</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Marcell Yoshua</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6>Komisi AAIPSC</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Jalil Farhan</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Sandi Widjaja</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <!-- Start Single Feature -->
+                <div class="single-feature wow fadeInUp" data-wow-delay=".14s">
+                    <h6>BIDANG DANA DAN USAHA</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Ketua</th>
+                                <td>:</td>
+                                <td>Rudi Kusmayadi, B.E., M.Si</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Khoirul Anam</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Muhammad Iqbal</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6>BIDANG KEPELATIHAN</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Ketua</th>
+                                <td>:</td>
+                                <td>Sugeng Handoko</td>
+                            </tr>
+                            <tr>
+                                <th>Wakil Ketua</th>
+                                <td>:</td>
+                                <td>Winarko</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Eko Suhendra</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Dede Wahyu</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <!-- Start Single Feature -->
+                <div class="single-feature wow fadeInUp" data-wow-delay=".16s">
+                    <h6>BIDANG PERWASITAN</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col" width="25%"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Ketua</th>
+                                <td>:</td>
+                                <td>Sodikin</td>
+                            </tr>
+                            <tr>
+                                <th>Anggota</th>
+                                <td>:</td>
+                                <td>Sudarno</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h6>Komisi Dokumentasi dan IT</h6>
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col" width="1%"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Firdaus R Fadhlil</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Ara Dwi Sagara</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

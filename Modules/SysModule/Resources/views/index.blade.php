@@ -168,7 +168,46 @@
                 alert('Error : Gagal mengambil data');
             }
         });
+    });
 
+    $('.btnDelete').click(function () {
+        $('.btnDelete').attr('disabled', true)
+        var url = $(this).attr('data-url');
+        Swal.fire({
+            title: 'Apakah anda yakin ingin menghapus data?',
+            text: "Kamu tidak akan bisa mengembalikan data ini setelah dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya. Hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (data) {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Terhapus!',
+                                'Data Berhasil Dihapus.',
+                                'success'
+                            ).then(() => {
+                                location.reload()
+                            })
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus,
+                        errorThrown) {
+                        Swal.fire(
+                            'Gagal!',
+                            'Gagal menghapus data.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        })
     });
 
     $("#addForm").validate({
@@ -191,18 +230,6 @@
             $(element).addClass("is-valid").removeClass("is-invalid");
         }
     });
-
-    var notyf = new Notyf({
-        duration: 5000,
-        position: {
-            x: 'right',
-            y: 'top'
-        }
-    });
-    var msg = $('#msgId').html()
-    if (msg !== undefined) {
-        notyf.success(msg)
-    }
 
 </script>
 @endsection

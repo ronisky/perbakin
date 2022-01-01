@@ -13,7 +13,7 @@ use Modules\Users\Repositories\UsersRepository;
 use App\Helpers\DataHelper;
 use App\Helpers\LogHelper;
 use Illuminate\Support\Facades\DB;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -154,6 +154,65 @@ class UsersController extends Controller
         DB::commit();
 
         return redirect('users')->with('successMessage', 'Pengguna berhasil diubah');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function updatestatus(Request $request, $id)
+    {
+        $statusValue = $request->user_status;
+        if ($statusValue == 1) {
+            if ($id != 1) {
+                $getUser    = $this->_usersRepository->getById($id);
+                if (!$getUser) {
+                    return DataHelper::_errorResponse(null, 'User tidak ditemukan');
+                }
+
+                $currentDate = date('Y-m');
+                $userActived = date("Y-m", strtotime($getUser->user_active_date));
+
+                $compareDate = strtotime($userActived) < strtotime($currentDate);
+                if ($compareDate == true) {
+                    return DataHelper::_errorResponse(null, 'Opps! Masa aktif KTA user sudah tidak aktif, silahkan perbaharui keanggotaan terlebih dahulu');
+                }
+
+                DB::beginTransaction();
+                try {
+                    $this->_usersRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
+                    $this->_logHelper->store($this->module, $request->user_id, 'update');
+
+                    DB::commit();
+                    return DataHelper::_successResponse(null, 'Status user berhasil diubah');
+                } catch (\Throwable $th) {
+
+                    DB::rollBack();
+                    return DataHelper::_errorResponse(null, 'Gagal mengubah data');
+                }
+            } else {
+                return DataHelper::_errorResponse(null, 'Data super admin tidak bisa diubah');
+            }
+        } else {
+            if ($id != 1) {
+                DB::beginTransaction();
+                try {
+                    $this->_usersRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
+                    $this->_logHelper->store($this->module, $request->user_id, 'update');
+
+                    DB::commit();
+                    return DataHelper::_successResponse(null, 'Status user berhasil diubah');
+                } catch (\Throwable $th) {
+
+                    DB::rollBack();
+                    return DataHelper::_errorResponse(null, 'Gagal mengubah data');
+                }
+            } else {
+                return DataHelper::_errorResponse(null, 'Data super admin tidak bisa diubah');
+            }
+        }
     }
 
     /**

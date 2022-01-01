@@ -110,17 +110,7 @@
 @endsection
 @section('script')
 <script type="text/javascript">
-    var notyf = new Notyf({
-        duration: 5000,
-        position: {
-            x: 'right',
-            y: 'top'
-        }
-    });
-    var msg = $('#msgId').html()
-    if (msg !== undefined) {
-        notyf.success(msg)
-    }
+
 
 </script>
 @endsection

@@ -44,12 +44,29 @@ class UserController extends Controller
     public function authenticate(Request $request)
     {
         $validator = Validator::make($request->all(), $this->_rules(), DataHelper::_rulesMessage())->validate();
+        $credentials = $request->only('user_username', 'password');
 
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt(['user_email' => $credentials['email'], 'user_password' => $credentials['password'], 'user_status' => 1])) {
+        $getUser    = $this->_userRepository->getByUsername($credentials['user_username']);
+        if (!$getUser) {
+            return redirect('login')->with('error', 'Nomor KTA atau kata sandi salah!');
+        }
+
+        $currentDate = date('Y-m');
+        $userActived = date("Y-m", strtotime($getUser->user_active_date));
+
+        $compareDate = strtotime($userActived) < strtotime($currentDate);
+        if ($compareDate == true) {
+            $id = $getUser->user_id;
+            if ($id != 1) {
+                $this->_userRepository->update(['user_status' => 0, 'updated_at' => date('Y-m-d H:i:s'), 'updated_by' => 1], $id);
+                return redirect('login')->with('error', 'Upps! Kartu anggota anda sudah tidak aktif, Silahkan hubungi admin untuk mengaktifkan!');
+            }
+        }
+
+        if (Auth::attempt(['user_username' => $credentials['user_username'], 'user_password' => $credentials['password'], 'user_status' => 1])) {
             return redirect()->intended('dashboard');
         } else {
-            return redirect('login')->with('error', 'Alamat email atau kata sandi salah!');
+            return redirect('login')->with('error', 'Nomor KTA atau kata sandi salah!');
         }
     }
 
@@ -106,7 +123,7 @@ class UserController extends Controller
     {
 
         $rules = array(
-            'email'     => 'required|email',
+            'user_username'     => 'required',
             'password'     => 'required',
         );
 

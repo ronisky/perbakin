@@ -22,4 +22,5 @@ Route::prefix('users')->group(function () {
     Route::post('/update/{id}', [UsersController::class, 'update']);
     Route::get('/delete/{id}', [UsersController::class, 'destroy']);
     Route::get('/getdata/{id}', [UsersController::class, 'getdata']);
+    Route::post('/updatestatus/{id}', [UsersController::class, 'updatestatus']);
 });

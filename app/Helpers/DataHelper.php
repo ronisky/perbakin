@@ -11,6 +11,7 @@ namespace App\Helpers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Modules\Users\Repositories\UsersRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class DataHelper
@@ -232,4 +233,10 @@ class DataHelper
 
     // end file upload 
 
+    public static function getUserLogin()
+    {
+        $_sysUserRepository = new UsersRepository;
+
+        return $_sysUserRepository->getById(Auth::user()->user_id);
+    }
 }

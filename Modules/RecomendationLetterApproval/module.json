@@ -1,0 +1,13 @@
+{
+    "name": "RecomendationLetterApproval",
+    "alias": "recomendationletterapproval",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\RecomendationLetterApproval\\Providers\\RecomendationLetterApprovalServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

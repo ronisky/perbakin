@@ -74,7 +74,8 @@ class MenuHelper
                         $show     = 'show';
                     }
 
-                    $id_class = substr($menu->menu_name, 0, 3);
+                    $id_class_replace = str_replace(" ", "", $menu->menu_name);
+                    $id_class = substr($id_class_replace, 0, 5);
                     $menus     .= "<li class='sidebar-item " . $active . "'>
                                     <a href='#" . $id_class . "' data-toggle='collapse' class='sidebar-link collapsed'>
                                         <i class='align-middle' data-feather='" . $menu->menu_icon . "'></i> <span class='align-middle'>" . $menu->menu_name . "</span>

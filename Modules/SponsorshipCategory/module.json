@@ -1,0 +1,13 @@
+{
+    "name": "SponsorshipCategory",
+    "alias": "sponsorshipcategory",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SponsorshipCategory\\Providers\\SponsorshipCategoryServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

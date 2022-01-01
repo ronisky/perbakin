@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-xxl d-flex">
+        {{-- <div class="col-12 col-sm-6 col-xxl d-flex">
             <div class="card flex-fill">
                 <div class="card-body py-4">
                     <div class="media">
@@ -117,7 +117,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
 </div>

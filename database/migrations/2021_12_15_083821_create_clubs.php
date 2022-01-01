@@ -16,12 +16,17 @@ class CreateClubs extends Migration
         Schema::create('clubs', function (Blueprint $table) {
             $table->id('club_id');
             $table->string('club_name');
-            $table->string('club_description');
-            $table->string('club_website');
-            $table->string('club_email');
+            $table->text('club_description');
             $table->string('club_phone');
+            $table->string('club_email');
+            $table->string('club_website');
             $table->string('club_whatsapp');
             $table->string('club_instagram');
+            $table->string('club_facebook');
+            $table->string('club_twitter');
+            $table->string('club_youtube');
+            $table->string('club_logo_path');
+            $table->smallInteger('club_status')->default(0);;
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();
             $table->dateTime('updated_at')->nullable();

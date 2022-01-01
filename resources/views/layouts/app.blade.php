@@ -1,3 +1,4 @@
+<?php use App\Helpers\DataHelper; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,8 +81,9 @@
                                 class="avatar img-fluid rounded-circle mr-1" alt="{{ $user->user_name }}" /> <span
                                     class="text-dark">{{ $user->user_name }}</span> --}}
                                 <img src="{{ url('img/avatars/avatar.jpg') }}"
-                                    class="avatar img-fluid rounded-circle mr-1" alt="Username" /> <span
-                                    class="text-dark">Username</span>
+                                    class="avatar img-fluid rounded-circle mr-1"
+                                    alt="{!! DataHelper::getUserLogin()->user_name !!}" /> <span class="text-dark">{!!
+                                    DataHelper::getUserLogin()->user_name !!}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1"
@@ -261,50 +263,7 @@
         });
 
     </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            $('.btnDelete').click(function () {
-                $('.btnDelete').attr('disabled', true)
-                var url = $(this).attr('data-url');
-                Swal.fire({
-                    title: 'Apakah anda yakin ingin menghapus data?',
-                    text: "Kamu tidak akan bisa mengembalikan data ini setelah dihapus!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya. Hapus'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            type: 'GET',
-                            url: url,
-                            success: function (data) {
-                                if (result.isConfirmed) {
-                                    Swal.fire(
-                                        'Terhapus!',
-                                        'Data Berhasil Dihapus.',
-                                        'success'
-                                    ).then(() => {
-                                        location.reload()
-                                    })
-                                }
-                            },
-                            error: function (XMLHttpRequest, textStatus,
-                                errorThrown) {
-                                Swal.fire(
-                                    'Gagal!',
-                                    'Gagal menghapus data.',
-                                    'error'
-                                );
-                            }
-                        });
-                    }
-                })
-            });
-        });
 
-    </script>
     {{-- notification show --}}
     <script>
         var notyfSuccess = new Notyf({

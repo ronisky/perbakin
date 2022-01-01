@@ -75,10 +75,12 @@
                         <thead>
                             <tr>
                                 <th width="5%">No</th>
-                                <th width="25%">Nama</th>
-                                <th width="25%">Email</th>
-                                <th width="15%">Group</th>
-                                <th width="15%">Status</th>
+                                <th>Username</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Nomor KTA</th>
+                                <th>Masa Aktif KTA</th>
+                                <th width="10%">Status</th>
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
@@ -92,14 +94,28 @@
                             @foreach ($users as $user)
                             <tr>
                                 <td width="5%">{{ $loop->iteration }}</td>
-                                <td width="25%">{{ $user->user_name }}</td>
-                                <td width="25%">{{ $user->user_email }}</td>
-                                <td width="15%">{{$user->group_name  }}</td>
-                                <td width="15%">
-                                    @php
-                                    $userstatus = ($user->user_status == 1) ? "Aktif" : "Tidak Aktif" ;
-                                    @endphp
-                                    {{ $userstatus  }}
+                                <td>{{ $user->user_username }}</td>
+                                <td>{{ $user->user_name }}</td>
+                                <td>{{ $user->user_email }}</td>
+                                <td>{{ $user->user_kta }}</td>
+                                <td>{{$user->user_active_date  }}</td>
+                                <td width="10%">
+                                    <form id="formStatus">
+                                        @csrf
+                                        @php
+                                        $status = $user->user_status;
+                                        $checked = '';
+                                        if($status == 1)
+                                        $checked = 'checked';
+                                        @endphp
+                                        <label class="switch" for="checkboxindex{{$loop->iteration}}">
+                                            <input class="checkstatus" id="checkboxindex{{$loop->iteration}}"
+                                                type="checkbox" value="{{$user->user_status}}" name="class_status"
+                                                data-id="{{$user->user_id}}" {{$checked}}>
+                                            <div class="slider round"></div>
+                                        </label>
+
+                                    </form>
                                 </td>
                                 <td width="15%">
                                     <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
@@ -146,6 +162,14 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
+                                    <label class="form-label">Username <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="user_username" id="user_username"
+                                        placeholder="Masukan nama pengguna" value="{{ old('user_username') }}"
+                                        style="text-transform: uppercase;" maxlength="7">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
                                     <label class="form-label">Nama <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="user_name" id="user_name"
                                         placeholder="Masukan nama pengguna" value="{{ old('user_name') }}">
@@ -162,6 +186,31 @@
                                             sudah digunakan</label>
                                     </span>
                                     @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor KTA <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="user_kta" id="user_kta"
+                                        placeholder="Masukan nama pengguna" value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Masa Aktif KTA <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="user_active_date"
+                                        id="user_active_date" value="{{ old('user_active_date') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3" id="user_status_form">
+                                <div class="form-group">
+                                    <label class="form-label">Status Anggota <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="user_status" id="user_status">
+                                        <option value="">- Pilih Status -</option>
+                                        <option value="{{ old('user_status') }}" selected="selected"></option>
+                                        <option value="1" selected="selected">- Aktif -</option>
+                                        <option value="0">- Tidak Aktif -</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -204,17 +253,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3" id="user_status_form">
-                                <div class="form-group">
-                                    <label class="form-label">Status <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="user_status" id="user_status">
-                                        <option value="">- Pilih Status -</option>
-                                        <option value="{{ old('user_status') }}" selected="selected"></option>
-                                        <option value="1" selected="selected">- Aktif -</option>
-                                        <option value="0">- Tidak Aktif -</option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -231,6 +269,15 @@
 
 @section('script')
 <script type="text/javascript">
+    var userUsername = document.querySelector('#user_username');
+
+    userUsername.addEventListener('input', restrictAlfaNumber);
+
+    function restrictAlfaNumber(e) {
+        var newValue = this.value.replace(new RegExp(/[^a-zA-Z0-9]/gi), "");
+        this.value = newValue;
+    }
+
     $('.btnAdd').click(function () {
         document.getElementById("addForm").reset();
         $('.addModal form').attr('action', "{{ url('users/store') }}");
@@ -272,12 +319,15 @@
 
                 if (data.status == 1) {
 
+                    $('#user_username').val(data.result.user_username);
                     $('#user_name').val(data.result.user_name);
                     $('#user_email').val(data.result.user_email);
+                    $('#user_kta').val(data.result.user_kta);
 
                     $('#user_password_old').val(data.result.user_password);
                     $('#group_id').val(data.result.group_id);
                     $('#user_status').val(data.result.user_status);
+                    $('#user_active_date').val(data.result.user_active_date);
 
                     $('.addModal .modal-title').text('Ubah Pengguna');
                     $('.addModal').modal('show');
@@ -343,18 +393,156 @@
         }
     });
 
+    // update status
+    $('.checkstatus').click(function () {
+        let id = $(this).attr('data-id');
+        let url = "{{ url('users/updatestatus') }}" + '/' + id;
+        let value = this.checked ? 1 : 0;
+        if (value == 1) {
+            Swal.fire({
+                title: 'Aktifkan User?',
+                text: "Apakah anda yakin ingin mengaktifkan status user?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, aktifkan!'
+            }).then((result) => {
+                if (result.isConfirmed) {
 
-    var notyf = new Notyf({
-        duration: 5000,
-        position: {
-            x: 'right',
-            y: 'top'
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            user_status: value,
+                            _token: '{{csrf_token()}}'
+                        },
+                        url: url,
+                        success: function (data) {
+                            console.log(data);
+                            if (data.status == 1) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Update berhasil!',
+                                    text: 'Status berhasil diupdate!',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                                location.reload();
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Update gagal!',
+                                    text: data.message,
+                                    showConfirmButton: false,
+                                    timer: 4000
+                                });
+                                setTimeout(location.reload.bind(location), 4000);
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Update gagal!',
+                                text: 'Status gagal diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                            location.reload();
+                        }
+                    })
+
+                } else {
+                    location.reload()
+                }
+            })
+        } else {
+
+            Swal.fire({
+                title: 'Nonaktifkan User?',
+                text: "Apakah anda yakin ingin menonaktifkan status user?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Nonaktifkan!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            user_status: value,
+                            _token: '{{csrf_token()}}'
+                        },
+                        url: url,
+                        success: function (data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Update berhasil!',
+                                text: 'Status berhasil diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                            location.reload();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Update gagal!',
+                                text: 'Status gagal diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                            location.reload();
+                        }
+                    })
+
+                } else {
+                    location.reload()
+                }
+            })
         }
     });
-    var msg = $('#msgId').html()
-    if (msg !== undefined) {
-        notyf.success(msg)
-    }
+
+    $('.btnDelete').click(function () {
+        $('.btnDelete').attr('disabled', true)
+        var url = $(this).attr('data-url');
+        Swal.fire({
+            title: 'Apakah anda yakin ingin menghapus data?',
+            text: "Kamu tidak akan bisa mengembalikan data ini setelah dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya. Hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (data) {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Terhapus!',
+                                'Data Berhasil Dihapus.',
+                                'success'
+                            ).then(() => {
+                                location.reload()
+                            })
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus,
+                        errorThrown) {
+                        Swal.fire(
+                            'Gagal!',
+                            'Gagal menghapus data.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        })
+    });
 
 </script>
 @endsection

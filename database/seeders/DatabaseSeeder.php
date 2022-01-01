@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             TaskSeeder::class,
             RoleSeeder::class,
             MenuSeeder::class,
+            ApprovalStatusSeeder::class,
         ]);
     }
 }
