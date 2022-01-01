@@ -223,6 +223,62 @@ class TaskSeeder extends Seeder
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
+            [
+                'task_id'            => '30',
+                'module_id'         => '9', //ArticleCategory
+                'task_name'            => 'index',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '31',
+                'module_id'         => '9', //ArticleCategory
+                'task_name'            => 'create',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '32',
+                'module_id'         => '9', //ArticleCategory
+                'task_name'            => 'edit',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '33',
+                'module_id'         => '9', //ArticleCategory
+                'task_name'            => 'delete',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '34',
+                'module_id'         => '10', //SponsorshipCategory
+                'task_name'            => 'index',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '35',
+                'module_id'         => '10', //SponsorshipCategory
+                'task_name'            => 'create',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '36',
+                'module_id'         => '10', //SponsorshipCategory
+                'task_name'            => 'edit',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '37',
+                'module_id'         => '10', //SponsorshipCategory
+                'task_name'            => 'delete',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
         ]);
     }
 }

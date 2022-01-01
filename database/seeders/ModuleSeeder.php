@@ -63,6 +63,18 @@ class ModuleSeeder extends Seeder
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
+            [
+                'module_id'            => '9',
+                'module_name'         => 'ArticleCategory',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'module_id'            => '10',
+                'module_name'         => 'SponsorshipCategory',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
         ]);
     }
 }

@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             MenuSeeder::class,
             ApprovalStatusSeeder::class,
+            ArticleCategorySeeder::class,
+            SponsorshipCategorySeeder::class,
         ]);
     }
 }

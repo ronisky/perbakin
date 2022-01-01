@@ -147,6 +147,54 @@ class MenuSeeder extends Seeder
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
+            [
+                'menu_id'            => '12',
+                'menu_name'         => 'Artikel',
+                'module_id'         => null,
+                'menu_url'          => 'javascript:void(0)',
+                'menu_icon'         => 'file-text',
+                'menu_is_sub'       => '0',
+                'menu_parent_id'    => NULL,
+                'menu_position'     => '5',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'menu_id'            => '13',
+                'menu_name'         => 'Kategori Artikel',
+                'module_id'         => '9',
+                'menu_url'             => 'articlecategory',
+                'menu_icon'         => '',
+                'menu_is_sub'         => '1',
+                'menu_parent_id'     => '12',
+                'menu_position'     => '1',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'menu_id'            => '14',
+                'menu_name'         => 'Sponsorship',
+                'module_id'         => null,
+                'menu_url'          => 'javascript:void(0)',
+                'menu_icon'         => 'dollar-sign',
+                'menu_is_sub'       => '0',
+                'menu_parent_id'    => NULL,
+                'menu_position'     => '6',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'menu_id'            => '15',
+                'menu_name'         => 'Kategori Artikel',
+                'module_id'         => '10',
+                'menu_url'             => 'sponsorshipcategory',
+                'menu_icon'         => '',
+                'menu_is_sub'         => '1',
+                'menu_parent_id'     => '14',
+                'menu_position'     => '1',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
         ]);
     }
 }
