@@ -207,6 +207,18 @@ class MenuSeeder extends Seeder
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
+            [
+                'menu_id'            => '17',
+                'menu_name'         => 'Banner',
+                'module_id'         => null,
+                'menu_url'          => 'banner',
+                'menu_icon'         => 'copy',
+                'menu_is_sub'       => '0',
+                'menu_parent_id'    => NULL,
+                'menu_position'     => '8',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
         ]);
     }
 }

@@ -400,7 +400,7 @@
             club_description: "required",
         },
         messages: {
-            club_name: "Nama surat rekomendasi tidak boleh kosong",
+            club_name: "Nama klub tidak boleh kosong",
             club_phone: "Telepon klub tidak boleh kosong",
             club_email: "Alamat email klub tidak boleh kosong",
             club_description: "Deskripsi klub tidak boleh kosong",

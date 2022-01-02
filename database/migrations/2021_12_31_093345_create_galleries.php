@@ -15,9 +15,9 @@ class CreateGalleries extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->id('gallery_id');
-            $table->string('title');
-            $table->text('description');
-            $table->string('resource_path');
+            $table->string('gallery_title');
+            $table->text('gallery_description');
+            $table->string('gallery_resource_path');
             $table->smallInteger('gallery_status')->default(0);;
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();
