@@ -30,9 +30,8 @@
                                 <div class="form-group">
                                     <label>Nomor KTA (Misal. 012312B)</label>
                                     <input class="form-control form-control-lg" type="text" name="user_username"
-                                        id="user_username" placeholder="012312B" style="text-transform: uppercase;"
-                                        maxlength="7" />
-                                    <span class="text-info text-small">Masukan tanpa "/" dan tahun, No KTA
+                                        id="user_username" placeholder="Maksimal 7 karakter" maxlength="7" />
+                                    <span class="text-warning text-small">Masukan tanpa "/" dan tahun, No KTA
                                         0123/12/B/2023 masukan 012312B </span>
                                 </div>
                                 <div class="form-group">

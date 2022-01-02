@@ -130,7 +130,7 @@ class ArticleCategoryController extends Controller
         DB::beginTransaction();
 
         $this->_articleCategoryRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
-        $this->_logHelper->store($this->module, $request->article_category_name, 'update');
+        $this->_logHelper->store($this->module, $request->article_category_id, 'update');
 
         DB::commit();
 

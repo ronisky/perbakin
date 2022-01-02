@@ -19,6 +19,7 @@ class CreateUsers extends Migration
             $table->string('user_name', 100);
             $table->string('user_kta', 20);
             $table->string('user_email', 100)->unique();
+            $table->string('user_phone', 100)->unique();
             $table->string('user_password');
             $table->date('user_active_date');
             $table->smallInteger('user_status')->default(0);

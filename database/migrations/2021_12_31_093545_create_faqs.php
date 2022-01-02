@@ -15,12 +15,12 @@ class CreateFaqs extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id('faq_id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('nik');
-            $table->string('question');
-            $table->text('description');
+            $table->string('faq_name');
+            $table->string('faq_email');
+            $table->string('faq_phone');
+            $table->string('faq_nik');
+            $table->string('faq_question');
+            $table->text('faq_description');
             $table->smallInteger('faq_status')->default(0);;
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();

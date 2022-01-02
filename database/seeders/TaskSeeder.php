@@ -370,6 +370,41 @@ class TaskSeeder extends Seeder
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
+            [
+                'task_id'            => '51',
+                'module_id'         => '14', //FAQ
+                'task_name'            => 'index',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '52',
+                'module_id'         => '14', //FAQ
+                'task_name'            => 'create',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '53',
+                'module_id'         => '14', //FAQ
+                'task_name'            => 'edit',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '54',
+                'module_id'         => '14', //FAQ
+                'task_name'            => 'delete',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '55',
+                'module_id'         => '14', //FAQ
+                'task_name'            => 'view',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
 
         ]);
     }

@@ -44,6 +44,7 @@ class UserController extends Controller
     public function authenticate(Request $request)
     {
         $validator = Validator::make($request->all(), $this->_rules(), DataHelper::_rulesMessage())->validate();
+        $request['user_username'] = strtoupper($request->user_username);
         $credentials = $request->only('user_username', 'password');
 
         $getUser    = $this->_userRepository->getByUsername($credentials['user_username']);
