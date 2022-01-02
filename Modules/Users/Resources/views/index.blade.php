@@ -78,8 +78,7 @@
                                 <th>Username</th>
                                 <th>Nama</th>
                                 <th>Email</th>
-                                <th>Nomor KTA</th>
-                                <th>Masa Aktif KTA</th>
+                                <th>Telepon</th>
                                 <th width="10%">Status</th>
                                 <th width="15%">Aksi</th>
                             </tr>
@@ -97,8 +96,7 @@
                                 <td>{{ $user->user_username }}</td>
                                 <td>{{ $user->user_name }}</td>
                                 <td>{{ $user->user_email }}</td>
-                                <td>{{ $user->user_kta }}</td>
-                                <td>{{$user->user_active_date  }}</td>
+                                <td>{{ $user->user_phone }}</td>
                                 <td width="10%">
                                     <form id="formStatus">
                                         @csrf
@@ -118,6 +116,11 @@
                                     </form>
                                 </td>
                                 <td width="15%">
+                                    <a href="javascript:void(0)" class="btn btn-icon btnDetail btn-outline-info"
+                                        data-id="{{ $user->user_id }}" data-toggle="tooltip" data-placement="top"
+                                        title="Detail">
+                                        <i data-feather="eye" width="16" height="16"></i>
+                                    </a>
                                     <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
                                         data-id="{{ $user->user_id }}" data-toggle="tooltip" data-placement="top"
                                         title="Ubah">
@@ -190,6 +193,20 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
+                                    <label class="form-label">Telepon / WA<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="user_phone" id="user_phone"
+                                        maxlength="15" placeholder="Masukan email pengguna"
+                                        value="{{ old('user_phone') }}">
+                                    @if ($errors->has('user_phone'))
+                                    <span class="text-danger">
+                                        <label id="basic-error" class="validation-error-label" for="basic">Nomor Telepon
+                                            sudah digunakan</label>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
                                     <label class="form-label">Nomor KTA <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="user_kta" id="user_kta"
                                         placeholder="Masukan nama pengguna" value="{{ old('user_kta') }}">
@@ -204,7 +221,7 @@
                             </div>
                             <div class="col-md-6 mb-3" id="user_status_form">
                                 <div class="form-group">
-                                    <label class="form-label">Status Anggota <span class="text-danger">*</span></label>
+                                    <label class="form-label">Status User <span class="text-danger">*</span></label>
                                     <select class="form-control" name="user_status" id="user_status">
                                         <option value="">- Pilih Status -</option>
                                         <option value="{{ old('user_status') }}" selected="selected"></option>
@@ -265,6 +282,91 @@
     </div>
 </div>
 <!-- Modal Add -->
+
+<!-- Modal Detail -->
+<div class=" modal detailModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form id="userDetail" name="userDetail">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="user_username" class="col-md-5 col-form-label">Username</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext user_username"
+                                            value="{{ old('user_username') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="user_name" class="col-md-5 col-form-label">Nama User</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext user_name"
+                                            value="{{ old('user_name') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="user_email" class="col-md-5 col-form-label">Email User
+                                        Kelas</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext user_email"
+                                            value="{{ old('user_email') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="user_phone" class="col-md-5 col-form-label">Telepon / WA</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext user_phone"
+                                            value="{{ old('user_phone') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext user_kta"
+                                            value="{{ old('user_kta') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="user_active_date" class="col-md-5 col-form-label">Masa Aktif KTA</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext user_active_date"
+                                            value="{{ old('user_active_date') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="user_status" class="col-md-5 col-form-label">Status User</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext user_status"
+                                            value="{{ old('user_status') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="group_name" class="col-md-5 col-form-label">User Group</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext group_name"
+                                            value="{{ old('group_name') }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal Detail -->
+
 @endsection
 
 @section('script')
@@ -315,13 +417,14 @@
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
-                
+
 
                 if (data.status == 1) {
 
                     $('#user_username').val(data.result.user_username);
                     $('#user_name').val(data.result.user_name);
                     $('#user_email').val(data.result.user_email);
+                    $('#user_phone').val(data.result.user_phone);
                     $('#user_kta').val(data.result.user_kta);
 
                     $('#user_password_old').val(data.result.user_password);
@@ -370,12 +473,14 @@
         rules: {
             user_name: "required",
             user_email: "required",
+            user_phone: "required",
             user_password: "required",
             group_id: "required",
         },
         messages: {
             user_name: "Nama user tidak boleh kosong",
             user_email: "Email user tidak boleh kosong",
+            user_phone: "Telepon / WA user tidak boleh kosong",
             user_password: "Password user tidak boleh kosong",
             group_id: "Nama grup tidak boleh kosong",
         },
@@ -501,6 +606,45 @@
                 }
             })
         }
+    });
+
+    $('.btnDetail').click(function () {
+        let id = $(this).attr('data-id');
+        let url = "{{ url('users/show') }}";
+
+        $('.detailModal .modal-title').text('Detail Data User');
+        $('.detailModal').modal('show');
+
+        $.ajax({
+            type: 'GET',
+            url: url + '/' + id,
+            dataType: 'JSON',
+            success: function (data) {
+                if (data.status == 1) {
+
+                    $('.user_username').val(': ' + data.result.user_username);
+                    $('.user_name').val(': ' + data.result.user_name);
+                    $('.user_email').val(': ' + data.result.user_email);
+                    $('.user_phone').val(': ' + data.result.user_phone);
+                    $('.user_kta').val(': ' + data.result.user_kta);
+                    $('.user_active_date').val(': ' + data.result.user_active_date);
+                    $('.group_name').val(': ' + data.result.group_name);
+                    if (data.result.user_status == 1) {
+                        $('.user_status').val(': ' + 'Aktif');
+                    } else {
+                        $('.user_status').val(': ' + 'Tidak Aktif');
+                    }
+                }
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                Swal.fire(
+                    'Gagal!',
+                    'Gagal mengambil data.',
+                    'error'
+                );
+            }
+        });
     });
 
     $('.btnDelete').click(function () {

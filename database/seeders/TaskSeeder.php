@@ -167,239 +167,246 @@ class TaskSeeder extends Seeder
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
-
                 'task_id'            => '22',
-                'module_id'         => '7', //UserGroup
-                'task_name'            => 'index',
+                'module_id'         => '6', //Users
+                'task_name'            => 'view',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
+
                 'task_id'            => '23',
                 'module_id'         => '7', //UserGroup
-                'task_name'            => 'create',
+                'task_name'            => 'index',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '24',
                 'module_id'         => '7', //UserGroup
-                'task_name'            => 'edit',
+                'task_name'            => 'create',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '25',
                 'module_id'         => '7', //UserGroup
-                'task_name'            => 'delete',
+                'task_name'            => 'edit',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '26',
-                'module_id'         => '8', //ApprovalStatus
-                'task_name'            => 'index',
+                'module_id'         => '7', //UserGroup
+                'task_name'            => 'delete',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '27',
                 'module_id'         => '8', //ApprovalStatus
-                'task_name'            => 'create',
+                'task_name'            => 'index',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '28',
                 'module_id'         => '8', //ApprovalStatus
-                'task_name'            => 'edit',
+                'task_name'            => 'create',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '29',
                 'module_id'         => '8', //ApprovalStatus
-                'task_name'            => 'delete',
+                'task_name'            => 'edit',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '30',
-                'module_id'         => '9', //ArticleCategory
-                'task_name'            => 'index',
+                'module_id'         => '8', //ApprovalStatus
+                'task_name'            => 'delete',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '31',
                 'module_id'         => '9', //ArticleCategory
-                'task_name'            => 'create',
+                'task_name'            => 'index',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '32',
                 'module_id'         => '9', //ArticleCategory
-                'task_name'            => 'edit',
+                'task_name'            => 'create',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '33',
                 'module_id'         => '9', //ArticleCategory
-                'task_name'            => 'delete',
+                'task_name'            => 'edit',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '34',
-                'module_id'         => '10', //SponsorshipCategory
-                'task_name'            => 'index',
+                'module_id'         => '9', //ArticleCategory
+                'task_name'            => 'delete',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '35',
                 'module_id'         => '10', //SponsorshipCategory
-                'task_name'            => 'create',
+                'task_name'            => 'index',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '36',
                 'module_id'         => '10', //SponsorshipCategory
-                'task_name'            => 'edit',
+                'task_name'            => 'create',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '37',
                 'module_id'         => '10', //SponsorshipCategory
-                'task_name'            => 'delete',
+                'task_name'            => 'edit',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '38',
-                'module_id'         => '11', //Club
-                'task_name'            => 'index',
+                'module_id'         => '10', //SponsorshipCategory
+                'task_name'            => 'delete',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '39',
                 'module_id'         => '11', //Club
-                'task_name'            => 'create',
+                'task_name'            => 'index',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '40',
                 'module_id'         => '11', //Club
-                'task_name'            => 'edit',
+                'task_name'            => 'create',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '41',
                 'module_id'         => '11', //Club
-                'task_name'            => 'delete',
+                'task_name'            => 'edit',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '42',
                 'module_id'         => '11', //Club
-                'task_name'            => 'view',
+                'task_name'            => 'delete',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '43',
-                'module_id'         => '12', //Banner
-                'task_name'            => 'index',
+                'module_id'         => '11', //Club
+                'task_name'            => 'view',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '44',
                 'module_id'         => '12', //Banner
-                'task_name'            => 'create',
+                'task_name'            => 'index',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '45',
                 'module_id'         => '12', //Banner
-                'task_name'            => 'edit',
+                'task_name'            => 'create',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '46',
                 'module_id'         => '12', //Banner
-                'task_name'            => 'delete',
+                'task_name'            => 'edit',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '47',
-                'module_id'         => '13', //Gallery
-                'task_name'            => 'index',
+                'module_id'         => '12', //Banner
+                'task_name'            => 'delete',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '48',
                 'module_id'         => '13', //Gallery
-                'task_name'            => 'create',
+                'task_name'            => 'index',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '49',
                 'module_id'         => '13', //Gallery
-                'task_name'            => 'edit',
+                'task_name'            => 'create',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '50',
                 'module_id'         => '13', //Gallery
-                'task_name'            => 'delete',
+                'task_name'            => 'edit',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '51',
-                'module_id'         => '14', //FAQ
-                'task_name'            => 'index',
+                'module_id'         => '13', //Gallery
+                'task_name'            => 'delete',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '52',
                 'module_id'         => '14', //FAQ
-                'task_name'            => 'create',
+                'task_name'            => 'index',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '53',
                 'module_id'         => '14', //FAQ
-                'task_name'            => 'edit',
+                'task_name'            => 'create',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '54',
                 'module_id'         => '14', //FAQ
-                'task_name'            => 'delete',
+                'task_name'            => 'edit',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
                 'task_id'            => '55',
+                'module_id'         => '14', //FAQ
+                'task_name'            => 'delete',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '56',
                 'module_id'         => '14', //FAQ
                 'task_name'            => 'view',
                 'created_by'        => '1',

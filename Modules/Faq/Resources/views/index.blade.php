@@ -177,7 +177,7 @@
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <form id="classStudentDetail" name="classStudentDetail">
+                    <form id="faqDetail" name="faqDetail">
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-md-6 mb-3 row">
@@ -331,7 +331,7 @@
         let id = $(this).attr('data-id');
         let url = "{{ url('faq/show') }}";
 
-        $('.detailModal .modal-title').text('Detail Data Kelas');
+        $('.detailModal .modal-title').text('Detail Data FAQ');
         $('.detailModal').modal('show');
 
         $.ajax({

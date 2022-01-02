@@ -100,7 +100,12 @@ class UsersController extends Controller
             return redirect('unauthorize');
         }
 
-        return view('users::show');
+        $getDetail  = $this->_usersRepository->getById($id);
+
+        if ($getDetail)
+            return DataHelper::_successResponse($getDetail, 'Data berhasil ditemukan');
+        else
+            return DataHelper::_errorResponse(null, 'Data tidak ditemukan');
     }
 
     /**
