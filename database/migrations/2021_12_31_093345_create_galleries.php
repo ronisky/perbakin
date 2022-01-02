@@ -17,7 +17,7 @@ class CreateGalleries extends Migration
             $table->id('gallery_id');
             $table->string('gallery_title');
             $table->text('gallery_description');
-            $table->string('gallery_resource_path');
+            $table->string('gallery_image_path');
             $table->smallInteger('gallery_status')->default(0);;
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();

@@ -314,7 +314,7 @@
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
-                console.log(data);
+                
                 if (data.status == 1) {
                     $('#club_name').val(data.result.club_name);
                     $('#club_description').val(data.result.club_description);

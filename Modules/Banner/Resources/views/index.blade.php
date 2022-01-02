@@ -155,7 +155,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3 banner-image">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <div id="logo-images"></div>
                                     </label>
@@ -270,7 +270,7 @@
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
-                console.log(data);
+
                 if (data.status == 1) {
                     $('#banner_title').val(data.result.banner_title);
                     $('#banner_description').val(data.result.banner_description);

@@ -21,7 +21,7 @@ class BannerController extends Controller
 
         $this->_bannerRepository = new BannerRepository;
         $this->_logHelper           = new LogHelper;
-        $this->module               = "Club";
+        $this->module               = "Banner";
     }
     /**
      * Display a listing of the resource.

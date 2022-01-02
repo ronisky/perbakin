@@ -198,7 +198,7 @@ class MenuSeeder extends Seeder
             [
                 'menu_id'            => '16',
                 'menu_name'         => 'Data Klub',
-                'module_id'         => null,
+                'module_id'         => '11',
                 'menu_url'          => 'club',
                 'menu_icon'         => 'slack',
                 'menu_is_sub'       => '0',
@@ -209,13 +209,25 @@ class MenuSeeder extends Seeder
             ],
             [
                 'menu_id'            => '17',
-                'menu_name'         => 'Banner',
-                'module_id'         => null,
+                'menu_name'         => 'Data Banner',
+                'module_id'         => '12',
                 'menu_url'          => 'banner',
                 'menu_icon'         => 'copy',
                 'menu_is_sub'       => '0',
                 'menu_parent_id'    => NULL,
                 'menu_position'     => '8',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'menu_id'            => '18',
+                'menu_name'         => 'Gambar Gallery',
+                'module_id'         => '13',
+                'menu_url'          => 'gallery',
+                'menu_icon'         => 'image',
+                'menu_is_sub'       => '0',
+                'menu_parent_id'    => NULL,
+                'menu_position'     => '9',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],

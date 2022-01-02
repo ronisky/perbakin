@@ -11,6 +11,14 @@
 |
 */
 
-Route::prefix('gallery')->group(function() {
-    Route::get('/', 'GalleryController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Gallery\Http\Controllers\GalleryController;
+
+Route::prefix('gallery')->group(function () {
+    Route::get('/', [GalleryController::class, 'index']);
+    Route::post('/store', [GalleryController::class, 'store']);
+    Route::post('/update/{id}', [GalleryController::class, 'update']);
+    Route::get('/delete/{id}', [GalleryController::class, 'destroy']);
+    Route::get('/getdata/{id}', [GalleryController::class, 'getdata']);
+    Route::post('/updatestatus/{id}', [GalleryController::class, 'updatestatus']);
 });
