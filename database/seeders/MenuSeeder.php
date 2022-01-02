@@ -195,6 +195,18 @@ class MenuSeeder extends Seeder
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
+            [
+                'menu_id'            => '16',
+                'menu_name'         => 'Data Klub',
+                'module_id'         => null,
+                'menu_url'          => 'club',
+                'menu_icon'         => 'slack',
+                'menu_is_sub'       => '0',
+                'menu_parent_id'    => NULL,
+                'menu_position'     => '7',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
         ]);
     }
 }

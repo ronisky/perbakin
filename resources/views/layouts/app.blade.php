@@ -152,6 +152,10 @@
 
     <!-- include summernote css/js -->
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <!-- include parsley js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.8.0/parsley.min.js"
+        integrity="sha512-wNs1j1Vo1t0stXW7Lz5QL6T7a/9ClH7/X10Q4jd3aIcRsFTTPh0gRkTxRk0jgXcloVwNIrvmkyStp99hMObegQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         // document.addEventListener("DOMContentLoaded", function () {
         //     // Bar chart

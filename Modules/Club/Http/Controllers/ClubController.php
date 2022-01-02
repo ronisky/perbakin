@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Modules\Club\Repositories\ClubRepository;
 
@@ -72,10 +73,29 @@ class ClubController extends Controller
         }
 
         DB::beginTransaction();
-        $this->_clubRepository->insert(DataHelper::_normalizeParams($request->all(), true));
+        $file = $request->club_logo_path;
+        $fileName = DataHelper::getFileName($file);
+        $filePath = DataHelper::getFilePath(false, true);
+        $request->file('club_logo_path')->storeAs($filePath, $fileName, 'public');
+
+        $dataClub = [
+            'club_name' => $request->club_name,
+            'club_description' => $request->club_description,
+            'club_phone' => $request->club_phone,
+            'club_email' => $request->club_email,
+            'club_website' => $request->club_website,
+            'club_whatsapp' => $request->club_whatsapp,
+            'club_instagram' => $request->club_instagram,
+            'club_facebook' => $request->club_facebook,
+            'club_twitter' => $request->club_twitter,
+            'club_youtube' => $request->club_youtube,
+            'club_logo_path' => $fileName,
+            'club_status' => 1,
+        ];
+
+        $this->_clubRepository->insert(array_merge($dataClub, DataHelper::_signParams(true)));
         $this->_logHelper->store($this->module, $request->club_name, 'create');
         DB::commit();
-
 
         return redirect('club')->with('successMessage', 'Club berhasil ditambahkan');
     }
@@ -130,13 +150,58 @@ class ClubController extends Controller
         }
 
         DB::beginTransaction();
+        $getDetail  = $this->_clubRepository->getById($id);
+        $filePath = DataHelper::getFilePath(false, true);
 
-        $this->_clubRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
+        if ($request->club_logo_path <> "") {
+            // delete storage data
+            Storage::delete('public/' . $filePath . $getDetail->club_logo_path);
+
+            // update data
+            $file = $request->club_logo_path;
+            $fileName = DataHelper::getFileName($file);
+            $request->file('club_logo_path')->storeAs($filePath, $fileName, 'public');
+
+            $dataClub = [
+                'club_name' => $request->club_name,
+                'club_description' => $request->club_description,
+                'club_phone' => $request->club_phone,
+                'club_email' => $request->club_email,
+                'club_website' => $request->club_website,
+                'club_whatsapp' => $request->club_whatsapp,
+                'club_instagram' => $request->club_instagram,
+                'club_facebook' => $request->club_facebook,
+                'club_twitter' => $request->club_twitter,
+                'club_youtube' => $request->club_youtube,
+                'club_logo_path' => $fileName,
+                'club_status' => $request->club_status,
+            ];
+
+            $this->_clubRepository->update(array_merge($dataClub, DataHelper::_signParams(false, true)), $id);
+        } else {
+            // update data
+            $dataClub = [
+                'club_name' => $request->club_name,
+                'club_description' => $request->club_description,
+                'club_phone' => $request->club_phone,
+                'club_email' => $request->club_email,
+                'club_website' => $request->club_website,
+                'club_whatsapp' => $request->club_whatsapp,
+                'club_instagram' => $request->club_instagram,
+                'club_facebook' => $request->club_facebook,
+                'club_twitter' => $request->club_twitter,
+                'club_youtube' => $request->club_youtube,
+                'club_status' => $request->club_status,
+            ];
+
+            $this->_clubRepository->update(array_merge($dataClub, DataHelper::_signParams(false, true)), $id);
+        }
+
         $this->_logHelper->store($this->module, $request->club_name, 'update');
 
         DB::commit();
 
-        return redirect('club')->with('successMessage', 'Club berhasil diubah');
+        return redirect('club')->with('successMessage', 'Data klub berhasil diubah');
     }
 
     /**
@@ -150,6 +215,7 @@ class ClubController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
+
         // Check detail to db
         $detail  = $this->_clubRepository->getById($id);
 
@@ -158,13 +224,20 @@ class ClubController extends Controller
         }
 
         DB::beginTransaction();
+        $getDetail  = $this->_clubRepository->getById($id);
+        $filePath = DataHelper::getFilePath(false, true);
 
+        $dataImage = $getDetail->club_logo_path;
+        if ($dataImage) {
+            // delete storage data
+            Storage::delete('public/' . $filePath . $dataImage);
+        }
         $this->_clubRepository->delete($id);
         $this->_logHelper->store($this->module, $detail->club_name, 'delete');
 
         DB::commit();
 
-        return redirect('club')->with('successMessage', 'Club berhasil dihapus');
+        return DataHelper::_successResponse(null, 'Data berhasil dihapus');
     }
 
     /**
@@ -186,10 +259,16 @@ class ClubController extends Controller
         if ($id == '') {
             return [
                 'club_name' => 'required|unique:clubs',
+                'club_phone' => "required",
+                'club_email' => "required",
+                'club_description' => "required",
             ];
         } else {
             return [
                 'club_name' => 'required|unique:clubs,club_name,' . $id . ',club_id',
+                'club_phone' => "required",
+                'club_email' => "required",
+                'club_description' => "required",
             ];
         }
     }

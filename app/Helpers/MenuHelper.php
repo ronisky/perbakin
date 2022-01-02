@@ -102,7 +102,7 @@ class MenuHelper
                     $menus     .= "
                         <li class='sidebar-item " . $active . "'>
                             <a class='sidebar-link' href='" . url($menu->menu_url) . "'>
-                            <i class='align-middle' data-feather='list'></i> <span class='align-middle'>" . $menu->menu_name . "</span>
+                            <i class='align-middle' data-feather='" . $menu->menu_icon . "'></i> <span class='align-middle'>" . $menu->menu_name . "</span>
                             </a>
                         </li>
                     ";

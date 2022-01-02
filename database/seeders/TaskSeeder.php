@@ -279,6 +279,41 @@ class TaskSeeder extends Seeder
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
+            [
+                'task_id'            => '38',
+                'module_id'         => '11', //Club
+                'task_name'            => 'index',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '39',
+                'module_id'         => '11', //Club
+                'task_name'            => 'create',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '40',
+                'module_id'         => '11', //Club
+                'task_name'            => 'edit',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '41',
+                'module_id'         => '11', //Club
+                'task_name'            => 'delete',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'task_id'            => '42',
+                'module_id'         => '11', //Club
+                'task_name'            => 'view',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
         ]);
     }
 }

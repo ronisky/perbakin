@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Club')
+@section('title', 'Data Klub')
 
 @section('content')
 <!-- Start Page Content -->
@@ -14,7 +14,7 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="h3">Club</h3>
+                        <h3 class="h3">Data Klub</h3>
                     </div>
                     <div class="col-md-6">
                         <nav aria-label="breadcrumb" class="float-right">
@@ -24,8 +24,7 @@
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
-                                <li class="breadcrumb-item"><a disabled>Club</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Club</a></li>
+                                <li class="breadcrumb-item active"><a href="#">Data Klub</a></li>
                             </ol>
                         </nav>
                     </div>
@@ -35,7 +34,7 @@
                 <div class="addData">
                     <a href="javascript:void(0)" class="btn btn-success btnAdd">
                         <i data-feather="plus" width="16" height="16" class="me-2"></i>
-                        Tambah Club
+                        Tambah Klub
                     </a>
                 </div>
                 <div class="table-responsive">
@@ -43,10 +42,10 @@
                         <thead>
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Nama Club</th>
+                                <th>Nama Klub</th>
                                 <th>Telepon</th>
-                                <th>Instagram</th>
                                 <th>Deskripsi</th>
+                                <th>Logo</th>
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
@@ -61,8 +60,18 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $club->club_name }}</td>
                                 <td>{{ $club->club_phone }}</td>
-                                <td>{{ $club->club_instagram }}</td>
                                 <td>{{ $club->club_description }}</td>
+                                <td>
+                                    @php
+                                    $fileName = substr($club->club_logo_path, 0, 20);
+                                    $extension = pathinfo($club->club_logo_path, PATHINFO_EXTENSION);
+                                    $name = $fileName . '...' . $extension;
+                                    @endphp
+                                    <a href="{{asset('storage/uploads/images')}}/{{$club->club_logo_path}}"
+                                        target="blank"><img width="50px"
+                                            src="{{asset('storage/uploads/images')}}/{{$club->club_logo_path}}"
+                                            alt="{{$club->club_logo_path}}"></a>
+                                </td>
                                 <td>
                                     @if($club->club_id > 0)
                                     <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
@@ -91,22 +100,23 @@
 
 <!-- Modal Add -->
 <div class="modal fade addModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Club</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('club/store') }}" method="POST" id="addForm">
+            <form action="{{ url('club/store') }}" method="POST" id="addForm" enctype="multipart/form-data"
+                data-parsley-validate>
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Nama Club<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="club_name" id="club_name"
-                                        placeholder="Masukan nama club" value="{{ old('club_name') }}">
+                                        placeholder="Masukan nama klub" value="{{ old('club_name') }}">
                                     @if ($errors->has('club_name'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Nama club
@@ -115,21 +125,105 @@
                                     </span>
                                     @endif
                                 </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">No Telepon<span class="text-danger">*</span></label>
+                                    <label class="form-label">Nomor Telepon<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="club_phone" id="club_phone"
-                                        placeholder="Masukan telepon club" value="{{ old('club_phone') }}">
+                                        placeholder="Masukan telepon klub" value="{{ old('club_phone') }}"
+                                        maxlength="15">
                                 </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Instagram Club<span class="text-danger">*</span></label>
+                                    <label class="form-label">Alamat Email<span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" name="club_email" id="club_email"
+                                        placeholder="Masukan alamat email klub" value="{{ old('club_email') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor Website</label>
+                                    <input type="text" class="form-control" name="club_website" id="club_website"
+                                        placeholder="Masukan link website klub" value="{{ old('club_website') }}"
+                                        maxlength="15">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor Whatsapp</label>
+                                    <input type="text" class="form-control" name="club_whatsapp" id="club_whatsapp"
+                                        placeholder="Masukan nomor whatsapp klub" value="{{ old('club_whatsapp') }}"
+                                        maxlength="15">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Instagram</label>
                                     <input type="text" class="form-control" name="club_instagram" id="club_instagram"
-                                        placeholder="Masukan link instagram club" value="{{ old('club_instagram') }}">
+                                        placeholder="Masukan link instagram klub" value="{{ old('club_instagram') }}">
                                 </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Deskripsi Club<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="club_description"
-                                        id="club_description" placeholder="Masukan deskripsi club"
-                                        value="{{ old('club_description') }}">
+                                    <label class="form-label">Facebook</label>
+                                    <input type="text" class="form-control" name="club_facebook" id="club_facebook"
+                                        placeholder="Masukan link facebook klub" value="{{ old('club_facebook') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Twitter</label>
+                                    <input type="text" class="form-control" name="club_twitter" id="club_twitter"
+                                        placeholder="Masukan link twitter klub" value="{{ old('club_twitter') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Youtube</label>
+                                    <input type="text" class="form-control" name="club_youtube" id="club_youtube"
+                                        placeholder="Masukan link youtube channel klub"
+                                        value="{{ old('club_youtube') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3" id="club-status">
+                                <div class="form-group">
+                                    <label class="form-label">Status Klub <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-control" name="club_status" id="club_status">
+                                        <option value="">- Pilih Group -</option>
+                                        <option value="{{ old('club_status') }}" selected="selected"></option>
+                                        <option value="1">Aktif</option>
+                                        <option value="0">Tidak Aktif</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 club-logo">
+                                <div class="form-group">
+                                    <div id="logo-images"></div>
+                                    </label>
+                                    <select class="form-control" id="change-logo-chose">
+                                        <option value="">- Ubah Logo -</option>
+                                        <option value="1">Ya</option>
+                                        <option value="0">Tidak Aktif</option>
+                                    </select>
+                                </div>
+                                <div class="form-group change-logo">
+                                    <label class="form-label">Pilih Logo<span class="text-danger">*</span></label>
+                                    <input type="file" class="form-control" name="club_logo_path" id="club_logo_path"
+                                        value="{{ old('club_logo_path') }}"
+                                        data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp)$/i"
+                                        data-parsley-error-message="Pilih logo dengan ekstensi jpg/jpeg/png/bmp"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Deskripsi Singakt tentang klub<span
+                                            class="text-danger">*</span></label>
+                                    <textarea type="text" class="form-control" name="club_description"
+                                        id="club_description" rows="4"
+                                        placeholder="Masukan deskripsi tentang klub">{{ old('club_description') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -148,8 +242,52 @@
 
 @section('script')
 <script type="text/javascript">
+    var support = (function () {
+        if (!window.DOMParser) return false;
+        var parser = new DOMParser();
+        try {
+            parser.parseFromString('x', 'text/html');
+        } catch (err) {
+            return false;
+        }
+        return true;
+    })();
+
+    var textToHTML = function (str) {
+
+        // check for DOMParser support
+        if (support) {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(str, 'text/html');
+            return doc.body.innerHTML;
+        }
+
+        // Otherwise, create div and append HTML
+        var dom = document.createElement('div');
+        dom.innerHTML = str;
+        return dom;
+
+    };
+
+    $('#change-logo-chose').change(function () {
+        let data = $('#change-logo-chose').val();
+        if (data == 1) {
+            $('.change-logo').show();
+        } else {
+            $('.change-logo').hide();
+        }
+    })
+
     $('.btnAdd').click(function () {
         document.getElementById("addForm").reset();
+        let data_images = "";
+        data_images = ``
+        document.getElementById("club_logo_path").innerHTML = textToHTML(data_images);
+        $('#club-status').hide();
+        $('#change-logo-chose').hide();
+        $('.change-logo').show();
+        $('#logo-images').hide();
+        $('#club_logo_path').prop('required', true);
         $('.addModal form').attr('action', "{{ url('club/store') }}");
         $('.addModal .modal-title').text('Tambah Club');
         $('.addModal').modal('show');
@@ -165,6 +303,10 @@
         var id = $(this).attr('data-id');
         var url = "{{ url('club/getdata') }}";
 
+        $('.change-logo').hide();
+        $('#change-logo-chose').show();
+        $('#logo-images').show();
+        $('#club_logo_path').prop('required', false);
         $('.addModal form').attr('action', "{{ url('club/update') }}" + '/' + id);
 
         $.ajax({
@@ -172,8 +314,31 @@
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
+                console.log(data);
                 if (data.status == 1) {
-                    $('#letter_category_name').val(data.result.letter_category_name);
+                    $('#club_name').val(data.result.club_name);
+                    $('#club_description').val(data.result.club_description);
+                    $('#club_phone').val(data.result.club_phone);
+                    $('#club_email').val(data.result.club_email);
+                    $('#club_website').val(data.result.club_website);
+                    $('#club_whatsapp').val(data.result.club_whatsapp);
+                    $('#club_instagram').val(data.result.club_instagram);
+                    $('#club_facebook').val(data.result.club_facebook);
+                    $('#club_twitter').val(data.result.club_twitter);
+                    $('#club_youtube').val(data.result.club_youtube);
+                    $('#club_status').val(data.result.club_status);
+
+                    let club_logo_path = data.result.club_logo_path;
+                    const path = club_logo_path;
+                    const [extension, ...nameParts] = path.split('.').reverse();
+                    const dataName = club_logo_path.substr(0, 20) + '.' + extension;
+                    let data_images_path = "";
+                    data_images_path =
+                        `<a href="{{asset('storage/uploads/images')}}/${club_logo_path}" target="blank" class="club_logo_path"><span>Logo sekarang = ${dataName}</span></a>`
+                    document.getElementById("logo-images").innerHTML = textToHTML(
+                        data_images_path);
+
+                    $('#club-status').show();
                     $('.addModal .modal-title').text('Ubah Club');
                     $('.addModal').modal('show');
 
@@ -231,12 +396,14 @@
         rules: {
             club_name: "required",
             club_phone: "required",
+            club_email: "required",
             club_description: "required",
         },
         messages: {
             club_name: "Nama surat rekomendasi tidak boleh kosong",
-            club_phone: "Telepon club tidak boleh kosong",
-            club_description: "Deskripsi club tidak boleh kosong",
+            club_phone: "Telepon klub tidak boleh kosong",
+            club_email: "Alamat email klub tidak boleh kosong",
+            club_description: "Deskripsi klub tidak boleh kosong",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",
