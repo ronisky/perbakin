@@ -234,12 +234,24 @@ class MenuSeeder extends Seeder
             [
                 'menu_id'            => '19',
                 'menu_name'         => 'FAQ',
-                'module_id'         => '13',
+                'module_id'         => '14',
                 'menu_url'          => 'faq',
                 'menu_icon'         => 'help-circle',
                 'menu_is_sub'       => '0',
                 'menu_parent_id'    => NULL,
                 'menu_position'     => '10',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'menu_id'            => '20',
+                'menu_name'         => 'Vis Misi',
+                'module_id'         => '15',
+                'menu_url'          => 'faq',
+                'menu_icon'         => 'target',
+                'menu_is_sub'       => '0',
+                'menu_parent_id'    => NULL,
+                'menu_position'     => '11',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],

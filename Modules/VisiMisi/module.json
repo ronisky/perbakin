@@ -1,0 +1,13 @@
+{
+    "name": "VisiMisi",
+    "alias": "visimisi",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\VisiMisi\\Providers\\VisiMisiServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

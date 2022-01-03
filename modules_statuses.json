@@ -21,5 +21,6 @@
     "Gallery": true,
     "Visitor": true,
     "ApprovalStatus": true,
-    "Banner": true
+    "Banner": true,
+    "VisiMisi": true
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Banner\Http\Controllers;
+namespace Modules\VisiMisi\Http\Controllers;
 
 use App\Helpers\DataHelper;
 use App\Helpers\LogHelper;
@@ -11,17 +11,17 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Modules\Banner\Repositories\BannerRepository;
+use Modules\VisiMisi\Repositories\VisiMisiRepository;
 
-class BannerController extends Controller
+class VisiMisiController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
 
-        $this->_bannerRepository = new BannerRepository;
+        $this->_visiMisiRepository = new VisiMisiRepository;
         $this->_logHelper           = new LogHelper;
-        $this->module               = "Banner";
+        $this->module               = "VisiMisi";
     }
     /**
      * Display a listing of the resource.
@@ -34,8 +34,8 @@ class BannerController extends Controller
             return redirect('unauthorize');
         }
 
-        $banners    = $this->_bannerRepository->getAll();
-        return view('banner::index', compact('banners'));
+        $visimisi    = $this->_visiMisiRepository->getAll();
+        return view('visimisi::index', compact('visimisi'));
     }
 
     /**
@@ -48,7 +48,7 @@ class BannerController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
-        return view('banner::create');
+        return view('visimisi::create');
     }
 
     /**
@@ -66,29 +66,28 @@ class BannerController extends Controller
         $validator = Validator::make($request->all(), $this->_validationRules(''));
 
         if ($validator->fails()) {
-            return redirect('banner')
+            return redirect('visimisi')
                 ->withErrors($validator)
                 ->withInput();
         }
 
         DB::beginTransaction();
-        $file = $request->banner_image_path;
+        $file = $request->image_path;
         $fileName = DataHelper::getFileName($file);
         $filePath = DataHelper::getFilePath(false, true);
-        $request->file('banner_image_path')->storeAs($filePath, $fileName, 'public');
+        $request->file('image_path')->storeAs($filePath, $fileName, 'public');
 
-        $dataBanner = [
-            'banner_title' => $request->banner_title,
-            'banner_description' => $request->banner_description,
-            'banner_image_path' => $fileName,
-            'banner_status' => 1,
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'image_path' => $fileName,
         ];
 
-        $this->_bannerRepository->insert(array_merge($dataBanner, DataHelper::_signParams(true)));
-        $this->_logHelper->store($this->module, $request->banner_title, 'create');
+        $this->_visiMisiRepository->insert(array_merge($data, DataHelper::_signParams(true)));
+        $this->_logHelper->store($this->module, $request->title, 'create');
         DB::commit();
 
-        return redirect('banner')->with('successMessage', 'Banner berhasil ditambahkan');
+        return redirect('visimisi')->with('successMessage', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -102,7 +101,7 @@ class BannerController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
-        return view('banner::show');
+        return view('visimisi::show');
     }
 
     /**
@@ -116,7 +115,7 @@ class BannerController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
-        return view('banner::edit');
+        return view('visimisi::edit');
     }
 
     /**
@@ -135,48 +134,48 @@ class BannerController extends Controller
         $validator = Validator::make($request->all(), $this->_validationRules($id));
 
         if ($validator->fails()) {
-            return redirect('banner')
+            return redirect('visimis')
                 ->withErrors($validator)
                 ->withInput();
         }
 
         DB::beginTransaction();
-        $getDetail  = $this->_bannerRepository->getById($id);
+        $getDetail  = $this->_visiMisiRepository->getById($id);
         $filePath = DataHelper::getFilePath(false, true);
 
-        if ($request->banner_image_path <> "") {
+        if ($request->image_path <> "") {
             // delete storage data
-            Storage::delete('public/' . $filePath . $getDetail->banner_image_path);
+            Storage::delete('public/' . $filePath . $getDetail->image_path);
 
             // update data
-            $file = $request->banner_image_path;
+            $file = $request->image_path;
             $fileName = DataHelper::getFileName($file);
-            $request->file('banner_image_path')->storeAs($filePath, $fileName, 'public');
+            $request->file('image_path')->storeAs($filePath, $fileName, 'public');
 
-            $dataBanner = [
-                'banner_title' => $request->banner_title,
-                'banner_description' => $request->banner_description,
-                'banner_image_path' => $fileName,
-                'banner_status' => $request->banner_status,
+            $data = [
+                'title' => $request->title,
+                'description' => $request->description,
+                'image_path' => $fileName,
+                'status' => $request->status,
             ];
 
-            $this->_bannerRepository->update(array_merge($dataBanner, DataHelper::_signParams(false, true)), $id);
+            $this->_visiMisiRepository->update(array_merge($data, DataHelper::_signParams(false, true)), $id);
         } else {
             // update data
-            $dataBanner = [
-                'banner_title' => $request->banner_title,
-                'banner_description' => $request->banner_description,
-                'banner_status' => $request->banner_status,
+            $data = [
+                'title' => $request->title,
+                'description' => $request->description,
+                'status' => $request->status,
             ];
 
-            $this->_bannerRepository->update(array_merge($dataBanner, DataHelper::_signParams(false, true)), $id);
+            $this->_visiMisiRepository->update(array_merge($data, DataHelper::_signParams(false, true)), $id);
         }
 
-        $this->_logHelper->store($this->module, $request->banner_title, 'update');
+        $this->_logHelper->store($this->module, $request->banner_name, 'update');
 
         DB::commit();
 
-        return redirect('banner')->with('successMessage', 'Data banner berhasil diubah');
+        return redirect('visimisi')->with('successMessage', 'Data berhasil diubah');
     }
 
     /**
@@ -187,17 +186,44 @@ class BannerController extends Controller
      */
     public function updatestatus(Request $request, $id)
     {
-        DB::beginTransaction();
-        try {
-            $this->_bannerRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
-            $this->_logHelper->store($this->module, $request->banner_id, 'update');
+        if ($request->status == 1) {
 
-            DB::commit();
-            return DataHelper::_successResponse(null, 'Status banner berhasil diubah');
-        } catch (\Throwable $th) {
+            $check = $this->_visiMisiRepository->getById($id);
 
-            DB::rollBack();
-            return DataHelper::_errorResponse(null, 'Gagal mengubah data');
+            $param = [
+                'title' => $check->title,
+                'status' => '1'
+            ];
+            $compareDate = $this->_visiMisiRepository->getAllByParams($param);
+
+            if (sizeof($compareDate) != 0) {
+                return DataHelper::_errorResponse($compareDate, 'Anda hanya bisa mengaktifkan satu data dengan tipe yang sama. Silahkan nonaktifkan terlebih dahulu data yang lain!');
+            }
+
+            try {
+                $this->_visiMisiRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
+                $this->_logHelper->store($this->module, $request->visi_misi_id, 'update');
+
+                DB::commit();
+                return DataHelper::_successResponse($compareDate, 'Status berhasil diubah');
+            } catch (\Throwable $th) {
+
+                DB::rollBack();
+                return DataHelper::_errorResponse(null, 'Gagal mengubah data');
+            }
+        } else {
+            DB::beginTransaction();
+            try {
+                $this->_visiMisiRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
+                $this->_logHelper->store($this->module, $request->visi_misi_id, 'update');
+
+                DB::commit();
+                return DataHelper::_successResponse(null, 'Status berhasil diubah');
+            } catch (\Throwable $th) {
+
+                DB::rollBack();
+                return DataHelper::_errorResponse(null, 'Gagal mengubah data');
+            }
         }
     }
 
@@ -214,23 +240,23 @@ class BannerController extends Controller
         }
 
         // Check detail to db
-        $detail  = $this->_bannerRepository->getById($id);
+        $detail  = $this->_visiMisiRepository->getById($id);
 
         if (!$detail) {
-            return redirect('banner');
+            return redirect('visimisi');
         }
 
         DB::beginTransaction();
-        $getDetail  = $this->_bannerRepository->getById($id);
+        $getDetail  = $this->_visiMisiRepository->getById($id);
         $filePath = DataHelper::getFilePath(false, true);
 
-        $dataImage = $getDetail->banner_image_path;
+        $dataImage = $getDetail->image_path;
         if ($dataImage) {
             // delete storage data
             Storage::delete('public/' . $filePath . $dataImage);
         }
-        $this->_bannerRepository->delete($id);
-        $this->_logHelper->store($this->module, $detail->banner_title, 'delete');
+        $this->_visiMisiRepository->delete($id);
+        $this->_logHelper->store($this->module, $detail->title, 'delete');
 
         DB::commit();
 
@@ -244,7 +270,7 @@ class BannerController extends Controller
      */
     public function getdata($id)
     {
-        $getDetail  = $this->_bannerRepository->getById($id);
+        $getDetail  = $this->_visiMisiRepository->getById($id);
         if ($getDetail)
             return DataHelper::_successResponse($getDetail, 'Data berhasil ditemukan');
         else
@@ -255,13 +281,13 @@ class BannerController extends Controller
     {
         if ($id == '') {
             return [
-                'banner_title' => 'required|unique:banners',
-                'banner_description' => "required",
+                'title' => 'required',
+                'description' => "required",
             ];
         } else {
             return [
-                'banner_title' => 'required|unique:banners,banner_title,' . $id . ',banner_id',
-                'banner_description' => "required",
+                'title' => 'required,title,' . $id . ',visi_misi_id',
+                'description' => "required",
             ];
         }
     }

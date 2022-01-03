@@ -160,7 +160,7 @@
                                     <div id="logo-images"></div>
                                     </label>
                                     <select class="form-control" id="change-image-chose">
-                                        <option value="">- Ubah Logo -</option>
+                                        <option value="">- Ubah Gambar -</option>
                                         <option value="1">Ya</option>
                                         <option value="0">Tidak Aktif</option>
                                     </select>
@@ -170,7 +170,7 @@
                                     <input type="file" class="form-control" name="banner_image_path"
                                         id="banner_image_path" value="{{ old('banner_image_path') }}"
                                         data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp)$/i"
-                                        data-parsley-error-message="Pilih logo dengan ekstensi jpg/jpeg/png/bmp"
+                                        data-parsley-error-message="Pilih gamabr dengan ekstensi jpg/jpeg/png/bmp"
                                         required>
                                 </div>
                             </div>
@@ -282,7 +282,7 @@
                     const dataName = banner_image_path.substr(0, 20) + '.' + extension;
                     let data_images_path = "";
                     data_images_path =
-                        `<a href="{{asset('storage/uploads/images')}}/${banner_image_path}" target="blank" class="banner_image_path"><span>Logo sekarang = ${dataName}</span></a>`
+                        `<a href="{{asset('storage/uploads/images')}}/${banner_image_path}" target="blank" class="banner_image_path"><span>Gambar sekarang = ${dataName}</span></a>`
                     document.getElementById("logo-images").innerHTML = textToHTML(
                         data_images_path);
 
@@ -370,8 +370,8 @@
         let value = this.checked ? 1 : 0;
         if (value == 1) {
             Swal.fire({
-                title: 'Aktifkan User?',
-                text: "Apakah anda yakin ingin mengaktifkan status user?",
+                title: 'Aktifkan?',
+                text: "Apakah anda yakin ingin mengaktifkan status?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -396,7 +396,6 @@
                                     showConfirmButton: false,
                                     timer: 2000
                                 })
-                                location.reload();
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -427,8 +426,8 @@
         } else {
 
             Swal.fire({
-                title: 'Nonaktifkan User?',
-                text: "Apakah anda yakin ingin menonaktifkan status user?",
+                title: 'Nonaktifkan?',
+                text: "Apakah anda yakin ingin menonaktifkan status?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -452,7 +451,6 @@
                                 showConfirmButton: false,
                                 timer: 2000
                             })
-                            location.reload();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             Swal.fire({

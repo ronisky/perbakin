@@ -17,7 +17,8 @@ class CreateVisiMisiTables extends Migration
             $table->id('visi_misi_id');
             $table->enum('title', ['Visi', 'Misi']);
             $table->text('description');
-            $table->string('image_path')->nullable();
+            $table->string('image_path');
+            $table->smallInteger('status')->default(0);
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();
             $table->dateTime('updated_at')->nullable();

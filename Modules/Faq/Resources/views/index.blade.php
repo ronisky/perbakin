@@ -420,7 +420,6 @@
                                     showConfirmButton: false,
                                     timer: 2000
                                 })
-                                location.reload();
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -476,7 +475,6 @@
                                 showConfirmButton: false,
                                 timer: 2000
                             })
-                            location.reload();
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
                             Swal.fire({
