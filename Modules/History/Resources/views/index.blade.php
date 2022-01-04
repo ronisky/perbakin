@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Kategori Artikel')
+@section('title', 'Sejarah')
 
 @section('content')
 <!-- Start Page Content -->
@@ -14,7 +14,7 @@
                 @endif
                 <div class="row">
                     <div class="col-md-6">
-                        <h3 class="h3">Kategori Artikel</h3>
+                        <h3 class="h3">Sejarah</h3>
                     </div>
                     <div class="col-md-6">
                         <nav aria-label="breadcrumb" class="float-right">
@@ -24,8 +24,7 @@
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
-                                <li class="breadcrumb-item"><a disabled>Artikel</a></li>
-                                <li class="breadcrumb-item active"><a href="#">Kategori Artikel</a></li>
+                                <li class="breadcrumb-item"><a disabled>Sejarah</a></li>
                             </ol>
                         </nav>
                     </div>
@@ -35,7 +34,7 @@
                 <div class="addData">
                     <a href="javascript:void(0)" class="btn btn-success btnAdd">
                         <i data-feather="plus" width="16" height="16" class="me-2"></i>
-                        Tambah Artikel
+                        Tambah Sejarah
                     </a>
                 </div>
                 <div class="table-responsive">
@@ -43,31 +42,29 @@
                         <thead>
                             <tr>
                                 <th width="5%">No</th>
-                                <th width="20%">Nama Kategori Artikel</th>
                                 <th>Deskripsi</th>
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (sizeof($article_categories) == 0)
+                            @if (sizeof($histories) == 0)
                             <tr>
-                                <td colspan="4" align="center">Data kosong</td>
+                                <td colspan="3" align="center">Data kosong</td>
                             </tr>
                             @else
-                            @foreach ($article_categories as $article_category)
+                            @foreach ($histories as $history)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $article_category->article_category_name }}</td>
-                                <td>{{ $article_category->article_category_description }}</td>
+                                <td>{{ strip_tags($history->description)}}</td>
                                 <td>
-                                    @if($article_category->article_category_id > 0)
+                                    @if($history->history_id > 0)
                                     <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
-                                        data-id="{{ $article_category->article_category_id }}" data-toggle="tooltip"
-                                        data-placement="top" title="Ubah">
+                                        data-id="{{ $history->history_id }}" data-toggle="tooltip" data-placement="top"
+                                        title="Ubah">
                                         <i data-feather="edit" width="16" height="16"></i>
                                     </a>
                                     <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btnDelete"
-                                        data-url="{{ url('articlecategory/delete/'. $article_category->article_category_id) }}"
+                                        data-url="{{ url('history/delete/'. $history->history_id) }}"
                                         data-toggle="tooltip" data-placement="top" title="Hapus">
                                         <i data-feather="trash-2" width="16" height="16"></i>
                                     </a>
@@ -87,39 +84,29 @@
 
 <!-- Modal Add -->
 <div class="modal fade addModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Kategori Artikel</h5>
+                <h5 class="modal-title">Tambah Sejarah</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('articlecategory/store') }}" method="POST" id="addForm">
+            <form action="{{ url('history/store') }}" method="POST" id="addForm">
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Nama Kategori Artikel<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="article_category_name"
-                                        id="article_category_name" placeholder="Masukan kategori artikel"
-                                        value="{{ old('article_category_name') }}">
-                                    @if ($errors->has('article_category_name'))
+                                    <label class="form-label">Deskripsi<span class="text-danger">*</span></label>
+                                    <textarea rows="10" type="text" class="form-control summernote" name="description"
+                                        id="description"
+                                        placeholder="Masukan deskripsi kategori artikel">{{ old('description') }}</textarea>
+                                    @if ($errors->has('description'))
                                     <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Nama kategori
-                                            artikel
-                                            tidak
-                                            boleh sama</label>
+                                        <label id="basic-error" class="validation-error-label" for="basic">Deskripsi
+                                            tidak boleh sama</label>
                                     </span>
                                     @endif
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Deskripsi Kategori<span
-                                            class="text-danger">*</span></label>
-                                    <textarea type="text" class="form-control" name="article_category_description"
-                                        id="article_category_description"
-                                        placeholder="Masukan deskripsi kategori artikel">{{ old('article_category_description') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -140,8 +127,9 @@
 <script type="text/javascript">
     $('.btnAdd').click(function () {
         document.getElementById("addForm").reset();
-        $('.addModal form').attr('action', "{{ url('articlecategory/store') }}");
-        $('.addModal .modal-title').text('Tambah Kategori Artikel');
+        $('.summernote').summernote('reset');
+        $('.addModal form').attr('action', "{{ url('history/store') }}");
+        $('.addModal .modal-title').text('Tambah Sejarah');
         $('.addModal').modal('show');
     });
 
@@ -153,9 +141,9 @@
     $('.btnEdit').click(function () {
 
         var id = $(this).attr('data-id');
-        var url = "{{ url('articlecategory/getdata') }}";
+        var url = "{{ url('history/getdata') }}";
 
-        $('.addModal form').attr('action', "{{ url('articlecategory/update') }}" + '/' + id);
+        $('.addModal form').attr('action', "{{ url('history/update') }}" + '/' + id);
 
         $.ajax({
             type: 'GET',
@@ -163,10 +151,8 @@
             dataType: 'JSON',
             success: function (data) {
                 if (data.status == 1) {
-                    $('#article_category_name').val(data.result.article_category_name);
-                    $('#article_category_description').val(data.result
-                        .article_category_description);
-                    $('.addModal .modal-title').text('Ubah Kategori Artikel');
+                    $('#description').summernote('code', data.result.description);
+                    $('.addModal .modal-title').text('Ubah Deskripsi');
                     $('.addModal').modal('show');
 
                 }
@@ -221,10 +207,10 @@
 
     $("#addForm").validate({
         rules: {
-            article_category_name: "required",
+            description: "required",
         },
         messages: {
-            article_category_name: "Nama kategori artikel tidak boleh kosong",
+            description: "Deskripsi sejarah tidak boleh kosong",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

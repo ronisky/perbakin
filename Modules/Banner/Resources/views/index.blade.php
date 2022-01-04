@@ -24,7 +24,7 @@
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
-                                <li class="breadcrumb-item active"><a href="#">Data Banner</a></li>
+                                <li class="breadcrumb-item"><a href="#">Data Banner</a></li>
                             </ol>
                         </nav>
                     </div>

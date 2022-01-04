@@ -22,5 +22,6 @@
     "Visitor": true,
     "ApprovalStatus": true,
     "Banner": true,
-    "VisiMisi": true
+    "VisiMisi": true,
+    "History": true
 }

@@ -24,7 +24,7 @@
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
-                                <li class="breadcrumb-item active"><a href="#">Data Klub</a></li>
+                                <li class="breadcrumb-item"><a href="#">Data Klub</a></li>
                             </ol>
                         </nav>
                     </div>
@@ -314,7 +314,7 @@
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
-                
+
                 if (data.status == 1) {
                     $('#club_name').val(data.result.club_name);
                     $('#club_description').val(data.result.club_description);

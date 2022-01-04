@@ -245,13 +245,25 @@ class MenuSeeder extends Seeder
             ],
             [
                 'menu_id'            => '20',
-                'menu_name'         => 'Vis Misi',
+                'menu_name'         => 'Visi Misi',
                 'module_id'         => '15',
                 'menu_url'          => 'faq',
                 'menu_icon'         => 'target',
                 'menu_is_sub'       => '0',
                 'menu_parent_id'    => NULL,
                 'menu_position'     => '11',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'menu_id'            => '21',
+                'menu_name'         => 'Sejarah',
+                'module_id'         => '16',
+                'menu_url'          => 'history',
+                'menu_icon'         => 'circle',
+                'menu_is_sub'       => '0',
+                'menu_parent_id'    => NULL,
+                'menu_position'     => '12',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
