@@ -17,7 +17,6 @@ class CreateSponsorships extends Migration
             $table->id('sponsorship_id');
             $table->unsignedBigInteger('sponsorship_category_id');
             $table->string('sponsorship_name', 20);
-            $table->enum('sponsorship_level', ['bronze', 'platinum']);
             $table->text('sponsorship_description');
             $table->string('sponsorship_duration', 10);
             $table->date('sponsorship_start_date');

@@ -24,7 +24,9 @@ class CreateIdentities extends Migration
             $table->string('instagram');
             $table->string('facebook');
             $table->string('twitter');
-            $table->string('logo_path');
+            $table->string('logo_perbaik_kab_path');
+            $table->string('logo_koni_path');
+            $table->string('logo_perbakin_nas_path');
             $table->text('description');
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();

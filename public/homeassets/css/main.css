@@ -2030,23 +2030,25 @@ ol {
     Hero Area CSS
 ========================================*/
 .hero-area {
-    position: relative;
+    /* position: relative;
     padding: 200px 0 500px 0;
-    /* background: #009DAE; */
-    /* background: #FF5403; */
-    background-image: url("https://www.rbgunclub.com/wp-content/uploads/2019/02/cropped-AIRGUN-PIX1-2.jpg");
+    background: #009DAE;
+    background: #FF5403; */
+    /* background-image: url("https://www.rbgunclub.com/wp-content/uploads/2019/02/cropped-AIRGUN-PIX1-2.jpg"); */
     /* The image used */
-    background-color: #cccccc;
+    /* background-color: #cccccc; */
     /* Used if the image is unavailable */
-    height: 500px;
+    /* height: 500px; */
     /* You must set a specified height */
-    background-position: center;
+    /* background-position: center; */
     /* Center the image */
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat; */
     /* Do not repeat the image */
-    background-size: cover;
+    /* background-size: cover; */
     /* Resize the background image to cover the entire container */
-
+    position: relative;
+    padding: 200px 0 150px 0;
+    background: #3865F2;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {

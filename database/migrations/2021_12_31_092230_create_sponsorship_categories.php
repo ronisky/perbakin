@@ -16,6 +16,7 @@ class CreateSponsorshipCategories extends Migration
         Schema::create('sponsorship_categories', function (Blueprint $table) {
             $table->id('sponsorship_category_id');
             $table->string('sponsorship_category_name', 20);
+            $table->string('sponsorship_category_description')->nullable();
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();
             $table->dateTime('updated_at')->nullable();

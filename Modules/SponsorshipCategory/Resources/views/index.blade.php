@@ -44,6 +44,7 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th>Nama Kategori Sponsorship</th>
+                                <th>Deskripsi</th>
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
@@ -57,6 +58,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $sponsorship_category->sponsorship_category_name }}</td>
+                                <td>{{ $sponsorship_category->sponsorship_category_description }}</td>
                                 <td>
                                     @if($sponsorship_category->sponsorship_category_id > 0)
                                     <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
@@ -112,6 +114,13 @@
                                     </span>
                                     @endif
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-label">Deskripsi Kategori<span
+                                            class="text-danger">*</span></label>
+                                    <textarea type="text" class="form-control" name="sponsorship_category_description"
+                                        id="sponsorship_category_description" rows="4"
+                                        placeholder="Masukan deskripsi">{{ old('sponsorship_category_description') }}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -155,6 +164,8 @@
             success: function (data) {
                 if (data.status == 1) {
                     $('#sponsorship_category_name').val(data.result.sponsorship_category_name);
+                    $('#sponsorship_category_description').val(data.result
+                        .sponsorship_category_description);
                     $('.addModal .modal-title').text('Ubah Kategori Sponsorship');
                     $('.addModal').modal('show');
 

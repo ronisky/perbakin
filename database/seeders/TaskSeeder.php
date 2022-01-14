@@ -441,28 +441,28 @@ class TaskSeeder extends Seeder
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
-                'task_id'            => '6',
+                'task_id'            => '61',
                 'module_id'         => '16', //Histpry
                 'task_name'            => 'index',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
-                'task_id'            => '6',
+                'task_id'            => '62',
                 'module_id'         => '16', //Histpry
                 'task_name'            => 'create',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
-                'task_id'            => '6',
+                'task_id'            => '63',
                 'module_id'         => '16', //Histpry
                 'task_name'            => 'edit',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
             [
-                'task_id'            => '6',
+                'task_id'            => '64',
                 'module_id'         => '16', //Histpry
                 'task_name'            => 'delete',
                 'created_by'        => '1',
