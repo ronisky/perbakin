@@ -76,7 +76,7 @@
                                 <span class="text-dark">{{ Auth::user()->user_name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="/profile"><i class="align-middle mr-1"
+                                <a class="dropdown-item" href="/setting"><i class="align-middle mr-1"
                                         data-feather="user">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -84,7 +84,7 @@
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                             <circle cx="12" cy="7" r="4"></circle>
                                         </svg>
-                                    </i> Profil
+                                    </i>Setting Profil
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item logout" data-url="/logout">

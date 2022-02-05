@@ -71,7 +71,7 @@ class UserController extends Controller
         }
     }
 
-    public function profile()
+    public function settingProfile()
     {
         $getDetail  = $this->_userRepository->getById(Auth::user()->user_id);
 

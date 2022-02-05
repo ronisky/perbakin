@@ -180,14 +180,12 @@ class UsersController extends Controller
 
             if ($request['user_password'] == null) {
                 $dataUser = [
-                    'user_image' => $fileName,
                     'user_name' => $request->user_name,
                     'user_email' => $request->user_email,
                     'user_image'    => $fileName,
                 ];
             } else {
                 $dataUser = [
-                    'user_image'    => $fileName,
                     'user_name'     => $request->user_name,
                     'user_email'    => $request->user_email,
                     'user_image'    => $fileName,

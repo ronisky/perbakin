@@ -69,7 +69,7 @@
                             <div class="form-group mb-3">
                                 <label class="form-label">Email <span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" name="user_email" id="user_email"
-                                    placeholder="Masukan email pengguna"
+                                    placeholder="Masukan email pengguna" readonly
                                     value="{{ old('user_email') }}{{Auth::user()->user_email}}">
                                 @if ($errors->has('user_email'))
                                 <span class="text-danger">
