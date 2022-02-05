@@ -27,6 +27,6 @@ Route::post('/do_login',     [UserController::class, 'authenticate']);
 // Route::view('/', 			'layouts.landing');
 
 Route::get('/logout',             [UserController::class, 'logout'])->middleware('auth');
-Route::get('/setting',             [UserController::class, 'setting'])->middleware('auth');
+Route::get('/profile',             [UserController::class, 'profile'])->middleware('auth');
 Route::post('/changepassword',     [UserController::class, 'changepassword'])->middleware('auth');
     // });

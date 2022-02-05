@@ -39,6 +39,19 @@ Author: GrayGrids
         } else {
             backToTo.style.display = "none";
         }
+
+        var imageslogo = document.querySelector(".mobile-logo");
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            imageslogo.style.display = "none";
+        } else {
+            var x = window.matchMedia("(max-width: 700px)")
+            if (x.matches) {
+                imageslogo.style.display = "none";
+            } else {
+
+                imageslogo.style.display = "block";
+            }
+        }
     };
 
 
@@ -86,5 +99,27 @@ Author: GrayGrids
         navbarToggler.classList.toggle("active");
     });
 
+    $(document).ready(function () {
+        $('.customer-logos').slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 1500,
+            arrows: false,
+            dots: false,
+            pauseOnHover: false,
+            responsive: [{
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 4
+                }
+            }, {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 3
+                }
+            }]
+        });
+    });
 
 })();

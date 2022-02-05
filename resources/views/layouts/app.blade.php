@@ -56,17 +56,6 @@
                 <a href="/" target="blank" class="btn btn-outline-secondary mr-4">Home Website</a>
                 <br>
 
-                {{-- <form class="d-none d-sm-inline-block">
-                    <div class="input-group input-group-navbar">
-                        <input type="text" class="form-control" placeholder="Cari…" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn" type="button">
-                                <i class="align-middle" data-feather="search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form> --}}
-
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav navbar-align">
                         <li class="nav-item dropdown">
@@ -77,16 +66,17 @@
 
                             <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                                 data-toggle="dropdown">
-                                {{-- <img src="{{ url('img/avatars/avatar.jpg') }}"
-                                class="avatar img-fluid rounded-circle mr-1" alt="{{ $user->user_name }}" /> <span
-                                    class="text-dark">{{ $user->user_name }}</span> --}}
-                                <img src="{{ url('img/avatars/avatar.jpg') }}"
-                                    class="avatar img-fluid rounded-circle mr-1"
-                                    alt="{!! DataHelper::getUserLogin()->user_name !!}" /> <span class="text-dark">{!!
-                                    DataHelper::getUserLogin()->user_name !!}</span>
+                                @if(Auth::user()->user_image == NULL)
+                                <img src="{{url('img/avatars/profile.jpg')}}"
+                                    class="avatar img-fluid rounded-circle mr-1" alt="user_name" />
+                                @else
+                                <img src="{{asset('storage/uploads/images')}}/{{Auth::user()->user_image}}"
+                                    class="avatar img-fluid rounded-circle mr-1" alt="user_name" />
+                                @endif
+                                <span class="text-dark">{{ Auth::user()->user_name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="pages-profile.html"><i class="align-middle mr-1"
+                                <a class="dropdown-item" href="/profile"><i class="align-middle mr-1"
                                         data-feather="user">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -94,20 +84,10 @@
                                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                             <circle cx="12" cy="7" r="4"></circle>
                                         </svg>
-                                    </i> Ubah Password
+                                    </i> Profil
                                 </a>
-                                <a class="dropdown-item" href="#"><i class="align-middle mr-2 mb-1"
-                                        data-feather="unlock">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round"
-                                            class="feather feather-unlock">
-                                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                            <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-                                        </svg>
-                                    </i>Edit Data</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">
+                                <a class="dropdown-item logout" data-url="/logout">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" class="feather feather-log-out">
@@ -157,65 +137,6 @@
         integrity="sha512-wNs1j1Vo1t0stXW7Lz5QL6T7a/9ClH7/X10Q4jd3aIcRsFTTPh0gRkTxRk0jgXcloVwNIrvmkyStp99hMObegQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        // document.addEventListener("DOMContentLoaded", function () {
-        //     // Bar chart
-        //     new Chart(document.getElementById("chartjs-dashboard-bar"), {
-        //         type: "bar",
-        //         data: {
-        //             labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
-        //                 "Nov", "Dec"
-        //             ],
-        //             datasets: [{
-        //                 label: "Last year",
-        //                 backgroundColor: window.theme.primary,
-        //                 borderColor: window.theme.primary,
-        //                 hoverBackgroundColor: window.theme.primary,
-        //                 hoverBorderColor: window.theme.primary,
-        //                 data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
-        //                 barPercentage: .325,
-        //                 categoryPercentage: .5
-        //             }, {
-        //                 label: "This year",
-        //                 backgroundColor: window.theme["primary-light"],
-        //                 borderColor: window.theme["primary-light"],
-        //                 hoverBackgroundColor: window.theme["primary-light"],
-        //                 hoverBorderColor: window.theme["primary-light"],
-        //                 data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68],
-        //                 barPercentage: .325,
-        //                 categoryPercentage: .5
-        //             }]
-        //         },
-        //         options: {
-        //             maintainAspectRatio: false,
-        //             cornerRadius: 15,
-        //             legend: {
-        //                 display: false
-        //             },
-        //             scales: {
-        //                 yAxes: [{
-        //                     gridLines: {
-        //                         display: false
-        //                     },
-        //                     stacked: false,
-        //                     ticks: {
-        //                         stepSize: 20
-        //                     },
-        //                     stacked: true,
-        //                 }],
-        //                 xAxes: [{
-        //                     stacked: false,
-        //                     gridLines: {
-        //                         color: "transparent"
-        //                     },
-        //                     stacked: true,
-        //                 }]
-        //             }
-        //         }
-        //     });
-        // });
-
-    </script>
-    <script>
         document.addEventListener("DOMContentLoaded", function () {
             $("#datetimepicker-dashboard").datetimepicker({
                 inline: true,
@@ -225,37 +146,7 @@
         });
 
     </script>
-    {{-- <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Pie chart
-            new Chart(document.getElementById("chartjs-dashboard-pie"), {
-                type: "pie",
-                data: {
-                    labels: ["Direct", "Affiliate", "E-mail", "Other"],
-                    datasets: [{
-                        data: [2602, 1253, 541, 1465],
-                        backgroundColor: [
-                            window.theme.primary,
-                            window.theme.warning,
-                            window.theme.danger,
-                            "#E8EAED"
-                        ],
-                        borderWidth: 5,
-                        borderColor: window.theme.white
-                    }]
-                },
-                options: {
-                    responsive: !window.MSInputMethodContext,
-                    maintainAspectRatio: false,
-                    cutoutPercentage: 70,
-                    legend: {
-                        display: false
-                    }
-                }
-            });
-        });
 
-    </script> --}}
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             $(".table-data").DataTable({
@@ -311,7 +202,47 @@
 
     </script>
 
+    <script>
+        $('.logout').click(function () {
+            $('.logout').attr('disabled', true)
+            var url = $(this).attr('data-url');
+            Swal.fire({
+                title: 'Apakah anda yakin ingin Logout ?',
+                text: "",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya. Logout'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function (data) {
+                            if (result.isConfirmed) {
+                                Swal.fire(
+                                    'Berhasil!',
+                                    'Berhasil Logout.',
+                                    'success'
+                                ).then(() => {
+                                    location.reload()
+                                })
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            Swal.fire(
+                                'Gagal!',
+                                'Gagal Logout.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            })
+        });
 
+    </script>
 
 
     @yield('script')

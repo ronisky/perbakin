@@ -13,6 +13,7 @@ use Modules\Users\Repositories\UsersRepository;
 use App\Helpers\DataHelper;
 use App\Helpers\LogHelper;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -159,6 +160,61 @@ class UsersController extends Controller
         DB::commit();
 
         return redirect('users')->with('successMessage', 'Pengguna berhasil diubah');
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        DB::beginTransaction();
+
+        $getDetail  = $this->_usersRepository->getById($id);
+        $filePath = DataHelper::getFilePath(false, true);
+        if ($request->user_image <> "") {
+            if ($getDetail->user_image != null) {
+                Storage::delete('public/' . $filePath . $getDetail->user_image);
+            }
+
+            // update data
+            $file = $request->user_image;
+            $fileName = DataHelper::getFileName($file);
+            $request->file('user_image')->storeAs($filePath, $fileName, 'public');
+
+            if ($request['user_password'] == null) {
+                $dataUser = [
+                    'user_image' => $fileName,
+                    'user_name' => $request->user_name,
+                    'user_email' => $request->user_email,
+                    'user_image'    => $fileName,
+                ];
+            } else {
+                $dataUser = [
+                    'user_image'    => $fileName,
+                    'user_name'     => $request->user_name,
+                    'user_email'    => $request->user_email,
+                    'user_image'    => $fileName,
+                    'user_password' => Hash::make($request->user_password),
+                ];
+            }
+            $this->_usersRepository->update(array_merge($dataUser, DataHelper::_signParams(false, true)), $id);
+        } else {
+            if ($request['user_password'] == null) {
+                $dataUser = [
+                    'user_name' => $request->user_name,
+                    'user_email' => $request->user_email,
+                ];
+            } else {
+                $dataUser = [
+                    'user_name' => $request->user_name,
+                    'user_email' => $request->user_email,
+                    'user_password' => Hash::make($request->user_password),
+                ];
+            }
+            $this->_usersRepository->update(array_merge($dataUser, DataHelper::_signParams(false, true)), $id);
+        }
+
+        $this->_logHelper->store($this->module, $request->user_name, 'update');
+        DB::commit();
+
+        return redirect('profile')->with('message', 'Profil berhasil diubah');
     }
 
     /**

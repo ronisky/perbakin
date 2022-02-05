@@ -25,3 +25,8 @@ Route::prefix('users')->group(function () {
     Route::get('/show/{id}', [UsersController::class, 'show']);
     Route::post('/updatestatus/{id}', [UsersController::class, 'updatestatus']);
 });
+
+
+Route::prefix('profile')->group(function () {
+    Route::post('/update/{id}', [UsersController::class, 'updateProfile']);
+});

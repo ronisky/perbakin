@@ -75,6 +75,7 @@ class FaqController extends Controller
         $request['faq_email'] = Auth::user()->user_email;
         $request['faq_phone'] = Auth::user()->user_phone;
         $request['faq_nik'] = Auth::user()->user_kta;
+        $request['faq_status'] = 0;
 
         DB::beginTransaction();
         $this->_faqRepository->insert(DataHelper::_normalizeParams($request->all(), true));

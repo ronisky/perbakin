@@ -3,6 +3,8 @@
 namespace Modules\Club\Repositories;
 
 use App\Implementations\QueryBuilderImplementation;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ClubRepository extends QueryBuilderImplementation
 {
@@ -13,5 +15,18 @@ class ClubRepository extends QueryBuilderImplementation
     {
         $this->table = 'clubs';
         $this->pk = 'club_id';
+    }
+
+    public function getAllByParamsLimit(array $params, $limit)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table($this->table)
+                ->where($params)
+                ->limit($limit)
+                ->get();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

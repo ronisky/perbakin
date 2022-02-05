@@ -60,8 +60,14 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $club->club_name }}</td>
                                 <td>{{ $club->club_phone }}</td>
-                                <td>{{ $club->club_description }}</td>
-                                <td>
+                                <td title="{{ $club->club_description }}">
+                                    @php
+                                    $dataDes = substr($club->club_description, 0, 30);
+                                    $des = $dataDes . "...";
+                                    @endphp
+                                    {{ $des }}
+                                </td>
+                                <td title="{{ $club->club_logo_path }}">
                                     @php
                                     $fileName = substr($club->club_logo_path, 0, 20);
                                     $extension = pathinfo($club->club_logo_path, PATHINFO_EXTENSION);
@@ -129,8 +135,8 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Nomor Telepon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="club_phone" id="club_phone"
-                                        placeholder="Masukan telepon klub" value="{{ old('club_phone') }}"
+                                    <input type="number" class="form-control" name="club_phone" id="club_phone"
+                                        placeholder="Masukan telepon klub (0823..)" value="{{ old('club_phone') }}"
                                         maxlength="15">
                                 </div>
                             </div>
@@ -152,9 +158,9 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Nomor Whatsapp</label>
-                                    <input type="text" class="form-control" name="club_whatsapp" id="club_whatsapp"
-                                        placeholder="Masukan nomor whatsapp klub" value="{{ old('club_whatsapp') }}"
-                                        maxlength="15">
+                                    <input type="number" class="form-control" name="club_whatsapp" id="club_whatsapp"
+                                        placeholder="Masukan nomor whatsapp klub (0823..)"
+                                        value="{{ old('club_whatsapp') }}" maxlength="15">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -222,7 +228,7 @@
                                     <label class="form-label">Deskripsi Singakt tentang klub<span
                                             class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" name="club_description"
-                                        id="club_description" rows="4"
+                                        id="club_description" rows="4" maxlength="100"
                                         placeholder="Masukan deskripsi tentang klub">{{ old('club_description') }}</textarea>
                                 </div>
                             </div>
@@ -269,6 +275,13 @@
 
     };
 
+    function phone() {
+        $('#club_phone').keyup(function () {
+            let data = $('#club_phone').val();
+            $('#club_whatsapp').val(data);
+        })
+    }
+
     $('#change-logo-chose').change(function () {
         let data = $('#change-logo-chose').val();
         if (data == 1) {
@@ -279,6 +292,7 @@
     })
 
     $('.btnAdd').click(function () {
+        phone();
         document.getElementById("addForm").reset();
         let data_images = "";
         data_images = ``

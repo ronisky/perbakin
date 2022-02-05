@@ -178,7 +178,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Deskripsi Banner<span class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" name="banner_description"
-                                        id="banner_description" rows="4"
+                                        id="banner_description" rows="4" maxlength="100"
                                         placeholder="Masukan deskripsi banner">{{ old('banner_description') }}</textarea>
                                 </div>
                             </div>

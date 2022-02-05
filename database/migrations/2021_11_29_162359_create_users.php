@@ -21,6 +21,7 @@ class CreateUsers extends Migration
             $table->string('user_email', 100)->unique();
             $table->string('user_phone', 100)->unique();
             $table->string('user_password');
+            $table->string('user_image')->nullable();
             $table->date('user_active_date');
             $table->smallInteger('user_status')->default(0);
             $table->bigInteger('group_id')->unsigned();

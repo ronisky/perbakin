@@ -71,10 +71,11 @@ class UserController extends Controller
         }
     }
 
-    public function setting()
+    public function profile()
     {
+        $getDetail  = $this->_userRepository->getById(Auth::user()->user_id);
 
-        return view('user.setting');
+        return view('user.setting', compact('getDetail'));
     }
 
     public function changepassword(Request $request)

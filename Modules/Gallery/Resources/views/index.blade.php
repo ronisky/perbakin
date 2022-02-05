@@ -59,8 +59,14 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $gallery->gallery_title }}</td>
-                                <td>{{ $gallery->gallery_description }}</td>
-                                <td>
+                                <td title="{{ $gallery->gallery_description }}">
+                                    @php
+                                    $dataDes = substr($gallery->gallery_description, 0, 30);
+                                    $des = $dataDes . "...";
+                                    @endphp
+                                    {{ $des }}
+                                </td>
+                                <td title="{{ $gallery->gallery_image_path }}">
                                     @php
                                     $fileName = substr($gallery->gallery_image_path, 0, 20);
                                     $extension = pathinfo($gallery->gallery_image_path, PATHINFO_EXTENSION);
@@ -178,7 +184,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Deskripsi Gambar<span class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" name="gallery_description"
-                                        id="gallery_description" rows="4"
+                                        id="gallery_description" rows="4" maxlength="100"
                                         placeholder="Masukan deskripsi gallery">{{ old('gallery_description') }}</textarea>
                                 </div>
                             </div>

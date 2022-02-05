@@ -16,9 +16,10 @@ class CreateSponsorships extends Migration
         Schema::create('sponsorships', function (Blueprint $table) {
             $table->id('sponsorship_id');
             $table->unsignedBigInteger('sponsorship_category_id');
-            $table->string('sponsorship_name', 20);
+            $table->string('sponsorship_name', 50);
+            $table->enum('sponsorship_type', ['photo', 'video']);
             $table->text('sponsorship_description');
-            $table->string('sponsorship_duration', 10);
+            $table->smallInteger('sponsorship_duration');
             $table->date('sponsorship_start_date');
             $table->date('sponsorship_end_date');
             $table->string('sponsorship_resource_path');

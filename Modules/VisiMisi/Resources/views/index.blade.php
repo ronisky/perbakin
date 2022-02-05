@@ -59,7 +59,13 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $data->title }}</td>
-                                <td>{{ $data->description }}</td>
+                                <td>
+                                    @php
+                                    $description = substr($data->description, 0, 32);
+                                    $desc = $description . ' ...';
+                                    @endphp
+                                    {{ $desc }}
+                                </td>
                                 <td>
                                     @php
                                     $fileName = substr($data->image_path, 0, 20);
@@ -285,7 +291,7 @@
                         data_images_path);
 
                     $('#status_chose').show();
-                    $('.addModal .modal-title').text('Ubah banner');
+                    $('.addModal .modal-title').text('Ubah visi misi');
                     $('.addModal').modal('show');
 
                 }

@@ -130,7 +130,7 @@ class VisiMisiController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
-
+        // dd($id);
         $validator = Validator::make($request->all(), $this->_validationRules($id));
 
         if ($validator->fails()) {
@@ -286,7 +286,7 @@ class VisiMisiController extends Controller
             ];
         } else {
             return [
-                'title' => 'required,title,' . $id . ',visi_misi_id',
+                'title' => 'required',
                 'description' => "required",
             ];
         }

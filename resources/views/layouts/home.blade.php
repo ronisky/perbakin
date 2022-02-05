@@ -44,6 +44,92 @@
     </div>
     <!-- /End Preloader -->
 
+    <!-- Start Header Area -->
+    <header class="header navbar-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12">
+                    <div class="nav-inner">
+                        <!-- Start Navbar -->
+                        <nav class="navbar navbar-expand-lg">
+                            <a class="navbar-brand" href="{{ url('/') }}">
+                                <img src="{{ url('img/perbakin-logo-white.png') }}" alt="Logo">
+                            </a>
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a href="#home" class="page-scroll active"
+                                            aria-label="Toggle navigation">Home</a>
+                                    </li>
+                                    {{-- <li class="nav-item">
+                                    <a href="#about" class="page-scroll" aria-label="Toggle navigation">About Us</a>
+                                </li> --}}
+                                    <li class="nav-item">
+                                        <a href="#gallery" class="page-scroll"
+                                            aria-label="Toggle navigation">Gallery</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#clubes" class="page-scroll" aria-label="Toggle navigation">Clubes</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" aria-label="Toggle navigation">Artikel</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                            data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">More</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-4">
+                                            <li class="nav-item">
+                                                <a href="#about" aria-label="Toggle navigation">Tentang Kami</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#pengurus" aria-label="Toggle navigation">Pengurus</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="javascript:void(0)" aria-label="Toggle navigation">Sejarah</a>
+                                            </li>
+                                            <li class="nav-item"><a href="javascript:void(0)">Sponsorship</a>
+                                            </li>
+                                            <li class="nav-item"><a href="javascript:void(0)">Contact</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div> <!-- navbar collapse -->
+                            <div class="button add-list-button">
+                                <a href="{{ url('login') }}" class="btn">Login</a>
+                            </div>
+                        </nav>
+                        <!-- End Navbar -->
+                        <div class="container-fluid mobile-logo">
+                            <div class="row align-items-center">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <img class="mx-2 mb-2" style="width:auto; height: 60px;"
+                                        src="{{ url('img/logo.png') }}" alt="Logo">
+                                    <img class="mx-2 mb-2" style="width:auto; height: 60px;"
+                                        src="{{ url('img/logo.png') }}" alt="Logo">
+                                    <img class="mx-2 mb-2" style=" width:auto; height: 60px;"
+                                        src="{{ url('img/logo.png') }}" alt="Logo">
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </header>
+    <!-- End Header Area -->
+
     {{-- main content --}}
     <main class="content">
         @yield('content')
@@ -55,7 +141,7 @@
         <div class="footer-top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-12">
+                    <div class="col-lg-12 col-md-12 col-12">
                         <!-- Single Widget -->
                         <div class="single-footer f-about">
                             <div class="logo">
@@ -63,7 +149,8 @@
                                     <img src="{{ url('img/perbakin-logo-white.png') }}" alt="#">
                                 </a>
                             </div>
-                            <p>Making the world a better place through constructing elegant hierarchies.</p>
+                            <p>Mewujudkan Perbakin sebagai organisasi dengan tata kelola yang profesional dan melahirkan
+                                atlit petembak yang berprestasi internasional secara berkelanjutan dan mandiri.</p>
                             <ul class="social">
                                 <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a></li>
                                 <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a></li>
@@ -72,13 +159,13 @@
                                 <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
                                 <li><a href="javascript:void(0)"><i class="lni lni-pinterest"></i></a></li>
                             </ul>
-                            <p class="copyright-text">Designed and Developed by <a href="#" rel="nofollow"
-                                    target="_blank"></a>
+                            <p class="copyright-text">Designed and Developed with &#10084; by <a href="#" rel="nofollow"
+                                    target="_blank">Pesantech ID</a>
                             </p>
                         </div>
                         <!-- End Single Widget -->
                     </div>
-                    <div class="col-lg-8 col-md-8 col-12">
+                    {{-- <div class="col-lg-8 col-md-8 col-12">
                         <div class="row">
                             <div class="col-lg-3 col-md-6 col-12">
                                 <!-- Single Widget -->
@@ -137,7 +224,7 @@
                                 <!-- End Single Widget -->
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
