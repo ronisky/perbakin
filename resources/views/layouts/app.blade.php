@@ -1,4 +1,3 @@
-<?php use App\Helpers\DataHelper; ?>
 <!DOCTYPE html>
 <html lang="en">
 

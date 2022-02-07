@@ -12,6 +12,7 @@ use Modules\UserGroup\Repositories\UserGroupRepository;
 use Modules\Users\Repositories\UsersRepository;
 use App\Helpers\DataHelper;
 use App\Helpers\LogHelper;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -185,6 +186,10 @@ class UsersController extends Controller
                     'user_image'    => $fileName,
                 ];
             } else {
+                if (!Hash::check($request->user_password_check, Auth::user()->user_password)) {
+                    return redirect('setting')->with('errorMessage', 'Password salah!');
+                }
+
                 $dataUser = [
                     'user_name'     => $request->user_name,
                     'user_email'    => $request->user_email,
@@ -200,6 +205,10 @@ class UsersController extends Controller
                     'user_email' => $request->user_email,
                 ];
             } else {
+                if (!Hash::check($request->user_password_check, Auth::user()->user_password)) {
+                    return redirect('setting')->with('errorMessage', 'Password salah!');
+                }
+
                 $dataUser = [
                     'user_name' => $request->user_name,
                     'user_email' => $request->user_email,
@@ -212,7 +221,7 @@ class UsersController extends Controller
         $this->_logHelper->store($this->module, $request->user_name, 'update');
         DB::commit();
 
-        return redirect('profile')->with('message', 'Profil berhasil diubah');
+        return redirect('setting')->with('successMessage', 'Profil berhasil diubah');
     }
 
     /**
