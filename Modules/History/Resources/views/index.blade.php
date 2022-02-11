@@ -55,7 +55,12 @@
                             @foreach ($histories as $history)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ strip_tags($history->description)}}</td>
+                                <td title="{{ strip_tags($history->description) }}">
+                                    @php
+                                    $desc = substr(strip_tags($history->description), 0, 80);
+                                    @endphp
+                                    {{$desc}}
+                                </td>
                                 <td>
                                     @if($history->history_id > 0)
                                     <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
@@ -99,7 +104,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Deskripsi<span class="text-danger">*</span></label>
                                     <textarea rows="10" type="text" class="form-control summernote" name="description"
-                                        id="description"
+                                        id="description" required
                                         placeholder="Masukan deskripsi kategori artikel">{{ old('description') }}</textarea>
                                     @if ($errors->has('description'))
                                     <span class="text-danger">

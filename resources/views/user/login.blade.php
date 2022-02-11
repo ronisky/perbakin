@@ -44,7 +44,15 @@
                                         class="btn btn-lg btn-primary form-control form-control-lg">Masuk</button>
                                 </div>
                             </form>
-                            <a href="{{ url('/') }}">Kembali ke home</a>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <a href="{{ url('/') }}">Kembali ke home</a>
+                                </div>
+                                <div class="col-md-7">
+                                    <a href="{{ url('/') }}">Sudah terdaftar sebagai anggota?</a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

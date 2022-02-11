@@ -17,3 +17,35 @@ use Modules\Home\Http\Controllers\HomeController;
 Route::prefix('home')->group(function () {
     Route::get('/', [HomeController::class, 'index']);
 });
+
+Route::prefix('history')->group(function () {
+    Route::get('/', [HomeController::class, 'history']);
+});
+
+Route::prefix('sponsorships')->group(function () {
+    Route::get('/', [HomeController::class, 'sponsorships']);
+});
+
+Route::prefix('about-us')->group(function () {
+    Route::get('/', [HomeController::class, 'aboutUs']);
+});
+
+Route::prefix('management')->group(function () {
+    Route::get('/', [HomeController::class, 'management']);
+});
+
+Route::prefix('contact')->group(function () {
+    Route::get('/', [HomeController::class, 'contact']);
+});
+
+Route::prefix('gallery')->group(function () {
+    Route::get('/', [HomeController::class, 'gallery']);
+});
+
+Route::prefix('clube')->group(function () {
+    Route::get('/', [HomeController::class, 'clube']);
+});
+
+Route::prefix('articles')->group(function () {
+    Route::get('/', [HomeController::class, 'articles']);
+});

@@ -65,22 +65,26 @@
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
-                                        <a href="#home" class="page-scroll active"
-                                            aria-label="Toggle navigation">Home</a>
+                                        <a href="{{ url('/') }}" aria-label="Toggle navigation">Home</a>
+                                        {{-- <a href="#home" class="page-scroll active"
+                                            aria-label="Toggle navigation">Home</a> --}}
                                     </li>
                                     {{-- <li class="nav-item">
                                     <a href="#about" class="page-scroll" aria-label="Toggle navigation">About Us</a>
                                 </li> --}}
                                     <li class="nav-item">
-                                        <a href="#gallery" class="page-scroll"
-                                            aria-label="Toggle navigation">Gallery</a>
+                                        <a href="{{ url('gallery') }}" aria-label="Toggle navigation">Gallery</a>
+                                        {{-- <a href="#gallery" class="page-scroll"
+                                            aria-label="Toggle navigation">Gallery</a> --}}
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#clubes" class="page-scroll" aria-label="Toggle navigation">Clubes</a>
+                                        <a href="{{ url('clube') }}" aria-label="Toggle navigation">Clubes</a>
+                                        {{-- <a href="#clubes" class="page-scroll" aria-label="Toggle navigation">Clubes</a> --}}
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#articles" class="page-scroll"
-                                            aria-label="Toggle navigation">Article</a>
+                                        <a href="{{ url('articles') }}" aria-label="Toggle navigation">Articles</a>
+                                        {{-- <a href="#articles" class="page-scroll"
+                                            aria-label="Toggle navigation">Article</a> --}}
                                     </li>
                                     <li class="nav-item">
                                         <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
@@ -88,17 +92,20 @@
                                             aria-expanded="false" aria-label="Toggle navigation">More</a>
                                         <ul class="sub-menu collapse" id="submenu-1-4">
                                             <li class="nav-item">
-                                                <a href="#about" aria-label="Toggle navigation">Tentang Kami</a>
+                                                <a href="{{ url('about-us') }}" aria-label="Toggle navigation">Tentang
+                                                    Kami</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="#pengurus" aria-label="Toggle navigation">Pengurus</a>
+                                                <a href="{{ url('management') }}"
+                                                    aria-label="Toggle navigation">Pengurus</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="javascript:void(0)" aria-label="Toggle navigation">Sejarah</a>
+                                                <a href="{{ url('history') }}"
+                                                    aria-label="Toggle navigation">Sejarah</a>
                                             </li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Sponsorship</a>
+                                            <li class="nav-item"><a href="{{ url('sponsorships') }}">Sponsorship</a>
                                             </li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Contact</a></li>
+                                            <li class=" nav-item"><a href="{{ url('contact') }}">Contact</a></li>
                                         </ul>
                                     </li>
                                 </ul>
