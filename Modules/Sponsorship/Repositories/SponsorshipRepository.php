@@ -30,4 +30,35 @@ class SponsorshipRepository extends QueryBuilderImplementation
             return $e->getMessage();
         }
     }
+
+    public function getById($id)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table($this->table)
+                ->join('sponsorship_categories', 'sponsorship_categories.sponsorship_category_id', 'sponsorships.sponsorship_category_id')
+                ->select('sponsorships.*', 'sponsorship_categories.sponsorship_category_id', 'sponsorship_categories.sponsorship_category_name')
+                ->where($this->pk, '=', $id)
+                ->first();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+
+    public function getAllByParamsLimit(array $params, $limit)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table($this->table)
+                ->join('sponsorship_categories', 'sponsorship_categories.sponsorship_category_id', 'sponsorships.sponsorship_category_id')
+                ->select('sponsorships.*', 'sponsorship_categories.sponsorship_category_id', 'sponsorship_categories.sponsorship_category_name')
+                ->where($params)
+                ->limit($limit)
+                ->latest()
+                ->get();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

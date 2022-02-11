@@ -8,43 +8,43 @@
     <div class="container-fluid">
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                @php
+                {{-- @php
                 $slide = 0;
                 @endphp
                 @foreach ($banners as $banner)
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $slide }}"
-                    class="active" aria-current="true" aria-label="{{ $banner->banner_title }}"></button>
+                class="active" aria-current="true" aria-label="{{ $banner->banner_title }}"></button>
                 @php
                 $slide += 1;
                 @endphp
-                @endforeach
+                @endforeach --}}
             </div>
             <div class="carousel-inner">
-                @foreach ($banners as $banner)
+                {{-- @foreach ($banners as $banner)
                 <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                    <img src="{{ url('storage/uploads/images/'. $banner->banner_image_path) }}" class="d-block w-100"
-                        alt="{{ $banner->banner_title }}">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5 class="text-light">{{ $banner->banner_title }}</h5>
-                        <p>{{ $banner->banner_description }}</p>
-                    </div>
+                <img src="{{ url('storage/uploads/images/'. $banner->banner_image_path) }}" class="d-block w-100"
+                    alt="{{ $banner->banner_title }}">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="text-light">{{ $banner->banner_title }}</h5>
+                    <p>{{ $banner->banner_description }}</p>
                 </div>
-                @endforeach
-
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
+            @endforeach --}}
 
-        {{-- <div class="row align-items-center">
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    {{-- <div class="row align-items-center">
 
             <div class="col-lg-5 col-md-12 col-12">
                 <div class="hero-content">
@@ -69,6 +69,7 @@
         </div> --}}
     </div>
 </section>
+
 <!-- End Hero Area -->
 
 <!-- Start Sponsorship Area -->
@@ -83,26 +84,54 @@
             </div>
             <div class="col-lg-12 col-md-12 col-12">
                 <div class="row">
+                    @php
+                    $time = 2;
+                    @endphp
+                    @foreach ($sponsorships as $sponsorship)
                     <div class="col-lg-4 col-md-4 col-12 my-1">
-                        <img width="350" height="190" src="{{ url('/img/files/responsive.jpg') }}"
-                            alt=" Responsive image">
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-12  my-1">
-                        <div class="single-achievement wow fadeInUp" data-wow-delay=".4s">
-                            <iframe width="350" height="190" src="https://www.youtube.com/embed/23o3ia8p0ZY"
+                        @php
+                        $resource_data = str_contains($sponsorship->sponsorship_resource_path,
+                        'https://www.youtube.com/');
+                        @endphp
+                        @if(str_contains($sponsorship->sponsorship_resource_path, 'https://www.youtube.com/'))
+                        <div class="single-achievement wow fadeInUp" data-wow-delay=".{{$time}}s">
+                            <iframe width="350" height="190" src="{{ $sponsorship->sponsorship_resource_path }}"
                                 allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">
                             </iframe>
                         </div>
+                        @else
+                        <a href="{{ url('storage/uploads/images/'. $sponsorship->sponsorship_resource_path) }}"
+                            target="_blank">
+                            <img width="350" height="190"
+                                src="{{ url('storage/uploads/images/'. $sponsorship->sponsorship_resource_path) }}"
+                                alt="{{ $sponsorship->sponsorship_resource_path }}">
+                        </a>
+                        @endif
                     </div>
-                    <div class="col-lg-4 col-md-4 col-12  my-1">
-                        <div class="single-achievement wow fadeInUp" data-wow-delay=".6s">
-                            <iframe width="350" height="190" src="https://www.youtube.com/embed/23o3ia8p0ZY?controls=0">
-                            </iframe>
-                        </div>
+                    @php
+                    $time += 2;
+                    @endphp
+                    @endforeach
+
+                    {{-- <div class="col-lg-4 col-md-4 col-12 my-1">
+                        <img width="350" height="190" src="{{ url('/img/files/banner.jpg') }}" alt="Responsive image">
+                </div>
+                <div class="col-lg-4 col-md-4 col-12 my-1">
+                    <div class="single-achievement wow fadeInUp" data-wow-delay=".4s">
+                        <iframe width="350" height="190" src="https://www.youtube.com/embed/23o3ia8p0ZY"
+                            allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">
+                        </iframe>
                     </div>
                 </div>
+                <div class="col-lg-4 col-md-4 col-12 my-1">
+                    <div class="single-achievement wow fadeInUp" data-wow-delay=".6s">
+                        <iframe width="350" height="190" src="https://www.youtube.com/embed/23o3ia8p0ZY?controls=0">
+                        </iframe>
+                    </div>
+                </div> --}}
             </div>
         </div>
+    </div>
     </div>
 </section>
 <!-- End Sponsorship Area -->
@@ -121,29 +150,31 @@
                 </div>
             </div>
         </div>
-        @if (sizeof($visimisi) == 0)
+        @if (empty($visimisi))
+        <div class="row">
+        </div>
         @else
         <div class="row">
             @php
             $time = 2;
             @endphp
-            @foreach ($visimisi as $data)
+            {{-- @foreach ($visimisi as $data)
             <div class="col-lg-6 col-md-6 col-12">
                 <!-- Start Single Feature -->
                 <div class="single-feature wow fadeInUp" data-wow-delay=".{{$time}}s">
-                    <img src="{{ url('storage/uploads/images/'. $data->image_path) }}" alt="{{ $data->title }}"
-                        width="300" height="150" />
-                    <h3 class="mt-3">{{ $data->title }}</h3>
-                    <p>{{ $data->description }}</p>
-                </div>
-                <!-- End Single Feature -->
-            </div>
-            @php
-            $time += 2;
-            @endphp
-            @endforeach
+            <img src="{{ url('storage/uploads/images/'. $data->image_path) }}" alt="{{ $data->title }}" width="300"
+                height="150" />
+            <h3 class="mt-3">{{ $data->title }}</h3>
+            <p>{{ $data->description }}</p>
         </div>
-        @endif
+        <!-- End Single Feature -->
+    </div>
+    @php
+    $time += 2;
+    @endphp
+    @endforeach --}}
+    </div>
+    @endif
     </div>
 </section>
 <!-- End About Area -->
@@ -163,23 +194,23 @@
             @php
             $time_delay = 2;
             @endphp
-            @foreach ($galleries as $gallery)
+            {{-- @foreach ($galleries as $gallery)
             <div class="col-lg-4 col-md-6 col-12">
                 <!-- Start Single Feature -->
                 <div class="single-feature wow fadeInUp" data-wow-delay=".{{ $time_delay }}s">
-                    <img src="{{ url('storage/uploads/images/'. $gallery->gallery_image_path) }}"
-                        alt="{{ $gallery->gallery_title }}" width="300" height="200">
-                    <h3 class="mt-2">{{ $gallery->gallery_title }}</h3>
-                    <p>{{ $gallery->gallery_description }}</p>
-                </div>
-                <!-- End Single Feature -->
-            </div>
-            @php
-            $time_delay += 2;
-            @endphp
-            @endforeach
+            <img src="{{ url('storage/uploads/images/'. $gallery->gallery_image_path) }}"
+                alt="{{ $gallery->gallery_title }}" width="300" height="200">
+            <h3 class="mt-2">{{ $gallery->gallery_title }}</h3>
+            <p>{{ $gallery->gallery_description }}</p>
+        </div>
+        <!-- End Single Feature -->
+    </div>
+    @php
+    $time_delay += 2;
+    @endphp
+    @endforeach --}}
 
-            {{-- <div class="col-lg-4 col-md-6 col-12">
+    {{-- <div class="col-lg-4 col-md-6 col-12">
                 <!-- Start Single Feature -->
                 <div class="single-feature wow fadeInUp" data-wow-delay=".4s">
                     <img src="https://images.unsplash.com/photo-1620396270032-06cdac39833b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
@@ -229,7 +260,7 @@
                 </div>
                 <!-- End Single Feature -->
             </div> --}}
-        </div>
+    </div>
     </div>
 </section>
 <!-- End Gallery Area -->
@@ -290,41 +321,41 @@
             @php
             $time_delay = 2;
             @endphp
-            @foreach ($clubes as $club)
+            {{-- @foreach ($clubes as $club)
             <div class="col-lg-3 col-md-6 col-12">
                 <!-- Single Table -->
                 <div class="single-table wow fadeInUp" data-wow-delay=".2s">
                     <!-- Table Head -->
                     <div class="table-head">
                         <h4 class="title">{{ $club->club_name }}</h4>
-                        <div class="button">
-                            <img src="{{ url('storage/uploads/images/'. $club->club_logo_path) }}"
-                                alt="{{ $club->club_name }} " width="130" height="130">
-                        </div>
-                        <p class="mt-2">{{ $club->club_description }}</p>
-                    </div>
-
-                    <!-- End Table Head -->
-                    <!-- Start Table Content -->
-                    <div class="table-content">
-                        <h4 class="middle-title">Kontak yang bisa dihubungi</h4>
-                        <!-- Table List -->
-                        <ul class="table-list">
-                            <li><i class="lni lni-checkmark-circle"></i> Website : {{ $club->club_website }}</li>
-                            <li><i class="lni lni-checkmark-circle"></i> Whatsapp : {{ $club->club_whatsapp }}</li>
-                            <li><i class="lni lni-checkmark-circle"></i> Instagram : {{ $club->club_instagram }}</li>
-                        </ul>
-                        <!-- End Table List -->
-                    </div>
-                    <!-- End Table Content -->
-                </div>
-                <!-- End Single Table-->
+            <div class="button">
+                <img src="{{ url('storage/uploads/images/'. $club->club_logo_path) }}" alt="{{ $club->club_name }} "
+                    width="130" height="130">
             </div>
-            @php
-            $time_delay += 2;
-            @endphp
-            @endforeach
-            {{-- <div class="col-lg-3 col-md-6 col-12">
+            <p class="mt-2">{{ $club->club_description }}</p>
+        </div>
+
+        <!-- End Table Head -->
+        <!-- Start Table Content -->
+        <div class="table-content">
+            <h4 class="middle-title">Kontak yang bisa dihubungi</h4>
+            <!-- Table List -->
+            <ul class="table-list">
+                <li><i class="lni lni-checkmark-circle"></i> Website : {{ $club->club_website }}</li>
+                <li><i class="lni lni-checkmark-circle"></i> Whatsapp : {{ $club->club_whatsapp }}</li>
+                <li><i class="lni lni-checkmark-circle"></i> Instagram : {{ $club->club_instagram }}</li>
+            </ul>
+            <!-- End Table List -->
+        </div>
+        <!-- End Table Content -->
+    </div>
+    <!-- End Single Table-->
+    </div>
+    @php
+    $time_delay += 2;
+    @endphp
+    @endforeach --}}
+    {{-- <div class="col-lg-3 col-md-6 col-12">
                 <!-- Single Table -->
                 <div class="single-table wow fadeInUp" data-wow-delay=".2s">
                     <!-- Table Head -->
@@ -333,7 +364,7 @@
                         <p>Deskripsi singkat klub satu</p>
                         <div class="button">
                             <img src="{{ url('img/logo.png') }}" alt="#" width="130" height="130">
-        </div>
+    </div>
     </div>
     <!-- End Table Head -->
     <!-- Start Table Content -->

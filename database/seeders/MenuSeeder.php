@@ -185,7 +185,7 @@ class MenuSeeder extends Seeder
             ],
             [
                 'menu_id'            => '15',
-                'menu_name'         => 'Kategori Artikel',
+                'menu_name'         => 'Kategori Sponsorship',
                 'module_id'         => '10',
                 'menu_url'             => 'sponsorshipcategory',
                 'menu_icon'         => '',
@@ -264,6 +264,18 @@ class MenuSeeder extends Seeder
                 'menu_is_sub'       => '0',
                 'menu_parent_id'    => NULL,
                 'menu_position'     => '12',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
+            [
+                'menu_id'            => '22',
+                'menu_name'         => 'Sponsorship',
+                'module_id'         => '17',
+                'menu_url'             => 'sponsorship',
+                'menu_icon'         => '',
+                'menu_is_sub'         => '1',
+                'menu_parent_id'     => '14',
+                'menu_position'     => '2',
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],

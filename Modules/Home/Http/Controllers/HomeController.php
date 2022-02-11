@@ -9,12 +9,14 @@ use Illuminate\Routing\Controller;
 use Modules\Banner\Repositories\BannerRepository;
 use Modules\Club\Repositories\ClubRepository;
 use Modules\Gallery\Repositories\GalleryRepository;
+use Modules\Sponsorship\Repositories\SponsorshipRepository;
 use Modules\VisiMisi\Repositories\VisiMisiRepository;
 
 class HomeController extends Controller
 {
     public function __construct()
     {
+        $this->_sponsorshipRepository = new SponsorshipRepository;
         $this->_bannerRepository = new BannerRepository;
         $this->_clubRepository = new ClubRepository;
         $this->_galleryRepository = new GalleryRepository;
@@ -31,7 +33,9 @@ class HomeController extends Controller
         $galleries    = $this->_galleryRepository->getAllByParamsLimit(['gallery_status' => 1], 12);
         $clubes    = $this->_clubRepository->getAllByParamsLimit(['club_status' => 1], 8);
         $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
-        return view('home::index', compact('visimisi', 'galleries', 'clubes', 'banners'));
+        $sponsorships   = $this->_sponsorshipRepository->getAllByParamsLimit(['sponsorship_status' => 1], 3);
+
+        return view('home::index', compact('visimisi', 'galleries', 'clubes', 'banners', 'sponsorships'));
     }
 
     /**

@@ -331,15 +331,15 @@
         let id = $(this).attr('data-id');
         let url = "{{ url('faq/show') }}";
 
-        $('.detailModal .modal-title').text('Detail Data FAQ');
-        $('.detailModal').modal('show');
-
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
                 if (data.status == 1) {
+
+                    $('.detailModal .modal-title').text('Detail Data FAQ');
+                    $('.detailModal').modal('show');
 
                     $('.faq_name').val(': ' + data.result.faq_name);
                     $('.faq_email').val(': ' + data.result.faq_email);

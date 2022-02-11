@@ -44,6 +44,7 @@
                             <tr>
                                 <th width="5%">No</th>
                                 <th>Nama Kategori Sponsorship</th>
+                                <th>Sponsor tampil (hari)</th>
                                 <th>Deskripsi</th>
                                 <th width="15%">Aksi</th>
                             </tr>
@@ -58,6 +59,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $sponsorship_category->sponsorship_category_name }}</td>
+                                <td>{{ $sponsorship_category->day_show }}</td>
                                 <td>{{ $sponsorship_category->sponsorship_category_description }}</td>
                                 <td>
                                     @if($sponsorship_category->sponsorship_category_id > 0)
@@ -115,6 +117,12 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
+                                    <label class="form-label">Waktu Tampil Sponsorship<span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="day_show" id="day_show"
+                                        placeholder="Masukan jumlah hari tampil" value="{{ old('day_show') }}">
+                                </div>
+                                <div class="form-group">
                                     <label class="form-label">Deskripsi Kategori<span
                                             class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" name="sponsorship_category_description"
@@ -164,6 +172,7 @@
             success: function (data) {
                 if (data.status == 1) {
                     $('#sponsorship_category_name').val(data.result.sponsorship_category_name);
+                    $('#day_show').val(data.result.day_show);
                     $('#sponsorship_category_description').val(data.result
                         .sponsorship_category_description);
                     $('.addModal .modal-title').text('Ubah Kategori Sponsorship');
@@ -222,9 +231,11 @@
     $("#addForm").validate({
         rules: {
             sponsorship_category_name: "required",
+            day_show: "required",
         },
         messages: {
             sponsorship_category_name: "Nama kategori sponsorship tidak boleh kosong",
+            day_show: "Lama kategori tidak boleh kosong",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

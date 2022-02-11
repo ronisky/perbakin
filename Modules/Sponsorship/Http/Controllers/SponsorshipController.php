@@ -7,7 +7,10 @@ use App\Helpers\LogHelper;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Modules\Sponsorship\Repositories\SponsorshipRepository;
 use Modules\SponsorshipCategory\Repositories\SponsorshipCategoryRepository;
@@ -65,6 +68,57 @@ class SponsorshipController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
+
+        $validator = Validator::make($request->all(), $this->_validationRules($request, ''));
+
+        if ($validator->fails()) {
+            return redirect('sponsorship')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $sponsorship_category  = $this->_sponsorshipCategoryRepository->getById($request->sponsorship_category_id);
+        $endDate = date('Y-m-d', strtotime("$request->sponsorship_start_date +$sponsorship_category->day_show day"));
+
+
+        DB::beginTransaction();
+        if ($request->hasFile('sponsorship_resource_path')) {
+
+            $file = $request->sponsorship_resource_path;
+            $fileName = DataHelper::getFileName($file);
+            $filePath = DataHelper::getFilePath(false, true);
+            $request->file('sponsorship_resource_path')->storeAs($filePath, $fileName, 'public');
+
+            $dataSponsorship = [
+                'sponsorship_category_id' => $request->sponsorship_category_id,
+                'sponsorship_name' => $request->sponsorship_name,
+                'sponsorship_type' => $request->sponsorship_type,
+                'sponsorship_description' => $request->sponsorship_description,
+                'sponsorship_duration' => $sponsorship_category->day_show,
+                'sponsorship_start_date' => $request->sponsorship_start_date,
+                'sponsorship_end_date' => $endDate,
+                'sponsorship_resource_path' => $fileName,
+                'sponsorship_status' => 1,
+            ];
+        } else {
+            $dataSponsorship = [
+                'sponsorship_category_id' => $request->sponsorship_category_id,
+                'sponsorship_name' => $request->sponsorship_name,
+                'sponsorship_type' => $request->sponsorship_type,
+                'sponsorship_description' => $request->sponsorship_description,
+                'sponsorship_duration' => $sponsorship_category->day_show,
+                'sponsorship_start_date' => $request->sponsorship_start_date,
+                'sponsorship_end_date' => $endDate,
+                'sponsorship_resource_path' => $request->sponsorship_resource_path,
+                'sponsorship_status' => 1,
+            ];
+        }
+
+        $this->_sponsorshipRepository->insert(array_merge($dataSponsorship, DataHelper::_signParams(true)));
+        $this->_logHelper->store($this->module, $request->sponsorship_name, 'create');
+        DB::commit();
+
+        return redirect('sponsorship')->with('successMessage', 'Banner berhasil ditambahkan');
     }
 
     /**
@@ -78,7 +132,12 @@ class SponsorshipController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
-        return view('sponsorship::show');
+
+        $getDetail  = $this->_sponsorshipRepository->getById($id);
+        if ($getDetail)
+            return DataHelper::_successResponse($getDetail, 'Data berhasil ditemukan');
+        else
+            return DataHelper::_errorResponse(null, 'Data tidak ditemukan');
     }
 
     /**
@@ -107,6 +166,95 @@ class SponsorshipController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
+        $validator = Validator::make($request->all(), $this->_validationRules($request, $id));
+
+        if ($validator->fails()) {
+            return redirect('sponsorship')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $sponsorship_category  = $this->_sponsorshipCategoryRepository->getById($request->sponsorship_category_id);
+        $endDate = date('Y-m-d', strtotime("$request->sponsorship_start_date +$sponsorship_category->day_show day"));
+
+
+        DB::beginTransaction();
+        if ($request->hasFile('sponsorship_resource_path')) {
+
+            $filePath = DataHelper::getFilePath(false, true);
+            $getDetail  = $this->_sponsorshipRepository->getById($id);
+
+            // delete storage data
+            Storage::delete('public/' . $filePath . $getDetail->sponsorship_resource_path);
+
+            // store data file
+            $file = $request->sponsorship_resource_path;
+            $fileName = DataHelper::getFileName($file);
+            $request->file('sponsorship_resource_path')->storeAs($filePath, $fileName, 'public');
+
+            $dataSponsorship = [
+                'sponsorship_category_id' => $request->sponsorship_category_id,
+                'sponsorship_name' => $request->sponsorship_name,
+                'sponsorship_type' => $request->sponsorship_type,
+                'sponsorship_description' => $request->sponsorship_description,
+                'sponsorship_duration' => $sponsorship_category->day_show,
+                'sponsorship_start_date' => $request->sponsorship_start_date,
+                'sponsorship_end_date' => $endDate,
+                'sponsorship_resource_path' => $fileName,
+                'sponsorship_status' => 1,
+            ];
+        } elseif (str_contains($request->sponsorship_resource_path, 'https://www.youtube.com/')) {
+            $dataSponsorship = [
+                'sponsorship_category_id' => $request->sponsorship_category_id,
+                'sponsorship_name' => $request->sponsorship_name,
+                'sponsorship_type' => $request->sponsorship_type,
+                'sponsorship_description' => $request->sponsorship_description,
+                'sponsorship_duration' => $sponsorship_category->day_show,
+                'sponsorship_start_date' => $request->sponsorship_start_date,
+                'sponsorship_end_date' => $endDate,
+                'sponsorship_resource_path' => $request->sponsorship_resource_path,
+                'sponsorship_status' => 1,
+            ];
+        } else {
+            $dataSponsorship = [
+                'sponsorship_category_id' => $request->sponsorship_category_id,
+                'sponsorship_name' => $request->sponsorship_name,
+                'sponsorship_type' => $request->sponsorship_type,
+                'sponsorship_description' => $request->sponsorship_description,
+                'sponsorship_duration' => $sponsorship_category->day_show,
+                'sponsorship_start_date' => $request->sponsorship_start_date,
+                'sponsorship_end_date' => $endDate,
+                'sponsorship_status' => 1,
+            ];
+        }
+
+        $this->_sponsorshipRepository->update(array_merge($dataSponsorship, DataHelper::_signParams(false, true)), $id);
+        $this->_logHelper->store($this->module, $request->sponsorship_name, 'update');
+        DB::commit();
+
+        return redirect('sponsorship')->with('successMessage', 'Banner berhasil diubah');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param int $id
+     * @return Renderable
+     */
+    public function updatestatus(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->_sponsorshipRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
+            $this->_logHelper->store($this->module, $request->sponsorship_id, 'update');
+
+            DB::commit();
+            return DataHelper::_successResponse(null, 'Status banner berhasil diubah');
+        } catch (\Throwable $th) {
+
+            DB::rollBack();
+            return DataHelper::_errorResponse(null, 'Gagal mengubah data');
+        }
     }
 
     /**
@@ -120,6 +268,32 @@ class SponsorshipController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
+
+        // Check detail to db
+        $detail  = $this->_sponsorshipRepository->getById($id);
+
+        if (!$detail) {
+            return redirect('banner');
+        }
+
+        DB::beginTransaction();
+        $getDetail  = $this->_sponsorshipRepository->getById($id);
+        $filePath = DataHelper::getFilePath(false, true);
+
+        $dataImage = $getDetail->sponsorship_resource_path;
+
+        if (str_contains($dataImage, 'https://www.youtube.com/')) {
+            $this->_sponsorshipRepository->delete($id);
+        } else {
+            // delete storage data
+            Storage::delete('public/' . $filePath . $dataImage);
+            $this->_sponsorshipRepository->delete($id);
+        }
+        $this->_logHelper->store($this->module, $detail->sponsorship_name, 'delete');
+
+        DB::commit();
+
+        return DataHelper::_successResponse(null, 'Data berhasil dihapus');
     }
 
     /**
@@ -143,7 +317,7 @@ class SponsorshipController extends Controller
                 'sponsorship_name' => Rule::unique('sponsorships')->where(function ($query) use ($request) {
                     return $query->where('sponsorship_category_id', $request->sponsorship_category_id)
                         ->where('sponsorship_name', $request->sponsorship_name)
-                        ->where('sponsorship_level', $request->sponsorship_level)
+                        ->where('sponsorship_type', $request->sponsorship_type)
                         ->where('sponsorship_status', '1');
                 })
             ];
@@ -153,8 +327,11 @@ class SponsorshipController extends Controller
                     return $query->where('sponsorship_id',  $id)
                         ->where('sponsorship_category_id', $request->sponsorship_category_id)
                         ->where('sponsorship_name', $request->sponsorship_name)
-                        ->where('sponsorship_level', $request->sponsorship_level)
-                        ->where('sponsorship_status', '1');
+                        ->where('sponsorship_type', $request->sponsorship_type)
+                        ->where('sponsorship_start_date', $request->sponsorship_start_date)
+                        ->where('sponsorship_description', $request->sponsorship_description)
+                        ->where('sponsorship_resource_path', $request->sponsorship_resource_path)
+                        ->where('sponsorship_status', $request->sponsorship_status);
                 })
             ];
         }

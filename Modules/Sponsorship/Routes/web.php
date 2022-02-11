@@ -11,6 +11,15 @@
 |
 */
 
-Route::prefix('sponsorship')->group(function() {
-    Route::get('/', 'SponsorshipController@index');
+use Illuminate\Support\Facades\Route;
+use Modules\Sponsorship\Http\Controllers\SponsorshipController;
+
+Route::prefix('sponsorship')->group(function () {
+    Route::get('/', [SponsorshipController::class, 'index']);
+    Route::post('/store', [SponsorshipController::class, 'store']);
+    Route::post('/update/{id}', [SponsorshipController::class, 'update']);
+    Route::get('/delete/{id}', [SponsorshipController::class, 'destroy']);
+    Route::get('/getdata/{id}', [SponsorshipController::class, 'getdata']);
+    Route::get('/show/{id}', [SponsorshipController::class, 'show']);
+    Route::post('/updatestatus/{id}', [SponsorshipController::class, 'updatestatus']);
 });

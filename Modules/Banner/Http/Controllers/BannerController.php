@@ -159,8 +159,6 @@ class BannerController extends Controller
                 'banner_image_path' => $fileName,
                 'banner_status' => $request->banner_status,
             ];
-
-            $this->_bannerRepository->update(array_merge($dataBanner, DataHelper::_signParams(false, true)), $id);
         } else {
             // update data
             $dataBanner = [
@@ -168,10 +166,9 @@ class BannerController extends Controller
                 'banner_description' => $request->banner_description,
                 'banner_status' => $request->banner_status,
             ];
-
-            $this->_bannerRepository->update(array_merge($dataBanner, DataHelper::_signParams(false, true)), $id);
         }
 
+        $this->_bannerRepository->update(array_merge($dataBanner, DataHelper::_signParams(false, true)), $id);
         $this->_logHelper->store($this->module, $request->banner_title, 'update');
 
         DB::commit();
