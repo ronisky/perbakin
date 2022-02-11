@@ -144,7 +144,7 @@ class BannerController extends Controller
         $getDetail  = $this->_bannerRepository->getById($id);
         $filePath = DataHelper::getFilePath(false, true);
 
-        if ($request->banner_image_path <> "") {
+        if ($request->hasFile('banner_image_path')) {
             // delete storage data
             Storage::delete('public/' . $filePath . $getDetail->banner_image_path);
 

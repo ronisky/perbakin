@@ -12,7 +12,7 @@
     </title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url('img/logo.png') }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url('img/logo_perbakin.png') }}" />
 
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="{{ url('homeassets/css/bootstrap.min.css') }}" />
@@ -79,7 +79,8 @@
                                         <a href="#clubes" class="page-scroll" aria-label="Toggle navigation">Clubes</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" aria-label="Toggle navigation">Artikel</a>
+                                        <a href="#articles" class="page-scroll"
+                                            aria-label="Toggle navigation">Article</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
@@ -112,12 +113,18 @@
                                 <div class="col-md-4">
                                 </div>
                                 <div class="col-md-4">
-                                    <img class="mx-2 mb-2" style="width:auto; height: 60px;"
-                                        src="{{ url('img/logo.png') }}" alt="Logo">
-                                    <img class="mx-2 mb-2" style="width:auto; height: 60px;"
-                                        src="{{ url('img/logo.png') }}" alt="Logo">
-                                    <img class="mx-2 mb-2" style=" width:auto; height: 60px;"
-                                        src="{{ url('img/logo.png') }}" alt="Logo">
+                                    <a href="{{ url('img/logo_koni.png') }}" target="_blank">
+                                        <img class="mx-2 mb-2" style="width:auto; height: 60px;"
+                                            src="{{ url('img/logo_koni.png') }}" alt="Logo Koni">
+                                    </a>
+                                    <a href="{{ url('img/logo_perbakin.png') }}" target="_blank">
+                                        <img class="mx-2 mb-2" style="width:auto; height: 60px;"
+                                            src="{{ url('img/logo_perbakin.png') }}" alt="Logo Perbakin">
+                                    </a>
+                                    <a href="{{ url('img/logo_kab_bandung.png') }}" target="_blank">
+                                        <img class="mx-2 mb-2" style=" width:auto; height: 60px;"
+                                            src="{{ url('img/logo_kab_bandung.png') }}" alt="Logo Kab. Bandung">
+                                    </a>
                                 </div>
                                 <div class="col-md-4">
                                 </div>

@@ -23,7 +23,7 @@ class SponsorshipRepository extends QueryBuilderImplementation
             return DB::connection($this->db)
                 ->table($this->table)
                 ->join('sponsorship_categories', 'sponsorship_categories.sponsorship_category_id', 'sponsorships.sponsorship_category_id')
-                ->select('sponsorships.*', 'sponsorship_categories.sponsorship_category_id', 'sponsorship_categories.sponsorship_category_name')
+                ->select('sponsorships.*', 'sponsorship_categories.sponsorship_category_name')
                 ->latest()
                 ->get();
         } catch (Exception $e) {
@@ -37,7 +37,7 @@ class SponsorshipRepository extends QueryBuilderImplementation
             return DB::connection($this->db)
                 ->table($this->table)
                 ->join('sponsorship_categories', 'sponsorship_categories.sponsorship_category_id', 'sponsorships.sponsorship_category_id')
-                ->select('sponsorships.*', 'sponsorship_categories.sponsorship_category_id', 'sponsorship_categories.sponsorship_category_name')
+                ->select('sponsorships.*', 'sponsorship_categories.sponsorship_category_name')
                 ->where($this->pk, '=', $id)
                 ->first();
         } catch (Exception $e) {
@@ -52,7 +52,7 @@ class SponsorshipRepository extends QueryBuilderImplementation
             return DB::connection($this->db)
                 ->table($this->table)
                 ->join('sponsorship_categories', 'sponsorship_categories.sponsorship_category_id', 'sponsorships.sponsorship_category_id')
-                ->select('sponsorships.*', 'sponsorship_categories.sponsorship_category_id', 'sponsorship_categories.sponsorship_category_name')
+                ->select('sponsorships.*', 'sponsorship_categories.sponsorship_category_name')
                 ->where($params)
                 ->limit($limit)
                 ->latest()

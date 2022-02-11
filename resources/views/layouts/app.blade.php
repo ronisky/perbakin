@@ -17,7 +17,7 @@
     </title>
 
     <link rel="canonical" href="https://appstack.bootlab.io/dashboard-default.html" />
-    <link rel="shortcut icon" href="{{ url('img/logo.png') }}">
+    <link rel="shortcut icon" href="{{ url('img/logo_perbakin.png') }}">
     <link rel="stylesheet" href="{{ url('css/style-custom.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link class="stylesheet" href="{{ url('css/light.css') }}" rel="stylesheet">

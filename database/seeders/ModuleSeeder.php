@@ -117,6 +117,12 @@ class ModuleSeeder extends Seeder
                 'created_by'        => '1',
                 'created_at'        => date('Y-m-d H:i:s')
             ],
+            [
+                'module_id'            => '18',
+                'module_name'         => 'Article',
+                'created_by'        => '1',
+                'created_at'        => date('Y-m-d H:i:s')
+            ],
         ]);
     }
 }

@@ -19,7 +19,6 @@ class CreateArticles extends Migration
             $table->string('article_title');
             $table->text('article_content');
             $table->string('image_thumbnail_path');
-            $table->string('image_thumbnail_header');
             $table->string('article_author');
             $table->smallInteger('publish_status')->default(0);;
             $table->dateTime('created_at');

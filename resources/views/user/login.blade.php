@@ -18,7 +18,7 @@
                                 </p>
                             </div>
                             <div class="text-center">
-                                <img src="img/logo.png" width="220" height="200" />
+                                <img src="img/logo_perbakin.png" width="220" height="200" />
                             </div>
                             @if (session('error'))
                             <div class="alert alert-danger text-center p-2 mt-4">

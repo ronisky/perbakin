@@ -134,10 +134,10 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Banner</h5>
+                <h5 class="modal-title">Tambah Sponsorship</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('banner/store') }}" method="POST" id="addForm" enctype="multipart/form-data"
+            <form action="{{ url('sponsorship/store') }}" method="POST" id="addForm" enctype="multipart/form-data"
                 data-parsley-validate>
                 @csrf
                 <div class="modal-body">
@@ -216,7 +216,7 @@
                                     <label class="form-label">Status Sponsorship <span class="text-danger">*</span>
                                     </label>
                                     <select class="form-control" name="sponsorship_status" id="sponsorship_status">
-                                        <option value="">- Status Banner -</option>
+                                        <option value="">- Status Sponsorship -</option>
                                         <option value="{{ old('sponsorship_status') }}" selected="selected"></option>
                                         <option value="1">Aktif</option>
                                         <option value="0">Tidak Aktif</option>
@@ -483,7 +483,7 @@
                     }
 
                     $('#sponsorship_status_chose').show();
-                    $('.addModal .modal-title').text('Ubah banner');
+                    $('.addModal .modal-title').text('Ubah Sponsorship');
                     $('.addModal').modal('show');
 
                 }

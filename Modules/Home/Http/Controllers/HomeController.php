@@ -6,6 +6,7 @@ use App\Helpers\LogHelper;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Article\Repositories\ArticleRepository;
 use Modules\Banner\Repositories\BannerRepository;
 use Modules\Club\Repositories\ClubRepository;
 use Modules\Gallery\Repositories\GalleryRepository;
@@ -16,6 +17,7 @@ class HomeController extends Controller
 {
     public function __construct()
     {
+        $this->_articleRepository = new ArticleRepository;
         $this->_sponsorshipRepository = new SponsorshipRepository;
         $this->_bannerRepository = new BannerRepository;
         $this->_clubRepository = new ClubRepository;
@@ -34,8 +36,9 @@ class HomeController extends Controller
         $clubes    = $this->_clubRepository->getAllByParamsLimit(['club_status' => 1], 8);
         $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
         $sponsorships   = $this->_sponsorshipRepository->getAllByParamsLimit(['sponsorship_status' => 1], 3);
+        $articles   = $this->_articleRepository->getAllByParamsLimit(['publish_status' => 1], 8);
 
-        return view('home::index', compact('visimisi', 'galleries', 'clubes', 'banners', 'sponsorships'));
+        return view('home::index', compact('visimisi', 'galleries', 'clubes', 'banners', 'sponsorships', 'articles'));
     }
 
     /**
