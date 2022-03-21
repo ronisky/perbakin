@@ -30,7 +30,13 @@ class CreateLetters extends Migration
             $table->string('no_kta', 30);
             $table->string('membership', 100);
             $table->string('pemohon', 100);
-            $table->integer('letter_status');
+            $table->smallInteger('admin_status')->default(0);
+            $table->smallInteger('sekum_status')->default(0);
+            $table->smallInteger('ketua_status')->default(0);
+            $table->string('admin_note')->nullable();
+            $table->string('sekum_note')->nullable();
+            $table->string('ketua_note')->nullable();
+            $table->smallInteger('letter_status');
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();
             $table->dateTime('updated_at')->nullable();

@@ -166,11 +166,13 @@
                                     </select>
                                 </div>
                                 <div class="form-group change-image">
-                                    <label class="form-label">Pilih Image<span class="text-danger">*</span></label>
+                                    <label class="form-label">Pilih Image - (900x420px & max 5MB)<span
+                                            class="text-danger">*</span>
+                                    </label>
                                     <input type="file" class="form-control" name="banner_image_path"
                                         id="banner_image_path" value="{{ old('banner_image_path') }}"
                                         data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp)$/i"
-                                        data-parsley-error-message="Pilih gamabr dengan ekstensi jpg/jpeg/png/bmp"
+                                        data-parsley-error-message="Pilih gambar dengan ekstensi jpg/jpeg/png/bmp"
                                         required>
                                 </div>
                             </div>

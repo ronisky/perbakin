@@ -225,7 +225,7 @@
                                     'Berhasil Logout.',
                                     'success'
                                 ).then(() => {
-                                    location.reload()
+                                    window.location.replace('/');
                                 })
                             }
                         },

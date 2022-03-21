@@ -63,7 +63,7 @@
                                 <td>{{ $article->article_title }}</td>
                                 <td title="{{ $article->article_content}}">
                                     @php
-                                    $content = substr(strip_tags($article->article_content), 0, 30);
+                                    $content = substr(strip_tags(html_entity_decode($article->article_content)), 0, 30);
                                     @endphp
                                     {{ $content }}
                                 </td>

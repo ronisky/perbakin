@@ -65,11 +65,22 @@
                         <thead>
                             <tr>
                                 <th width="5%">No</th>
-                                <th width="20%">Nama Pengaju</th>
-                                <th width="15%">Klub asal</th>
-                                <th width="20%">Tanggal pengajuan</th>
-                                <th width="10%">Status Pengajuan</th>
-                                <th width="10%">Update Status</th>
+                                <th>Nama</th>
+                                <th>Klub</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
+                                @php
+                                if (Auth::user()->group_id == 1 || Auth::user()->group_id == 4) {
+                                echo '<th>Admin</th>';
+                                echo '<th>Sekum</th>';
+                                echo '<th>Ketua</th>';
+                                }elseif (Auth::user()->group_id == 2){
+                                echo '<th>Admin</th>';
+                                }elseif(Auth::user()->group_id == 3){
+                                echo '<th>Admin</th>';
+                                echo '<th>Sekum</th>';
+                                }
+                                @endphp
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
@@ -107,16 +118,115 @@
                                     @endphp
                                     <span class="{{ $class }}">{{ $letter_status }}</span>
                                 </td>
-                                <td>
-                                    <select class="form-control" name="letter_status_approval"
-                                        id="letter_status_approval" data-id="{{$letter->letter_id}}">
+                                @php
+                                if (Auth::user()->group_id == 1) {
+                                echo '<td>';
+                                    echo '<select class="form-control" name="letter_status_approval_admin"
+                                        id="letter_status_approval_admin" data-id="'.$letter->letter_id.'">
                                         <option value="" selected>Update Status</option>
-                                        <option value="2">Proses</option>
                                         <option value="3">Terima</option>
                                         <option value="4">Tolak</option>
+                                    </select>';
+                                    echo '</td>';
+                                echo '<td>';
+                                    echo '<select class="form-control" name="letter_status_approval_sekum"
+                                        id="letter_status_approval_sekum" data-id="'.$letter->letter_id.'">
+                                        <option value="" selected>Update Status</option>
+                                        <option value="3">Terima</option>
+                                        <option value="4">Tolak</option>
+                                    </select>';
+                                    echo '</td>';
+                                echo '<td>';
+                                    echo '<select class="form-control" name="letter_status_approval_ketua"
+                                        id="letter_status_approval_ketua" data-id="'.$letter->letter_id.'">
+                                        <option value="" selected>Update Status</option>
+                                        <option value="3">Terima</option>
+                                        <option value="4">Tolak</option>
+                                    </select>';
+                                    echo '</td>';
+                                }elseif(Auth::user()->group_id == 4){
+                                echo '<td>';
+                                    $status = $letter->admin_status;
 
-                                    </select>
-                                </td>
+                                    if($status == 1){
+                                    $admin_status = 'Pengajuan Baru';
+                                    $class = 'badge badge-success';
+                                    }elseif($status == 2){
+                                    $admin_status = 'Diproses';
+                                    $class = 'badge badge-warning';
+                                    }elseif($status == 3){
+                                    $admin_status = 'Diterima';
+                                    $class = 'badge badge-success';
+                                    }else {
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }
+                                    echo '<span class="'. $class .'">'. $admin_status .'</span>';
+                                    echo '</td>';
+                                echo '<td>';
+                                    $status = $letter->sekum_status;
+                                    if($status == 1){
+                                    $sekum_status = 'Pengajuan Baru';
+                                    $class = 'badge badge-success';
+                                    }elseif($status == 2){
+                                    $sekum_status = 'Diproses';
+                                    $class = 'badge badge-warning';
+                                    }elseif($status == 3){
+                                    $sekum_status = 'Diterima';
+                                    $class = 'badge badge-success';
+                                    }else {
+                                    $sekum_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }
+                                    echo '<span class="'. $class .'">'. $sekum_status .'</span>';
+                                    echo '</td>';
+                                echo '<td>';
+                                    echo '<select class="form-control" name="letter_status_approval_ketua"
+                                        id="letter_status_approval_ketua" data-id="'.$letter->letter_id.'">
+                                        <option value="" selected>Update Status</option>
+                                        <option value="3">Terima</option>
+                                        <option value="4">Tolak</option>
+                                    </select>';
+                                    echo '</td>';
+                                }elseif (Auth::user()->group_id == 2){
+                                echo '<td>';
+                                    echo '<select class="form-control" name="letter_status_approval_admin"
+                                        id="letter_status_approval_admin" data-id="'.$letter->letter_id.'">
+                                        <option value="" selected>Update Status</option>
+                                        <option value="3">Terima</option>
+                                        <option value="4">Tolak</option>
+                                    </select>';
+                                    echo '</td>';
+                                }elseif(Auth::user()->group_id == 3){
+                                echo '<td>';
+                                    $status = $letter->admin_status;
+
+                                    if($status == 1){
+                                    $admin_status = 'Pengajuan Baru';
+                                    $class = 'badge badge-success';
+                                    }elseif($status == 2){
+                                    $admin_status = 'Diproses';
+                                    $class = 'badge badge-warning';
+                                    }elseif($status == 3){
+                                    $admin_status = 'Diterima';
+                                    $class = 'badge badge-success';
+                                    }else {
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }
+                                    echo '<span class="'. $class .'">'. $admin_status .'</span>';
+                                    echo '</td>';
+                                echo '<td>';
+                                    echo '<select class="form-control" name="letter_status_approval_sekum"
+                                        id="letter_status_approval_sekum" data-id="'.$letter->letter_id.'">
+                                        <option value="" selected>Update Status</option>
+                                        <option value="3">Terima</option>
+                                        <option value="4">Tolak</option>
+                                    </select>';
+                                    echo '</td>';
+                                }
+                                @endphp
+
                                 <td>
                                     @if($letter->letter_id > 0)
                                     <a href="{{ url('recomendationletterapproval/printletter/'. $letter->letter_id) }}"
@@ -654,9 +764,10 @@
 
         }
     }
-    $('#letter_status_approval').change(function () {
+
+    $('#letter_status_approval_admin').change(function () {
         let id = $(this).attr('data-id');
-        let status = $('#letter_status_approval').val();
+        let status = $('#letter_status_approval_admin').val();
         let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
         Swal.fire({
             title: 'Ubah Status?',
@@ -668,23 +779,156 @@
             confirmButtonText: 'Ya, aktifkan!'
         }).then((result) => {
             if (result.isConfirmed) {
-
                 $.ajax({
                     type: 'POST',
                     data: {
-                        letter_status: status,
+                        status: 'admin',
+                        admin_status: status,
                         _token: '{{csrf_token()}}'
                     },
                     url: url,
                     success: function (data) {
+                        console.log(data);
+                        if (data.status == 1) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Update berhasil!',
+                                text: 'Status berhasil diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Update gagal!',
+                                text: 'Status gagal diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                            location.reload();
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
                         Swal.fire({
-                            icon: 'success',
-                            title: 'Update berhasil!',
-                            text: 'Status berhasil diupdate!',
+                            icon: 'error',
+                            title: 'Update gagal!',
+                            text: 'Status gagal diupdate!',
                             showConfirmButton: false,
                             timer: 2000
                         })
                         location.reload();
+                    }
+                })
+
+            } else {
+                location.reload()
+            }
+        })
+    })
+
+    $('#letter_status_approval_sekum').change(function () {
+        let id = $(this).attr('data-id');
+        let status = $('#letter_status_approval_sekum').val();
+        let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
+        Swal.fire({
+            title: 'Ubah Status?',
+            text: "Apakah anda yakin ingin mengubah status surat?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, aktifkan!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        status: 'sekum',
+                        sekum_status: status,
+                        _token: '{{csrf_token()}}'
+                    },
+                    url: url,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.status == 1) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Update berhasil!',
+                                text: 'Status berhasil diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Update gagal!',
+                                text: 'Status gagal diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                            location.reload();
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Update gagal!',
+                            text: 'Status gagal diupdate!',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                        location.reload();
+                    }
+                })
+
+            } else {
+                location.reload()
+            }
+        })
+    })
+
+    $('#letter_status_approval_ketua').change(function () {
+        let id = $(this).attr('data-id');
+        let status = $('#letter_status_approval_ketua').val();
+        let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
+        Swal.fire({
+            title: 'Ubah Status?',
+            text: "Apakah anda yakin ingin mengubah status surat?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, aktifkan!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        status: 'ketua',
+                        ketua_status: status,
+                        _token: '{{csrf_token()}}'
+                    },
+                    url: url,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.status == 1) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Update berhasil!',
+                                text: 'Status berhasil diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Update gagal!',
+                                text: 'Status gagal diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                            location.reload();
+                        }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         Swal.fire({

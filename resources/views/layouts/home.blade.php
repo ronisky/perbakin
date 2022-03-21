@@ -55,6 +55,62 @@
                             <a class="navbar-brand" href="{{ url('/') }}">
                                 <img src="{{ url('img/perbakin-logo-white.png') }}" alt="Logo">
                             </a>
+                            @php
+                            $url =url()->current();
+                            @endphp
+                            @if($url == url('/'))
+                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                                <span class="toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto">
+                                    <li class="nav-item">
+                                        <a href="#home" class="page-scroll active"
+                                            aria-label="Toggle navigation">Home</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#gallery" class="page-scroll"
+                                            aria-label="Toggle navigation">Gallery</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#clubs" class="page-scroll" aria-label="Toggle navigation">Clubs</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#articles" class="page-scroll"
+                                            aria-label="Toggle navigation">Article</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                            data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
+                                            aria-expanded="false" aria-label="Toggle navigation">More</a>
+                                        <ul class="sub-menu collapse" id="submenu-1-4">
+                                            <li class="nav-item">
+                                                <a href="#about" aria-label="Toggle navigation">Tentang
+                                                    Kami</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#management" aria-label="Toggle navigation">Pengurus</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ url('histories') }}"
+                                                    aria-label="Toggle navigation">Sejarah</a>
+                                            </li>
+                                            <li class="nav-item"><a href="#sponsorship">Sponsorship</a>
+                                            </li>
+                                            <li class=" nav-item"><a href="{{ url('contact') }}">Contact</a></li>
+                                            <li class="nav-item">
+                                                <a href="{{ url('login') }}" class="btn">Login</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            @else
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -66,25 +122,15 @@
                                 <ul id="nav" class="navbar-nav ms-auto">
                                     <li class="nav-item">
                                         <a href="{{ url('/') }}" aria-label="Toggle navigation">Home</a>
-                                        {{-- <a href="#home" class="page-scroll active"
-                                            aria-label="Toggle navigation">Home</a> --}}
                                     </li>
-                                    {{-- <li class="nav-item">
-                                    <a href="#about" class="page-scroll" aria-label="Toggle navigation">About Us</a>
-                                </li> --}}
                                     <li class="nav-item">
                                         <a href="{{ url('gallery') }}" aria-label="Toggle navigation">Gallery</a>
-                                        {{-- <a href="#gallery" class="page-scroll"
-                                            aria-label="Toggle navigation">Gallery</a> --}}
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ url('clube') }}" aria-label="Toggle navigation">Clubes</a>
-                                        {{-- <a href="#clubes" class="page-scroll" aria-label="Toggle navigation">Clubes</a> --}}
+                                        <a href="{{ url('clubs') }}" aria-label="Toggle navigation">Clubs</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ url('articles') }}" aria-label="Toggle navigation">Articles</a>
-                                        {{-- <a href="#articles" class="page-scroll"
-                                            aria-label="Toggle navigation">Article</a> --}}
                                     </li>
                                     <li class="nav-item">
                                         <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
@@ -100,19 +146,22 @@
                                                     aria-label="Toggle navigation">Pengurus</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="{{ url('history') }}"
+                                                <a href="{{ url('histories') }}"
                                                     aria-label="Toggle navigation">Sejarah</a>
                                             </li>
                                             <li class="nav-item"><a href="{{ url('sponsorships') }}">Sponsorship</a>
                                             </li>
                                             <li class=" nav-item"><a href="{{ url('contact') }}">Contact</a></li>
+                                            <li class="nav-item">
+                                                <a href="{{ url('login') }}" class="btn">Login</a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
                             </div> <!-- navbar collapse -->
-                            <div class="button add-list-button">
-                                <a href="{{ url('login') }}" class="btn">Login</a>
-                            </div>
+                            @endif
+
+
                         </nav>
                         <!-- End Navbar -->
                         <div class="container-fluid mobile-logo">
@@ -179,66 +228,6 @@
                         </div>
                         <!-- End Single Widget -->
                     </div>
-                    {{-- <div class="col-lg-8 col-md-8 col-12">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <!-- Single Widget -->
-                                <div class="single-footer f-link">
-                                    <h3>Solutions</h3>
-                                    <ul>
-                                        <li><a href="javascript:void(0)">Marketing</a></li>
-                                        <li><a href="javascript:void(0)">Analytics</a></li>
-                                        <li><a href="javascript:void(0)">Commerce</a></li>
-                                        <li><a href="javascript:void(0)">Insights</a></li>
-                                        <li><a href="javascript:void(0)">Promotion</a></li>
-                                    </ul>
-                                </div>
-                                <!-- End Single Widget -->
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <!-- Single Widget -->
-                                <div class="single-footer f-link">
-                                    <h3>Support</h3>
-                                    <ul>
-                                        <li><a href="javascript:void(0)">Pricing</a></li>
-                                        <li><a href="javascript:void(0)">Documentation</a></li>
-                                        <li><a href="javascript:void(0)">Guides</a></li>
-                                        <li><a href="javascript:void(0)">API Status</a></li>
-                                        <li><a href="javascript:void(0)">Live Support</a></li>
-                                    </ul>
-                                </div>
-                                <!-- End Single Widget -->
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <!-- Single Widget -->
-                                <div class="single-footer f-link">
-                                    <h3>Company</h3>
-                                    <ul>
-                                        <li><a href="javascript:void(0)">About Us</a></li>
-                                        <li><a href="javascript:void(0)">Our Blog</a></li>
-                                        <li><a href="javascript:void(0)">Jobs</a></li>
-                                        <li><a href="javascript:void(0)">Press</a></li>
-                                        <li><a href="javascript:void(0)">Contact Us</a></li>
-                                    </ul>
-                                </div>
-                                <!-- End Single Widget -->
-                            </div>
-                            <div class="col-lg-3 col-md-6 col-12">
-                                <!-- Single Widget -->
-                                <div class="single-footer f-link">
-                                    <h3>Legal</h3>
-                                    <ul>
-                                        <li><a href="javascript:void(0)">Terms & Conditions</a></li>
-                                        <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                                        <li><a href="javascript:void(0)">Catering Services</a></li>
-                                        <li><a href="javascript:void(0)">Customer Relations</a></li>
-                                        <li><a href="javascript:void(0)">Innovation</a></li>
-                                    </ul>
-                                </div>
-                                <!-- End Single Widget -->
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -258,6 +247,9 @@
     <script src="{{url('homeassets/js/glightbox.min.js')}}"></script>
     <script src="{{url('homeassets/js/count-up.min.js')}}"></script>
     <script src="{{url('homeassets/js/main.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         //====== counter up 
         var cu = new counterUp({
@@ -268,6 +260,34 @@
             append: " ",
         });
         cu.start();
+
+    </script>
+
+    {{-- notification show --}}
+    <script>
+        var notyfSuccess = new Notyf({
+            duration: 5000,
+            position: {
+                x: 'right',
+                y: 'top'
+            }
+        });
+        var notyfError = new Notyf({
+            duration: 0,
+            dismissible: true,
+            position: {
+                x: 'right',
+                y: 'top'
+            }
+        });
+        var msgSuccess = $('#successMessage').html()
+        if (msgSuccess !== undefined) {
+            notyfSuccess.success(msgSuccess)
+        }
+        var msgError = $('#errorMessage').html()
+        if (msgError !== undefined) {
+            notyfError.error(msgError)
+        }
 
     </script>
 </body>

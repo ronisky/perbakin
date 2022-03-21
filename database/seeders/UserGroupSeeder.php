@@ -25,11 +25,15 @@ class UserGroupSeeder extends Seeder
             ],
             [
                 'group_id'      => '3',
-                'group_name'     => 'Sekhum'
+                'group_name'     => 'Sekum'
             ],
             [
                 'group_id'      => '4',
                 'group_name'     => 'Ketua'
+            ],
+            [
+                'group_id'      => '5',
+                'group_name'     => 'Anggota'
             ],
         ]);
     }

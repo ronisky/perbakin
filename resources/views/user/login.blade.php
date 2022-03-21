@@ -28,7 +28,7 @@
                             <form action="{{ url('do_login') }}" method="post" autocomplete="off" id="loginForm">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Nomor KTA (Misal. 012312B)</label>
+                                    <label>Masukan Username</label>
                                     <input class="form-control form-control-lg" type="text" name="user_username"
                                         id="user_username" placeholder="Maksimal 7 karakter" maxlength="7" />
                                     <span class="text-warning text-small">Masukan tanpa "/" dan tahun, No KTA
@@ -45,11 +45,11 @@
                                 </div>
                             </form>
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <a href="{{ url('/') }}">Kembali ke home</a>
                                 </div>
-                                <div class="col-md-7">
-                                    <a href="{{ url('/') }}">Sudah terdaftar sebagai anggota?</a>
+                                <div class="col-md-6">
+                                    <a href="{{ url('/register') }}">Sudah punya KTA? Daftar disini</a>
                                 </div>
                             </div>
 
@@ -65,15 +65,6 @@
 
 @section('script')
 <script type="text/javascript">
-    var userUsername = document.querySelector('#user_username');
-
-    userUsername.addEventListener('input', restrictAlfaNumber);
-
-    function restrictAlfaNumber(e) {
-        var newValue = this.value.replace(new RegExp(/[^a-zA-Z0-9]/gi), "");
-        this.value = newValue;
-    }
-
     $("#loginForm").validate({
         rules: {
             user_username: "required",
@@ -94,6 +85,33 @@
         },
         unhighlight: function (element, errorClass, validClass) {
             $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+
+    // function for disable right right click 
+    window.oncontextmenu = function () {
+        return false;
+    }
+
+    // function for disable key shortcut
+    $(window).on('keydown', function (event) {
+        if (event.keyCode == 123) {
+            return false; //Prevent from f12
+        } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+            return false; //Prevent from ctrl+shift+i
+        } else if (event.ctrlKey &&
+            // event.keyCode === 67 ||
+            // event.keyCode === 86 ||
+            event.keyCode === 85 ||
+            event.keyCode === 117) {
+            return false;
+            /*
+            67  = c
+            86  = v
+            85  = u
+            117 = f6
+            */
         }
     });
 

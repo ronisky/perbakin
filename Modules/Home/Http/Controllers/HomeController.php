@@ -2,10 +2,12 @@
 
 namespace Modules\Home\Http\Controllers;
 
+use App\Helpers\DateFormatHelper;
 use App\Helpers\LogHelper;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Crypt;
 use Modules\Article\Repositories\ArticleRepository;
 use Modules\Banner\Repositories\BannerRepository;
 use Modules\Club\Repositories\ClubRepository;
@@ -37,19 +39,19 @@ class HomeController extends Controller
     {
         $visimisi    = $this->_visiMisiRepository->getAllByParams(['status' => 1]);
         $galleries    = $this->_galleryRepository->getAllByParamsLimit(['gallery_status' => 1], 12);
-        $clubes    = $this->_clubRepository->getAllByParamsLimit(['club_status' => 1], 8);
+        $clubs    = $this->_clubRepository->getAllByParamsLimit(['club_status' => 1], 8);
         $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
         $sponsorships   = $this->_sponsorshipRepository->getAllByParamsLimit(['sponsorship_status' => 1], 3);
         $articles   = $this->_articleRepository->getAllByParamsLimit(['publish_status' => 1], 8);
 
-        return view('home::index', compact('visimisi', 'galleries', 'clubes', 'banners', 'sponsorships', 'articles'));
+        return view('home::index', compact('visimisi', 'galleries', 'clubs', 'banners', 'sponsorships', 'articles'));
     }
 
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function history()
+    public function histories()
     {
         $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
         $histories   = $this->_historyRepository->getFirst();
@@ -108,12 +110,12 @@ class HomeController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function gallery()
+    public function galleries()
     {
         $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
         $galleries    = $this->_galleryRepository->getAllByParams(['gallery_status' => 1]);
 
-        return view('home::gallery', compact('banners', 'galleries'));
+        return view('home::galleries', compact('banners', 'galleries'));
     }
 
     /**
@@ -123,9 +125,9 @@ class HomeController extends Controller
     public function clube()
     {
         $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
-        $clubes    = $this->_clubRepository->getAllByParams(['club_status' => 1]);
+        $clubs    = $this->_clubRepository->getAllByParams(['club_status' => 1]);
 
-        return view('home::clube', compact('banners', 'clubes'));
+        return view('home::clube', compact('banners', 'clubs'));
     }
 
     /**
@@ -138,6 +140,36 @@ class HomeController extends Controller
         $articles   = $this->_articleRepository->getAllByParams(['publish_status' => 1]);
 
         return view('home::article', compact('banners', 'articles'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function detailArticle($id)
+    {
+        $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
+        $article   = $this->_articleRepository->getByParams(['publish_status' => 1, 'article_id' => Crypt::decrypt($id)]);
+        $image = $article->image_thumbnail_path;
+        $title = $article->article_title;
+        $content = $article->article_content;
+        $created = DateFormatHelper::dateEng($article->created_at);
+        return view('home::details', compact('banners', 'image', 'title', 'content', 'created'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function detailImage($id)
+    {
+        $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
+        $images   = $this->_galleryRepository->getByParams(['gallery_status' => 1, 'gallery_id' => Crypt::decrypt($id)]);
+        $image = $images->gallery_image_path;
+        $title = $images->gallery_title;
+        $content = $images->gallery_description;
+        $created = DateFormatHelper::dateEng($images->created_at);
+        return view('home::details', compact('banners', 'image', 'title', 'content', 'created'));
     }
 
 

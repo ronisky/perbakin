@@ -151,8 +151,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Nomor Website</label>
                                     <input type="text" class="form-control" name="club_website" id="club_website"
-                                        placeholder="Masukan link website klub" value="{{ old('club_website') }}"
-                                        maxlength="15">
+                                        placeholder="Masukan link website klub" value="{{ old('club_website') }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">

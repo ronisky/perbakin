@@ -66,9 +66,10 @@ class BannerController extends Controller
         $validator = Validator::make($request->all(), $this->_validationRules(''));
 
         if ($validator->fails()) {
-            return redirect('banner')
-                ->withErrors($validator)
-                ->withInput();
+            // return redirect('banner')
+            //     ->withErrors($validator)
+            //     ->withInput();
+            return redirect('banner')->with('errorMessage', 'Gagal menambahkan data! pastikan data yang anda masukan sesuai.');
         }
 
         DB::beginTransaction();
@@ -135,9 +136,10 @@ class BannerController extends Controller
         $validator = Validator::make($request->all(), $this->_validationRules($id));
 
         if ($validator->fails()) {
-            return redirect('banner')
-                ->withErrors($validator)
-                ->withInput();
+            // return redirect('banner')
+            //     ->withErrors($validator)
+            //     ->withInput();
+            return redirect('banner')->with('errorMessage', 'Gagal mengubah data! pastikan data yang anda masukan sesuai.');
         }
 
         DB::beginTransaction();
@@ -254,11 +256,13 @@ class BannerController extends Controller
             return [
                 'banner_title' => 'required|unique:banners',
                 'banner_description' => "required",
+                'banner_image_path' => 'required|max:5012|mimes:jpg,jpeg, bmp,png',
             ];
         } else {
             return [
                 'banner_title' => 'required|unique:banners,banner_title,' . $id . ',banner_id',
                 'banner_description' => "required",
+                'banner_image_path' => 'required|max:5012|mimes:jpg,jpeg, bmp,png',
             ];
         }
     }

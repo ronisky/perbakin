@@ -74,12 +74,12 @@
 </section>
 <!-- End Hero Area -->
 
-<section id="clubes" class="pricing-table section">
+<section id="clubs" class="pricing-table section">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="section-title">
-                    <h3 class="wow zoomIn" data-wow-delay=".2s">Our Clubes</h3>
+                    <h3 class="wow zoomIn" data-wow-delay=".2s">Our Clubs</h3>
                     <h2 class="wow fadeInUp" data-wow-delay=".4s">Klub Perbakin</h2>
                     <p class="wow fadeInUp" data-wow-delay=".6s">Mari bergabung barsama kami di klub yang anda sukai.
                     </p>
@@ -94,7 +94,7 @@
             @php
             $time_delay = 2;
             @endphp
-            @foreach ($clubes as $club)
+            @foreach ($clubs as $club)
             <div class="col-lg-3 col-md-6 col-12">
                 <!-- Single Table -->
                 <div class="single-table wow fadeInUp" data-wow-delay=".2s">
@@ -114,9 +114,11 @@
                         <h4 class="middle-title">Kontak yang bisa dihubungi</h4>
                         <!-- Table List -->
                         <ul class="table-list">
-                            <li><i class="lni lni-checkmark-circle"></i> Website : {{ $club->club_website }}</li>
-                            <li><i class="lni lni-checkmark-circle"></i> Whatsapp : {{ $club->club_whatsapp }}</li>
-                            <li><i class="lni lni-checkmark-circle"></i> Instagram : {{ $club->club_instagram }}</li>
+                            <li><i class="lni lni-checkmark-circle"></i> Website : <a href="{{ $club->club_website }}">
+                                    {{ $club->club_website }}</a></li>
+                            <li><i class="lni lni-checkmark-circle"></i> Email : {{ $club->club_email }}</li>
+                            <li><i class="lni lni-checkmark-circle"></i> Instagram : <a
+                                    href="{{ $club->club_instagram }}">{{ $club->club_instagram }}</a></li>
                         </ul>
                         <!-- End Table List -->
                     </div>

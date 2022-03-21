@@ -51,6 +51,21 @@ class FaqController extends Controller
         return view('faq::create');
     }
 
+    protected function _storeDataFaq($request)
+    {
+        $validator = Validator::make($request, $this->_validationRules(''));
+
+        if ($validator->fails()) {
+            return redirect('faq')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        DB::beginTransaction();
+        $this->_faqRepository->insert(DataHelper::_normalizeParams($request, true));
+        $this->_logHelper->store($this->module, $request['faq_question'], 'create');
+        DB::commit();
+    }
     /**
      * Store a newly created resource in storage.
      * @param Request $request
@@ -63,26 +78,24 @@ class FaqController extends Controller
             return redirect('unauthorize');
         }
 
-        $validator = Validator::make($request->all(), $this->_validationRules(''));
+        if ($request['faq_name'] == null) {
 
-        if ($validator->fails()) {
-            return redirect('faq')
-                ->withErrors($validator)
-                ->withInput();
+            $request['faq_name'] = Auth::user()->user_name;
+            $request['faq_email'] = Auth::user()->user_email;
+            $request['faq_phone'] = Auth::user()->user_phone;
+            $request['faq_nik'] = Auth::user()->user_kta;
+            $request['faq_status'] = 1;
+
+            $this->_storeDataFaq($request->all());
+
+            return redirect('faq')->with('successMessage', 'Data faq berhasil ditambahkan');
+        } else {
+            $request['faq_status'] = 0;
+
+            $this->_storeDataFaq($request->all());
+
+            return redirect('home/contact')->with('successMessage', 'Data faq berhasil ditambahkan');
         }
-
-        $request['faq_name'] = Auth::user()->user_name;
-        $request['faq_email'] = Auth::user()->user_email;
-        $request['faq_phone'] = Auth::user()->user_phone;
-        $request['faq_nik'] = Auth::user()->user_kta;
-        $request['faq_status'] = 0;
-
-        DB::beginTransaction();
-        $this->_faqRepository->insert(DataHelper::_normalizeParams($request->all(), true));
-        $this->_logHelper->store($this->module, $request->faq_question, 'create');
-        DB::commit();
-
-        return redirect('faq')->with('successMessage', 'Data faq berhasil ditambahkan');
     }
 
     /**
@@ -216,11 +229,19 @@ class FaqController extends Controller
     {
         if ($id == '') {
             return [
+                'faq_name' => 'required',
+                'faq_email' => 'required',
+                'faq_phone' => 'required',
+                'faq_nik' => 'required',
                 'faq_question' => 'required|unique:faqs',
             ];
         } else {
             return [
                 'faq_question' => 'required|unique:faqs,faq_question,' . $id . ',faq_id',
+                'faq_name' => 'required',
+                'faq_email' => 'required',
+                'faq_phone' => 'required',
+                'faq_nik' => 'required',
             ];
         }
     }

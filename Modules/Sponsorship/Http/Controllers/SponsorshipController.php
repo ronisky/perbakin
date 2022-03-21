@@ -84,6 +84,11 @@ class SponsorshipController extends Controller
         DB::beginTransaction();
         if ($request->hasFile('sponsorship_resource_path')) {
 
+            $validatorImage = Validator::make($request->all(), $this->_validationRulesImage());
+            if ($validatorImage->fails()) {
+                return redirect('sponsorship')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran gambar yang dimasukan sesuai.');
+            }
+
             $file = $request->sponsorship_resource_path;
             $fileName = DataHelper::getFileName($file);
             $filePath = DataHelper::getFilePath(false, true);
@@ -180,6 +185,10 @@ class SponsorshipController extends Controller
 
         DB::beginTransaction();
         if ($request->hasFile('sponsorship_resource_path')) {
+            $validatorImage = Validator::make($request->all(), $this->_validationRulesImage());
+            if ($validatorImage->fails()) {
+                return redirect('sponsorship')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran gambar yang dimasukan sesuai.');
+            }
 
             $filePath = DataHelper::getFilePath(false, true);
             $getDetail  = $this->_sponsorshipRepository->getById($id);
@@ -319,7 +328,7 @@ class SponsorshipController extends Controller
                         ->where('sponsorship_name', $request->sponsorship_name)
                         ->where('sponsorship_type', $request->sponsorship_type)
                         ->where('sponsorship_status', '1');
-                })
+                }),
             ];
         } else {
             return [
@@ -332,8 +341,14 @@ class SponsorshipController extends Controller
                         ->where('sponsorship_description', $request->sponsorship_description)
                         ->where('sponsorship_resource_path', $request->sponsorship_resource_path)
                         ->where('sponsorship_status', $request->sponsorship_status);
-                })
+                }),
             ];
         }
+    }
+    private function _validationRulesImage()
+    {
+        return [
+            'sponsorship_resource_path' => 'required|max:1|mimes:jpg,jpeg,bmp,png,gif',
+        ];
     }
 }

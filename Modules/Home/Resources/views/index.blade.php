@@ -126,14 +126,14 @@
                         @endphp
                         @if(str_contains($sponsorship->sponsorship_resource_path, 'https://www.youtube.com/'))
                         <div class="single-achievement wow fadeInUp" data-wow-delay=".{{$time}}s">
-                            <iframe width="350" height="190" src="{{ $sponsorship->sponsorship_resource_path }}"
+                            <iframe width="350" height="200" src="{{ $sponsorship->sponsorship_resource_path }}"
                                 allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">
                             </iframe>
                         </div>
                         @else
                         <a href="{{ url('storage/uploads/images/'. $sponsorship->sponsorship_resource_path) }}"
                             target="_blank">
-                            <img width="350" height="190"
+                            <img width="350" height="200"
                                 src="{{ url('storage/uploads/images/'. $sponsorship->sponsorship_resource_path) }}"
                                 alt="{{ $sponsorship->sponsorship_resource_path }}">
                         </a>
@@ -216,12 +216,14 @@
             @foreach ($galleries as $gallery)
             <div class="col-lg-4 col-md-6 col-12">
                 <!-- Start Single Feature -->
-                <div class="single-feature wow fadeInUp" data-wow-delay=".{{ $time_delay }}s">
-                    <img src="{{ url('storage/uploads/images/'. $gallery->gallery_image_path) }}"
-                        alt="{{ $gallery->gallery_title }}" width="300" height="200">
-                    <h3 class="mt-2">{{ $gallery->gallery_title }}</h3>
-                    <p>{{ $gallery->gallery_description }}</p>
-                </div>
+                <a href="{{ url('image/'. Crypt::encrypt($gallery->gallery_id)) }}">
+                    <div class="single-feature wow fadeInUp" data-wow-delay=".{{ $time_delay }}s">
+                        <img src="{{ url('storage/uploads/images/'. $gallery->gallery_image_path) }}"
+                            alt="{{ $gallery->gallery_title }}" width="300" height="200">
+                        <h3 class="mt-2">{{ $gallery->gallery_title }}</h3>
+                        <p>{{ $gallery->gallery_description }}</p>
+                    </div>
+                </a>
                 <!-- End Single Feature -->
             </div>
             @php
@@ -325,12 +327,12 @@
 <!-- End Achievement Area -->
 
 <!-- Start Clubes Table Area -->
-<section id="clubes" class="pricing-table section">
+<section id="clubs" class="pricing-table section">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="section-title">
-                    <h3 class="wow zoomIn" data-wow-delay=".2s">Our Clubes</h3>
+                    <h3 class="wow zoomIn" data-wow-delay=".2s">Our Clubs</h3>
                     <h2 class="wow fadeInUp" data-wow-delay=".4s">Klub Perbakin</h2>
                     <p class="wow fadeInUp" data-wow-delay=".6s">Mari bergabung barsama kami di klub yang anda sukai.
                     </p>
@@ -345,7 +347,7 @@
             @php
             $time_delay = 2;
             @endphp
-            @foreach ($clubes as $club)
+            @foreach ($clubs as $club)
             <div class="col-lg-3 col-md-6 col-12">
                 <!-- Single Table -->
                 <div class="single-table wow fadeInUp" data-wow-delay=".2s">
@@ -365,9 +367,16 @@
                         <h4 class="middle-title">Kontak yang bisa dihubungi</h4>
                         <!-- Table List -->
                         <ul class="table-list">
-                            <li><i class="lni lni-checkmark-circle"></i> Website : {{ $club->club_website }}</li>
-                            <li><i class="lni lni-checkmark-circle"></i> Whatsapp : {{ $club->club_whatsapp }}</li>
-                            <li><i class="lni lni-checkmark-circle"></i> Instagram : {{ $club->club_instagram }}</li>
+                            @php
+                            $dataWeb = substr($club->club_website, 0, 20);
+                            $dataWeb = $dataWeb . "...";
+                            @endphp
+
+                            <li><i class="lni lni-checkmark-circle"></i> Website : <a href="{{ $club->club_website }}">
+                                    {{ $dataWeb }}</a></li>
+                            <li><i class="lni lni-checkmark-circle"></i> Email : {{ $club->club_email }}</li>
+                            <li><i class="lni lni-checkmark-circle"></i> Instagram : <a
+                                    href="{{ $club->club_instagram }}">{{ $club->club_instagram }}</a></li>
                         </ul>
                         <!-- End Table List -->
                     </div>
@@ -385,8 +394,8 @@
 </section>
 <!--/ End Clubes Table Area -->
 
-<!-- Start Pengurus Area -->
-<section id="pengurus" class="features section">
+<!-- Start management Area -->
+<section id="management" class="features section">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -895,7 +904,7 @@
         </div>
     </div>
 </section>
-<!-- End Pengurus Area -->
+<!-- End management Area -->
 
 <!-- Start Articles Table Area -->
 <section id="articles" class="section">
@@ -915,7 +924,7 @@
                     @foreach ($articles as $article)
                     <!-- START PANEL -->
 
-                    <a href="{{ url('storage/uploads/images/'. $article->image_thumbnail_path) }}" target="_blank"
+                    <a href="{{ url('details/'. Crypt::encrypt($article->article_id)) }}" target="_blank"
                         style="text-decoration: none;">
                         <div class="cover-item" title="{{ $article->article_title }}">
                             <p class="text text-center mx-1 my-1">

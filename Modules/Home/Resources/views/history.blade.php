@@ -81,13 +81,12 @@
                 <div class="section-title">
                     <h3 class="wow zoomIn" data-wow-delay=".2s">Sejarah</h3>
                     <h2 class="wow fadeInUp" data-wow-delay=".4s">Perbakin</h2>
-                    <p class="wow fadeInUp" data-wow-delay=".6s">Mari bergabung barsama kami di klub yang anda sukai.
-                    </p>
                 </div>
             </div>
         </div>
         <div class="row">
-            <p class="wow fadeInUp" data-wow-delay=".6s">{{ strip_tags($histories->description) }}</p>
+            <p class="wow fadeInUp" data-wow-delay=".6s">{{ strip_tags($histories->description) }}
+            </p>
         </div>
     </div>
 </section>

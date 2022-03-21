@@ -3,6 +3,11 @@
 
 @section('content')
 
+@if (session('successMessage'))
+<strong id="successMessage" hidden>{{ session('successMessage') }}</strong>
+@elseif(session('errorMessage'))
+<strong id="errorMessage" hidden>{{ session('errorMessage') }}</strong>
+@endif
 <!-- Start Hero Area -->
 <section id="home" class="hero-area">
     <div class="container-fluid">
@@ -80,13 +85,98 @@
             <div class="col-12">
                 <div class="section-title">
                     <h3 class="wow zoomIn" data-wow-delay=".2s">Contact Us</h3>
-                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Kontak dan Sosial Media Kami</h2>
-                    <p class="wow fadeInUp" data-wow-delay=".6s">Anda bisa mengikuti sosial media kami, atau anda bisa
-                        menghubungi kami jika diperlukan melalui email atau kontak yang tersedia</p>
+                    <h2 class="wow fadeInUp" data-wow-delay=".4s">Pertanyaan yang sering ditanyakan</h2>
                 </div>
             </div>
 
+            <div class="accordion" id="accordionExample">
+                @foreach ($faqs as $faq)
+                @php
+                $no = 0;
+                @endphp
+                <div class="card row mb-2">
+                    <div class="card-header" id="heading{{ $no }}">
+                        <h4 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse"
+                                data-target="#collapse{{ $no }}" aria-expanded="false"
+                                aria-controls="collapse{{ $no }}">
+                                {{ $faq->faq_question }}?
+                            </button>
+                        </h4>
+                    </div>
+
+                    <div id="collapse{{ $no }}" class="collapse show" aria-labelledby="heading{{ $no }}"
+                        data-parent="#accordionExample">
+                        <div class="card-body">
+                            {{ strip_tags($faq->faq_description) }}
+                        </div>
+                    </div>
+                </div>
+                @php
+                $no++
+                @endphp
+                @endforeach
+            </div>
+
+            <div class="col-md-12">
+                <h3 class="center">Ajukan pertanyaan?</h3>
+                <form action="{{ url('faq/store') }}" method="POST" id="addFaqForm">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Nama Lengkap<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="faq_name" id="faq_name"
+                                            placeholder="Masukan nama lengkap" value="{{ old('faq_name') }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Alamat Email<span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" name="faq_email" id="faq_email"
+                                            placeholder="Masukan alamat email" value="{{ old('faq_email') }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Nomor Hp / Telp.<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" maxlength="15" class="form-control" name="faq_phone"
+                                            id="faq_phone" placeholder="Masukan no Hp / Telp."
+                                            value="{{ old('faq_phone') }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Masukan Nomor Induk Kependudukan<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" maxlength="16" onkeypress='validate()' class="form-control"
+                                            name="faq_nik" id="faq_nik" placeholder="Masukan NIK Anda"
+                                            value="{{ old('faq_nik') }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Masukan Pertanyaan<span
+                                                class="text-danger">*</span></label>
+                                        <textarea type="text" class="form-control" name="faq_question" id="faq_question"
+                                            rows="4" maxlength="100" required
+                                            placeholder="Masukan pertanyaan anda">{{ old('faq_question') }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Kirim</button>
+                    </div>
+                </form>
+            </div>
+
             <div class="row">
+                <p class="wow fadeInUp mt-5 mb-3" data-wow-delay=".6s">Anda bisa mengikuti sosial media kami, atau anda
+                    bisa
+                    menghubungi kami jika diperlukan melalui email atau kontak yang tersedia</p>
                 <div class="col-md-2 text-center">
                     <a href="javascript:void(0)"><svg width="25" height="24" viewBox="0 0 25 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -119,4 +209,56 @@
     </div>
 </section>
 
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    function validate(evt) {
+        var theEvent = evt || window.event;
+
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+            // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if (!regex.test(key)) {
+            theEvent.returnValue = false;
+            if (theEvent.preventDefault) theEvent.preventDefault();
+        }
+    }
+
+    $("#addFaqForm").validate({
+        rules: {
+            faq_name: "required",
+            faq_email: "required",
+            faq_phone: "required",
+            faq_nik: "required",
+            faq_question: "required",
+        },
+        messages: {
+            faq_name: "Nama tidak boleh kosong",
+            faq_email: "Email tidak boleh kosong",
+            faq_phone: "Nomor Hp / Telp. tidak boleh kosong",
+            faq_nik: "NIK tidak boleh kosong",
+            faq_question: "Pertanyaan tidak boleh kosong",
+        },
+        errorElement: "em",
+        errorClass: "invalid-feedback",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            $(element).parents('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+</script>
 @endsection

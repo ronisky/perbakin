@@ -235,12 +235,13 @@
                                     </select>
                                 </div>
                                 <div class="form-group change-image">
-                                    <label class="form-label">Pilih Image<span class="text-danger">*</span></label>
+                                    <label class="form-label">Pilih Gambar - (max 5MB)<span
+                                            class="text-danger">*</span></label>
                                     <input type="file" class="form-control sponsorship_resource_path"
                                         name="sponsorship_resource_path" id="sponsorship_resource_path"
                                         value="{{ old('sponsorship_resource_path') }}"
-                                        data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp)$/i"
-                                        data-parsley-error-message="Pilih gamabr dengan ekstensi jpg/jpeg/png/bmp"
+                                        data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp|\.gif)$/i"
+                                        data-parsley-error-message="Pilih gambar dengan ekstensi jpg/jpeg/png/bmp/gif"
                                         required>
                                 </div>
                                 <div class="form-group change-video">
@@ -345,6 +346,21 @@
 
 @section('script')
 <script type="text/javascript">
+    var arry = [
+        [1, "Convention Hall", 10],
+        [2, "Auditorium", 11],
+        [3, "CenterHall", 10],
+    ];
+    var x = arry.sort(function (a, b) {
+        return a[0] < b[0] ? 1 : -1;
+    });
+
+    console.log(x);
+    var hasil = x.sort(function (c, d) {
+        return c[2] > d[2] ? 1 : -1;
+    })
+    console.log(hasil);
+
     $('.change-image').hide();
     $('.change-video').hide();
 

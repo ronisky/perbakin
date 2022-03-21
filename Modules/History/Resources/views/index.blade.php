@@ -55,11 +55,12 @@
                             @foreach ($histories as $history)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td title="{{ strip_tags($history->description) }}">
+                                <td title="{{ strip_tags(html_entity_decode($history->description)) }}">
                                     @php
-                                    $desc = substr(strip_tags($history->description), 0, 80);
+                                    $desc = substr(strip_tags(html_entity_decode($history->description)), 0, 80);
+                                    $description = $desc."....";
                                     @endphp
-                                    {{$desc}}
+                                    {{$description}}
                                 </td>
                                 <td>
                                     @if($history->history_id > 0)
