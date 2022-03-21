@@ -31,8 +31,6 @@
                                     <label>Masukan Username</label>
                                     <input class="form-control form-control-lg" type="text" name="user_username"
                                         id="user_username" placeholder="Maksimal 7 karakter" maxlength="7" />
-                                    <span class="text-warning text-small">Masukan tanpa "/" dan tahun, No KTA
-                                        0123/12/B/2023 masukan 012312B </span>
                                 </div>
                                 <div class="form-group">
                                     <label>Kata Sandi</label>
