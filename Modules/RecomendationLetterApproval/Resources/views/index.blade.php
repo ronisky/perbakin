@@ -121,27 +121,30 @@
                                 @php
                                 if (Auth::user()->group_id == 1) {
                                 echo '<td>';
-                                    echo '<select class="form-control" name="letter_status_approval_admin"
-                                        id="letter_status_approval_admin" data-id="'.$letter->letter_id.'">
+                                    echo '<select class="form-control" id="letter_approval_admin"
+                                        name="letter_status_approval_admin" data-id="'.$letter->letter_id.'"
+                                        data-user="admin">
                                         <option value="" selected>Update Status</option>
-                                        <option value="3">Terima</option>
-                                        <option value="4">Tolak</option>
+                                        <option data-value="1" value="1">Terima</option>
+                                        <option data-value="2" value="2">Tolak</option>
                                     </select>';
                                     echo '</td>';
                                 echo '<td>';
-                                    echo '<select class="form-control" name="letter_status_approval_sekum"
-                                        id="letter_status_approval_sekum" data-id="'.$letter->letter_id.'">
+                                    echo '<select class="form-control" id="letter_approval_sekum"
+                                        name="letter_status_approval_sekum" data-id="'.$letter->letter_id.'"
+                                        data-user="sekum">
                                         <option value="" selected>Update Status</option>
-                                        <option value="3">Terima</option>
-                                        <option value="4">Tolak</option>
+                                        <option value="1">Terima</option>
+                                        <option value="2">Tolak</option>
                                     </select>';
                                     echo '</td>';
                                 echo '<td>';
-                                    echo '<select class="form-control" name="letter_status_approval_ketua"
-                                        id="letter_status_approval_ketua" data-id="'.$letter->letter_id.'">
+                                    echo '<select class="form-control" id="letter_approval_ketua"
+                                        name="letter_status_approval_ketua" data-id="'.$letter->letter_id.'"
+                                        data-user="ketua">
                                         <option value="" selected>Update Status</option>
-                                        <option value="3">Terima</option>
-                                        <option value="4">Tolak</option>
+                                        <option value="1">Terima</option>
+                                        <option value="2">Tolak</option>
                                     </select>';
                                     echo '</td>';
                                 }elseif(Auth::user()->group_id == 4){
@@ -181,20 +184,22 @@
                                     echo '<span class="'. $class .'">'. $sekum_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
-                                    echo '<select class="form-control" name="letter_status_approval_ketua"
-                                        id="letter_status_approval_ketua" data-id="'.$letter->letter_id.'">
+                                    echo '<select class="form-control" id="letter_approval_ketua"
+                                        name="letter_status_approval_ketua" data-id="'.$letter->letter_id.'"
+                                        data-user="ketua">
                                         <option value="" selected>Update Status</option>
-                                        <option value="3">Terima</option>
-                                        <option value="4">Tolak</option>
+                                        <option value="1">Terima</option>
+                                        <option value="2">Tolak</option>
                                     </select>';
                                     echo '</td>';
                                 }elseif (Auth::user()->group_id == 2){
                                 echo '<td>';
-                                    echo '<select class="form-control" name="letter_status_approval_admin"
-                                        id="letter_status_approval_admin" data-id="'.$letter->letter_id.'">
+                                    echo '<select class="form-control" id="letter_approval_admin"
+                                        name="letter_status_approval_admin" data-id="'.$letter->letter_id.'"
+                                        data-user="admin">
                                         <option value="" selected>Update Status</option>
-                                        <option value="3">Terima</option>
-                                        <option value="4">Tolak</option>
+                                        <option value="1">Terima</option>
+                                        <option value="2">Tolak</option>
                                     </select>';
                                     echo '</td>';
                                 }elseif(Auth::user()->group_id == 3){
@@ -217,11 +222,12 @@
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
-                                    echo '<select class="form-control" name="letter_status_approval_sekum"
-                                        id="letter_status_approval_sekum" data-id="'.$letter->letter_id.'">
+                                    echo '<select class="form-control" id="letter_approval_sekum"
+                                        name="letter_status_approval_sekum" data-id="'.$letter->letter_id.'"
+                                        data-user="sekum">
                                         <option value="" selected>Update Status</option>
-                                        <option value="3">Terima</option>
-                                        <option value="4">Tolak</option>
+                                        <option value="1">Terima</option>
+                                        <option value="2">Tolak</option>
                                     </select>';
                                     echo '</td>';
                                 }
@@ -358,7 +364,7 @@
                                     <label class="form-label">Nomor KTA PB-Perbakin <span
                                             class="text-danger">*</span></label>
                                     <input type="string" class="form-control" name="no_kta" id="no_kta"
-                                        placeholder="Masukan nomor KTA PB-Perbakin">
+                                        placeholder="Masukan nomor KTA PB-Perbakin" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -709,6 +715,62 @@
     </div>
 </div>
 <!-- Modal Add -->
+
+{{-- Reject Letter Modal --}}
+<div class="modal fade rejectLetter" id="rejectLetter" tabindex="-1" role="dialog" aria-labelledby="rejectLetterLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rejectLetterLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url('recomendationletterapproval/updatestatus') }}" method="POST"
+                    id="rejectLetterForm">
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input type="hidden" id="letter-id">
+                                <input type="hidden" id="data-user">
+                                <input type="hidden" id="data-status-code">
+                                <legend class="col-form-label col-sm-5 pt-0"><strong>Pilih Catatan Penolakan</strong>
+                                </legend>
+                                <div class="form-check">
+                                    <input class="form-check-input rejectCheckbox" name="checkedData" type="checkbox"
+                                        value="Kelengkapan persyaratan surat permohonan" id="reject-note-1">
+                                    <label class="form-check-label" for="reject-note-1">
+                                        Kelengkapan persyaratan surat permohonan
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input rejectCheckbox" name="checkedData" type="checkbox"
+                                        value="Kelengkapan identitas pemohon surat" id="reject-note-2">
+                                    <label class="form-check-label" for="reject-note-2">
+                                        Kelengkapan identitas pemohon surat
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <label for="reject-note-other">Catatan penolakan lain</label>
+                        <textarea class="form-control" id="reject-note-other" rows="3"
+                            placeholder="Masukan catatan lain"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="rejectLetterFormSubmit">Tolak Pengajuan</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- End Reject Letter Modal --}}
+
 @endsection
 
 @section('script')
@@ -729,26 +791,293 @@
         $('#pemohon').val(name);
     });
 
-    function myFunction(status, id) {
-        alert(status);
-        if (confirm("Anad yakin mengubah status surat?")) {
+    $('#letter_approval_admin').change(function () {
+        let id = $(this).attr('data-id');
+        let user = $(this).attr('data-user');
+        let status = $('#letter_approval_admin').val();
+        let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
+        if (status == 1) {
+            Swal.fire({
+                title: 'Ubah Status?',
+                text: "Apakah anda yakin ingin mengubah status surat?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, aktifkan!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            status: user,
+                            status_code: status,
+                            _token: '{{csrf_token()}}'
+                        },
+                        url: url,
+                        success: function (data) {
+                            console.log(data);
+                            if (data.status == 1) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Update berhasil!',
+                                    text: data.messages,
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Update gagal!',
+                                    text: data.messages,
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                                location.reload();
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Update gagal!',
+                                text: 'Status gagal diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                            location.reload();
+                        }
+                    })
 
+                } else {
+                    location.reload()
+                }
+            })
+        } else if (status == 2) {
+            $('#letter-id').val(id);
+            $('#data-user').val(user);
+            $('#data-status-code').val(status);
+            $('.rejectLetter .modal-title').text('Tolak Pengajuan Surat Rekomendasi');
+            $('.rejectLetter').modal('show');
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Update gagal!',
+                text: 'Status gagal diupdate!',
+                showConfirmButton: false,
+                timer: 2000
+            })
+            location.reload();
+        }
+    });
+
+    $('#letter_approval_sekum').change(function () {
+        let id = $(this).attr('data-id');
+        let user = $(this).attr('data-user');
+        let status = $('#letter_approval_sekum').val();
+        let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
+        if (status == 1) {
+            Swal.fire({
+                title: 'Ubah Status?',
+                text: "Apakah anda yakin ingin mengubah status surat?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, aktifkan!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            status: user,
+                            status_code: status,
+                            _token: '{{csrf_token()}}'
+                        },
+                        url: url,
+                        success: function (data) {
+
+                            if (data.status == 1) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Update berhasil!',
+                                    text: data.messages,
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Update gagal!',
+                                    text: data.messages,
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                                location.reload();
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Update gagal!',
+                                text: 'Status gagal diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                            location.reload();
+                        }
+                    })
+
+                } else {
+                    location.reload()
+                }
+            })
+        } else if (status == 2) {
+            $('#letter-id').val(id);
+            $('#data-user').val(user);
+            $('#data-status-code').val(status);
+            $('.rejectLetter .modal-title').text('Tolak Pengajuan Surat Rekomendasi');
+            $('.rejectLetter').modal('show');
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Update gagal!',
+                text: 'Status gagal diupdate!',
+                showConfirmButton: false,
+                timer: 2000
+            })
+            location.reload();
+        }
+    });
+
+    $('#letter_approval_ketua').change(function () {
+        let id = $(this).attr('data-id');
+        let user = $(this).attr('data-user');
+        let status = $('#letter_approval_ketua').val();
+        let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
+        if (status == 1) {
+            Swal.fire({
+                title: 'Ubah Status?',
+                text: "Apakah anda yakin ingin mengubah status surat?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, aktifkan!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            status: user,
+                            status_code: status,
+                            _token: '{{csrf_token()}}'
+                        },
+                        url: url,
+                        success: function (data) {
+
+                            if (data.status == 1) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Update berhasil!',
+                                    text: data.messages,
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Update gagal!',
+                                    text: data.messages,
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                })
+                                location.reload();
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Update gagal!',
+                                text: 'Status gagal diupdate!',
+                                showConfirmButton: false,
+                                timer: 2000
+                            })
+                            location.reload();
+                        }
+                    })
+
+                } else {
+                    location.reload()
+                }
+            })
+        } else if (status == 2) {
+            $('#letter-id').val(id);
+            $('#data-user').val(user);
+            $('#data-status-code').val(status);
+            $('.rejectLetter .modal-title').text('Tolak Pengajuan Surat Rekomendasi');
+            $('.rejectLetter').modal('show');
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Update gagal!',
+                text: 'Status gagal diupdate!',
+                showConfirmButton: false,
+                timer: 2000
+            })
+            location.reload();
+        }
+    });
+
+    $("#rejectLetterFormSubmit").click(function () {
+
+        let id = $('#letter-id').val();
+        let user = $('#data-user').val();
+        let status = $('#data-status-code').val();
+        let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
+        let otherNote = $('#reject-note-other').val();
+
+        let checkboxes = document.querySelectorAll('input[name="checkedData"]:checked');
+        let checkNote = [];
+        checkboxes.forEach((checkbox) => {
+            checkNote.push(checkbox.value);
+        });
+
+        if (checkNote.length == 0 && otherNote == "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Tambahkan Catatan',
+                text: 'Pilih atau Tambahkan catatan penolakan!',
+            });
+        } else {
             $.ajax({
                 type: 'POST',
                 data: {
-                    examiner_status: status,
+                    status: user,
+                    status_code: status,
+                    checkbox: checkNote,
+                    other_note: otherNote,
                     _token: '{{csrf_token()}}'
                 },
                 url: url,
                 success: function (data) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Update berhasil!',
-                        text: 'Status berhasil diupdate!',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                    location.reload();
+                    if (data.status == 1) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Update berhasil!',
+                            text: data.messages,
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Update gagal!',
+                            text: data.messages,
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                        location.reload();
+                    }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     Swal.fire({
@@ -760,193 +1089,9 @@
                     })
                     location.reload();
                 }
-            })
-
+            });
         }
-    }
-
-    $('#letter_status_approval_admin').change(function () {
-        let id = $(this).attr('data-id');
-        let status = $('#letter_status_approval_admin').val();
-        let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
-        Swal.fire({
-            title: 'Ubah Status?',
-            text: "Apakah anda yakin ingin mengubah status surat?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, aktifkan!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'POST',
-                    data: {
-                        status: 'admin',
-                        admin_status: status,
-                        _token: '{{csrf_token()}}'
-                    },
-                    url: url,
-                    success: function (data) {
-                        console.log(data);
-                        if (data.status == 1) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Update berhasil!',
-                                text: 'Status berhasil diupdate!',
-                                showConfirmButton: false,
-                                timer: 2000
-                            })
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Update gagal!',
-                                text: 'Status gagal diupdate!',
-                                showConfirmButton: false,
-                                timer: 2000
-                            })
-                            location.reload();
-                        }
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Update gagal!',
-                            text: 'Status gagal diupdate!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        })
-                        location.reload();
-                    }
-                })
-
-            } else {
-                location.reload()
-            }
-        })
-    })
-
-    $('#letter_status_approval_sekum').change(function () {
-        let id = $(this).attr('data-id');
-        let status = $('#letter_status_approval_sekum').val();
-        let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
-        Swal.fire({
-            title: 'Ubah Status?',
-            text: "Apakah anda yakin ingin mengubah status surat?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, aktifkan!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'POST',
-                    data: {
-                        status: 'sekum',
-                        sekum_status: status,
-                        _token: '{{csrf_token()}}'
-                    },
-                    url: url,
-                    success: function (data) {
-                        console.log(data);
-                        if (data.status == 1) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Update berhasil!',
-                                text: 'Status berhasil diupdate!',
-                                showConfirmButton: false,
-                                timer: 2000
-                            })
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Update gagal!',
-                                text: 'Status gagal diupdate!',
-                                showConfirmButton: false,
-                                timer: 2000
-                            })
-                            location.reload();
-                        }
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Update gagal!',
-                            text: 'Status gagal diupdate!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        })
-                        location.reload();
-                    }
-                })
-
-            } else {
-                location.reload()
-            }
-        })
-    })
-
-    $('#letter_status_approval_ketua').change(function () {
-        let id = $(this).attr('data-id');
-        let status = $('#letter_status_approval_ketua').val();
-        let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
-        Swal.fire({
-            title: 'Ubah Status?',
-            text: "Apakah anda yakin ingin mengubah status surat?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, aktifkan!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'POST',
-                    data: {
-                        status: 'ketua',
-                        ketua_status: status,
-                        _token: '{{csrf_token()}}'
-                    },
-                    url: url,
-                    success: function (data) {
-                        console.log(data);
-                        if (data.status == 1) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Update berhasil!',
-                                text: 'Status berhasil diupdate!',
-                                showConfirmButton: false,
-                                timer: 2000
-                            })
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Update gagal!',
-                                text: 'Status gagal diupdate!',
-                                showConfirmButton: false,
-                                timer: 2000
-                            })
-                            location.reload();
-                        }
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Update gagal!',
-                            text: 'Status gagal diupdate!',
-                            showConfirmButton: false,
-                            timer: 2000
-                        })
-                        location.reload();
-                    }
-                })
-
-            } else {
-                location.reload()
-            }
-        })
-    })
+    });
 
     // add data 
     $('.btnAdd').click(function () {
@@ -992,8 +1137,6 @@
 
     });
 
-
-
     $("#addForm").validate({
         rules: {
             letter_category_id: "required",
@@ -1016,18 +1159,6 @@
             $(element).addClass("is-valid").removeClass("is-invalid");
         }
     });
-
-    var notyf = new Notyf({
-        duration: 5000,
-        position: {
-            x: 'right',
-            y: 'top'
-        }
-    });
-    var msg = $('#msgId').html()
-    if (msg !== undefined) {
-        notyf.success(msg)
-    }
 
 </script>
 @endsection

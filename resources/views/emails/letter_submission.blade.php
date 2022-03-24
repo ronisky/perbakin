@@ -311,7 +311,6 @@
                         </tr>
                         <tr>
                             <td align="center" valign="top">
-
                                 <table width="580" cellpadding="0" cellspacing="0" border="0"
                                     class="m_6406936670111343998container">
                                     <tbody>
@@ -321,16 +320,17 @@
 
                                                 <p
                                                     style="font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:18px;line-height:1.6;margin:0 0 10px;padding:0">
-                                                    {{ __('pleb.mail.Welcome') }} {{ $user_name }},
+                                                    {{ __('pleb.mail.Welcome') }},
                                                 </p>
 
                                                 <p
                                                     style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;line-height:1.6;margin:0 0 10px;padding:0">
-                                                    {{ __('pleb.mail.Welcome Paragraph One') }}
+                                                    Hallo... Ada pengajuan surat rekomendasi yang baru masuk pada sistem
+                                                    Perbakin Kabupaten Bandung
                                                 </p>
                                                 <p
                                                     style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;line-height:1.6;margin:0 0 10px;padding:0">
-                                                    <strong>{{ __('pleb.mail.Welcome data desc') }}</strong>
+                                                    Berikut data pengajuan yang masuk pada sistem:
                                                 </p>
                                                 <div
                                                     style="color:#303030!important;background-color:transparent!important;box-sizing:border-box;min-height:.01%;overflow-x:auto">
@@ -343,73 +343,51 @@
                                                                 bgcolor="transparent !important">
                                                                 <td style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
                                                                     bgcolor="#fff !important" valign="top">
-                                                                    {{ __('pleb.mail.KTA') }}
+                                                                    Nama Pemohon
                                                                 </td>
                                                                 <td style="font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
                                                                     bgcolor="#fff !important" valign="top">
-                                                                    {{ $user_kta }}
+                                                                    {{ $name }}
                                                                 </td>
                                                             </tr>
                                                             <tr style="color:#303030!important;background-color:transparent!important;page-break-inside:avoid;box-sizing:border-box"
                                                                 bgcolor="transparent !important">
                                                                 <td style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
                                                                     bgcolor="#fff !important" valign="top">
-                                                                    {{ __('pleb.mail.Name') }}
+                                                                    Nomor KTA
                                                                 </td>
                                                                 <td style="font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
                                                                     bgcolor="#fff !important" valign="top">
-                                                                    {{ $user_name }}
+                                                                    {{ $no_kta }}
                                                                 </td>
                                                             </tr>
                                                             <tr style="color:#303030!important;background-color:transparent!important;page-break-inside:avoid;box-sizing:border-box"
                                                                 bgcolor="transparent !important">
                                                                 <td style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
                                                                     bgcolor="#fff !important" valign="top">
-                                                                    {{ __('pleb.mail.Email') }}
+                                                                    Asal Klub
                                                                 </td>
                                                                 <td style="font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
                                                                     bgcolor="#fff !important" valign="top">
-                                                                    {{ $email }}
+                                                                    {{ $club }}
                                                                 </td>
                                                             </tr>
                                                             <tr style="color:#303030!important;background-color:transparent!important;page-break-inside:avoid;box-sizing:border-box"
                                                                 bgcolor="transparent !important">
                                                                 <td style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
                                                                     bgcolor="#fff !important" valign="top">
-                                                                    {{ __('pleb.mail.Phone') }}
+                                                                    Tipe Surat
                                                                 </td>
                                                                 <td style="font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
                                                                     bgcolor="#fff !important" valign="top">
-                                                                    {{ $user_phone }}
+                                                                    {{ $letter_category_name }}
                                                                 </td>
                                                             </tr>
                                                             <tr style="color:#303030!important;background-color:transparent!important;page-break-inside:avoid;box-sizing:border-box"
                                                                 bgcolor="transparent !important">
                                                                 <td style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
                                                                     bgcolor="#fff !important" valign="top">
-                                                                    {{ __('pleb.mail.Username') }}
-                                                                </td>
-                                                                <td style="font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
-                                                                    bgcolor="#fff !important" valign="top">
-                                                                    {{ $username }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="color:#303030!important;background-color:transparent!important;page-break-inside:avoid;box-sizing:border-box"
-                                                                bgcolor="transparent !important">
-                                                                <td style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
-                                                                    bgcolor="#fff !important" valign="top">
-                                                                    {{ __('pleb.mail.Password') }}
-                                                                </td>
-                                                                <td style="font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
-                                                                    bgcolor="#fff !important" valign="top">
-                                                                    {{ $password }}
-                                                                </td>
-                                                            </tr>
-                                                            <tr style="color:#303030!important;background-color:transparent!important;page-break-inside:avoid;box-sizing:border-box"
-                                                                bgcolor="transparent !important">
-                                                                <td style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
-                                                                    bgcolor="#fff !important" valign="top">
-                                                                    {{ __('pleb.mail.Time') }}
+                                                                    Waktu Pengajuan
                                                                 </td>
                                                                 <td style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;color:#303030;background-color:#fff!important;box-sizing:border-box;line-height:1.42857143;vertical-align:top;border-top-color:#ddd;border-top-width:1px;border-top-style:solid;padding:8px"
                                                                     bgcolor="#fff !important" valign="top">
@@ -422,8 +400,11 @@
 
                                                 <p
                                                     style="font-family:Helvetica,Arial,sans-serif;font-weight:normal;font-size:16px;line-height:1.6;margin:0 0 10px;padding:0">
-                                                    <b>{{ __('pleb.mail.Paragraph Important') }}</b> <br>
-                                                    {{ __('pleb.mail.End Paragraph One') }}
+                                                    <b>Untuk lebih detail, Silakan masuk pada sistem untuk mereview dan
+                                                        menyetujui atau
+                                                        menolak pengajuan Surat Pemohon.</b> <br>
+                                                    Ingat selalu pastikan seluruh persyaratan pengajuan Surat Pemohon
+                                                    terpenuhi dan sesuai dengan ketentuan yang berlaku.
                                                     <br> <br>
                                                 </p>
                                                 <p
@@ -460,9 +441,9 @@
                                                             <tr>
                                                                 <td align="center" bgcolor="#008E89"
                                                                     style="border-radius: 6px;">
-                                                                    <a href="{{ config('pleb.mail.welcome_url') }}"
+                                                                    <a href="{{ config('pleb.mail.approval_letter_url') }}"
                                                                         target="_blank"
-                                                                        style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:16px;line-height:19px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 20px 50px 20px 50px;display: inline-block;"><span>{{ __('pleb.mail.action_button') }}</span></a>
+                                                                        style="font-family:'Roboto Slab',Arial,Helvetica,sans-serif;font-size:16px;line-height:19px;font-weight:700;font-style:normal;color:#FFFFFF;text-decoration:none;letter-spacing:0px;padding: 20px 50px 20px 50px;display: inline-block;"><span>{{ __('pleb.mail.action_button_approval') }}</span></a>
                                                                 </td>
                                                             </tr>
                                                         </table>

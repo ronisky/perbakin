@@ -42,9 +42,7 @@ class WelcomeMember extends Mailable
      * @return void
      */
     public function __construct($user, $options = null)
-    // public function __construct(User $member, $options = null)
     {
-
         $this->_userRepository      = new UsersRepository;
 
         $this->member = $this->_userRepository->getById($user);
@@ -59,7 +57,8 @@ class WelcomeMember extends Mailable
     public function build()
     {
         return $this->subject('Selamat datang ' . $this->member->user_name . " - " . config('app.name'))
-            ->view('emails.welcome_message')->with([
+            ->view('emails.welcome_member')
+            ->with([
                 'user_kta'     => $this->member->user_kta,
                 'user_name'     => $this->member->user_name,
                 'email'         => $this->member->user_email,

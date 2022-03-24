@@ -4,17 +4,21 @@ namespace Modules\RecomendationLetterApproval\Http\Controllers;
 
 use App\Helpers\DataHelper;
 use App\Helpers\LogHelper;
+use App\Mail\LetterSubmission;
+use App\Mail\LetterSubmissionFaild;
+use App\Mail\LetterSubmissionSuccess;
 use App\Mail\WelcomeMember;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Modules\FirearmCategory\Repositories\FirearmCategoryRepository;
 use Modules\LetterCategory\Repositories\LetterCategoryRepository;
 use Modules\RecomendationLetter\Repositories\RecomendationLetterRepository;
+use Modules\UserGroup\Repositories\UserGroupRepository;
+use Modules\Users\Repositories\UsersRepository;
 
 class RecomendationLetterApprovalController extends Controller
 {
@@ -22,6 +26,8 @@ class RecomendationLetterApprovalController extends Controller
     {
         $this->middleware('auth');
 
+        $this->_userGroupRepository   = new UserGroupRepository;
+        $this->_userRepository   = new UsersRepository;
         $this->_recomendationLetterRepository   = new RecomendationLetterRepository;
         $this->_letterCategoryRepository   = new LetterCategoryRepository;
         $this->_firearmCategoryRepository   = new FirearmCategoryRepository;
@@ -107,39 +113,219 @@ class RecomendationLetterApprovalController extends Controller
     public function updatestatus(Request $request, $id)
     {
         $status = $request->status;
-        switch ($status) {
-            case 'admin':
-                $result = $this->_updateStatus(['admin_status' => $request->admin_status], $id);
-                if ($result) {
-                    Mail::to(['bogej@tafmail.com', 'goniduq@abyssmail.com'])->send(new WelcomeMember(5, "Tes Upload"));
-                    return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
-                } else {
-                    return DataHelper::_errorResponse(null, 'Gagal mengubah status');
-                }
+        $status_code = $request->status_code;
 
-                break;
-            case 'sekum':
-                $result = $this->_updateStatus(['sekum_status' => $request->sekum_status], $id);
-                if ($result) {
-                    return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
-                } else {
-                    return DataHelper::_errorResponse(null, 'Gagal mengubah status');
-                }
+        if ($status_code == 1) {
+            switch ($status) {
+                case 'admin':
+                    $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'sekum']);
+                    $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
 
-                break;
-            case 'ketua':
-                $result = $this->_updateStatus(['ketua_status' => $request->ketua_status], $id);
-                if ($result) {
-                    return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
-                } else {
-                    return DataHelper::_errorResponse(null, 'Gagal mengubah status');
-                }
+                    $email = [];
+                    foreach ($users as $user) {
+                        array_push($email, $user->user_email);
+                    }
 
-                break;
+                    $data = [
+                        'admin_status'  => $request->status_code,
+                        'admin_note'    => null,
+                    ];
+                    $result = $this->_updateStatus($data, $id);
 
-            default:
-                return DataHelper::_errorResponse(null, 'Opps! Maaf status gagal diubah.');
-                break;
+                    if ($result) {
+                        Mail::to($email)->send(new LetterSubmission($id));
+                        return DataHelper::_successResponse($email, 'Status surat berhasil diubah');
+                    } else {
+                        return DataHelper::_errorResponse(null, 'Gagal mengubah status');
+                    }
+
+                    break;
+                case 'sekum':
+                    $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'ketua']);
+                    $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
+
+                    $email = [];
+                    foreach ($users as $user) {
+                        array_push($email, $user->user_email);
+                    }
+
+                    $data = [
+                        'sekum_status'  => $request->status_code,
+                        'sekum_note'    => null,
+                    ];
+                    $result = $this->_updateStatus($data, $id);
+
+                    if ($result) {
+                        Mail::to($email)->send(new LetterSubmission($id));
+                        return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
+                    } else {
+                        return DataHelper::_errorResponse(null, 'Gagal mengubah status');
+                    }
+
+                    break;
+                case 'ketua':
+                    $userletter = $this->_recomendationLetterRepository->getByParams(['letter_id' => $id]);
+                    $user = $this->_userRepository->getByParams(['user_kta' => $userletter->no_kta]);
+
+                    $email = $user->user_email;
+
+                    $data = [
+                        'ketua_status'  => $request->status_code,
+                        'ketua_note'    => null,
+                    ];
+                    $result = $this->_updateStatus($data, $id);
+                    if ($result) {
+                        Mail::to($email)->send(new LetterSubmissionSuccess($id));
+                        return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
+                    } else {
+                        return DataHelper::_errorResponse(null, 'Gagal mengubah status');
+                    }
+
+                    break;
+
+                default:
+                    return DataHelper::_errorResponse(null, 'Opps! Maaf status gagal diubah.');
+                    break;
+            }
+        } else {
+            switch ($status) {
+                case 'admin':
+                    $userletter = $this->_recomendationLetterRepository->getByParams(['letter_id' => $id]);
+                    $user = $this->_userRepository->getByParams(['user_kta' => $userletter->no_kta]);
+
+                    $email = $user->user_email;
+
+                    $checkData = $request->checkbox;
+                    $other_note = $request->other_note;
+                    if ($checkData != null) {
+                        if ($request->other_note != null) {
+                            array_push($checkData, $request->other_note);
+                        }
+                        $data = implode("|", $checkData);
+
+                        $updateData = [
+                            'admin_status'  => $request->status_code,
+                            'admin_note'    => $data,
+                        ];
+
+                        $result = $this->_updateStatus($updateData, $id);
+                        if ($result) {
+                            Mail::to($email)->send(new LetterSubmissionFaild($id, 'admin'));
+                            return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
+                        } else {
+                            return DataHelper::_errorResponse(null, 'Gagal mengubah status');
+                        }
+                    } elseif ($other_note != null) {
+                        $updateData = [
+                            'admin_status'  => $request->status_code,
+                            'admin_note'    => $other_note,
+                        ];
+
+                        $result = $this->_updateStatus($updateData, $id);
+                        if ($result) {
+                            Mail::to($email)->send(new LetterSubmissionFaild($id, 'admin'));
+                            return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
+                        } else {
+                            return DataHelper::_errorResponse(null, 'Gagal mengubah status');
+                        }
+                    } else {
+                        return DataHelper::_errorResponse(null, 'Opps! Maaf status gagal diubah.');
+                    }
+
+                    break;
+                case 'sekum':
+                    $userletter = $this->_recomendationLetterRepository->getByParams(['letter_id' => $id]);
+                    $user = $this->_userRepository->getByParams(['user_kta' => $userletter->no_kta]);
+
+                    $email = $user->user_email;
+
+                    $checkData = $request->checkbox;
+                    $other_note = $request->other_note;
+                    if ($checkData != null) {
+                        if ($request->other_note != null) {
+                            array_push($checkData, $request->other_note);
+                        }
+                        $data = implode("|", $checkData);
+
+                        $updateData = [
+                            'sekum_status'  => $request->status_code,
+                            'sekum_note'    => $data,
+                        ];
+
+                        $result = $this->_updateStatus($updateData, $id);
+                        if ($result) {
+                            Mail::to($email)->send(new LetterSubmissionFaild($id, 'sekum'));
+                            return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
+                        } else {
+                            return DataHelper::_errorResponse(null, 'Gagal mengubah status');
+                        }
+                    } elseif ($other_note != null) {
+                        $updateData = [
+                            'sekum_status'  => $request->status_code,
+                            'sekum_note'    => $other_note,
+                        ];
+
+                        $result = $this->_updateStatus($updateData, $id);
+                        if ($result) {
+                            Mail::to($email)->send(new LetterSubmissionFaild($id, 'sekum'));
+                            return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
+                        } else {
+                            return DataHelper::_errorResponse(null, 'Gagal mengubah status');
+                        }
+                    } else {
+                        return DataHelper::_errorResponse(null, 'Opps! Maaf status gagal diubah.');
+                    }
+
+                    break;
+                case 'ketua':
+                    $userletter = $this->_recomendationLetterRepository->getByParams(['letter_id' => $id]);
+                    $user = $this->_userRepository->getByParams(['user_kta' => $userletter->no_kta]);
+
+                    $email = $user->user_email;
+
+                    $checkData = $request->checkbox;
+                    $other_note = $request->other_note;
+                    if ($checkData != null) {
+                        if ($request->other_note != null) {
+                            array_push($checkData, $request->other_note);
+                        }
+                        $data = implode("|", $checkData);
+
+                        $updateData = [
+                            'ketua_status'  => $request->status_code,
+                            'ketua_note'    => $data,
+                        ];
+
+                        $result = $this->_updateStatus($updateData, $id);
+                        if ($result) {
+                            Mail::to($email)->send(new LetterSubmissionFaild($id, 'ketua'));
+                            return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
+                        } else {
+                            return DataHelper::_errorResponse(null, 'Gagal mengubah status');
+                        }
+                    } elseif ($other_note != null) {
+                        $updateData = [
+                            'ketua_status'  => $request->status_code,
+                            'ketua_note'    => $other_note,
+                        ];
+
+                        $result = $this->_updateStatus($updateData, $id);
+                        if ($result) {
+                            Mail::to($email)->send(new LetterSubmissionFaild($id, 'ketua'));
+                            return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
+                        } else {
+                            return DataHelper::_errorResponse(null, 'Gagal mengubah status');
+                        }
+                    } else {
+                        return DataHelper::_errorResponse(null, 'Opps! Maaf status gagal diubah.');
+                    }
+
+                    break;
+
+                default:
+                    return DataHelper::_errorResponse(null, 'Opps! Maaf status gagal diubah.');
+                    break;
+            }
         }
     }
 

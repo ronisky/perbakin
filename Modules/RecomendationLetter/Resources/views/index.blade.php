@@ -237,7 +237,7 @@
                                     <label class="form-label">Nomor KTA PB-Perbakin <span
                                             class="text-danger">*</span></label>
                                     <input type="string" class="form-control" name="no_kta" id="no_kta"
-                                        placeholder="Masukan nomor KTA PB-Perbakin">
+                                        placeholder="Masukan nomor KTA PB-Perbakin" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">

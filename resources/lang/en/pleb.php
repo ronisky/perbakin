@@ -44,7 +44,10 @@ return [
 
 
 
-        'action_button'     => 'LOGIN',
+        'action_button'             => 'LOGIN',
+        'action_button_approval'    => 'Review Pengajuan Surat',
+        'action_button_letter'      => 'Lihat Surat Pengajuan',
+
         'What\'s Next'      => 'What\'s Next',
         'Headline One'      => 'Headline One',
         'Paragraph One'     => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',

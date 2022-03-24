@@ -23,8 +23,10 @@
 return [
 
     'mail' => [
-        'top_logo'          => 'https://www.perbakinkabbandung.or.id/public/img/logo_perbakin.png',
-        'welcome_url'       => 'https://www.perbakinkabbandung.or.id/login',
+        'top_logo'              => 'https://www.perbakinkabbandung.or.id/public/img/logo_perbakin.png',
+        'welcome_url'           => 'https://www.perbakinkabbandung.or.id/login',
+        'approval_letter_url'   => 'https://www.perbakinkabbandung.or.id/recomendationletterapproval',
+        'success_letter_url'   => 'https://www.perbakinkabbandung.or.id/recomendationletter',
         'street_address'    => '',
         'phone_number'      => '0877 3344 3486 / 0821 2979 6746',
         'info_email'        => 'info@perbakinkabbandung.or.id',

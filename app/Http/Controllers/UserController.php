@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Helpers\DataHelper;
 use App\Helpers\LogHelper;
+use App\Mail\LetterSubmission;
+use App\Mail\LetterSubmissionFaild;
+use App\Mail\LetterSubmissionSuccess;
 use App\Mail\WelcomeMember;
 use App\Repositories\UserForgotRepository;
 use Exception;
@@ -217,7 +220,7 @@ class UserController extends Controller
 
     public function sendMail()
     {
-        Mail::to("ronisetiawant@gmail.com")->send(new WelcomeMember(5, "Roni"));
+        Mail::to("goniduq@abyssmail.com")->send(new LetterSubmission());
         return "Email telah dikirim";
     }
 }
