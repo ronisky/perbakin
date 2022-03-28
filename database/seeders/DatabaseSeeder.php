@@ -22,7 +22,10 @@ class DatabaseSeeder extends Seeder
             MenuSeeder::class,
             ApprovalStatusSeeder::class,
             ArticleCategorySeeder::class,
+            ArticleSeeder::class,
+            LetterCategorySeeder::class,
             SponsorshipCategorySeeder::class,
+            SponsorshipSeeder::class,
         ]);
     }
 }
