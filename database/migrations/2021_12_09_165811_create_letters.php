@@ -17,7 +17,8 @@ class CreateLetters extends Migration
             $table->bigIncrements('letter_id');
             $table->unsignedBigInteger('letter_category_id')->nullable();
             $table->unsignedBigInteger('firearm_id')->nullable();
-            $table->string('letter_place', 20);
+            $table->string('letter_no', 30);
+            $table->string('letter_place', 30);
             $table->date('letter_date');
             $table->string('letter_purpose_name', 100);
             $table->string('letter_purpose_place', 20);

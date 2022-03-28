@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<?php use App\Helpers\DateFormatHelper; ?>
 <html>
 
 <head>
@@ -44,19 +44,24 @@
 
 <body>
     <div id=halaman>
+        <div style="background-image: url('{{ asset('assets/img/letters/kop_surat.png') }}');"></div>
+        {{-- <img src="{{ public_path('assets/img/letters/kop_surat.png') }}"> --}}
+        {{-- <img src="{{  'assets/img/letters/kop_surat.png }}' }}" alt="" srcset=""> --}}
         <div class="row">
             <div class="col-md-12">
                 <table>
                     <tr>
                         <td style="width: 12%;">Lampiran </td>
                         <td style="width: 1%;">:</td>
-                        <td style="width: 53%;">1(Satu) Bundel </td>
-                        <td style="width: 35%;">{{ $letters->letter_place }}, {{ $letters->letter_date }}<br></td>
+                        <td style="width: 70%;">1(Satu) Bundel </td>
+                        <td style="width: 27%;">{{ $letters->letter_place }},
+                            {{  DateFormatHelper::dateIn($letters->created_at) }}<br>
+                        </td>
                     </tr>
                     <tr>
                         <td style="width: 12%;">Perihal</td>
                         <td style="width: 1%;">:</td>
-                        <td style="width: 53%;">{{ $letters->letter_category_name }}</td>
+                        <td style="width: 60%;">{{ $letters->letter_category_name }}</td>
                         <td colspan="2"></td>
                     </tr>
                 </table>
@@ -88,7 +93,7 @@
                         <tr>
                             <td style="width: 60%;"></td>
                             <td></td>
-                            <td style="width: 40%;">{{ $letters->letter_purpose_place }}</td>
+                            <td style="width: 40%;">Soreang</td>
                         </tr>
                     </table>
                 </div>

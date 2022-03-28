@@ -20,6 +20,9 @@ class CreateUsers extends Migration
             $table->string('user_kta', 20);
             $table->string('user_email', 100)->unique();
             $table->string('user_phone', 100)->unique();
+            $table->text('user_address')->nullable();
+            $table->unsignedBigInteger('club_id')->nullable();
+            $table->string('user_club_gen')->nullable();
             $table->string('user_password');
             $table->string('user_image')->nullable();
             $table->date('user_active_date');
@@ -27,6 +30,10 @@ class CreateUsers extends Migration
             $table->bigInteger('group_id')->unsigned();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
+
+            $table->foreign('club_id')
+                ->references('club_id')
+                ->on('clubs');
 
             $table->foreign('group_id')
                 ->references('group_id')

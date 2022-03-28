@@ -172,6 +172,7 @@ class RecomendationLetterApprovalController extends Controller
                     $data = [
                         'ketua_status'  => $request->status_code,
                         'ketua_note'    => null,
+                        'letter_status'    => 1,
                     ];
                     $result = $this->_updateStatus($data, $id);
                     if ($result) {

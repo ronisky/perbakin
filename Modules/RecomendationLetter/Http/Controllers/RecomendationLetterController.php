@@ -3,6 +3,7 @@
 namespace Modules\RecomendationLetter\Http\Controllers;
 
 use App\Helpers\DataHelper;
+use App\Helpers\DateFormatHelper;
 use App\Helpers\LogHelper;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -190,5 +191,22 @@ class RecomendationLetterController extends Controller
         $pdf = PDF::loadview('recomendationletter::letter', ['letters' => $letters, 'data' => $data]);
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
+    }
+
+    /**
+     * Print letter on PDF view file.
+     * @return Location
+     */
+    public function printLetterOne()
+    {
+
+        // $letters = $this->_recomendationLetterRepository->getByIdLetter($id);
+        // $data = array(
+        //     'items' => '',
+        //     'items' => '</td>',
+        //     'items' => '</td>',
+        //     'items' => '</td>'
+        // );
+        return view('recomendationletter::print_letter');
     }
 }
