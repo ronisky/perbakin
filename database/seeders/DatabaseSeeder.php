@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             LetterCategorySeeder::class,
             SponsorshipCategorySeeder::class,
             SponsorshipSeeder::class,
+            BannerSeeder::class,
         ]);
     }
 }

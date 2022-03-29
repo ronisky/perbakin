@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class RecomendationLetterRepository extends QueryBuilderImplementation
 {
 
-    public $fillable = ['letter_id', 'letter_category_id ', 'letter_no', 'letter_place', 'letter_date', 'letter_purpose_name', 'letter_purpose_place', 'name', 'place_of_birth', 'date_of_birth', 'occupation', 'address', 'club', 'no_kta', 'membership', 'pemohon', 'admin_status', 'sekum_status', 'ketua_status', 'admin_note', 'sekum_note', 'ketua_note', 'letter_status', 'created_at', 'created_by', 'updated_at', 'updated_by'];
+    public $fillable = ['letter_id', 'letter_category_id ', 'letter_no', 'letter_place', 'letter_date', 'letter_purpose_name', 'letter_purpose_place', 'name', 'place_of_birth', 'date_of_birth', 'occupation', 'address', 'club', 'no_kta', 'membership', 'pemohon', 'admin_status', 'admin_status_by', 'sekum_status', 'sekum_status_by', 'ketua_status', 'ketua_status_by', 'admin_note', 'sekum_note', 'ketua_note', 'letter_status', 'created_at', 'created_by', 'updated_at', 'updated_by'];
 
     public function __construct()
     {

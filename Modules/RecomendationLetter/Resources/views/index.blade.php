@@ -163,26 +163,48 @@
                 <div class="modal-body">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Jenis Surat Rekomendasi</label>
-                                    <select class="form-control" name="letter_category_id" id="letter_category_id">
-                                        <option value="">- Pilih Jenis Surat Rekomendasi -</option>
-                                        @if(sizeof($letter_categories) > 0)
-                                        @foreach($letter_categories as $letter_category)
-                                        <option value="{{ $letter_category->letter_category_id }}">
-                                            {{ $letter_category->letter_category_name }}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Jenis Surat Rekomendasi</label>
+                                            <select class="form-control" name="letter_category_id"
+                                                id="letter_category_id">
+                                                <option value="">- Pilih Jenis Surat Rekomendasi -</option>
+                                                @if(sizeof($letter_categories) > 0)
+                                                @foreach($letter_categories as $letter_category)
+                                                <option value="{{ $letter_category->letter_category_id }}">
+                                                    {{ $letter_category->letter_category_name }}</option>
+                                                @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Tempat Surat<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" name="letter_place"
+                                                id="letter_place" placeholder="Masukan tempat surat">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Tanggal Surat <span
+                                                    class="text-danger">*</span></label>
+                                            <input type="date" class="form-control" name="date_letter" id="date_letter"
+                                                placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="letter_place" id="letter_place"
-                                        placeholder="Masukan tempat surat">
+                                <div class="col-md-6">
+                                    <div class="col-md-6 center">
+                                        <div class="card" style="width: 10rem;">
+                                            <img class="card-img-top" src="img/logo_perbakin.png" height="auto"
+                                                alt="Card image cap">
+                                            <a href="" class="text text-sm-center">Lihat contoh surat</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3 border-bottom border-dark">

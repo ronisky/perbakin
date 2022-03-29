@@ -32,8 +32,11 @@ class CreateLetters extends Migration
             $table->string('membership', 100);
             $table->string('pemohon', 100);
             $table->smallInteger('admin_status')->default(0);
+            $table->unsignedBigInteger('admin_status_by')->nullable();
             $table->smallInteger('sekum_status')->default(0);
+            $table->unsignedBigInteger('sekum_status_by')->nullable();
             $table->smallInteger('ketua_status')->default(0);
+            $table->unsignedBigInteger('ketua_status_by')->nullable();
             $table->string('admin_note')->nullable();
             $table->string('sekum_note')->nullable();
             $table->string('ketua_note')->nullable();
