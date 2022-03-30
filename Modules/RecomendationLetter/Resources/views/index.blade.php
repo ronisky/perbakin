@@ -200,9 +200,13 @@
                                 <div class="col-md-6">
                                     <div class="col-md-6 center">
                                         <div class="card" style="width: 10rem;">
-                                            <img class="card-img-top" src="img/logo_perbakin.png" height="auto"
-                                                alt="Card image cap">
-                                            <a href="" class="text text-sm-center">Lihat contoh surat</a>
+                                            <a target="blank"
+                                                href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                                class="text text-sm-center">
+                                                <img class="card-img-top"
+                                                    src="assets/img/letters/sample_letters/sample_6.jpg" height="auto"
+                                                    alt="Card image cap">
+                                                Lihat contoh surat</a>
                                         </div>
                                     </div>
                                 </div>

@@ -104,12 +104,12 @@ function bodySatu()
     $this->Cell(15);
     $this->Cell(32, 5, 'Alamat KTP', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->MultiCell(120,5,"Permohonan rekomendasi Pindah/Mutasi Senpi/amunisi anggota Perbakin Kab. Bandung ",0,'L',0);
+    $this->MultiCell(120,5,ucwords("Jl. SOreang No. 123 Kab. Bandung"),0,'L',0);
 
     $this->Cell(15);
     $this->Cell(32, 5, 'Pekerjaan', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Jingga Club'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords('Wiraswasta'), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
@@ -127,7 +127,7 @@ function bodySatu()
     $this->Cell(15);
     $this->Cell(32, 5, 'Perkumpulan', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Kab. Bandung'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords('Jigga SC'), 0, 0, 'L');
 }
 
 function BodyDua()
