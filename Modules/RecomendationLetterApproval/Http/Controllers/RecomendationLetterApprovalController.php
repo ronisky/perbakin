@@ -11,6 +11,7 @@ use App\Mail\WelcomeMember;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
@@ -112,8 +113,9 @@ class RecomendationLetterApprovalController extends Controller
      */
     public function updatestatus(Request $request, $id)
     {
-        $status = $request->status;
-        $status_code = $request->status_code;
+        $status         = $request->status;
+        $status_code    = $request->status_code;
+        $user_id        = Auth::user()->user_id;
 
         if ($status_code == 1) {
             switch ($status) {
@@ -127,8 +129,9 @@ class RecomendationLetterApprovalController extends Controller
                     }
 
                     $data = [
-                        'admin_status'  => $request->status_code,
-                        'admin_note'    => null,
+                        'admin_status'      => $request->status_code,
+                        'admin_status_by'   => $user_id,
+                        'admin_note'        => null,
                     ];
                     $result = $this->_updateStatus($data, $id);
 
@@ -150,8 +153,9 @@ class RecomendationLetterApprovalController extends Controller
                     }
 
                     $data = [
-                        'sekum_status'  => $request->status_code,
-                        'sekum_note'    => null,
+                        'sekum_status'      => $request->status_code,
+                        'sekum_status_by'   => $user_id,
+                        'sekum_note'        => null,
                     ];
                     $result = $this->_updateStatus($data, $id);
 
@@ -171,6 +175,7 @@ class RecomendationLetterApprovalController extends Controller
 
                     $data = [
                         'ketua_status'  => $request->status_code,
+                        'ketua_status_by'   => $user_id,
                         'ketua_note'    => null,
                         'letter_status'    => 1,
                     ];
@@ -205,8 +210,9 @@ class RecomendationLetterApprovalController extends Controller
                         $data = implode("|", $checkData);
 
                         $updateData = [
-                            'admin_status'  => $request->status_code,
-                            'admin_note'    => $data,
+                            'admin_status'      => $request->status_code,
+                            'admin_status_by'   => $user_id,
+                            'admin_note'        => $data,
                         ];
 
                         $result = $this->_updateStatus($updateData, $id);
@@ -219,6 +225,7 @@ class RecomendationLetterApprovalController extends Controller
                     } elseif ($other_note != null) {
                         $updateData = [
                             'admin_status'  => $request->status_code,
+                            'admin_status_by'   => $user_id,
                             'admin_note'    => $other_note,
                         ];
 
@@ -250,6 +257,7 @@ class RecomendationLetterApprovalController extends Controller
 
                         $updateData = [
                             'sekum_status'  => $request->status_code,
+                            'sekum_status_by'   => $user_id,
                             'sekum_note'    => $data,
                         ];
 
@@ -263,6 +271,7 @@ class RecomendationLetterApprovalController extends Controller
                     } elseif ($other_note != null) {
                         $updateData = [
                             'sekum_status'  => $request->status_code,
+                            'sekum_status_by'   => $user_id,
                             'sekum_note'    => $other_note,
                         ];
 
@@ -294,6 +303,7 @@ class RecomendationLetterApprovalController extends Controller
 
                         $updateData = [
                             'ketua_status'  => $request->status_code,
+                            'ketua_status_by'   => $user_id,
                             'ketua_note'    => $data,
                         ];
 
@@ -307,6 +317,7 @@ class RecomendationLetterApprovalController extends Controller
                     } elseif ($other_note != null) {
                         $updateData = [
                             'ketua_status'  => $request->status_code,
+                            'ketua_status_by'   => $user_id,
                             'ketua_note'    => $other_note,
                         ];
 
