@@ -27,7 +27,6 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
                     'letters.*',
                     'letter_categories.letter_category_name'
                 )
-                ->latest()
                 ->get();
         } catch (Exception $e) {
             return $e->getMessage();
@@ -52,6 +51,10 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
                     'firearms.nama_pemilik',
                     'firearms.jumlah',
                     'firearms.penyimpanan',
+                    'firearms.no_si_impor',
+                    'firearms.pelaksana_impor',
+                    'firearms.bap_senpi',
+                    'firearms.tanggal_dikeluarkan',
                     'firearm_categories.firearm_category_name',
                 )
                 ->where($this->pk, '=', $id)
@@ -72,7 +75,7 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
         }
     }
 
-    public function insertGetId(array $data)
+    public function insertGetIdFirearm(array $data)
     {
         try {
             return DB::connection($this->db)
@@ -90,6 +93,17 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
                 ->table('firearms')
                 ->where('firearm_id', '=', $id)
                 ->delete();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function insertGetIdLetter(array $data)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table('letters')
+                ->insertGetId($data);
         } catch (Exception $e) {
             return $e->getMessage();
         }

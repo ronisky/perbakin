@@ -23,7 +23,7 @@ class UsersRepository extends QueryBuilderImplementation
             return DB::connection($this->db)
                 ->table($this->table)
                 ->join('sys_user_groups', 'sys_user_groups.group_id', '=', 'sys_users.group_id')
-                ->select('sys_users.*', 'sys_user_groups.group_name as group_name')
+                ->select('sys_users.*', 'sys_user_groups.group_name')
                 // ->where('sys_users.group_id', '!=', '1')
                 ->get();
         } catch (Exception $e) {
@@ -37,6 +37,8 @@ class UsersRepository extends QueryBuilderImplementation
             return DB::connection($this->db)
                 ->table($this->table)
                 ->join('sys_user_groups', 'sys_user_groups.group_id', '=', 'sys_users.group_id')
+                ->join('clubs', 'clubs.club_id', '=', 'sys_users.club_id')
+                ->select('sys_users.*', 'sys_user_groups.group_name', 'clubs.club_name')
                 ->where($this->pk, '=', $id)
                 ->first();
         } catch (Exception $e) {

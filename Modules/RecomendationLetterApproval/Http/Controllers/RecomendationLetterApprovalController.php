@@ -367,23 +367,4 @@ class RecomendationLetterApprovalController extends Controller
     {
         //
     }
-
-    /**
-     * Print letter on PDF view file.
-     * @return Location
-     */
-    public function printLetter($id)
-    {
-
-        $letters = $this->_recomendationLetterRepository->getByIdLetter($id);
-        $data = array(
-            'items' => '',
-            'items' => '</td>',
-            'items' => '</td>',
-            'items' => '</td>'
-        );
-        $pdf = PDF::loadview('recomendationletter::letter', ['letters' => $letters, 'data' => $data]);
-        $pdf->setPaper('A4', 'portrait');
-        return $pdf->stream();
-    }
 }

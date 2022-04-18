@@ -235,17 +235,17 @@
 
                                 <td>
                                     @if($letter->letter_id > 0)
-                                    <a href="{{ url('recomendationletterapproval/printletter/'. $letter->letter_id) }}"
+                                    <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
                                         target="blank" class="btn btn-icon btnPrint btn-outline-secondary"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                         title="Print">
                                         <i data-feather="printer" width="16" height="16"></i>
                                     </a>
-                                    <a href="javascript:void(0)" class="btn btn-icon btnDetail btn-outline-info"
+                                    {{-- <a href="javascript:void(0)" class="btn btn-icon btnDetail btn-outline-info"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
-                                        title="Detail">
-                                        <i data-feather="eye" width="16" height="16"></i>
-                                    </a>
+                                    title="Detail">
+                                    <i data-feather="eye" width="16" height="16"></i>
+                                    </a> --}}
                                     {{-- <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                     title="Ubah">

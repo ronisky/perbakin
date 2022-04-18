@@ -21,8 +21,12 @@ class CreateFirearms extends Migration
             $table->string('no_pabrik', 100);
             $table->string('no_buku_pas_senpi', 100);
             $table->string('nama_pemilik', 100);
-            $table->integer('jumlah');
+            $table->smallInteger('jumlah');
             $table->string('penyimpanan', 100);
+            $table->string('no_si_impor', 30);
+            $table->string('pelaksana_impor', 100);
+            $table->string('bap_senpi', 100);
+            $table->string('tanggal_dikeluarkan', 20);
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();
             $table->dateTime('updated_at')->nullable();

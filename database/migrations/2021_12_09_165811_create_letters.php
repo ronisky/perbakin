@@ -17,6 +17,7 @@ class CreateLetters extends Migration
             $table->bigIncrements('letter_id');
             $table->unsignedBigInteger('letter_category_id')->nullable();
             $table->unsignedBigInteger('firearm_id')->nullable();
+            $table->unsignedBigInteger('letter_requirement_id')->nullable();
             $table->string('letter_no', 30);
             $table->string('letter_place', 30);
             $table->date('letter_date');
@@ -53,6 +54,10 @@ class CreateLetters extends Migration
             $table->foreign('firearm_id')
                 ->references('firearm_id')
                 ->on('firearms');
+
+            $table->foreign('letter_requirement_id')
+                ->references('letter_requirement_id')
+                ->on('letter_requirements');
 
             $table->foreign('created_by')
                 ->references('user_id')

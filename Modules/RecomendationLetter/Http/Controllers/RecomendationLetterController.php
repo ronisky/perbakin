@@ -3,17 +3,20 @@
 namespace Modules\RecomendationLetter\Http\Controllers;
 
 use App\Helpers\DataHelper;
-use App\Helpers\DateFormatHelper;
 use App\Helpers\LogHelper;
+use App\Mail\LetterSubmission;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Modules\FirearmCategory\Repositories\FirearmCategoryRepository;
 use Modules\LetterCategory\Repositories\LetterCategoryRepository;
 use Modules\RecomendationLetter\Repositories\RecomendationLetterRepository;
-
+use Modules\UserGroup\Repositories\UserGroupRepository;
+use Modules\Users\Repositories\UsersRepository;
 use PDF;
 
 class RecomendationLetterController extends Controller
@@ -22,6 +25,8 @@ class RecomendationLetterController extends Controller
     {
         $this->middleware('auth');
 
+        $this->_userRepository   = new UsersRepository;
+        $this->_userGroupRepository   = new UserGroupRepository;
         $this->_recomendationLetterRepository   = new RecomendationLetterRepository;
         $this->_letterCategoryRepository   = new LetterCategoryRepository;
         $this->_firearmCategoryRepository   = new FirearmCategoryRepository;
@@ -44,8 +49,9 @@ class RecomendationLetterController extends Controller
         $letters = $this->_recomendationLetterRepository->getAll();
         $letter_categories = $this->_letterCategoryRepository->getAll();
         $firearm_categories = $this->_firearmCategoryRepository->getAll();
+        $user = $this->_userRepository->getById(Auth::user()->user_id);
 
-        return view('recomendationletter::index', compact('letters', 'letter_categories', 'firearm_categories'));
+        return view('recomendationletter::index', compact('letters', 'letter_categories', 'firearm_categories', 'user'));
     }
 
     /**
@@ -69,49 +75,227 @@ class RecomendationLetterController extends Controller
             return redirect('unauthorize');
         }
 
-        DB::beginTransaction();
-        try {
+        $category = $request->letter_category_id;
+        if ($category == 1) {
+            DB::beginTransaction();
+            try {
 
-            $data = [
-                'firearm_category_id' => $request->firearm_category_id,
-                'merek' => $request->merek,
-                'kaliber' => $request->kaliber,
-                'no_pabrik' => $request->no_pabrik,
-                'no_buku_pas_senpi' => $request->no_buku_pas_senpi,
-                'nama_pemilik' => $request->nama_pemilik,
-                'jumlah' => $request->jumlah,
-                'penyimpanan' => $request->penyimpanan
-            ];
-            $firearmId = $this->_recomendationLetterRepository->insertGetId(array_merge($data, DataHelper::_signParams(true)));
-            $this->_logHelper->store($this->module, $request->merek, 'create');
-            $dataLetter = [
-                'letter_category_id' => $request->letter_category_id,
-                'firearm_id' => $firearmId,
-                'letter_place' => $request->letter_place,
-                'letter_date' => date('Y-m-d'),
-                'letter_purpose_name' => 'Ketua Umum Pengcab PERBAKIN',
-                'letter_purpose_place' => 'Soreang',
-                'name' => $request->name,
-                'place_of_birth' => $request->place_of_birth,
-                'date_of_birth' => $request->date_of_birth,
-                'occupation' => $request->occupation,
-                'address' => $request->address,
-                'club' => $request->club,
-                'no_kta' => $request->no_kta,
-                'membership' => $request->membership,
-                'pemohon' => $request->pemohon,
-                'letter_status' => 1
-            ];
+                $data = [
+                    'firearm_category_id' => $request->firearm_category_id,
+                    'merek' => $request->merek,
+                    'kaliber' => $request->kaliber,
+                    'no_pabrik' => $request->no_pabrik,
+                    'no_buku_pas_senpi' => $request->no_buku_pas_senpi,
+                    'nama_pemilik' => $request->nama_pemilik,
+                    'jumlah' => $request->jumlah,
+                    'penyimpanan' => $request->penyimpanan
+                ];
+                $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
+                $this->_logHelper->store($this->module, $request->merek, 'create');
 
-            $this->_recomendationLetterRepository->insert(array_merge($dataLetter, DataHelper::_signParams(true)));
-            $this->_logHelper->store($this->module, $request->letter_place, 'create');
+                $dataLetter = [
+                    'letter_category_id' => $request->letter_category_id,
+                    'firearm_id' => $firearmId,
+                    'letter_place' => $request->letter_place,
+                    'letter_date' => $request->letter_date,
+                    'letter_purpose_name' => 'Ketua Umum Pengcab PERBAKIN',
+                    'letter_purpose_place' => 'Soreang',
+                    'name' => $request->name,
+                    'place_of_birth' => $request->place_of_birth,
+                    'date_of_birth' => $request->date_of_birth,
+                    'occupation' => $request->occupation,
+                    'address' => $request->address,
+                    'club' => $request->club,
+                    'no_kta' => $request->no_kta,
+                    'membership' => $request->membership,
+                    'pemohon' => $request->pemohon,
+                    'letter_status' => 1
+                ];
 
-            DB::commit();
-            return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
-        } catch (\Throwable $th) {
+                $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                $this->_logHelper->store($this->module, $request->name, 'create');
 
-            DB::rollBack();
-            return redirect('recomendationletter')->with('errorMessage', 'Gagal mengirim data');
+
+                $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
+                $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
+                $email = [];
+                foreach ($users as $user) {
+                    array_push($email, $user->user_email);
+                }
+                Mail::to($email)->send(new LetterSubmission($letter_id));
+
+                DB::commit();
+                return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
+            } catch (\Throwable $th) {
+
+                DB::rollBack();
+                return redirect('recomendationletter')->with('errorMessage', 'Gagal mengirim data');
+            }
+        } else if ($category == 2) {
+            DB::beginTransaction();
+            try {
+
+                $data = [
+                    'firearm_category_id' => $request->firearm_category_id,
+                    'merek' => $request->merek,
+                    'kaliber' => $request->kaliber,
+                    'no_pabrik' => $request->no_pabrik,
+                    'no_buku_pas_senpi' => $request->no_buku_pas_senpi,
+                    'nama_pemilik' => $request->nama_pemilik,
+                    'jumlah' => $request->jumlah,
+                    'penyimpanan' => $request->penyimpanan
+                ];
+                $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
+                $this->_logHelper->store($this->module, $request->merek, 'create');
+
+                $dataLetter = [
+                    'letter_category_id' => $request->letter_category_id,
+                    'firearm_id' => $firearmId,
+                    'letter_place' => $request->letter_place,
+                    'letter_date' => $request->letter_date,
+                    'letter_purpose_name' => 'Ketua Umum Pengcab PERBAKIN',
+                    'letter_purpose_place' => 'Soreang',
+                    'name' => $request->name,
+                    'place_of_birth' => $request->place_of_birth,
+                    'date_of_birth' => $request->date_of_birth,
+                    'occupation' => $request->occupation,
+                    'address' => $request->address,
+                    'club' => $request->club,
+                    'no_kta' => $request->no_kta,
+                    'membership' => $request->membership,
+                    'pemohon' => $request->pemohon,
+                    'letter_status' => 1
+                ];
+
+                $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                $this->_logHelper->store($this->module, $request->name, 'create');
+
+
+                $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
+                $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
+                $email = [];
+                foreach ($users as $user) {
+                    array_push($email, $user->user_email);
+                }
+                Mail::to($email)->send(new LetterSubmission($letter_id));
+
+                DB::commit();
+                return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
+            } catch (\Throwable $th) {
+
+                DB::rollBack();
+                return redirect('recomendationletter')->with('errorMessage', 'Gagal mengirim data');
+            }
+        } else if ($category == 4) {
+            DB::beginTransaction();
+            try {
+
+                $data = [
+                    'firearm_category_id' => $request->firearm_category_id,
+                    'merek' => $request->merek,
+                    'kaliber' => $request->kaliber,
+                    'no_pabrik' => $request->no_pabrik,
+                    'no_buku_pas_senpi' => $request->no_buku_pas_senpi,
+                    'nama_pemilik' => $request->nama_pemilik,
+                    'jumlah' => $request->jumlah,
+                    'penyimpanan' => $request->penyimpanan
+                ];
+                $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
+                $this->_logHelper->store($this->module, $request->merek, 'create');
+
+                $dataLetter = [
+                    'letter_category_id' => $request->letter_category_id,
+                    'firearm_id' => $firearmId,
+                    'letter_place' => $request->letter_place,
+                    'letter_date' => $request->letter_date,
+                    'letter_purpose_name' => 'Ketua Umum Pengcab PERBAKIN',
+                    'letter_purpose_place' => 'Soreang',
+                    'name' => $request->name,
+                    'place_of_birth' => $request->place_of_birth,
+                    'date_of_birth' => $request->date_of_birth,
+                    'occupation' => $request->occupation,
+                    'address' => $request->address,
+                    'club' => $request->club,
+                    'no_kta' => $request->no_kta,
+                    'membership' => $request->membership,
+                    'pemohon' => $request->pemohon,
+                    'letter_status' => 1
+                ];
+
+                $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                $this->_logHelper->store($this->module, $request->name, 'create');
+
+
+                $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
+                $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
+                $email = [];
+                foreach ($users as $user) {
+                    array_push($email, $user->user_email);
+                }
+                Mail::to($email)->send(new LetterSubmission($letter_id));
+
+                DB::commit();
+                return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
+            } catch (\Throwable $th) {
+
+                DB::rollBack();
+                return redirect('recomendationletter')->with('errorMessage', 'Gagal mengirim data');
+            }
+        } else if ($category == 10) {
+            DB::beginTransaction();
+            try {
+
+                $data = [
+                    'firearm_category_id' => $request->firearm_category_id,
+                    'merek' => $request->merek,
+                    'kaliber' => $request->kaliber,
+                    'no_pabrik' => $request->no_pabrik,
+                    'no_buku_pas_senpi' => $request->no_buku_pas_senpi,
+                    'nama_pemilik' => $request->nama_pemilik,
+                    'jumlah' => $request->jumlah,
+                    'penyimpanan' => $request->penyimpanan
+                ];
+                $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
+                $this->_logHelper->store($this->module, $request->merek, 'create');
+
+                $dataLetter = [
+                    'letter_category_id' => $request->letter_category_id,
+                    'firearm_id' => $firearmId,
+                    'letter_place' => $request->letter_place,
+                    'letter_date' => $request->letter_date,
+                    'letter_purpose_name' => 'Ketua Umum Pengcab PERBAKIN',
+                    'letter_purpose_place' => 'Soreang',
+                    'name' => $request->name,
+                    'place_of_birth' => $request->place_of_birth,
+                    'date_of_birth' => $request->date_of_birth,
+                    'occupation' => $request->occupation,
+                    'address' => $request->address,
+                    'club' => $request->club,
+                    'no_kta' => $request->no_kta,
+                    'membership' => $request->membership,
+                    'pemohon' => $request->pemohon,
+                    'letter_status' => 1
+                ];
+
+                $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                $this->_logHelper->store($this->module, $request->name, 'create');
+
+
+                $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
+                $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
+                $email = [];
+                foreach ($users as $user) {
+                    array_push($email, $user->user_email);
+                }
+                Mail::to($email)->send(new LetterSubmission($letter_id));
+
+                DB::commit();
+                return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
+            } catch (\Throwable $th) {
+
+                DB::rollBack();
+                return redirect('recomendationletter')->with('errorMessage', 'Gagal mengirim data');
+            }
         }
     }
 
@@ -174,39 +358,56 @@ class RecomendationLetterController extends Controller
         return redirect('recomendationletter')->with('successMessage', 'Surat berhasil dihapus');
     }
 
-    /**
-     * Print letter on PDF view file.
-     * @return Location
-     */
-    public function printLetter($id)
+    public function downloadLetter($id)
     {
+        switch ($id) {
+            case 11:
+                $letterName = '\data-anggota.docx';
+                break;
 
-        $letters = $this->_recomendationLetterRepository->getByIdLetter($id);
-        $data = array(
-            'items' => '',
-            'items' => '</td>',
-            'items' => '</td>',
-            'items' => '</td>'
-        );
-        $pdf = PDF::loadview('recomendationletter::letter', ['letters' => $letters, 'data' => $data]);
-        $pdf->setPaper('A4', 'portrait');
-        return $pdf->stream();
+            case 12:
+                $letterName = '\pendaftaran-anggota-baru.docx';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+        $filePath = public_path('storage\downloads\letters' . $letterName);
+        $headers = ['Content-Type: application/docx'];
+        $fileName = time() . '.docx';
+
+        return response()->download($filePath, $fileName, $headers);
     }
 
     /**
      * Print letter on PDF view file.
      * @return Location
      */
-    public function printLetterOne()
+    public function printLetter($id)
     {
+        $letter = $this->_recomendationLetterRepository->getByIdLetter($id);
+        $category = $letter->letter_category_id;
+        switch ($category) {
+            case 1:
+                return view('recomendationletter::letters.print_letter_1', compact('letter'));
+                break;
 
-        // $letters = $this->_recomendationLetterRepository->getByIdLetter($id);
-        // $data = array(
-        //     'items' => '',
-        //     'items' => '</td>',
-        //     'items' => '</td>',
-        //     'items' => '</td>'
-        // );
-        return view('recomendationletter::print_letter');
+            case 2:
+                return view('recomendationletter::letters.print_letter_2', compact('letter'));
+                break;
+
+            case 4:
+                return view('recomendationletter::letters.print_letter_4', compact('letter'));
+                break;
+
+            case 10:
+                return view('recomendationletter::letters.print_letter_10', compact('letter'));
+                break;
+
+            default:
+                # code...
+                break;
+        }
     }
 }

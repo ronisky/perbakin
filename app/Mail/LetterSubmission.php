@@ -39,7 +39,7 @@ class LetterSubmission extends Mailable
                 'no_kta'     => $this->letter->no_kta,
                 'club'         => $this->letter->club,
                 'letter_category_name'    => $this->letter->letter_category_name,
-                'created_at'    => date('d F Y H:m:s', strtotime($this->letter->updated_at)),
+                'created_at'    => date('d F Y H:m:s', strtotime($this->letter->created_at)),
             ]);
     }
 }

@@ -15,7 +15,7 @@ function Header()
         $this->Ln(25);
     }else{
         $this->SetFont('Arial','B',12);
-        $this->MultiCell(0,5,"Permohonan rekomendasi Hibah Senpi/amunisi untuk kepentingan Olahraga",0,'C',0);
+        $this->MultiCell(0,5,"Permohonan rekomendasi Hibah Senpi/amunisi untuk kepentingan Olahraga Menembak",0,'C',0);
         $this->Ln(10);
     }
 }
@@ -34,15 +34,15 @@ function Footer()
     }
 }
 
-function NoSurat()
+function NoSurat($letter)
 {
     $user = Auth::user()->group_id;
     if ($user == 2 || $user == 1) {
         $this->Cell(8);
         $this->Cell(20, 5, 'Nomor Surat', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->Cell(96, 5, ucwords('1/23P/2025'), 0, 0, 'L');
-        $this->Cell(30, 5, ucwords('Bandung') .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
+        $this->Cell(96, 5, ucwords($letter->letter_no), 0, 0, 'L');
+        $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
         
         $this->Ln(5);
         $this->Cell(8);
@@ -55,21 +55,21 @@ function NoSurat()
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,"Permohonan rekomendasi Hibah Senpi/amunisi untuk kepentingan Olahraga",0,'L',0);
+        $this->MultiCell(70,5,"Permohonan rekomendasi Hibah Senpi/amunisi untuk kepentingan Olahraga Menembak",0,'L',0);
     }else{
         $this->Ln(5);
         $this->Cell(8);
         $this->Cell(20, 5, 'Lampiran', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
-        $this->Cell(30, 5, ucwords('Bandung') .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
+        $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
         
         // Perihal
         $this->Ln(5);
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,"Permohonan rekomendasi Hibah Senpi/amunisi untuk kepentingan Olahraga",0,'L',0);
+        $this->MultiCell(70,5,"Permohonan rekomendasi Hibah Senpi/amunisi untuk kepentingan Olahraga Menembak",0,'L',0);
     }
 
 }
@@ -86,7 +86,7 @@ function TujuanSurat()
     $this->MultiCell(15, 5,'Di Soreang', 0,'L',0);
 }
 
-function bodySatu()
+function bodySatu($letter)
 {
     $this->Cell(10);
     $this->Cell(15, 5, '1. Yang bertanda tangan dibawah ini saya:', 0, 0, 'L');
@@ -96,48 +96,48 @@ function bodySatu()
     $this->Cell(2, 5, 'a.', 0, 0, 'C');
     $this->Cell(32, 5, 'Nama', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('ronI setiawan'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->name), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'b.', 0, 0, 'C');
     $this->Cell(32, 5, 'Tempat/Tgl lahir', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Bandung'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->place_of_birth) . ', '. $letter->date_of_birth , 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'c.', 0, 0, 'C');
     $this->Cell(32, 5, 'Pekerjaan /Jabatan', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Quality Asurance'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->occupation), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'd.', 0, 0, 'C');
     $this->Cell(32, 5, 'Alamat KTP', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->MultiCell(120,5,"Permohonan rekomendasi Pindah/Mutasi Senpi/amunisi anggota Perbakin Kab. Bandung ",0,'L',0);
+    $this->MultiCell(120,5,$letter->address,0,'L',0);
 
     $this->Cell(15);
     $this->Cell(2, 5, 'e.', 0, 0, 'C');
     $this->Cell(32, 5, 'Club/Perkumpulan', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Jingga Club'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->club), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'f.', 0, 0, 'C');
     $this->Cell(32, 5, 'No Kta PB-Perbakin', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('0123/12/3B/20025'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->no_kta), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'g.', 0, 0, 'C');
     $this->Cell(32, 5, 'Keanggotaan Cabang', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Kab. Bandung'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->membership), 0, 0, 'L');
 }
 
 function BodySatuDesc()
@@ -147,7 +147,7 @@ function BodySatuDesc()
 
 }
 
-function BodyDua()
+function BodyDua($letter)
 {
     $this->Cell(10);
     $this->Cell(15, 5, '2. Adapun Senpi / Amunisi yang dimohonkan adalah sebagai berikut:', 0, 0, 'L');
@@ -158,56 +158,56 @@ function BodyDua()
     $this->Cell(2, 5, 'a.', 0, 0, 'C');
     $this->Cell(32, 5, 'Jenis', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('ronI setiawan'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->firearm_category_name), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'b.', 0, 0, 'C');
     $this->Cell(32, 5, 'Merek', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Bandung'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->merek), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'c.', 0, 0, 'C');
     $this->Cell(32, 5, 'Kaliber', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Quality Asurance'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->kaliber), 0, 0, 'L');
     
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'd.', 0, 0, 'C');
     $this->Cell(32, 5, 'Nomor Pabrik', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Quality Asurance'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->no_pabrik), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'e.', 0, 0, 'C');
     $this->Cell(32, 5, 'No Buku Pas Senpi', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Jingga Club'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->no_buku_pas_senpi), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'f.', 0, 0, 'C');
     $this->Cell(32, 5, 'Nama Pemilik', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('0123/12/3B/20025'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->nama_pemilik), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'g.', 0, 0, 'C');
     $this->Cell(32, 5, 'Jumlah', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Kab. Bandung'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->jumlah), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'h.', 0, 0, 'C');
     $this->Cell(32, 5, 'Penyimpanan /Gudang', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords('Kab. Bandung'), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->penyimpanan), 0, 0, 'L');
 }
 
 function BodyTiga()
@@ -278,36 +278,36 @@ function BodyEmpat()
     $this->Cell(15, 5, '4. Demikian, atas perhatian dan kerjasamanya kami ucapkan terimakasih.', 0, 0, 'L');
 }
 
-function TandaTangan()
+function TandaTangan($letter)
 {
     $this->Cell(130);
     $this->MultiCell(25, 5,'Hormat Kami Pemohon', 0,'C', 0);
     $this->Ln(15);
     $this->Cell(133);
-    $this->MultiCell(25, 5,'Roni Setiawan', 0, 0);
+    $this->MultiCell(25, 5,$letter->pemohon, 0, 0);
 }
 }
 
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
-$pdf->SetTitle('Surat Rekomendasi');
+$pdf->SetTitle('Surat Permohonan Rekomendasi Hibah Senpi/amunisi untuk Kepentingan Olahraga Menembak');
 $pdf->SetFont('Arial','',8);
 
 // Nomor surat
-$pdf->NoSurat();
+$pdf->NoSurat($letter);
 // Tujuan surat kepada
 $pdf->TujuanSurat();
 
 // body surat 1
 $pdf->Ln(3);
-$pdf->BodySatu();
+$pdf->BodySatu($letter);
 
 $pdf->Ln(5);
 $pdf->BodySatuDesc();
 
 // body surat 2
 $pdf->Ln(2);
-$pdf->BodyDua();
+$pdf->BodyDua($letter);
 
 // body surat 3
 $pdf->Ln(7);
@@ -319,7 +319,7 @@ $pdf->BodyEmpat();
 
 //Tanda tangan
 $pdf->Ln(7);
-$pdf->TandaTangan();
+$pdf->TandaTangan($letter);
 
 $pdf->Output();
 exit;

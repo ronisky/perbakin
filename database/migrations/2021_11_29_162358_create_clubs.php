@@ -16,9 +16,9 @@ class CreateClubs extends Migration
         Schema::create('clubs', function (Blueprint $table) {
             $table->id('club_id');
             $table->string('club_name');
-            $table->text('club_description');
-            $table->string('club_phone');
-            $table->string('club_email');
+            $table->text('club_description')->nullable();
+            $table->string('club_phone')->nullable();
+            $table->string('club_email')->nullable();
             $table->string('club_website')->nullable();
             $table->string('club_whatsapp')->nullable();
             $table->string('club_instagram')->nullable();
@@ -32,15 +32,15 @@ class CreateClubs extends Migration
             $table->dateTime('updated_at')->nullable();
             $table->bigInteger('updated_by')->unsigned()->nullable();
 
-            $table->foreign('created_by')
-                ->references('user_id')
-                ->on('sys_users')
-                ->onDelete('cascade');
+            // $table->foreign('created_by')
+            //     ->references('user_id')
+            //     ->on('sys_users')
+            //     ->onDelete('cascade');
 
-            $table->foreign('updated_by')
-                ->references('user_id')
-                ->on('sys_users')
-                ->onDelete('cascade');
+            // $table->foreign('updated_by')
+            //     ->references('user_id')
+            //     ->on('sys_users')
+            //     ->onDelete('cascade');
 
             $table->engine = 'InnoDB';
         });
