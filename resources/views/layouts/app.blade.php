@@ -112,7 +112,7 @@
                     <div class="row text-muted">
                         <div class="col-12 text-center">
                             <p class="mb-0">
-                                &copy; 2021 Perbakin <b>.</b> By #</a>
+                                &copy; 2021 Perbakin <b>.</b> By Pesantech ID</a>
                             </p>
                         </div>
                     </div>

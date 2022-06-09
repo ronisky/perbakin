@@ -69,7 +69,13 @@
                                     placeholder="Masukan nama pengguna"
                                     value="{{ old('user_name') }}{{Auth::user()->user_name}}">
                             </div>
-
+                            <div class="form-group mb-3">
+                                <label class="form-label">Username <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="user_username"
+                                    placeholder="Masukan username"
+                                    value="{{ old('user_username') }}{{Auth::user()->user_username}}" readonly>
+                            </div>
+                            
                             <div class="form-group mb-3">
                                 <label class="form-label">Email <span class="text-danger">*</span></label>
                                 <input type="email" class="form-control" name="user_email" id="user_email"
