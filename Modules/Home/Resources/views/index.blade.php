@@ -216,7 +216,7 @@
             @foreach ($galleries as $gallery)
             <div class="col-lg-4 col-md-6 col-12">
                 <!-- Start Single Feature -->
-                <a href="{{ url('image/'. Crypt::encrypt($gallery->gallery_id)) }}">
+                <a href="{{ url('image/'. Crypt::encrypt($gallery->gallery_id)) }}" target="_blank">
                     <div class="single-feature wow fadeInUp" data-wow-delay=".{{ $time_delay }}s">
                         <img src="{{ url('storage/uploads/images/'. $gallery->gallery_image_path) }}"
                             alt="{{ $gallery->gallery_title }}" width="300" height="200">

@@ -68,13 +68,12 @@ class SponsorshipController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
-
         $validator = Validator::make($request->all(), $this->_validationRules($request, ''));
-
+        
         if ($validator->fails()) {
             return redirect('sponsorship')
-                ->withErrors($validator)
-                ->withInput();
+            ->withErrors($validator)
+            ->withInput();
         }
 
         $sponsorship_category  = $this->_sponsorshipCategoryRepository->getById($request->sponsorship_category_id);
@@ -348,7 +347,7 @@ class SponsorshipController extends Controller
     private function _validationRulesImage()
     {
         return [
-            'sponsorship_resource_path' => 'required|max:1|mimes:jpg,jpeg,bmp,png,gif',
+            'sponsorship_resource_path' => 'required|mimes:jpg,jpeg,bmp,png,gif|max:5120',
         ];
     }
 }

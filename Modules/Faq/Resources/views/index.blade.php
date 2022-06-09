@@ -20,7 +20,7 @@
                         <nav aria-label="breadcrumb" class="float-right">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/">
+                                    <a href="/dashboard">>
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
@@ -147,8 +147,6 @@
                                     <label class="form-label">Status FAQ <span class="text-danger">*</span>
                                     </label>
                                     <select class="form-control" name="faq_status" id="faq_status">
-                                        <option value="">- Status FAQ -</option>
-                                        <option value="{{ old('faq_status') }}" selected="selected"></option>
                                         <option value="1">Aktif</option>
                                         <option value="0">Tidak Aktif</option>
                                     </select>

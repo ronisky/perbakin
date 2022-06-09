@@ -20,7 +20,7 @@
                         <nav aria-label="breadcrumb" class="float-right">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/">
+                                    <a href="/dashboard">>
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
@@ -140,7 +140,6 @@
                                     <label class="form-label">Pilih Tipe<span class="text-danger">*</span></label>
                                     <div class="form-group">
                                         <select class="form-control" name="title" id="title">
-                                            <option value="{{ old('title') }}" selected="selected"></option>
                                             <option value="">- Visi Misi -</option>
                                             <option value="Visi">Visi</option>
                                             <option value="Misi">Misi</option>
@@ -161,7 +160,6 @@
                                     </label>
                                     <select class="form-control" name="status" id="status">
                                         <option value="">- Status -</option>
-                                        <option value="{{ old('status') }}" selected="selected"></option>
                                         <option value="1">Aktif</option>
                                         <option value="0">Tidak Aktif</option>
                                     </select>

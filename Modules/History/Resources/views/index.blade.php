@@ -20,7 +20,7 @@
                         <nav aria-label="breadcrumb" class="float-right">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/">
+                                    <a href="/dashboard">
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>

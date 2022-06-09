@@ -20,7 +20,7 @@
                         <nav aria-label="breadcrumb" class="float-right">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/">
+                                    <a href="/dashboard">>
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
@@ -155,7 +155,6 @@
                                     </label>
                                     <select class="form-control" name="gallery_status" id="gallery_status">
                                         <option value="">- Status gallery -</option>
-                                        <option value="{{ old('gallery_status') }}" selected="selected"></option>
                                         <option value="1">Aktif</option>
                                         <option value="0">Tidak Aktif</option>
                                     </select>

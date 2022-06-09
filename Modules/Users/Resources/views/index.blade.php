@@ -27,14 +27,6 @@
 @endsection
 
 @section('content')
-<!-- ============================================================== -->
-<!-- Container fluid  -->
-<!-- ============================================================== -->
-<!-- <div class="container-fluid"> -->
-<!-- ============================================================== -->
-<!-- Start Page Content -->
-<!-- ============================================================== -->
-<!-- basic table -->
 
 <div class="row">
     <div class="col-12">
@@ -53,7 +45,7 @@
                         <nav aria-label="breadcrumb" class="float-right">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/">
+                                    <a href="/dashboard">
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
@@ -143,12 +135,6 @@
         </div>
     </div>
 </div>
-<!-- ============================================================== -->
-<!-- End PAge Content -->
-<!-- ============================================================== -->
-<!-- </div> -->
-<!-- ============================================================== -->
-<!-- End Container fluid  -->
 
 <!-- Modal Add -->
 <div class="modal addModal" tabindex="-1" role="dialog">
@@ -167,7 +153,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Username <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="user_username" id="user_username"
-                                        placeholder="Masukan nama pengguna" value="{{ old('user_username') }}"
+                                        placeholder="Masukan username" value="{{ old('user_username') }}"
                                         style="text-transform: uppercase;" maxlength="7">
                                 </div>
                             </div>
@@ -195,7 +181,7 @@
                                 <div class="form-group">
                                     <label class="form-label">Telepon / WA<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="user_phone" id="user_phone"
-                                        maxlength="15" placeholder="Masukan email pengguna"
+                                        maxlength="15" placeholder="Masukan no Telp. /WA pengguna"
                                         value="{{ old('user_phone') }}">
                                     @if ($errors->has('user_phone'))
                                     <span class="text-danger">
@@ -207,16 +193,73 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
+                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="place_of_birth" id="place_of_birth"
+                                        placeholder="Masukan tempat lahir" value="{{ old('place_of_birth') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal lahir <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                                        placeholder="Masukan tanggal lahir" value="{{ old('date_of_birth') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="occupation" id="occupation"
+                                        placeholder="Masukan pekerjaan" value="{{ old('occupation') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat <span class="text-danger">*</span></label>
+                                    <textarea type="text" class="form-control" name="user_address" id="user_address"
+                                        placeholder="Masukan alamat pengguna">{{ old('user_address') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
                                     <label class="form-label">Nomor KTA <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="user_kta" id="user_kta"
-                                        placeholder="Masukan nama pengguna" value="{{ old('user_kta') }}">
+                                        placeholder="Masukan nomor KTA" value="{{ old('user_kta') }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Masa Aktif KTA <span class="text-danger">*</span></label>
                                     <input type="date" class="form-control" name="user_active_date"
-                                        id="user_active_date" value="{{ old('user_active_date') }}">
+                                        id="user_active_date" placeholder="Masa aktif KTA"
+                                        value="{{ old('user_active_date') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Club Anggota <span class="text-danger">*</span> </label>
+                                    <select class="form-control" name="club_id" id="club_id">
+                                        <option value="">- Pilih Club Anggota -</option>
+                                        @if(sizeof($clubs) > 0)
+                                        @foreach($clubs as $club)
+                                        <option value="{{ $club->club_id }}">{{ $club->club_name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Anggkatan Anggota CLub <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="user_club_gen" id="user_club_gen"
+                                        placeholder="Masukan angkatan anggota club" value="{{ old('user_club_gen') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Club Cabang <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="user_club_cab" id="user_club_cab"
+                                        placeholder="Masukan cabang club" value="Kab. Bandung">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3" id="user_status_form">
@@ -224,12 +267,35 @@
                                     <label class="form-label">Status User <span class="text-danger">*</span></label>
                                     <select class="form-control" name="user_status" id="user_status">
                                         <option value="">- Pilih Status -</option>
-                                        <option value="{{ old('user_status') }}" selected="selected"></option>
-                                        <option value="1" selected="selected">- Aktif -</option>
+                                        <option value="1" selected>- Aktif -</option>
                                         <option value="0">- Tidak Aktif -</option>
                                     </select>
                                 </div>
                             </div>
+                            @if (Auth::user()->user_id == 1 || Auth::user()->user_id == 4 )
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">User Group <span class="text-danger">*</span> </label>
+                                    <select class="form-control" name="group_id" id="group_id">
+                                        <option value="">- Pilih User Group -</option>
+                                        @if(sizeof($groups) > 0)
+                                        @foreach($groups as $group)
+                                        <option value="{{ $group->group_id }}">{{ $group->group_name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            @else
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">User Group <span class="text-danger">*</span> </label>
+                                    <select class="form-control" name="group_id" id="group_id">
+                                        <option value="5" selected>Anggota</option>
+                                    </select>
+                                </div>
+                            </div>
+                            @endif
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Password <span class="text-danger">*</span></label>
@@ -262,25 +328,11 @@
                                             <label class="form-label">Password Length:</label>
                                             <input type="number" class="col-md-2" id="the_length_pass" size=3
                                                 maxlength="2" value="10">
-                                            <button type="button" class="btn btn-light" id="generate_password"
-                                                title="Generate Password">Generate <i
+                                            <button type="button" class="btn btn-primary" id="generate_password"
+                                                title="Generate Password">Buat Password <i
                                                     class="fas fa-sync-alt ml-1"></i></button>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Group <span class="text-danger">*</span> </label>
-                                    <select class="form-control" name="group_id" id="group_id">
-                                        <option value="">- Pilih Group -</option>
-                                        <option value="{{ old('group_id') }}" selected="selected"></option>
-                                        @if(sizeof($groups) > 0)
-                                        @foreach($groups as $group)
-                                        <option value="{{ $group->group_id }}">{{ $group->group_name }}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -339,10 +391,55 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3 row">
+                                    <label for="place_date_of_birth" class="col-md-5 col-form-label">Tempat, tanggal
+                                        lahir</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext place_date_of_birth"
+                                            value="{{ old('place_date_of_birth') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="occupation" class="col-md-5 col-form-label">Pekerjaan</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext occupation"
+                                            value="{{ old('occupation') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="user_address" class="col-md-5 col-form-label">Alamat</label>
+                                    <div class="col-md-6">
+                                        <textarea type="text" readonly
+                                            class="form-control-plaintext user_address">{{ old('user_address') }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
                                     <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
                                     <div class="col-md-6">
                                         <input type="text" readonly class="form-control-plaintext user_kta"
                                             value="{{ old('user_kta') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="club_name" class="col-md-5 col-form-label">Club</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext club_name"
+                                            value="{{ old('club_name') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="user_club_gen" class="col-md-5 col-form-label">Angatan anggota
+                                        club</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext user_club_gen"
+                                            value="{{ old('user_club_gen') }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 mb-3 row">
+                                    <label for="user_club_cab" class="col-md-5 col-form-label">Cabang club</label>
+                                    <div class="col-md-6">
+                                        <input type="text" readonly class="form-control-plaintext user_club_cab"
+                                            value="{{ old('user_club_cab') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3 row">
@@ -433,17 +530,23 @@
 
 
                 if (data.status == 1) {
-
                     $('#user_username').val(data.result.user_username);
                     $('#user_name').val(data.result.user_name);
                     $('#user_email').val(data.result.user_email);
                     $('#user_phone').val(data.result.user_phone);
+                    $('#place_of_birth').val(data.result.place_of_birth);
+                    $('#date_of_birth').val(data.result.date_of_birth);
+                    $('#occupation').val(data.result.occupation);
+                    $('#user_address').val(data.result.user_address);
                     $('#user_kta').val(data.result.user_kta);
+                    $('#user_active_date').val(data.result.user_active_date);
+                    $('#club_id').val(data.result.club_id);
+                    $('#user_club_gen').val(data.result.user_club_gen);
+                    $('#user_club_cab').val(data.result.user_club_cab);
 
                     $('#user_password_old').val(data.result.user_password);
                     $('#group_id').val(data.result.group_id);
                     $('#user_status').val(data.result.user_status);
-                    $('#user_active_date').val(data.result.user_active_date);
 
                     $('.addModal .modal-title').text('Ubah Pengguna');
                     $('.addModal').modal('show');
@@ -474,26 +577,46 @@
 
 
     $('.cancel').click(function () {
-        // set clear value input password 
+        // set clear value input password
         $('#user_password').val('');
     });
     $('.submit').click(function () {
-        // set clear value input password 
+        // set clear value input password
         $('.submit').button.disabled = true;
     });
 
     $("#addForm").validate({
         rules: {
+            user_username: "required",
             user_name: "required",
             user_email: "required",
             user_phone: "required",
+            place_of_birth: "required",
+            date_of_birth: "required",
+            occupation: "required",
+            user_address: "required",
+            user_kta: "required",
+            user_active_date: "required",
+            club_id: "required",
+            user_club_gen: "required",
+            user_club_cab: "required",
             user_password: "required",
             group_id: "required",
         },
         messages: {
+            user_username: "Username tidak boleh kosong",
             user_name: "Nama user tidak boleh kosong",
             user_email: "Email user tidak boleh kosong",
             user_phone: "Telepon / WA user tidak boleh kosong",
+            place_of_birth: "Masukan tempat lahir",
+            date_of_birth: "Masukan tanggal lahir",
+            occupation: "Masukan pekerjaan",
+            user_address: "Masukan alamat",
+            user_kta: "Masukan nomor KTA",
+            user_active_date: "Masukan masa aktif KTA",
+            club_id: "Pilih club",
+            user_club_gen: "Masukan angkatan anggota club",
+            user_club_cab: "Masukan club cabang",
             user_password: "Password user tidak boleh kosong",
             group_id: "Nama grup tidak boleh kosong",
         },
@@ -623,28 +746,36 @@
         let id = $(this).attr('data-id');
         let url = "{{ url('users/show') }}";
 
-        $('.detailModal .modal-title').text('Detail Data User');
-        $('.detailModal').modal('show');
-
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
+                console.log(data);
                 if (data.status == 1) {
-
-                    $('.user_username').val(': ' + data.result.user_username);
-                    $('.user_name').val(': ' + data.result.user_name);
-                    $('.user_email').val(': ' + data.result.user_email);
-                    $('.user_phone').val(': ' + data.result.user_phone);
-                    $('.user_kta').val(': ' + data.result.user_kta);
-                    $('.user_active_date').val(': ' + data.result.user_active_date);
-                    $('.group_name').val(': ' + data.result.group_name);
-                    if (data.result.user_status == 1) {
+                    $('.user_username').val(': ' + data.result[0].user_username);
+                    $('.user_name').val(': ' + data.result[0].user_name);
+                    $('.user_email').val(': ' + data.result[0].user_email);
+                    $('.user_phone').val(': ' + data.result[0].user_phone);
+                    $('.place_date_of_birth').val(': ' + data.result[0].place_of_birth + ', ' + data
+                        .result.date_of_birth_id);
+                    $('.occupation').val(': ' + data.result[0].occupation);
+                    $('.user_address').val(': ' + data.result[0].user_address);
+                    $('.user_kta').val(': ' + data.result[0].user_kta);
+                    $('.user_active_date').val(': ' + data.result[0].user_active_date);
+                    $('.club_name').val(': ' + data.result[0].club_name);
+                    $('.user_club_gen').val(': ' + data.result[0].user_club_gen);
+                    $('.user_club_cab').val(': ' + data.result[0].user_club_cab);
+                    $('.group_name').val(': ' + data.result[0].group_name);
+                    if (data.result[0].user_status == 1) {
                         $('.user_status').val(': ' + 'Aktif');
                     } else {
                         $('.user_status').val(': ' + 'Tidak Aktif');
                     }
+
+
+                    $('.detailModal .modal-title').text('Detail Data User');
+                    $('.detailModal').modal('show');
                 }
 
             },

@@ -42,7 +42,7 @@
                         <nav aria-label="breadcrumb" class="float-right">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/">
+                                    <a href="/dashboard">>
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
@@ -761,6 +761,29 @@
             $('.file-buku-pas-senpi').hide();
             $('.file-foto-senjata').hide();
 
+        } else if (letter == 5) {
+            $('.input-option').show();
+            $('.input-pemohon').show();
+            $('.input-firearm').show();
+            // syarat
+            $('.file-kta').show();
+            $('.file-buku-pas-senpi').show();
+
+            // hide
+            $('.file-sba-penitipan-senpi').hide();
+            $('.file-si-impor-senjata').hide();
+            $('.file-ktp').hide();
+            $('.file-sertif-menembak').hide();
+            $('.file-skck').hide();
+            $('.file-surat-sehat').hide();
+            $('.file-tes-psikotes').hide();
+            $('.file-kk').hide();
+            $('.file-foto-23').hide();
+            $('.file-foto-34').hide();
+            $('.file-foto-46').hide();
+            $('.file-surat-hibah-senpi').hide();
+            $('.file-foto-senjata').hide();
+
         } else if (letter == 10) {
             $('.input-option').show();
             $('.input-pemohon').show();
@@ -771,7 +794,7 @@
             $('.file-ktp').show()
             $('.file-foto-46').show();
 
-            // hide            
+            // hide
             $('.file-sba-penitipan-senpi').hide();
             $('.file-si-impor-senjata').hide();
             $('.file-surat-hibah-senpi').hide();
@@ -814,7 +837,7 @@
         $('#pemohon').val(name);
     });
 
-    // add data 
+    // add data
     $('.btnAdd').click(function () {
         document.getElementById("addForm").reset();
 

@@ -20,7 +20,7 @@
                         <nav aria-label="breadcrumb" class="float-right">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/">
+                                    <a href="/dashboard">>
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
@@ -179,7 +179,6 @@
                                     </label>
                                     <select class="form-control" name="publish_status" id="publish_status">
                                         <option value="">- Status Artikel -</option>
-                                        <option value="{{ old('publish_status') }}" selected="selected"></option>
                                         <option value="1">Publish</option>
                                         <option value="0">Review</option>
                                     </select>

@@ -20,7 +20,7 @@
                         <nav aria-label="breadcrumb" class="float-right">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/">
+                                    <a href="/dashboard">>
                                         <i data-feather="home" width="16" height="16" class="me-2">
                                         </i></a>
                                 </li>
@@ -151,7 +151,6 @@
                                     <select class="form-control" name="sponsorship_category_id"
                                         id="sponsorship_category_id">
                                         <option value="" selected="selected">- Pilih Kategori -</option>
-                                        <option value="{{ old('sponsorship_category_id') }}"></option>
                                         @if(sizeof($sponsorship_categories) > 0)
                                         @foreach($sponsorship_categories as $sponsorship_category)
                                         <option value="{{ $sponsorship_category->sponsorship_category_id }}">
@@ -173,7 +172,6 @@
                                     </label>
                                     <select class="form-control" name="sponsorship_type" id="sponsorship_type">
                                         <option value="" selected="selected">- Pilih Type Data -</option>
-                                        <option value="{{ old('sponsorship_type') }}"></option>
                                         <option value="photo">Photo</option>
                                         <option value="video">Video</option>
                                     </select>
@@ -217,7 +215,6 @@
                                     </label>
                                     <select class="form-control" name="sponsorship_status" id="sponsorship_status">
                                         <option value="">- Status Sponsorship -</option>
-                                        <option value="{{ old('sponsorship_status') }}" selected="selected"></option>
                                         <option value="1">Aktif</option>
                                         <option value="0">Tidak Aktif</option>
                                     </select>
@@ -395,7 +392,7 @@
         let data = $('#change-image-chose').val();
         let typeData = $('.data-resource-file').val();
 
-        // get first initial data 
+        // get first initial data
         let isYoutube = typeData.split(":")[0]
         if (data == 1) {
             if (isYoutube == 'https') {
@@ -477,7 +474,7 @@
                     const [extension, ...nameParts] = path.split('.').reverse();
                     const dataName = sponsorship_resource_path.substr(0, 20) + '.' + extension;
 
-                    // get first initial data 
+                    // get first initial data
                     let isYoutube = sponsorship_resource_path.split(":")[0]
                     let data_images_path = "";
                     if (isYoutube == 'https') {

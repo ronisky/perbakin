@@ -11,11 +11,14 @@ use Illuminate\Support\Facades\Hash;
 use Modules\UserGroup\Repositories\UserGroupRepository;
 use Modules\Users\Repositories\UsersRepository;
 use App\Helpers\DataHelper;
+use App\Helpers\DateFormatHelper;
 use App\Helpers\LogHelper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Modules\Club\Repositories\ClubRepository;
+use Symfony\Component\Console\Helper\FormatterHelper;
 
 class UsersController extends Controller
 {
@@ -25,6 +28,7 @@ class UsersController extends Controller
 
         $this->_usersRepository     = new UsersRepository;
         $this->_groupRepository     = new UserGroupRepository;
+        $this->_clubRepository     = new ClubRepository;
         $this->_logHelper           = new LogHelper;
         $this->module               = "Users";
     }
@@ -42,8 +46,9 @@ class UsersController extends Controller
 
         $users      = $this->_usersRepository->getAll();
         $groups     = $this->_groupRepository->getAll();
+        $clubs     = $this->_clubRepository->getAll();
 
-        return view('users::index', compact('users', 'groups'));
+        return view('users::index', compact('users', 'groups', 'clubs'));
     }
 
     /**
@@ -80,11 +85,11 @@ class UsersController extends Controller
                 ->withInput();
         }
 
-        $request['user_status'] = '1';
+        $request['user_status'] = 1;
 
         DB::beginTransaction();
         $this->_usersRepository->insert(DataHelper::_normalizeParams($request->all(), true));
-        $this->_logHelper->store($this->module, $request->name, 'create');
+        $this->_logHelper->store($this->module, $request->user_name, 'create');
         DB::commit();
 
         return redirect('users')->with('successMessage', 'Pengguna berhasil ditambahkan');
@@ -104,10 +109,16 @@ class UsersController extends Controller
 
         $getDetail  = $this->_usersRepository->getById($id);
 
-        if ($getDetail)
-            return DataHelper::_successResponse($getDetail, 'Data berhasil ditemukan');
-        else
+        if ($getDetail) {
+            $dateIn = DateFormatHelper::dateIn($getDetail->date_of_birth);
+            $result = [
+                'date_of_birth_id' => $dateIn,
+                $getDetail
+            ];
+            return DataHelper::_successResponse($result, 'Data berhasil ditemukan');
+        } else {
             return DataHelper::_errorResponse(null, 'Data tidak ditemukan');
+        }
     }
 
     /**
@@ -151,16 +162,16 @@ class UsersController extends Controller
         }
 
         if ($id == 1) {
-            $request['user_status'] = '1';
+            $request['user_status'] = 1;
         }
 
         DB::beginTransaction();
-
         $this->_usersRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
         $this->_logHelper->store($this->module, $request->user_username, 'update');
         DB::commit();
 
-        return redirect('users')->with('successMessage', 'Pengguna berhasil diubah');
+
+        return redirect('users')->with('successMessage', 'Data pengguna berhasil diubah');
     }
 
     public function updateProfile(Request $request, $id)
@@ -398,16 +409,39 @@ class UsersController extends Controller
     {
         if ($id == '') {
             return [
-                'user_email' => 'required|unique:sys_users',
+                'user_username' => 'required|unique:sys_users',
                 'user_name' => 'required',
+                'user_email' => 'required|unique:sys_users',
+                'user_phone' => 'required',
+                'place_of_birth' => 'required',
+                'date_of_birth' => 'required',
+                'occupation' => 'required',
+                'user_address' => 'required',
+                'user_kta' => 'required',
+                'user_active_date' => 'required',
+                'club_id' => 'required',
+                'user_club_gen' => 'required',
+                'user_club_cab' => 'required',
                 'user_password' => 'required',
                 'group_id' => 'required',
             ];
         } else {
             return [
-                'user_email' => 'required|unique:sys_users,user_email,' . $id . ',user_id',
-                'user_name' => 'required',
-                'group_id' => 'required',
+                'user_username' => 'required',
+                // 'user_email' => 'required',
+                // 'user_name' => 'required',
+                // 'user_phone' => 'required',
+                // 'place_of_birth' => 'required',
+                // 'date_of_birth' => 'required',
+                // 'occupation' => 'required',
+                // 'user_address' => 'required',
+                // 'user_kta' => 'required',
+                // 'user_active_date' => 'required',
+                // 'club_id' => 'required',
+                // 'user_club_gen' => 'required',
+                // 'user_club_cab' => 'required',
+                // 'user_password' => 'required',
+                // 'group_id' => 'required',
             ];
         }
     }
