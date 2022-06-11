@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        @if(empty($galleries))
+        @if(empty($articles))
         <div class="row">
         </div>
         @else
@@ -105,7 +105,7 @@
                             <img src="{{ url('storage/uploads/images/'. $article->image_thumbnail_path) }}"
                                 alt="{{ $article->article_title }} " width="130" height="130">
                         </div>
-                        <p class="mt-2">{{ $article->article_content }}</p>
+                        <p class="mt-2">{{ strip_tags($article->article_content) }}</p>
                     </div>
 
                     <!-- End Table Head -->

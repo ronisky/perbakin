@@ -238,10 +238,6 @@ class FaqController extends Controller
         } else {
             return [
                 'faq_question' => 'required|unique:faqs,faq_question,' . $id . ',faq_id',
-                'faq_name' => 'required',
-                'faq_email' => 'required',
-                'faq_phone' => 'required',
-                'faq_nik' => 'required',
             ];
         }
     }

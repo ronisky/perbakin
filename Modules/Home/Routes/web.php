@@ -22,7 +22,7 @@ Route::prefix('home')->group(function () {
     Route::get('/management', [HomeController::class, 'management']);
     Route::get('/contact', [HomeController::class, 'contact']);
     Route::get('/galleries', [HomeController::class, 'galleries']);
-    Route::get('/clubs', [HomeController::class, 'clubs']);
+    Route::get('/homeclubs', [HomeController::class, 'homeclubs']);
     Route::get('/articles', [HomeController::class, 'articles']);
 
     Route::get('/details/{id}', [HomeController::class, 'detailArticle']);
@@ -53,8 +53,8 @@ Route::prefix('galleries')->group(function () {
     Route::get('/', [HomeController::class, 'galleries']);
 });
 
-Route::prefix('clubs')->group(function () {
-    Route::get('/', [HomeController::class, 'clubs']);
+Route::prefix('homeclubs')->group(function () {
+    Route::get('/', [HomeController::class, 'homeclubs']);
 });
 
 Route::prefix('articles')->group(function () {

@@ -17,17 +17,22 @@
                 </nav>
 
                 <div class="card blog-item">
-                    <img src="{{ url('storage/uploads/images/'.$image) }}" class="card-img-top" alt="{{ $title }}">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="mb-2 text-muted px-3 pt-3">
+                                {{ $created }}
+                            </div>
+                            <h4 class="blog-item__title px-3 pt-2">{{ $title }}</h4>
+                            <a target="blank" href="{{ url('/storage/uploads/images/'.$image) }}">
+                                <img src="{{ url('storage/uploads/images/'.$image) }}" class="card-img-top p-2"
+                                    alt="{{ $title }}">
+                            </a>
 
-                    <div class="card-body p-5">
-                        <div class="mb-2 text-muted">
-                            {{ $created }}
-                        </div>
-                        <h3 class="blog-item__title">{{ $title }}</h3>
-                        <hr>
-
-                        <div class="blog-item__content content">
-                            {{ strip_tags($content) }}
+                            <div class="card-body px-3 pt-2">
+                                <div class="blog-item__content content">
+                                    {{ strip_tags($content) }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -143,7 +143,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Nomor Hp / Telp.<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" maxlength="15" class="form-control" name="faq_phone"
+                                        <input type="number" maxlength="15" class="form-control" name="faq_phone"
                                             id="faq_phone" placeholder="Masukan no Hp / Telp."
                                             value="{{ old('faq_phone') }}" required>
                                     </div>

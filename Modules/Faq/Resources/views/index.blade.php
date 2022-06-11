@@ -195,7 +195,7 @@
                                 <div class="col-md-6 mb-3 row">
                                     <label for="faq_phone" class="col-md-5 col-form-label">Telepon</label>
                                     <div class="col-md-6">
-                                        <input type="text" readonly class="form-control-plaintext faq_phone"
+                                        <input type="number" readonly class="form-control-plaintext faq_phone"
                                             value="{{ old('faq_phone') }}">
                                     </div>
                                 </div>

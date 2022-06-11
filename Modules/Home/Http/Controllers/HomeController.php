@@ -122,12 +122,12 @@ class HomeController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function clube()
+    public function homeclubs()
     {
         $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
         $clubs    = $this->_clubRepository->getAllByParams(['club_status' => 1]);
 
-        return view('home::clube', compact('banners', 'clubs'));
+        return view('home::homeclubs', compact('banners', 'clubs'));
     }
 
     /**

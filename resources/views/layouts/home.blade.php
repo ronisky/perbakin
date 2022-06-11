@@ -124,10 +124,10 @@
                                         <a href="{{ url('/') }}" aria-label="Toggle navigation">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ url('gallery') }}" aria-label="Toggle navigation">Gallery</a>
+                                        <a href="{{ url('galleries') }}" aria-label="Toggle navigation">Gallery</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ url('clubs') }}" aria-label="Toggle navigation">Clubs</a>
+                                        <a href="{{ url('homeclubs') }}" aria-label="Toggle navigation">Clubs</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{ url('articles') }}" aria-label="Toggle navigation">Articles</a>
@@ -251,7 +251,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        //====== counter up 
+        //====== counter up
         var cu = new counterUp({
             start: 0,
             duration: 2000,

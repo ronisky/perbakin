@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Masukan Nomor HP / Telp.</label>
-                                    <input class="form-control form-control-lg" type="text" name="user_phone"
+                                    <input class="form-control form-control-lg" type="number" name="user_phone"
                                         id="user_phone" placeholder="08123456789" maxlength="15" />
                                     @if ($errors->has('user_phone'))
                                     <span class="text-danger">
@@ -157,7 +157,7 @@
     });
 
 
-    // function for disable right right click 
+    // function for disable right right click
     window.oncontextmenu = function () {
         return false;
     }

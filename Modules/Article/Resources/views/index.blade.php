@@ -60,14 +60,19 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $article->article_author }}</td>
-                                <td>{{ $article->article_title }}</td>
-                                <td title="{{ $article->article_content}}">
+                                <td title="{{ $article->article_title}}">
+                                    @php
+                                    $articleTitle = substr($article->article_title, 0, 20);
+                                    $title = $articleTitle . '...';
+                                    @endphp
+                                    {{ $title}}</td>
+                                <td title="{{ strip_tags($article->article_content)}}">
                                     @php
                                     $content = substr(strip_tags(html_entity_decode($article->article_content)), 0, 30);
                                     @endphp
                                     {{ $content }}
                                 </td>
-                                <td>
+                                <td title="{{ $title }}">
                                     @php
                                     $fileName = substr($article->image_thumbnail_path, 0, 20);
                                     $extension = pathinfo($article->image_thumbnail_path, PATHINFO_EXTENSION);
@@ -199,8 +204,7 @@
                                     <input type="file" class="form-control" name="image_thumbnail_path"
                                         id="image_thumbnail_path" value="{{ old('image_thumbnail_path') }}"
                                         data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp)$/i"
-                                        data-parsley-error-message="Pilih gamabr dengan ekstensi jpg/jpeg/png/bmp"
-                                        required>
+                                        data-parsley-error-message="Pilih gamabr dengan ekstensi jpg/jpeg/png/bmp">
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
@@ -272,7 +276,6 @@
         $('#change-image-chose').hide();
         $('.change-image').show();
         $('#thumbnail-image').hide();
-        $('#image_thumbnail_path').prop('required', true);
         $('.addModal form').attr('action', "{{ url('article/store') }}");
         $('.addModal .modal-title').text('Tambah Artikel');
         $('.addModal').modal('show');

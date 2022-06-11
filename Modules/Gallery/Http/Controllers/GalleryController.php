@@ -155,7 +155,7 @@ class GalleryController extends Controller
             $request->file('gallery_image_path')->storeAs($filePath, $fileName, 'public');
 
             $dataGallery = [
-                'gallery_name' => $request->gallery_name,
+                'gallery_title' => $request->gallery_title,
                 'gallery_description' => $request->gallery_description,
                 'gallery_image_path' => $fileName,
                 'gallery_status' => $request->gallery_status,
@@ -165,7 +165,7 @@ class GalleryController extends Controller
         } else {
             // update data
             $dataGallery = [
-                'gallery_name' => $request->gallery_name,
+                'gallery_title' => $request->gallery_title,
                 'gallery_description' => $request->gallery_description,
                 'gallery_status' => $request->gallery_status,
             ];
@@ -173,7 +173,7 @@ class GalleryController extends Controller
             $this->_galleryRepository->update(array_merge($dataGallery, DataHelper::_signParams(false, true)), $id);
         }
 
-        $this->_logHelper->store($this->module, $request->gallery_name, 'update');
+        $this->_logHelper->store($this->module, $request->gallery_title, 'update');
 
         DB::commit();
 

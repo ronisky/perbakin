@@ -180,7 +180,7 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Telepon / WA<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="user_phone" id="user_phone"
+                                    <input type="number" class="form-control" name="user_phone" id="user_phone"
                                         maxlength="15" placeholder="Masukan no Telp. /WA pengguna"
                                         value="{{ old('user_phone') }}">
                                     @if ($errors->has('user_phone'))

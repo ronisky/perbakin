@@ -9,7 +9,7 @@
             <h3>PERBAKIN KABUPATEN BANDUNG</h3>
         </div>
 
-        <div class="col-auto ml-auto text-right mt-n1">
+        {{-- <div class="col-auto ml-auto text-right mt-n1">
             <span class="dropdown mr-2">
                 <button class="btn btn-light bg-white shadow-sm dropdown-toggle" id="day" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -31,7 +31,7 @@
             <button class="btn btn-primary shadow-sm">
                 <i class="align-middle" data-feather="refresh-cw">&nbsp;</i>
             </button>
-        </div>
+        </div> --}}
     </div>
     <div class="row">
         <div class="col-12 col-sm-6 col-xxl d-flex">
