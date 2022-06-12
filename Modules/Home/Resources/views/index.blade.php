@@ -370,9 +370,11 @@
                             @php
                             $dataWeb = substr($club->club_website, 0, 20);
                             $dataWeb = $dataWeb . "...";
+                            $webUrl = $club->club_website;
                             @endphp
 
-                            <li><i class="lni lni-checkmark-circle"></i> Website : <a href="{{ $club->club_website }}">
+                            <li><i class="lni lni-checkmark-circle"></i> Website : <a href="{{ $webUrl }}"
+                                    target="_blank">
                                     {{ $dataWeb }}</a></li>
                             <li><i class="lni lni-checkmark-circle"></i> Email : {{ $club->club_email }}</li>
                             <li><i class="lni lni-checkmark-circle"></i> Instagram : <a

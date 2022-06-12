@@ -74,7 +74,7 @@
                                     $name = $fileName . '...' . $extension;
                                     @endphp
                                     <a href="{{asset('storage/uploads/images')}}/{{$club->club_logo_path}}"
-                                        target="blank"><img width="50px"
+                                        target="_blank"><img width="50px"
                                             src="{{asset('storage/uploads/images')}}/{{$club->club_logo_path}}"
                                             alt="{{$club->club_logo_path}}"></a>
                                 </td>
@@ -149,9 +149,10 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Nomor Website</label>
-                                    <input type="text" class="form-control" name="club_website" id="club_website"
-                                        placeholder="Masukan link website klub" value="{{ old('club_website') }}">
+                                    <label class="form-label">Nama Website</label>
+                                    <input type="url" class="form-control" name="club_website" id="club_website"
+                                        placeholder="Masukan link website klub (misal: https://perbakinkabbandung.ac.id)"
+                                        value="{{ old('club_website') }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -186,7 +187,7 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Youtube</label>
-                                    <input type="text" class="form-control" name="club_youtube" id="club_youtube"
+                                    <input type="url" class="form-control" name="club_youtube" id="club_youtube"
                                         placeholder="Masukan link youtube channel klub"
                                         value="{{ old('club_youtube') }}">
                                 </div>
@@ -292,6 +293,7 @@
     $('.btnAdd').click(function () {
         phone();
         document.getElementById("addForm").reset();
+
         let data_images = "";
         data_images = ``
         document.getElementById("club_logo_path").innerHTML = textToHTML(data_images);
@@ -299,7 +301,6 @@
         $('#change-logo-chose').hide();
         $('.change-logo').show();
         $('#logo-images').hide();
-        $('#club_logo_path').prop('required', true);
         $('.addModal form').attr('action', "{{ url('club/store') }}");
         $('.addModal .modal-title').text('Tambah Club');
         $('.addModal').modal('show');
@@ -321,6 +322,9 @@
         $('#club_logo_path').prop('required', false);
         $('.addModal form').attr('action', "{{ url('club/update') }}" + '/' + id);
 
+        $('#club-status').show();
+        $('.addModal .modal-title').text('Ubah Club');
+        $('.addModal').modal('show');
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
@@ -346,13 +350,10 @@
                     const dataName = club_logo_path.substr(0, 20) + '.' + extension;
                     let data_images_path = "";
                     data_images_path =
-                        `<a href="{{asset('storage/uploads/images')}}/${club_logo_path}" target="blank" class="club_logo_path"><span>Logo sekarang = ${dataName}</span></a>`
+                        `<a href="{{asset('storage/uploads/images')}}/${club_logo_path}" target="_blank" class="club_logo_path"><span>Logo sekarang = ${dataName}</span></a>`
                     document.getElementById("logo-images").innerHTML = textToHTML(
                         data_images_path);
 
-                    $('#club-status').show();
-                    $('.addModal .modal-title').text('Ubah Club');
-                    $('.addModal').modal('show');
 
                 }
 

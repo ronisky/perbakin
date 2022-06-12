@@ -236,7 +236,7 @@
                                 <td>
                                     @if($letter->letter_id > 0)
                                     <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
-                                        target="blank" class="btn btn-icon btnPrint btn-outline-secondary"
+                                        target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                         title="Print">
                                         <i data-feather="printer" width="16" height="16"></i>
@@ -1093,7 +1093,7 @@
         }
     });
 
-    // add data 
+    // add data
     $('.btnAdd').click(function () {
 
         $('.option-1').hide();

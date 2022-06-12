@@ -105,7 +105,9 @@
                             <iframe width="350" height="190" src="{{ $sponsorship->sponsorship_resource_path }}"
                                 allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true">
                             </iframe>
+                            <p>{{ $sponsorship->sponsorship_name }}</p>
                         </div>
+
                         @else
                         <a href="{{ url('storage/uploads/images/'. $sponsorship->sponsorship_resource_path) }}"
                             target="_blank">
@@ -113,6 +115,7 @@
                                 src="{{ url('storage/uploads/images/'. $sponsorship->sponsorship_resource_path) }}"
                                 alt="{{ $sponsorship->sponsorship_resource_path }}">
                         </a>
+                        <p>{{ $sponsorship->sponsorship_name }}</p>
                         @endif
                     </div>
                     @php

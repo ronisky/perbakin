@@ -23,7 +23,7 @@
                                 {{ $created }}
                             </div>
                             <h4 class="blog-item__title px-3 pt-2">{{ $title }}</h4>
-                            <a target="blank" href="{{ url('/storage/uploads/images/'.$image) }}">
+                            <a target="_blank" href="{{ url('/storage/uploads/images/'.$image) }}">
                                 <img src="{{ url('storage/uploads/images/'.$image) }}" class="card-img-top p-2"
                                     alt="{{ $title }}">
                             </a>

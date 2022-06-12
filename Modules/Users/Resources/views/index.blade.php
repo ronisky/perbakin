@@ -522,6 +522,8 @@
         document.getElementById('user_status_form').style.display = 'block';
         $('.addModal form').attr('action', "{{ url('users/update') }}" + '/' + id);
 
+        $('.addModal .modal-title').text('Ubah Pengguna');
+        $('.addModal').modal('show');
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
@@ -547,10 +549,6 @@
                     $('#user_password_old').val(data.result.user_password);
                     $('#group_id').val(data.result.group_id);
                     $('#user_status').val(data.result.user_status);
-
-                    $('.addModal .modal-title').text('Ubah Pengguna');
-                    $('.addModal').modal('show');
-
                 }
 
             },

@@ -199,7 +199,7 @@
                                             placeholder="Masukan kode ikon">
                                         <div class="input-group-append">
                                             <a href="https://feathericons.com/" class="btn btn-outline-info"
-                                                target="blank">Lihat</a>
+                                                target="_blank">Lihat</a>
                                         </div>
                                     </div>
                                 </div>
@@ -262,13 +262,13 @@
 
         $('.addModal form').attr('action', "{{ url('sysmenu/update') }}" + '/' + id);
 
+        $('.addModal .modal-title').text('Ubah Menu');
+        $('.addModal').modal('show');
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
-                
-
                 if (data.status == 1) {
 
                     $('#menu_name').val(data.result.menu_name);
@@ -278,8 +278,6 @@
                     $('#menu_icon').val(data.result.menu_icon);
                     $('#menu_parent_id').val(data.result.menu_parent_id);
                     $('#menu_position').val(data.result.menu_position);
-                    $('.addModal .modal-title').text('Ubah Menu');
-                    $('.addModal').modal('show');
 
                 }
 

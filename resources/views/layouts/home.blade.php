@@ -99,7 +99,7 @@
                                                 <a href="{{ url('histories') }}"
                                                     aria-label="Toggle navigation">Sejarah</a>
                                             </li>
-                                            <li class="nav-item"><a href="#sponsorship">Sponsorship</a>
+                                            <li class="nav-item"><a href="{{ url('sponsorships') }}">Sponsorship</a>
                                             </li>
                                             <li class=" nav-item"><a href="{{ url('contact') }}">Contact</a></li>
                                             <li class="nav-item">

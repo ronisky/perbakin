@@ -73,7 +73,7 @@
                                     $name = $fileName . '...' . $extension;
                                     @endphp
                                     <a href="{{asset('storage/uploads/images')}}/{{$data->image_path}}"
-                                        target="blank"><img width="50px"
+                                        target="_blank"><img width="50px"
                                             src="{{asset('storage/uploads/images')}}/{{$data->image_path}}"
                                             alt="{{$data->image_path}}"></a>
                                 </td>
@@ -245,7 +245,7 @@
         $('#change-image-chose').hide();
         $('.change-image').show();
         $('#visimisi-images').hide();
-        $('#image_path').prop('required', true);
+        // $('#image_path').prop('required', true);
         $('.addModal form').attr('action', "{{ url('visimisi/store') }}");
         $('.addModal .modal-title').text('Tambah Data');
         $('.addModal').modal('show');
@@ -267,6 +267,9 @@
         $('#image_path').prop('required', false);
         $('.addModal form').attr('action', "{{ url('visimisi/update') }}" + '/' + id);
 
+        $('#status_chose').show();
+        $('.addModal .modal-title').text('Ubah visi misi');
+        $('.addModal').modal('show');
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
@@ -284,16 +287,10 @@
                     const dataName = image_path.substr(0, 20) + '.' + extension;
                     let data_images_path = "";
                     data_images_path =
-                        `<a href="{{asset('storage/uploads/images')}}/${image_path}" target="blank" class="image_path"><span>Logo sekarang = ${dataName}</span></a>`
+                        `<a href="{{asset('storage/uploads/images')}}/${image_path}" target="_blank" class="image_path"><span>Logo sekarang = ${dataName}</span></a>`
                     document.getElementById("visimisi-images").innerHTML = textToHTML(
                         data_images_path);
-
-                    $('#status_chose').show();
-                    $('.addModal .modal-title').text('Ubah visi misi');
-                    $('.addModal').modal('show');
-
                 }
-
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('Error : Gagal mengambil data');

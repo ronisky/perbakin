@@ -110,7 +110,7 @@
                                     @if($letter->letter_id > 0)
                                     @if (Auth::user()->group_id != 1 || Auth::user()->group_id != 2)
                                     <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
-                                        target="blank" class="btn btn-icon btnPrint btn-outline-secondary"
+                                        target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                         title="Print">
                                         <i data-feather="printer" width="16" height="16"></i>
@@ -132,7 +132,7 @@
                                     </a>
                                     @else
                                     <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
-                                        target="blank" class="btn btn-icon btnPrint btn-outline-secondary"
+                                        target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                         title="Print">
                                         <i data-feather="printer" width="16" height="16"></i>
@@ -220,7 +220,7 @@
                                 <div class="col-md-6 input-option">
                                     <div class="col-md-6 center ">
                                         <div class="card" style="width: 10rem;">
-                                            <a target="blank"
+                                            <a target="_blank"
                                                 href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
                                                 class="text text-sm-center">
                                                 <img class="card-img-top"

@@ -72,6 +72,7 @@ class ClubController extends Controller
                 ->withInput();
         }
 
+
         DB::beginTransaction();
         $file = $request->club_logo_path;
         $fileName = DataHelper::getFileName($file);
@@ -266,9 +267,6 @@ class ClubController extends Controller
         } else {
             return [
                 'club_name' => 'required|unique:clubs,club_name,' . $id . ',club_id',
-                'club_phone' => "required",
-                'club_email' => "required",
-                'club_description' => "required",
             ];
         }
     }

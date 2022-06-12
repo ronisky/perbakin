@@ -52,7 +52,7 @@
                     <i class="hamburger align-self-center"></i>
                 </a>
 
-                <a href="/" target="blank" class="btn btn-outline-secondary mr-4">Home Website</a>
+                <a href="/" target="_blank" class="btn btn-outline-secondary mr-4">Home Website</a>
                 <br>
 
                 <div class="navbar-collapse collapse">
@@ -187,7 +187,7 @@
     </script>
 
     <script>
-        // summernote 
+        // summernote
         $(document).ready(function () {
             $('.summernote').summernote();
 

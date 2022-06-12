@@ -73,7 +73,7 @@
                                     $name = $fileName . '...' . $extension;
                                     @endphp
                                     <a href="{{asset('storage/uploads/images')}}/{{$gallery->gallery_image_path}}"
-                                        target="blank"><img width="50px"
+                                        target="_blank"><img width="50px"
                                             src="{{asset('storage/uploads/images')}}/{{$gallery->gallery_image_path}}"
                                             alt="{{$gallery->gallery_image_path}}"></a>
                                 </td>
@@ -248,7 +248,7 @@
         $('#change-image-chose').hide();
         $('.change-image').show();
         $('#gallery-images').hide();
-        $('#gallery_image_path').prop('required', true);
+        // $('#gallery_image_path').prop('required', true);
         $('.addModal form').attr('action', "{{ url('gallery/store') }}");
         $('.addModal .modal-title').text('Tambah Gallery Gambar');
         $('.addModal').modal('show');
@@ -270,6 +270,9 @@
         $('#gallery_image_path').prop('required', false);
         $('.addModal form').attr('action', "{{ url('gallery/update') }}" + '/' + id);
 
+        $('#gallery_status_chose').show();
+        $('.addModal .modal-title').text('Ubah gallery');
+        $('.addModal').modal('show');
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
@@ -287,14 +290,9 @@
                     const dataName = gallery_image_path.substr(0, 20) + '.' + extension;
                     let data_images_path = "";
                     data_images_path =
-                        `<a href="{{asset('storage/uploads/images')}}/${gallery_image_path}" target="blank" class="gallery_image_path"><span>Logo sekarang = ${dataName}</span></a>`
+                        `<a href="{{asset('storage/uploads/images')}}/${gallery_image_path}" target="_blank" class="gallery_image_path"><span>Logo sekarang = ${dataName}</span></a>`
                     document.getElementById("gallery-images").innerHTML = textToHTML(
                         data_images_path);
-
-                    $('#gallery_status_chose').show();
-                    $('.addModal .modal-title').text('Ubah gallery');
-                    $('.addModal').modal('show');
-
                 }
 
             },

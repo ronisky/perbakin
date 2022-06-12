@@ -70,10 +70,10 @@
                                     @endphp
                                     @if (empty($extension))
                                     <a href="{{$sponsorship->sponsorship_resource_path}}"
-                                        target="blank">{{ $fileName }}</a>
+                                        target="_blank">{{ $fileName }}</a>
                                     @else
                                     <a href="{{asset('storage/uploads/images')}}/{{$sponsorship->sponsorship_resource_path}}"
-                                        target="blank"><img width="50px"
+                                        target="_blank"><img width="50px"
                                             src="{{asset('storage/uploads/images')}}/{{$sponsorship->sponsorship_resource_path}}"
                                             alt="{{$sponsorship->sponsorship_resource_path}}"
                                             title="{{ $fileName }}"></a>
@@ -432,7 +432,7 @@
         $('#change-image-chose').hide();
         $('.change-image').show();
         $('#resource-image').hide();
-        $('#sponsorship_resource_path').prop('required', true);
+        // $('#sponsorship_resource_path').prop('required', true);
         $('.addModal form').attr('action', "{{ url('sponsorship/store') }}");
         $('.addModal .modal-title').text('Tambah Sponsor');
         $('.addModal').modal('show');
@@ -456,6 +456,9 @@
         $('#sponsorship_resource_path').prop('required', false);
         $('.addModal form').attr('action', "{{ url('sponsorship/update') }}" + '/' + id);
 
+        $('#sponsorship_status_chose').show();
+        $('.addModal .modal-title').text('Ubah Sponsorship');
+        $('.addModal').modal('show');
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
@@ -482,7 +485,7 @@
                         $('#resource-image').show();
                         $('.data-resource-file').val(sponsorship_resource_path);
                         data_images_path =
-                            `<a href="${sponsorship_resource_path}" target="blank"><span>Link Video Sekarang = ${dataName}</span></a>`;
+                            `<a href="${sponsorship_resource_path}" target="_blank"><span>Link Video Sekarang = ${dataName}</span></a>`;
                         document.getElementById("resource-image").innerHTML = textToHTML(
                             data_images_path);
                     } else {
@@ -490,15 +493,10 @@
                         $('.change-image-chose').show();
                         $('.data-resource-file').val(sponsorship_resource_path);
                         data_images_path =
-                            `<a href="{{asset('storage/uploads/images')}}/${sponsorship_resource_path}" target="blank"><span>Gambar sekarang = ${dataName}</span></a>`;
+                            `<a href="{{asset('storage/uploads/images')}}/${sponsorship_resource_path}" target="_blank"><span>Gambar sekarang = ${dataName}</span></a>`;
                         document.getElementById("resource-image").innerHTML = textToHTML(
                             data_images_path);
                     }
-
-                    $('#sponsorship_status_chose').show();
-                    $('.addModal .modal-title').text('Ubah Sponsorship');
-                    $('.addModal').modal('show');
-
                 }
 
             },

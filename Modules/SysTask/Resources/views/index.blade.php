@@ -178,17 +178,12 @@
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
-                
-
                 if (data.status == 1) {
-
                     $('#module_id').val(data.result.module_id);
                     $('#task_name').val(data.result.task_name);
                     $('.addModal .modal-title').text('Ubah Task');
                     $('.addModal').modal('show');
-
                 }
-
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert('Error : Gagal mengambil data');

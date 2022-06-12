@@ -79,7 +79,7 @@
                                     $name = $fileName . '...' . $extension;
                                     @endphp
                                     <a href="{{asset('storage/uploads/images')}}/{{$article->image_thumbnail_path}}"
-                                        target="blank"><img width="50px"
+                                        target="_blank"><img width="50px"
                                             src="{{asset('storage/uploads/images')}}/{{$article->image_thumbnail_path}}"
                                             alt="{{$article->image_thumbnail_path}}"></a>
                                 </td>
@@ -297,6 +297,10 @@
         $('#image_thumbnail_path').prop('required', false);
         $('.addModal form').attr('action', "{{ url('article/update') }}" + '/' + id);
 
+
+        $('#article_status_chose').show();
+        $('.addModal .modal-title').text('Ubah article');
+        $('.addModal').modal('show');
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
@@ -315,14 +319,9 @@
                     const dataName = image_thumbnail_path.substr(0, 20) + '.' + extension;
                     let data_images_path = "";
                     data_images_path =
-                        `<a href="{{asset('storage/uploads/images')}}/${image_thumbnail_path}" target="blank" class="image_thumbnail_path"><span>Gambar sekarang = ${dataName}</span></a>`
+                        `<a href="{{asset('storage/uploads/images')}}/${image_thumbnail_path}" target="_blank" class="image_thumbnail_path"><span>Gambar sekarang = ${dataName}</span></a>`
                     document.getElementById("thumbnail-image").innerHTML = textToHTML(
                         data_images_path);
-
-                    $('#article_status_chose').show();
-                    $('.addModal .modal-title').text('Ubah article');
-                    $('.addModal').modal('show');
-
                 }
 
             },
