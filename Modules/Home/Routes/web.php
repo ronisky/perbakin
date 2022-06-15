@@ -25,8 +25,9 @@ Route::prefix('home')->group(function () {
     Route::get('/homeclubs', [HomeController::class, 'homeclubs']);
     Route::get('/articles', [HomeController::class, 'articles']);
 
-    Route::get('/details/{id}', [HomeController::class, 'detailArticle']);
-    Route::get('/image/{id}', [HomeController::class, 'detailImage']);
+    Route::get('/detailarticle/{id}', [HomeController::class, 'detailArticle']);
+    Route::get('/detailimage/{id}', [HomeController::class, 'detailImage']);
+    Route::get('/detailclub/{id}', [HomeController::class, 'detailClub']);
 });
 
 Route::prefix('histories')->group(function () {
@@ -72,5 +73,6 @@ Route::prefix('image/{id}')->group(function () {
     Route::get('/', [HomeController::class, 'detailImage']);
 });
 
-Route::get('/details/{id}', [HomeController::class, 'detailArticle']);
-Route::get('/image/{id}', [HomeController::class, 'detailImage']);
+Route::get('/detailarticle/{id}', [HomeController::class, 'detailArticle']);
+Route::get('/detailimage/{id}', [HomeController::class, 'detailImage']);
+Route::get('/detailclub/{id}', [HomeController::class, 'detailClub']);

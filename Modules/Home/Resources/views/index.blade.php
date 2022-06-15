@@ -216,14 +216,14 @@
             @foreach ($galleries as $gallery)
             <div class="col-lg-4 col-md-6 col-12">
                 <!-- Start Single Feature -->
-                <a href="{{ url('image/'. Crypt::encrypt($gallery->gallery_id)) }}" target="_blank">
-                    <div class="single-feature wow fadeInUp" data-wow-delay=".{{ $time_delay }}s">
+                <div class="single-feature wow fadeInUp" data-wow-delay=".{{ $time_delay }}s">
+                    <a href="{{ url('detailimage/'. Crypt::encrypt($gallery->gallery_id)) }}" target="_blank">
                         <img src="{{ url('storage/uploads/images/'. $gallery->gallery_image_path) }}"
                             alt="{{ $gallery->gallery_title }}" width="300" height="200">
                         <h3 class="mt-2">{{ $gallery->gallery_title }}</h3>
-                        <p>{{ $gallery->gallery_description }}</p>
-                    </div>
-                </a>
+                    </a>
+                    <p>{{ $gallery->gallery_description }}</p>
+                </div>
                 <!-- End Single Feature -->
             </div>
             @php
@@ -353,11 +353,13 @@
                 <div class="single-table wow fadeInUp" data-wow-delay=".2s">
                     <!-- Table Head -->
                     <div class="table-head">
-                        <h4 class="title">{{ $club->club_name }}</h4>
-                        <div class="button">
-                            <img src="{{ url('storage/uploads/images/'. $club->club_logo_path) }}"
-                                alt="{{ $club->club_name }} " width="130" height="130">
-                        </div>
+                        <a href="{{ url('detailclub/'. Crypt::encrypt($club->club_id)) }}" target="_blank">
+                            <h4 class="title">{{ $club->club_name }}</h4>
+                            <div class="button">
+                                <img src="{{ url('storage/uploads/images/'. $club->club_logo_path) }}"
+                                    alt="{{ $club->club_name }} " width="auto" height="150">
+                            </div>
+                        </a>
                         <p class="mt-2">{{ $club->club_description }}</p>
                     </div>
 
@@ -377,8 +379,7 @@
                                     target="_blank">
                                     {{ $dataWeb }}</a></li>
                             <li><i class="lni lni-checkmark-circle"></i> Email : {{ $club->club_email }}</li>
-                            <li><i class="lni lni-checkmark-circle"></i> Instagram : <a
-                                    href="{{ $club->club_instagram }}">{{ $club->club_instagram }}</a></li>
+                            <li><i class="lni lni-checkmark-circle"></i> Instagram : {{ $club->club_instagram }}</li>
                         </ul>
                         <!-- End Table List -->
                     </div>
@@ -926,7 +927,7 @@
                     @foreach ($articles as $article)
                     <!-- START PANEL -->
 
-                    <a href="{{ url('details/'. Crypt::encrypt($article->article_id)) }}" target="_blank"
+                    <a href="{{ url('detailarticle/'. Crypt::encrypt($article->article_id)) }}" target="_blank"
                         style="text-decoration: none;">
                         <div class="cover-item" title="{{ $article->article_title }}">
                             <p class="text text-center mx-1 my-1">

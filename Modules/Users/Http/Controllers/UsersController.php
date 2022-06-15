@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Modules\Club\Repositories\ClubRepository;
-use Symfony\Component\Console\Helper\FormatterHelper;
 
 class UsersController extends Controller
 {
@@ -85,7 +84,8 @@ class UsersController extends Controller
                 ->withInput();
         }
 
-        $request['user_status'] = 1;
+
+        $request['user_status'] = 0;
 
         DB::beginTransaction();
         $this->_usersRepository->insert(DataHelper::_normalizeParams($request->all(), true));
@@ -177,7 +177,6 @@ class UsersController extends Controller
     public function updateProfile(Request $request, $id)
     {
         DB::beginTransaction();
-
         $getDetail  = $this->_usersRepository->getById($id);
         $filePath = DataHelper::getFilePath(false, true);
         if ($request->user_image <> "") {
@@ -192,9 +191,17 @@ class UsersController extends Controller
 
             if ($request['user_password'] == null) {
                 $dataUser = [
+                    'user_kta' => $request->user_kta,
                     'user_name' => $request->user_name,
                     'user_email' => $request->user_email,
                     'user_image'    => $fileName,
+                    'place_of_birth' => $request->place_of_birth,
+                    'date_of_birth' => $request->date_of_birth,
+                    'occupation' => $request->occupation,
+                    'user_address' => $request->user_address,
+                    'club_id' => $request->club_id,
+                    'user_club_gen' => $request->user_club_gen,
+                    'user_club_cab' => $request->user_club_cab,
                 ];
             } else {
                 if (!Hash::check($request->user_password_check, Auth::user()->user_password)) {
@@ -206,6 +213,13 @@ class UsersController extends Controller
                     'user_email'    => $request->user_email,
                     'user_image'    => $fileName,
                     'user_password' => Hash::make($request->user_password),
+                    'place_of_birth' => $request->place_of_birth,
+                    'date_of_birth' => $request->date_of_birth,
+                    'occupation' => $request->occupation,
+                    'user_address' => $request->user_address,
+                    'club_id' => $request->club_id,
+                    'user_club_gen' => $request->user_club_gen,
+                    'user_club_cab' => $request->user_club_cab,
                 ];
             }
             $this->_usersRepository->update(array_merge($dataUser, DataHelper::_signParams(false, true)), $id);
@@ -214,6 +228,13 @@ class UsersController extends Controller
                 $dataUser = [
                     'user_name' => $request->user_name,
                     'user_email' => $request->user_email,
+                    'place_of_birth' => $request->place_of_birth,
+                    'date_of_birth' => $request->date_of_birth,
+                    'occupation' => $request->occupation,
+                    'user_address' => $request->user_address,
+                    'club_id' => $request->club_id,
+                    'user_club_gen' => $request->user_club_gen,
+                    'user_club_cab' => $request->user_club_cab,
                 ];
             } else {
                 if (!Hash::check($request->user_password_check, Auth::user()->user_password)) {
@@ -224,6 +245,13 @@ class UsersController extends Controller
                     'user_name' => $request->user_name,
                     'user_email' => $request->user_email,
                     'user_password' => Hash::make($request->user_password),
+                    'place_of_birth' => $request->place_of_birth,
+                    'date_of_birth' => $request->date_of_birth,
+                    'occupation' => $request->occupation,
+                    'user_address' => $request->user_address,
+                    'club_id' => $request->club_id,
+                    'user_club_gen' => $request->user_club_gen,
+                    'user_club_cab' => $request->user_club_cab,
                 ];
             }
             $this->_usersRepository->update(array_merge($dataUser, DataHelper::_signParams(false, true)), $id);
@@ -306,11 +334,12 @@ class UsersController extends Controller
             return redirect('unauthorize');
         }
         // Check detail to db
-        $detail  = $this->_usersRepository->getById($id);
+        $detail  = $this->_usersRepository->getByIdUserAndGroup($id);
+
         if (!$detail) {
-            return redirect('users');
+            return DataHelper::_errorResponse(null, 'Data tidak ditemukan');
         } elseif ($detail->user_id == 1) {
-            return redirect('users');
+            return DataHelper::_errorResponse(null, 'Data tidak bisa dihapus!');
         }
 
         DB::beginTransaction();
@@ -318,7 +347,7 @@ class UsersController extends Controller
         $this->_logHelper->store($this->module, $detail->user_id, 'delete');
         DB::commit();
 
-        return redirect('users')->with('successMessage', 'Pengguna berhasil dihapus');
+        return DataHelper::_successResponse(null, 'Pengguna berhasil dihapus');
     }
 
 
@@ -412,17 +441,17 @@ class UsersController extends Controller
                 'user_username' => 'required|unique:sys_users',
                 'user_name' => 'required',
                 'user_email' => 'required|unique:sys_users',
-                'user_phone' => 'required',
-                'place_of_birth' => 'required',
-                'date_of_birth' => 'required',
-                'occupation' => 'required',
-                'user_address' => 'required',
+                'user_phone' => 'required|unique:sys_users',
+                // 'place_of_birth' => 'required',
+                // 'date_of_birth' => 'required',
+                // 'occupation' => 'required',
+                // 'user_address' => 'required',
                 'user_kta' => 'required',
                 'user_active_date' => 'required',
-                'club_id' => 'required',
-                'user_club_gen' => 'required',
-                'user_club_cab' => 'required',
-                'user_password' => 'required',
+                // 'club_id' => 'required',
+                // 'user_club_gen' => 'required',
+                // 'user_club_cab' => 'required',
+                // 'user_password' => 'required',
                 'group_id' => 'required',
             ];
         } else {

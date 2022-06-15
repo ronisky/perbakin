@@ -129,8 +129,7 @@
                 <h5 class="modal-title">Tambah Gallery</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('gallery/store') }}" method="POST" id="addForm" enctype="multipart/form-data"
-                data-parsley-validate>
+            <form action="{{ url('gallery/store') }}" method="POST" id="addForm" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
@@ -173,10 +172,7 @@
                                 <div class="form-group change-image">
                                     <label class="form-label">Pilih Image<span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" name="gallery_image_path"
-                                        id="gallery_image_path" value="{{ old('gallery_image_path') }}"
-                                        data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp)$/i"
-                                        data-parsley-error-message="Pilih logo dengan ekstensi jpg/jpeg/png/bmp"
-                                        required>
+                                        id="gallery_image_path" value="{{ old('gallery_image_path') }}" required>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -346,11 +342,13 @@
     $("#addForm").validate({
         rules: {
             gallery_title: "required",
+            gallery_image_path: "required",
             gallery_description: "required",
         },
         messages: {
             gallery_title: "Judul gallery tidak boleh kosong",
             gallery_description: "Deskripsi gallery tidak boleh kosong",
+            gallery_image_path: "Pastikan pilih gambar dengan ekstensi .jpg/.jpeg/.png/.bmp",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

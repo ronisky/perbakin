@@ -135,11 +135,12 @@
                 <h5 class="modal-title">Tambah Artikel</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('article/store') }}" method="POST" id="addForm" enctype="multipart/form-data"
-                data-parsley-validate>
+            <form action="{{ url('article/store') }}" method="POST" id="addForm" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
+                        <span class="small mb-3">*Form dengan tanda <span class="text-danger">*</span> Wajib di
+                            isi!</span>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
@@ -148,7 +149,6 @@
                                     </label>
                                     <select class="form-control" name="article_category_id" id="article_category_id">
                                         <option value="" selected="selected">- Pilih Kategori -</option>
-                                        <option value="{{ old('article_category_id') }}"></option>
                                         @if(sizeof($article_categories) > 0)
                                         @foreach($article_categories as $article_category)
                                         <option value="{{ $article_category->article_category_id }}">
@@ -156,7 +156,7 @@
                                         @endforeach
                                         @endif
                                     </select>
-                                    @if ($errors->has('college_npm'))
+                                    @if ($errors->has('article_category_id'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Kategori
                                             tidak boleh sama</label>
@@ -202,17 +202,16 @@
                                 <div class="form-group change-image">
                                     <label class="form-label">Pilih Image<span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" name="image_thumbnail_path"
-                                        id="image_thumbnail_path" value="{{ old('image_thumbnail_path') }}"
-                                        data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp)$/i"
-                                        data-parsley-error-message="Pilih gamabr dengan ekstensi jpg/jpeg/png/bmp">
+                                        id="image_thumbnail_path" value="{{ old('image_thumbnail_path') }}" required>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label class="form-label">Konten Artikel<span class="text-danger">*</span></label>
                                     <textarea rows="10" type="text" class="form-control summernote"
-                                        name="article_content" id="article_content" height="50" required
-                                        placeholder="Masukan konten artikel">{{ old('article_content') }}</textarea>
+                                        name="article_content" id="article_content" height="50"
+                                        placeholder="Masukan konten artikel"
+                                        required>{{ old('article_content') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -377,11 +376,13 @@
             article_title: "required",
             article_content: "required",
             article_category_id: "required",
+            image_thumbnail_path: "required",
         },
         messages: {
             article_title: "Judul artikel tidak boleh kosong",
             article_content: "Konten artikel tidak boleh kosong",
             article_category_id: "Kategori artikel harus dipilih",
+            image_thumbnail_path: "Pastikan pilih gambar dengan ekstensi .jpg/.jpeg/.png/.bmp",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

@@ -20,14 +20,14 @@ class CreateUsers extends Migration
             $table->string('user_kta', 20);
             $table->string('user_email', 100)->unique();
             $table->string('user_phone', 100)->unique();
-            $table->string('place_of_birth', 100);
-            $table->date('date_of_birth');
-            $table->string('occupation', 100);
+            $table->string('place_of_birth', 100)->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('occupation', 100)->nullable();
             $table->text('user_address')->nullable();
             $table->unsignedBigInteger('club_id')->nullable();
             $table->string('user_club_gen')->nullable();
             $table->string('user_club_cab')->nullable();
-            $table->string('user_password');
+            $table->string('user_password')->nullable();
             $table->string('user_image')->nullable();
             $table->date('user_active_date');
             $table->smallInteger('user_status')->default(0);

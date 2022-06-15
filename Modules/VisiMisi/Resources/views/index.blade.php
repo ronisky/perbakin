@@ -129,18 +129,18 @@
                 <h5 class="modal-title">Tambah Data</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('visimisi/store') }}" method="POST" id="addForm" enctype="multipart/form-data"
-                data-parsley-validate>
+            <form action="{{ url('visimisi/store') }}" method="POST" id="addForm" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Pilih Tipe<span class="text-danger">*</span></label>
+                                    <label class="form-label">Pilih Tipe Data (Visi atau Misi)<span
+                                            class="text-danger">*</span></label>
                                     <div class="form-group">
                                         <select class="form-control" name="title" id="title">
-                                            <option value="">- Visi Misi -</option>
+                                            <option value="0">- Pilih Visi atau Misi -</option>
                                             <option value="Visi">Visi</option>
                                             <option value="Misi">Misi</option>
                                         </select>
@@ -178,10 +178,7 @@
                                 <div class="form-group change-image">
                                     <label class="form-label">Pilih Gambar<span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" name="image_path" id="image_path"
-                                        value="{{ old('image_path') }}"
-                                        data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp)$/i"
-                                        data-parsley-error-message="Pilih gambar dengan ekstensi jpg/jpeg/png/bmp"
-                                        required>
+                                        value="{{ old('image_path') }}" required>
                                 </div>
                             </div>
                         </div>
@@ -245,7 +242,6 @@
         $('#change-image-chose').hide();
         $('.change-image').show();
         $('#visimisi-images').hide();
-        // $('#image_path').prop('required', true);
         $('.addModal form').attr('action', "{{ url('visimisi/store') }}");
         $('.addModal .modal-title').text('Tambah Data');
         $('.addModal').modal('show');
@@ -343,10 +339,12 @@
         rules: {
             title: "required",
             description: "required",
+            image_path: "required",
         },
         messages: {
             title: "Tipe data harus dipilih",
             description: "Deskripsi data tidak boleh kosong",
+            image_path: "Pastikan pilih gambar dengan ekstensi .jpg/.jpeg/.png/.bmp",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

@@ -112,8 +112,7 @@
                 <h5 class="modal-title">Tambah Club</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('club/store') }}" method="POST" id="addForm" enctype="multipart/form-data"
-                data-parsley-validate>
+            <form action="{{ url('club/store') }}" method="POST" id="addForm" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
@@ -216,10 +215,7 @@
                                 <div class="form-group change-logo">
                                     <label class="form-label">Pilih Logo<span class="text-danger">*</span></label>
                                     <input type="file" class="form-control" name="club_logo_path" id="club_logo_path"
-                                        value="{{ old('club_logo_path') }}"
-                                        data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp)$/i"
-                                        data-parsley-error-message="Pilih logo dengan ekstensi jpg/jpeg/png/bmp"
-                                        required>
+                                        value="{{ old('club_logo_path') }}" required>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -411,12 +407,14 @@
             club_phone: "required",
             club_email: "required",
             club_description: "required",
+            club_logo_path: "required",
         },
         messages: {
             club_name: "Nama klub tidak boleh kosong",
             club_phone: "Telepon klub tidak boleh kosong",
             club_email: "Alamat email klub tidak boleh kosong",
             club_description: "Deskripsi klub tidak boleh kosong",
+            club_logo_path: "Pastikan pilih logo dengan ekstensi .jpg/.jpeg/.png/.bmp",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

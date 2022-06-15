@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        @if(empty($galleries))
+        @if(empty($clubs))
         <div class="row">
         </div>
         @else
@@ -100,11 +100,13 @@
                 <div class="single-table wow fadeInUp" data-wow-delay=".2s">
                     <!-- Table Head -->
                     <div class="table-head">
-                        <h4 class="title">{{ $club->club_name }}</h4>
-                        <div class="button">
-                            <img src="{{ url('storage/uploads/images/'. $club->club_logo_path) }}"
-                                alt="{{ $club->club_name }} " width="130" height="130">
-                        </div>
+                        <a href="{{ url('detailclub/'. Crypt::encrypt($club->club_id)) }}" target="_blank">
+                            <h4 class="title">{{ $club->club_name }}</h4>
+                            <div class="button">
+                                <img src="{{ url('storage/uploads/images/'. $club->club_logo_path) }}"
+                                    alt="{{ $club->club_name }} " width="auto" height="150">
+                            </div>
+                        </a>
                         <p class="mt-2">{{ $club->club_description }}</p>
                     </div>
 
@@ -115,7 +117,7 @@
                         <!-- Table List -->
                         <ul class="table-list">
                             <li><i class="lni lni-checkmark-circle"></i> Website : <a href="{{ $club->club_website }}">
-                                    {{ $club->club_website }}</a></li>
+                                    {{ substr($club->club_website, 0, 23) }}</a></li>
                             <li><i class="lni lni-checkmark-circle"></i> Email : {{ $club->club_email }}</li>
                             <li><i class="lni lni-checkmark-circle"></i> Instagram : <a
                                     href="{{ $club->club_instagram }}">{{ $club->club_instagram }}</a></li>

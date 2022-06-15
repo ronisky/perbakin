@@ -8,16 +8,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Helpers\DataHelper;
-use App\Helpers\LogHelper;
-use App\Mail\LetterSubmission;
-use App\Mail\LetterSubmissionFaild;
-use App\Mail\LetterSubmissionSuccess;
 use App\Mail\WelcomeMember;
 use App\Repositories\UserForgotRepository;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
+use Modules\Club\Repositories\ClubRepository;
 use Modules\Users\Repositories\UsersRepository;
 
 class UserController extends Controller
@@ -28,6 +25,7 @@ class UserController extends Controller
 
         $this->_userRepository      = new UsersRepository;
         $this->_forgotRepository    = new UserForgotRepository;
+        $this->_clubRepository     = new ClubRepository;
     }
 
     public function login()
@@ -145,8 +143,9 @@ class UserController extends Controller
     public function settingProfile()
     {
         $getDetail  = $this->_userRepository->getById(Auth::user()->user_id);
+        $clubs    = $this->_clubRepository->getAll();
 
-        return view('user.setting', compact('getDetail'));
+        return view('user.setting', compact('getDetail', 'clubs'));
     }
 
     public function changepassword(Request $request)
@@ -216,11 +215,5 @@ class UserController extends Controller
 
 
         return $rules;
-    }
-
-    public function sendMail()
-    {
-        Mail::to("goniduq@abyssmail.com")->send(new LetterSubmission());
-        return "Email telah dikirim";
     }
 }

@@ -74,7 +74,9 @@
 </section>
 <!-- End Hero Area -->
 
-<section id="clubes" class="pricing-table section">
+{{-- content  --}}
+
+<section id="clubs" class="pricing-table section">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -84,10 +86,16 @@
                 </div>
             </div>
         </div>
+        @if(empty($histories))
         <div class="row">
-            <p class="wow fadeInUp" data-wow-delay=".6s">{{ strip_tags($histories->description) }}
-            </p>
+            <p class="wow fadeInUp" data-wow-delay=".6s">Perbakin sebagai organisasi dengan tata kelola yang profesional
+                dan melahirkan atlit petembak yang berprestasi internasional secara berkelanjutan dan mandiri.</p>
         </div>
+        @else
+        <div class="row">
+            <p class="wow fadeInUp" data-wow-delay=".6s">{{ strip_tags($histories->description) }}</p>
+        </div>
+        @endif
     </div>
 </section>
 @endsection

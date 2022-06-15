@@ -123,8 +123,7 @@
                 <h5 class="modal-title">Tambah Banner</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('banner/store') }}" method="POST" id="addForm" enctype="multipart/form-data"
-                data-parsley-validate>
+            <form action="{{ url('banner/store') }}" method="POST" id="addForm" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
@@ -169,10 +168,7 @@
                                             class="text-danger">*</span>
                                     </label>
                                     <input type="file" class="form-control" name="banner_image_path"
-                                        id="banner_image_path" value="{{ old('banner_image_path') }}"
-                                        data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp)$/i"
-                                        data-parsley-error-message="Pilih gambar dengan ekstensi jpg/jpeg/png/bmp"
-                                        required>
+                                        id="banner_image_path" value="{{ old('banner_image_path') }}" required>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -345,10 +341,12 @@
         rules: {
             banner_title: "required",
             banner_description: "required",
+            banner_image_path: "required",
         },
         messages: {
             banner_title: "Judul banner tidak boleh kosong",
             banner_description: "Deskripsi Banner tidak boleh kosong",
+            banner_image_path: "Pastikan pilih gambar dengan ekstensi .jpg/.jpeg/.png/.bmp",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

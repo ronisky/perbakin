@@ -33,6 +33,3 @@ Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/setting', [UserController::class, 'settingProfile'])->middleware('auth');
 Route::post('/changepassword', [UserController::class, 'changepassword'])->middleware('auth');
 // });
-
-
-Route::get('/sendmail', [UserController::class, 'sendMail']);

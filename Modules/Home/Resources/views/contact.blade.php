@@ -152,7 +152,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Masukan Nomor Induk Kependudukan<span
                                                 class="text-danger">*</span></label>
-                                        <input type="text" maxlength="16" onkeypress='validate()' class="form-control"
+                                        <input type="number" maxlength="16" onkeypress='validate()' class="form-control"
                                             name="faq_nik" id="faq_nik" placeholder="Masukan NIK Anda"
                                             value="{{ old('faq_nik') }}" required>
                                     </div>

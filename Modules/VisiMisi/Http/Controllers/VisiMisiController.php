@@ -63,6 +63,11 @@ class VisiMisiController extends Controller
             return redirect('unauthorize');
         }
 
+        if ($request->title == 0) {
+            return redirect('visimisi')->with('errorMessage', 'Tipe data harus dipilih (Visi atau Misi)!');
+        }
+
+
         $validator = Validator::make($request->all(), $this->_validationRules(''));
 
         if ($validator->fails()) {
@@ -283,6 +288,8 @@ class VisiMisiController extends Controller
             return [
                 'title' => 'required',
                 'description' => "required",
+                'image_path' => 'required|max:5012|mimes:jpg,jpeg,bmp,png',
+
             ];
         } else {
             return [

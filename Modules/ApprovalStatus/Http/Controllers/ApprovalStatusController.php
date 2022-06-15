@@ -152,7 +152,7 @@ class ApprovalStatusController extends Controller
         $detail  = $this->_approvalStatusRepository->getById($id);
 
         if (!$detail) {
-            return redirect('approvalstatus');
+            return DataHelper::_errorResponse(null, 'Data tidak ditemukan');
         }
 
         DB::beginTransaction();
@@ -162,7 +162,7 @@ class ApprovalStatusController extends Controller
 
         DB::commit();
 
-        return redirect('approvalstatus')->with('successMessage', 'Data status berhasil dihapus');
+        return DataHelper::_successResponse(null, 'Data status berhasil dihapus');
     }
 
     /**

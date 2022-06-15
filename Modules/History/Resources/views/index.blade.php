@@ -69,11 +69,11 @@
                                         title="Ubah">
                                         <i data-feather="edit" width="16" height="16"></i>
                                     </a>
-                                    <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btnDelete"
+                                    {{-- <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btnDelete"
                                         data-url="{{ url('history/delete/'. $history->history_id) }}"
-                                        data-toggle="tooltip" data-placement="top" title="Hapus">
-                                        <i data-feather="trash-2" width="16" height="16"></i>
-                                    </a>
+                                    data-toggle="tooltip" data-placement="top" title="Hapus">
+                                    <i data-feather="trash-2" width="16" height="16"></i>
+                                    </a> --}}
                                     @endif
                                 </td>
                             </tr>

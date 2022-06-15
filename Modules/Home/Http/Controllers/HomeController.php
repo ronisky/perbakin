@@ -55,7 +55,6 @@ class HomeController extends Controller
     {
         $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
         $histories   = $this->_historyRepository->getFirst();
-
         return view('home::history', compact('histories', 'banners'));
     }
 
@@ -154,6 +153,21 @@ class HomeController extends Controller
         $title = $article->article_title;
         $content = $article->article_content;
         $created = DateFormatHelper::dateEng($article->created_at);
+        return view('home::details', compact('banners', 'image', 'title', 'content', 'created'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return Renderable
+     */
+    public function detailClub($id)
+    {
+        $banners    = $this->_bannerRepository->getAllByParams(['banner_status' => 1]);
+        $club   = $this->_clubRepository->getByParams(['club_status' => 1, 'club_id' => Crypt::decrypt($id)]);
+        $image = $club->club_logo_path;
+        $title = $club->club_name;
+        $content = $club->club_description;
+        $created = DateFormatHelper::dateEng($club->created_at);
         return view('home::details', compact('banners', 'image', 'title', 'content', 'created'));
     }
 

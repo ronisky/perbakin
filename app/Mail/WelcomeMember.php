@@ -45,7 +45,7 @@ class WelcomeMember extends Mailable
     {
         $this->_userRepository      = new UsersRepository;
 
-        $this->member = $this->_userRepository->getById($user);
+        $this->member = $this->_userRepository->getByIdUserAndGroup($user);
         $this->options = $options;
     }
 

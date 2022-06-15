@@ -69,6 +69,9 @@ class ArticleController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
+        if ($request->article_content == null) {
+            return redirect('article')->with('errorMessage', 'Konten atau body artikel harus diisi!');
+        }
 
         $validator = Validator::make($request->all(), $this->_validationRules(''));
 
@@ -76,6 +79,10 @@ class ArticleController extends Controller
             return redirect('article')
                 ->withErrors($validator)
                 ->withInput();
+        }
+
+        if (!$request->image_thumbnail_path <> "") {
+            return redirect('article')->with('errorMessage', 'Gagal! Gambar artikel wajib diisi!');
         }
 
         DB::beginTransaction();

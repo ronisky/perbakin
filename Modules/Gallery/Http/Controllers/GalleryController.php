@@ -258,6 +258,7 @@ class GalleryController extends Controller
             return [
                 'gallery_title' => 'required|unique:galleries',
                 'gallery_description' => "required",
+                'gallery_image_path' => 'required|max:5012|mimes:jpg,jpeg,bmp,png',
             ];
         } else {
             return [

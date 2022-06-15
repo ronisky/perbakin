@@ -69,11 +69,11 @@ class SponsorshipController extends Controller
             return redirect('unauthorize');
         }
         $validator = Validator::make($request->all(), $this->_validationRules($request, ''));
-        
+
         if ($validator->fails()) {
             return redirect('sponsorship')
-            ->withErrors($validator)
-            ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $sponsorship_category  = $this->_sponsorshipCategoryRepository->getById($request->sponsorship_category_id);
@@ -82,6 +82,10 @@ class SponsorshipController extends Controller
 
         DB::beginTransaction();
         if ($request->hasFile('sponsorship_resource_path')) {
+
+            if (!$request->sponsorship_resource_path <> "") {
+                return redirect('sponsorship')->with('errorMessage', 'Gagal! Gambar sponsor wajib diisi!');
+            }
 
             $validatorImage = Validator::make($request->all(), $this->_validationRulesImage());
             if ($validatorImage->fails()) {

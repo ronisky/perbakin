@@ -193,28 +193,28 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <label class="form-label">Tempat Lahir</label>
                                     <input type="text" class="form-control" name="place_of_birth" id="place_of_birth"
                                         placeholder="Masukan tempat lahir" value="{{ old('place_of_birth') }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Tanggal lahir <span class="text-danger">*</span></label>
+                                    <label class="form-label">Tanggal lahir</label>
                                     <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
                                         placeholder="Masukan tanggal lahir" value="{{ old('date_of_birth') }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Pekerjaan <span class="text-danger">*</span></label>
+                                    <label class="form-label">Pekerjaan</label>
                                     <input type="text" class="form-control" name="occupation" id="occupation"
                                         placeholder="Masukan pekerjaan" value="{{ old('occupation') }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Alamat <span class="text-danger">*</span></label>
+                                    <label class="form-label">Alamat</label>
                                     <textarea type="text" class="form-control" name="user_address" id="user_address"
                                         placeholder="Masukan alamat pengguna">{{ old('user_address') }}</textarea>
                                 </div>
@@ -236,7 +236,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Club Anggota <span class="text-danger">*</span> </label>
+                                    <label class="form-label">Club Anggota </label>
                                     <select class="form-control" name="club_id" id="club_id">
                                         <option value="">- Pilih Club Anggota -</option>
                                         @if(sizeof($clubs) > 0)
@@ -249,15 +249,14 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Anggkatan Anggota CLub <span
-                                            class="text-danger">*</span></label>
+                                    <label class="form-label">Anggkatan Anggota CLub</label>
                                     <input type="number" class="form-control" name="user_club_gen" id="user_club_gen"
                                         placeholder="Masukan angkatan anggota club" value="{{ old('user_club_gen') }}">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Club Cabang <span class="text-danger">*</span></label>
+                                    <label class="form-label">Club Cabang</label>
                                     <input type="text" class="form-control" name="user_club_cab" id="user_club_cab"
                                         placeholder="Masukan cabang club" value="Kab. Bandung">
                                 </div>
@@ -298,7 +297,7 @@
                             @endif
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Password <span class="text-danger">*</span></label>
+                                    <label class="form-label">Password</label>
                                     <input type="password" class="form-control mb-2" name="user_password_old"
                                         id="user_password_old" placeholder="Masukan password pengguna" readonly
                                         value="{{ old('user_password_old') }}">
@@ -589,16 +588,16 @@
             user_name: "required",
             user_email: "required",
             user_phone: "required",
-            place_of_birth: "required",
-            date_of_birth: "required",
-            occupation: "required",
-            user_address: "required",
+            // place_of_birth: "required",
+            // date_of_birth: "required",
+            // occupation: "required",
+            // user_address: "required",
             user_kta: "required",
             user_active_date: "required",
-            club_id: "required",
-            user_club_gen: "required",
-            user_club_cab: "required",
-            user_password: "required",
+            // club_id: "required",
+            // user_club_gen: "required",
+            // user_club_cab: "required",
+            // user_password: "required",
             group_id: "required",
         },
         messages: {
@@ -606,16 +605,16 @@
             user_name: "Nama user tidak boleh kosong",
             user_email: "Email user tidak boleh kosong",
             user_phone: "Telepon / WA user tidak boleh kosong",
-            place_of_birth: "Masukan tempat lahir",
-            date_of_birth: "Masukan tanggal lahir",
-            occupation: "Masukan pekerjaan",
-            user_address: "Masukan alamat",
+            // place_of_birth: "Masukan tempat lahir",
+            // date_of_birth: "Masukan tanggal lahir",
+            // occupation: "Masukan pekerjaan",
+            // user_address: "Masukan alamat",
             user_kta: "Masukan nomor KTA",
             user_active_date: "Masukan masa aktif KTA",
-            club_id: "Pilih club",
-            user_club_gen: "Masukan angkatan anggota club",
-            user_club_cab: "Masukan club cabang",
-            user_password: "Password user tidak boleh kosong",
+            // club_id: "Pilih club",
+            // user_club_gen: "Masukan angkatan anggota club",
+            // user_club_cab: "Masukan club cabang",
+            // user_password: "Password user tidak boleh kosong",
             group_id: "Nama grup tidak boleh kosong",
         },
         errorElement: "em",
@@ -744,6 +743,9 @@
         let id = $(this).attr('data-id');
         let url = "{{ url('users/show') }}";
 
+
+        $('.detailModal .modal-title').text('Detail Data User');
+        $('.detailModal').modal('show');
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
@@ -770,10 +772,6 @@
                     } else {
                         $('.user_status').val(': ' + 'Tidak Aktif');
                     }
-
-
-                    $('.detailModal .modal-title').text('Detail Data User');
-                    $('.detailModal').modal('show');
                 }
 
             },
@@ -804,7 +802,8 @@
                     type: 'GET',
                     url: url,
                     success: function (data) {
-                        if (result.isConfirmed) {
+                        console.log(data);
+                        if (status == 1) {
                             Swal.fire(
                                 'Terhapus!',
                                 'Data Berhasil Dihapus.',

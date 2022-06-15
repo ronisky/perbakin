@@ -256,7 +256,7 @@ class BannerController extends Controller
             return [
                 'banner_title' => 'required|unique:banners',
                 'banner_description' => "required",
-                'banner_image_path' => 'required|max:5012|mimes:jpg,jpeg, bmp,png',
+                'banner_image_path' => 'required|max:5012|mimes:jpg,jpeg,bmp,png',
             ];
         } else {
             return [

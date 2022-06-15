@@ -137,8 +137,9 @@
                 <h5 class="modal-title">Tambah Sponsorship</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('sponsorship/store') }}" method="POST" id="addForm" enctype="multipart/form-data"
-                data-parsley-validate>
+            <form action="{{ url('sponsorship/store') }}" method="POST" id="addForm" enctype="multipart/form-data">
+                {{-- <form action="{{ url('sponsorship/store') }}" method="POST" id="addForm"
+                enctype="multipart/form-data" data-parsley-validate> --}}
                 @csrf
                 <div class="modal-body">
                     <div class="form-body">
@@ -158,7 +159,7 @@
                                         @endforeach
                                         @endif
                                     </select>
-                                    @if ($errors->has('college_npm'))
+                                    @if ($errors->has('sponsorship_category_id'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Kategori
                                             tidak boleh sama</label>
@@ -236,15 +237,18 @@
                                             class="text-danger">*</span></label>
                                     <input type="file" class="form-control sponsorship_resource_path"
                                         name="sponsorship_resource_path" id="sponsorship_resource_path"
+                                        value="{{ old('sponsorship_resource_path') }}" required>
+                                    {{-- <input type="file" class="form-control sponsorship_resource_path"
+                                        name="sponsorship_resource_path" id="sponsorship_resource_path"
                                         value="{{ old('sponsorship_resource_path') }}"
-                                        data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp|\.gif)$/i"
-                                        data-parsley-error-message="Pilih gambar dengan ekstensi jpg/jpeg/png/bmp/gif"
-                                        required>
+                                    data-parsley-pattern="/(\.jpg|\.jpeg|\.png|\.bmp|\.gif)$/i"
+                                    data-parsley-error-message="Pilih gambar dengan ekstensi jpg/jpeg/png/bmp/gif"
+                                    required> --}}
                                 </div>
                                 <div class="form-group change-video">
                                     <label class="form-label">Masukan URL Video<span
                                             class="text-danger">*</span></label>
-                                    <input type="text" class="form-control sponsorship_resource_path"
+                                    <input type="url" class="form-control sponsorship_resource_path"
                                         name="sponsorship_resource_path" id="sponsorship_resource_path"
                                         placeholder="https://www.youtube.com/embed/23o3ia8p0ZY"
                                         value="{{ old('sponsorship_resource_path') }}">
@@ -593,6 +597,7 @@
             sponsorship_name: "required",
             sponsorship_start_date: "required",
             sponsorship_description: "required",
+            sponsorship_resource_path: "required",
         },
         messages: {
             sponsorship_category_id: "Kategori sponsorship harus dipilih",
@@ -600,6 +605,7 @@
             sponsorship_name: "Nama sponsorship tidak boleh kosong",
             sponsorship_start_date: "Tanggal mulai harus dipilih",
             sponsorship_description: "Deskripsi singkat sponsor tidak boleh kosong",
+            sponsorship_resource_path: "Jika file gambar pastikan ekstensi .jpg/.jpeg/.png/.bmp/.gif dan jika file video pastikan Anda memasukan URL Video yang benar",
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

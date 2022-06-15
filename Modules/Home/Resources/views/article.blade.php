@@ -74,7 +74,7 @@
 </section>
 <!-- End Hero Area -->
 
-<section id="clubes" class="pricing-table section">
+<section id="articles" class="pricing-table section">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -100,11 +100,13 @@
                 <div class="single-table wow fadeInUp" data-wow-delay=".2s">
                     <!-- Table Head -->
                     <div class="table-head">
-                        <h4 class="title">{{ $article->article_title }}</h4>
-                        <div class="button">
-                            <img src="{{ url('storage/uploads/images/'. $article->image_thumbnail_path) }}"
-                                alt="{{ $article->article_title }} " width="130" height="130">
-                        </div>
+                        <a href="{{ url('detailarticle/'. Crypt::encrypt($article->article_id)) }}" target="_blank">
+                            <h4 class="title">{{ $article->article_title }}</h4>
+                            <div class="button">
+                                <img src="{{ url('storage/uploads/images/'. $article->image_thumbnail_path) }}"
+                                    alt="{{ $article->article_title }} " width="130" height="130">
+                            </div>
+                        </a>
                         <p class="mt-2">{{ strip_tags($article->article_content) }}</p>
                     </div>
 

@@ -263,6 +263,7 @@ class ClubController extends Controller
                 'club_phone' => "required",
                 'club_email' => "required",
                 'club_description' => "required",
+                'club_logo_path' => 'required|max:5012|mimes:jpg,jpeg,bmp,png',
             ];
         } else {
             return [
