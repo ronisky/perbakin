@@ -3,6 +3,8 @@
 namespace Modules\Faq\Repositories;
 
 use App\Implementations\QueryBuilderImplementation;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class FaqRepository extends QueryBuilderImplementation
 {

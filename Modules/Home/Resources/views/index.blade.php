@@ -217,7 +217,7 @@
             <div class="col-lg-4 col-md-6 col-12">
                 <!-- Start Single Feature -->
                 <div class="single-feature wow fadeInUp" data-wow-delay=".{{ $time_delay }}s">
-                    <a href="{{ url('detailimage/'. Crypt::encrypt($gallery->gallery_id)) }}" target="_blank">
+                    <a href="{{ url('home/detailimage/'. Crypt::encrypt($gallery->gallery_id)) }}" target="_blank">
                         <img src="{{ url('storage/uploads/images/'. $gallery->gallery_image_path) }}"
                             alt="{{ $gallery->gallery_title }}" width="300" height="200">
                         <h3 class="mt-2">{{ $gallery->gallery_title }}</h3>
@@ -353,7 +353,7 @@
                 <div class="single-table wow fadeInUp" data-wow-delay=".2s">
                     <!-- Table Head -->
                     <div class="table-head">
-                        <a href="{{ url('detailclub/'. Crypt::encrypt($club->club_id)) }}" target="_blank">
+                        <a href="{{ url('home/detailclub/'. Crypt::encrypt($club->club_id)) }}" target="_blank">
                             <h4 class="title">{{ $club->club_name }}</h4>
                             <div class="button">
                                 <img src="{{ url('storage/uploads/images/'. $club->club_logo_path) }}"
@@ -927,7 +927,7 @@
                     @foreach ($articles as $article)
                     <!-- START PANEL -->
 
-                    <a href="{{ url('detailarticle/'. Crypt::encrypt($article->article_id)) }}" target="_blank"
+                    <a href="{{ url('home/detailarticle/'. Crypt::encrypt($article->article_id)) }}" target="_blank"
                         style="text-decoration: none;">
                         <div class="cover-item" title="{{ $article->article_title }}">
                             <p class="text text-center mx-1 my-1">

@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="{{ url('css/style-custom.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <link class="stylesheet" href="{{ url('css/light.css') }}" rel="stylesheet">
-    <link class="stylesheet" href="{{ url('css/signature.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.17.2/dist/sweetalert2.min.css">
 

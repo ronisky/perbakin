@@ -10,7 +10,7 @@
  * * PHP, JavaScript, Laravel, MySQL, Java, Python and so many more!
  *
  *
- * @author  Simple-Pleb <plebeian.tribune@protonmail.com>
+ * @author  Simple-Pleb <pesantechid@gmail.com>
  * @website https://www.simple-pleb.com
  * @source https://github.com/simplepleb/laravel-email-templates
  *
@@ -25,8 +25,8 @@ return [
     'mail' => [
         'top_logo'              => 'https://www.perbakinkabbandung.or.id/public/img/logo_perbakin.png',
         'welcome_url'           => 'https://www.perbakinkabbandung.or.id/login',
-        'approval_letter_url'   => 'https://www.perbakinkabbandung.or.id/recomendationletterapproval',
-        'success_letter_url'   => 'https://www.perbakinkabbandung.or.id/recomendationletter',
+        'approval_letter_url'   => 'https://www.perbakinkabbandung.or.id/login',
+        'success_letter_url'   => 'https://www.perbakinkabbandung.or.id/login',
         'street_address'    => '',
         'phone_number'      => '0877 3344 3486 / 0821 2979 6746',
         'info_email'        => 'info@perbakinkabbandung.or.id',

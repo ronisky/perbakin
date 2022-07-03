@@ -181,12 +181,14 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">Club Anggota </label>
+                                        <label class="form-label">Club Anggota saat ini: <br>
+                                            <b>({{$getDetail->club_name}})</b>
+                                        </label>
                                         <select class="form-control" name="club_id" id="club_id">
-                                            <option value="">- Pilih Club Anggota -</option>
+                                            <option value="">- Ubah Club Anggota -</option>
                                             @if(sizeof($clubs) > 0)
                                             @foreach($clubs as $club)
-                                            <option value="{{ $club->club_id }}" selected>{{$club->club_name }}</option>
+                                            <option value="{{ $club->club_id }}">{{$club->club_name }}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -195,7 +197,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">Anggkatan Anggota CLub</label>
+                                        <label class="form-label">Anggkatan Anggota CLub </label>
                                         <input type="number" class="form-control" name="user_club_gen"
                                             id="user_club_gen" placeholder="Masukan angkatan anggota club"
                                             value="{{Auth::user()->user_club_gen}}">

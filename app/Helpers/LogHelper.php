@@ -1,8 +1,8 @@
 <?php
 
-/** 
+/**
  * Log Helpers
- * 
+ *
  *
  * @author Robby Al Jufri
  *
@@ -29,16 +29,21 @@ class LogHelper
      * - param module  <string>
      * - param data <string>
      * - param slug <string>
-     * 
+     *
      * @return string
      *
      */
     public function store($module, $data, $slug)
     {
-
-        $now    = date('Y-m-d H:i:s');
-        $id     = Auth::user()->user_id;
-        $name   = Auth::user()->user_name;
+        if ($module == 'Home') {
+            $now    = date('Y-m-d H:i:s');
+            $id     = 5;
+            $name   = 'guest';
+        } else {
+            $now    = date('Y-m-d H:i:s');
+            $id     = Auth::user()->user_id;
+            $name   = Auth::user()->user_name;
+        }
 
         if ($slug == 'create') {
             $key = "Menambahkan";

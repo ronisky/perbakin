@@ -95,7 +95,7 @@
             @foreach ($galleries as $gallery)
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="single-feature wow fadeInUp" data-wow-delay=".{{ $time_delay }}s">
-                    <a href="{{ url('detailimage/'. Crypt::encrypt($gallery->gallery_id)) }}" target="_blank">
+                    <a href="{{ url('home/detailimage/'. Crypt::encrypt($gallery->gallery_id)) }}" target="_blank">
                         <img src="{{ url('storage/uploads/images/'. $gallery->gallery_image_path) }}"
                             alt="{{ $gallery->gallery_title }}" width="300" height="200">
                         <h3 class="mt-2">{{ $gallery->gallery_title }}</h3>

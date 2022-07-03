@@ -88,7 +88,7 @@
                         <tbody>
                             @if (sizeof($letters) == 0)
                             <tr>
-                                <td colspan="6" align="center">Data kosong</td>
+                                <td colspan="9" align="center">Data kosong</td>
                             </tr>
                             @else
                             @foreach ($letters as $letter)

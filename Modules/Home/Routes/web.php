@@ -28,6 +28,7 @@ Route::prefix('home')->group(function () {
     Route::get('/detailarticle/{id}', [HomeController::class, 'detailArticle']);
     Route::get('/detailimage/{id}', [HomeController::class, 'detailImage']);
     Route::get('/detailclub/{id}', [HomeController::class, 'detailClub']);
+    Route::post('/storefaq', [HomeController::class, 'storeFaq']);
 });
 
 Route::prefix('histories')->group(function () {
@@ -61,18 +62,3 @@ Route::prefix('homeclubs')->group(function () {
 Route::prefix('articles')->group(function () {
     Route::get('/', [HomeController::class, 'articles']);
 });
-
-Route::prefix('details')->group(function () {
-    Route::get('/', [HomeController::class, 'articles']);
-});
-
-Route::prefix('details/{id}')->group(function () {
-    Route::get('/', [HomeController::class, 'detailArticle']);
-});
-Route::prefix('image/{id}')->group(function () {
-    Route::get('/', [HomeController::class, 'detailImage']);
-});
-
-Route::get('/detailarticle/{id}', [HomeController::class, 'detailArticle']);
-Route::get('/detailimage/{id}', [HomeController::class, 'detailImage']);
-Route::get('/detailclub/{id}', [HomeController::class, 'detailClub']);

@@ -120,7 +120,7 @@
 
             <div class="col-md-12">
                 <h3 class="center">Ajukan pertanyaan?</h3>
-                <form action="{{ url('faq/store') }}" method="POST" id="addFaqForm">
+                <form action="{{ url('home/storefaq') }}" method="POST" id="addFaqForm">
                     @csrf
                     <div class="modal-body">
                         <div class="form-body">

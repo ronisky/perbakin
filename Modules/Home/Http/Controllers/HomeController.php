@@ -2,12 +2,15 @@
 
 namespace Modules\Home\Http\Controllers;
 
+use App\Helpers\DataHelper;
 use App\Helpers\DateFormatHelper;
 use App\Helpers\LogHelper;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Modules\Article\Repositories\ArticleRepository;
 use Modules\Banner\Repositories\BannerRepository;
 use Modules\Club\Repositories\ClubRepository;
@@ -103,6 +106,37 @@ class HomeController extends Controller
         $faqs    = $this->_faqRepository->getAllByParams(['faq_status' => 1]);
 
         return view('home::contact', compact('banners', 'faqs'));
+    }
+
+    public function storeFaq(Request $request)
+    {
+        $request['faq_status'] = 0;
+
+        $validator = Validator::make($request->all(), $this->_validationRules());
+
+        if ($validator->fails()) {
+            return redirect('home/contact')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        DB::beginTransaction();
+        $this->_faqRepository->insert(DataHelper::_normalizeParams($request->all(), false, false, false, false, true));
+        $this->_logHelper->store('Home', $request['faq_question'], 'create');
+        DB::commit();
+
+        return redirect('home/contact')->with('successMessage', 'Data faq berhasil ditambahkan');
+    }
+
+    private function _validationRules($id = '')
+    {
+        return [
+            'faq_name' => 'required',
+            'faq_email' => 'required',
+            'faq_phone' => 'required',
+            'faq_nik' => 'required',
+            'faq_question' => 'required',
+        ];
     }
 
     /**

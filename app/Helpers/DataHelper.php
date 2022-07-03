@@ -1,8 +1,8 @@
 <?php
 
-/** 
+/**
  * Data Helpers
- * 
+ *
  *
  */
 
@@ -25,11 +25,11 @@ class DataHelper
      * - created : true (add created at and by), false
      * - updated : true (add updated at and by), false
      * - deleted : true (add deleted at and by), false
-     * 
+     *
      * @return (array)
      *
      */
-    public static function _normalizeParams($params, $created = false, $updated = false, $isNested = false, $deleted = false)
+    public static function _normalizeParams($params, $created = false, $updated = false, $isNested = false, $deleted = false, $createdFromHome = false)
     {
         $return = array();
 
@@ -69,12 +69,17 @@ class DataHelper
             $return['deleted_by'] = Auth::user()->user_id;
         }
 
+        if ($createdFromHome) {
+            $return['created_at'] = date('Y-m-d H:i:s');
+            $return['created_by'] = 5;
+        }
+
         return $return;
     }
 
     /**
      * Message of form rules
-     * 
+     *
      * @return (array)
      *
      */
@@ -90,8 +95,8 @@ class DataHelper
         return $message;
     }
 
-    // Response Formatter 
-    /** 
+    // Response Formatter
+    /**
      * Success Response
      * @param data response default null
      * @param message response default null
@@ -110,7 +115,7 @@ class DataHelper
         return response()->json($response);
     }
 
-    /** 
+    /**
      * Error Response
      * @param data response default null
      * @param message response default null
@@ -128,9 +133,9 @@ class DataHelper
 
         return response()->json($response);
     }
-    // End Response Formatter 
+    // End Response Formatter
 
-    // file upload 
+    // file upload
 
     /**
      * Get uploaded file's name.
@@ -181,7 +186,7 @@ class DataHelper
 
     /**
      * validation of form rules file
-     * 
+     *
      * @return (array)
      *
      */
@@ -207,7 +212,7 @@ class DataHelper
      * - created : true (add created at and by), false
      * - updated : true (add updated at and by), false
      * - deleted : true (add deleted at and by), false
-     * 
+     *
      * @return (array)
      *
      */
@@ -233,7 +238,7 @@ class DataHelper
         return $return;
     }
 
-    // end file upload 
+    // end file upload
 
     public static function getUserLogin()
     {

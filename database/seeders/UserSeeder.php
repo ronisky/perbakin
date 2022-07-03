@@ -100,6 +100,27 @@ class UserSeeder extends Seeder
                 'group_id'          => '1',
                 'created_at'        => date('Y-m-d H:i:s'),
             ],
+            [
+                'user_id'           => '5',
+                'user_username'     => 'guest',
+                'user_name'         => 'guest',
+                'user_kta'          => 'guest',
+                'user_email'        => 'guest@guest.com',
+                'user_phone'        => '0',
+                'place_of_birth'    => null,
+                'date_of_birth'     => null,
+                'occupation'        => null,
+                'user_address'      => null,
+                'club_id'           => null,
+                'user_club_gen'     => null,
+                'user_club_cab'     => null,
+                'user_password'     => null,
+                'user_image'        => null,
+                'user_active_date'  => '2023-08-01',
+                'user_status'       => '1',
+                'group_id'          => '6',
+                'created_at'        => date('Y-m-d H:i:s'),
+            ],
         ]);
     }
 }

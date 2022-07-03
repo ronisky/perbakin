@@ -33,20 +33,6 @@ class UsersRepository extends QueryBuilderImplementation
         }
     }
 
-    public function getByIdUserAndGroup($id)
-    {
-        try {
-            return DB::connection($this->db)
-                ->table($this->table)
-                ->join('sys_user_groups', 'sys_user_groups.group_id', '=', 'sys_users.group_id')
-                ->select('sys_users.*', 'sys_user_groups.group_name')
-                ->where($this->pk, '=', $id)
-                ->first();
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
     public function getById($id)
     {
         try {

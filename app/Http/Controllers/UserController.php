@@ -144,7 +144,6 @@ class UserController extends Controller
     {
         $getDetail  = $this->_userRepository->getById(Auth::user()->user_id);
         $clubs    = $this->_clubRepository->getAll();
-
         return view('user.setting', compact('getDetail', 'clubs'));
     }
 

@@ -30,7 +30,7 @@
                                 <div class="form-group">
                                     <label>Masukan Username</label>
                                     <input class="form-control form-control-lg" type="text" name="user_username"
-                                        id="user_username" placeholder="Maksimal 7 karakter" maxlength="7" />
+                                        id="user_username" placeholder="Masukan username" maxlength="15" />
                                 </div>
                                 <div class="form-group">
                                     <label>Kata Sandi</label>
@@ -87,7 +87,7 @@
     });
 
 
-    // function for disable right right click 
+    // function for disable right right click
     window.oncontextmenu = function () {
         return false;
     }

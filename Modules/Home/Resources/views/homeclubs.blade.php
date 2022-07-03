@@ -100,7 +100,7 @@
                 <div class="single-table wow fadeInUp" data-wow-delay=".2s">
                     <!-- Table Head -->
                     <div class="table-head">
-                        <a href="{{ url('detailclub/'. Crypt::encrypt($club->club_id)) }}" target="_blank">
+                        <a href="{{ url('home/detailclub/'. Crypt::encrypt($club->club_id)) }}" target="_blank">
                             <h4 class="title">{{ $club->club_name }}</h4>
                             <div class="button">
                                 <img src="{{ url('storage/uploads/images/'. $club->club_logo_path) }}"
@@ -119,8 +119,7 @@
                             <li><i class="lni lni-checkmark-circle"></i> Website : <a href="{{ $club->club_website }}">
                                     {{ substr($club->club_website, 0, 23) }}</a></li>
                             <li><i class="lni lni-checkmark-circle"></i> Email : {{ $club->club_email }}</li>
-                            <li><i class="lni lni-checkmark-circle"></i> Instagram : <a
-                                    href="{{ $club->club_instagram }}">{{ $club->club_instagram }}</a></li>
+                            <li><i class="lni lni-checkmark-circle"></i> Instagram : {{ $club->club_instagram }}</li>
                         </ul>
                         <!-- End Table List -->
                     </div>

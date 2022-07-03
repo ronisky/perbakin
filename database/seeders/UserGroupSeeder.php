@@ -35,6 +35,10 @@ class UserGroupSeeder extends Seeder
                 'group_id'      => '5',
                 'group_name'     => 'Anggota'
             ],
+            [
+                'group_id'      => '6',
+                'group_name'     => 'Guest'
+            ],
         ]);
     }
 }

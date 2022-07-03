@@ -100,7 +100,8 @@
                 <div class="single-table wow fadeInUp" data-wow-delay=".2s">
                     <!-- Table Head -->
                     <div class="table-head">
-                        <a href="{{ url('detailarticle/'. Crypt::encrypt($article->article_id)) }}" target="_blank">
+                        <a href="{{ url('home/detailarticle/'. Crypt::encrypt($article->article_id)) }}"
+                            target="_blank">
                             <h4 class="title">{{ $article->article_title }}</h4>
                             <div class="button">
                                 <img src="{{ url('storage/uploads/images/'. $article->image_thumbnail_path) }}"

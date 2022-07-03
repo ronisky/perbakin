@@ -151,10 +151,25 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
+                                    <label class="form-label">Nomor KTA <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="user_kta" id="user_kta"
+                                        placeholder="Masukan nomor KTA" value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label class="form-label">Masa Aktif KTA <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="user_active_date"
+                                        id="user_active_date" placeholder="Masa aktif KTA"
+                                        value="{{ old('user_active_date') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
                                     <label class="form-label">Username <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="user_username" id="user_username"
                                         placeholder="Masukan username" value="{{ old('user_username') }}"
-                                        style="text-transform: uppercase;" maxlength="7">
+                                        style="text-transform: uppercase;">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -221,22 +236,7 @@
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
-                                    <label class="form-label">Nomor KTA <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="user_kta" id="user_kta"
-                                        placeholder="Masukan nomor KTA" value="{{ old('user_kta') }}">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Masa Aktif KTA <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="user_active_date"
-                                        id="user_active_date" placeholder="Masa aktif KTA"
-                                        value="{{ old('user_active_date') }}">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Club Anggota </label>
+                                    <label class="form-label">Club Anggota<span class="text-danger">*</span></label>
                                     <select class="form-control" name="club_id" id="club_id">
                                         <option value="">- Pilih Club Anggota -</option>
                                         @if(sizeof($clubs) > 0)
@@ -493,6 +493,9 @@
         document.getElementById("addForm").reset();
         $('.addModal form').attr('action', "{{ url('users/store') }}");
 
+        // call generate username function
+        generateUsername();
+
         document.getElementById('password_collapse_edit').style.display = 'block';
         $('#password_collapse_edit').text('Generate Password');
         document.getElementById('hint_password').style.display = 'none';
@@ -594,7 +597,7 @@
             // user_address: "required",
             user_kta: "required",
             user_active_date: "required",
-            // club_id: "required",
+            club_id: "required",
             // user_club_gen: "required",
             // user_club_cab: "required",
             // user_password: "required",
@@ -611,7 +614,7 @@
             // user_address: "Masukan alamat",
             user_kta: "Masukan nomor KTA",
             user_active_date: "Masukan masa aktif KTA",
-            // club_id: "Pilih club",
+            club_id: "Pilih club",
             // user_club_gen: "Masukan angkatan anggota club",
             // user_club_cab: "Masukan club cabang",
             // user_password: "Password user tidak boleh kosong",
@@ -743,7 +746,6 @@
         let id = $(this).attr('data-id');
         let url = "{{ url('users/show') }}";
 
-
         $('.detailModal .modal-title').text('Detail Data User');
         $('.detailModal').modal('show');
         $.ajax({
@@ -788,6 +790,8 @@
     $('.btnDelete').click(function () {
         $('.btnDelete').attr('disabled', true)
         var url = $(this).attr('data-url');
+        console.log(url);
+
         Swal.fire({
             title: 'Apakah anda yakin ingin menghapus data?',
             text: "Kamu tidak akan bisa mengembalikan data ini setelah dihapus!",
@@ -803,7 +807,7 @@
                     url: url,
                     success: function (data) {
                         console.log(data);
-                        if (status == 1) {
+                        if (data.status == 1) {
                             Swal.fire(
                                 'Terhapus!',
                                 'Data Berhasil Dihapus.',
@@ -811,6 +815,12 @@
                             ).then(() => {
                                 location.reload()
                             })
+                        } else {
+                            Swal.fire(
+                                'Gagal!',
+                                'Gagal menghapus data.',
+                                'error'
+                            );
                         }
                     },
                     error: function (XMLHttpRequest, textStatus,
@@ -825,6 +835,25 @@
             }
         })
     });
+
+    // generate username
+    function generateUsername() {
+        $('#user_kta').keyup(function () {
+            let data = $('#user_kta').val();
+            let result = removeLastWord(data);
+
+            $('#user_username').val(result);
+        })
+    }
+
+    function removeLastWord(str) {
+        const words = str.split('/');
+        if (words.length === 1) {
+            return str;
+        }
+        return words.slice(0, -1).join('');
+    }
+
 
 
     //show hide password

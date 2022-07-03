@@ -84,7 +84,6 @@ class UsersController extends Controller
                 ->withInput();
         }
 
-
         $request['user_status'] = 0;
 
         DB::beginTransaction();
@@ -334,20 +333,20 @@ class UsersController extends Controller
             return redirect('unauthorize');
         }
         // Check detail to db
-        $detail  = $this->_usersRepository->getByIdUserAndGroup($id);
+        $detail  = $this->_usersRepository->getById($id);
 
         if (!$detail) {
             return DataHelper::_errorResponse(null, 'Data tidak ditemukan');
         } elseif ($detail->user_id == 1) {
             return DataHelper::_errorResponse(null, 'Data tidak bisa dihapus!');
+        } else {
+            DB::beginTransaction();
+            $this->_usersRepository->delete($id);
+            $this->_logHelper->store($this->module, $detail->user_id, 'delete');
+            DB::commit();
+
+            return DataHelper::_successResponse($detail, 'Pengguna berhasil dihapus');
         }
-
-        DB::beginTransaction();
-        $this->_usersRepository->delete($id);
-        $this->_logHelper->store($this->module, $detail->user_id, 'delete');
-        DB::commit();
-
-        return DataHelper::_successResponse(null, 'Pengguna berhasil dihapus');
     }
 
 
