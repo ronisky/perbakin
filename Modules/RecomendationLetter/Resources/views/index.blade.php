@@ -56,7 +56,6 @@
                         <i data-feather="plus" width="16" height="16" class="me-2"></i>
                         Tambah Pengajuan Surat Rekomendasi
                     </a>
-                    <a data-toggle="modal" href="#myModal" class="btn btn-primary">Launch modal</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped card-table table-hover text-nowrap table-data">
@@ -172,67 +171,86 @@
                 <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addForm"
+            {{-- <form action="" method="POST" id="addForm"> --}}
+            <div class="modal-body">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Jenis Surat Rekomendasi</label>
+                                    <select class="form-control" name="letter_category_id" id="letter_category_id">
+                                        <option value="">- Pilih Jenis Surat Rekomendasi -</option>
+                                        @if(sizeof($letter_categories) > 0)
+                                        @foreach($letter_categories as $key => $letter_category)
+                                        <option value="{{ $letter_category->letter_category_id }}"
+                                            data-tag="{{$letter_category->letter_category_name}}">
+                                            {{($key + 1).". " .$letter_category->letter_category_name }}
+                                        </option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-4" id="downloadletter"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+            </div>
+            {{-- </form> --}}
+        </div>
+    </div>
+</div>
+<!-- Modal Add -->
+
+{{-- Start Letter 1 --}}
+<div class="modal addModalLetter1 fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addFormLetter1"
                 enctype="multipart/form-data">
                 @csrf
-                <div class="modal-body">
+                <div class="modal-body mx-2">
                     <div class="form-body">
                         <div class="row">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="form-label">Jenis Surat Rekomendasi</label>
-                                            <select class="form-control" name="letter_category_id"
-                                                id="letter_category_id">
-                                                <option value="">- Pilih Jenis Surat Rekomendasi -</option>
-                                                @if(sizeof($letter_categories) > 0)
-                                                @foreach($letter_categories as $key => $letter_category)
-                                                <option value="{{ $letter_category->letter_category_id }}">
-                                                    {{($key + 1).". " .$letter_category->letter_category_name }}
-                                                </option>
-                                                @endforeach
-                                                @endif
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 header-letter">
-                                        <div class="form-group">
-                                            <label class="form-label">Tempat Surat<span
-                                                    class="text-danger">*</span></label>
-                                            <input type="text" class="form-control header-letter" name="letter_place"
-                                                id="letter_place" placeholder="Masukan tempat surat" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 header-letter">
-                                        <div class="form-group">
-                                            <label class="form-label">Tanggal Surat <span
-                                                    class="text-danger">*</span></label>
-                                            <input type="date" class="form-control header-letter" name="letter_date"
-                                                id="letter_date" placeholder="Masukan tanggal surat"
-                                                value="{{ date('Y-m-d') }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 sample-letter">
-                                    <div class="col-md-6 center ">
-                                        <div class="card" style="width: 10rem;">
-                                            <a target="_blank"
-                                                href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
-                                                class="text text-sm-center">
-                                                <img class="card-img-top"
-                                                    src="assets/img/letters/sample_letters/sample_6.jpg" height="auto"
-                                                    alt="Card image cap">
-                                                Lihat contoh surat</a>
-                                        </div>
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                            placeholder="Masukan tempat surat" required>
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 mt-4" id="downloadletter"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Surat <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 center">
+                                <div class="card" style="width: 10rem;">
+                                    <a target="_blank"
+                                        href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                        class="text text-sm-center">
+                                        <img class="card-img-top" src="/assets/img/letters/sample_letters/sample_6.jpg"
+                                            height="auto" alt="">
+                                        Lihat contoh surat</a>
+                                </div>
                             </div>
 
                             {{-- ================================================================================= --}}
-                            <div class="col-md-12 mb-3 border-bottom border-dark section-title">
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
@@ -241,7 +259,7 @@
                             <div class="col-md-6 mb-3 letter1">
                                 <div class="form-group">
                                     <label class="form-label">Nama <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name" id="name"
+                                    <input type="string" class="form-control name" name="name" id="name"
                                         value="{{ $user->user_name }}" placeholder="Masukan nama" required>
                                 </div>
                             </div>
@@ -327,534 +345,9 @@
                                 </div>
                             </div>
                             {{-- end letter1 b1l1 --}}
-                            {{-- letter2 b1l2--}}
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name" id="name"
-                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
-                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
-                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Pekerjaan / Jabatan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="occupation" id="occupation"
-                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="address" id="address"
-                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Klub / Perkumpulan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="club" id="club"
-                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor KTA PB-Perbakin <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
-                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
-                                        readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Keanggotaan Cabang <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="membership" id="membership"
-                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Alasan / untuk kepentingan<span
-                                            class="text-danger">*</span></label>
-                                    <textarea type="text" class="form-control" name="mutasi_alasan" id="mutasi_alasan"
-                                        rows="5" placeholder="Kepentinan ..."
-                                        required>{{ old('mutasi_alasan') }}kepentingan  Olahraga Menembak Berburu.</textarea>
-                                </div>
-                            </div>
-                            {{-- end letter2 b1l2--}}
-
-                            {{-- letter3 b1l3 --}}
-                            <div class="col-md-12 mb-3 border-bottom border-gray letter3">
-                                <span class="font-weight-medium italic">Disebut Pihak I Pemberi Hibah</span>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">Nama Pemberi Hibah <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name" id="name" value=""
-                                        placeholder="Masukan nama">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
-                                        value="" placeholder="Masukan tempat lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
-                                        value="" placeholder="Masukan tanggal lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">Pekerjaan / Jabatan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="occupation" id="occupation" value=""
-                                        placeholder="Masukan pekerjaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="user_address" id="user_address"
-                                        value="" placeholder="Masukan alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">No KTP <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_ktp" id="no_ktp" value=""
-                                        placeholder="Masukan klub / perkumupulan">
-                                </div>
-                            </div>
-                            {{-- end letter3 b1l3 --}}
-
-                            {{-- letter4 b1l4 --}}
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name" id="name"
-                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
-                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
-                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Pekerjaan / Jabatan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="occupation" id="occupation"
-                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="address" id="address"
-                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Klub / Perkumpulan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="club" id="club"
-                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor KTA PB-Perbakin <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
-                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
-                                        readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Keanggotaan Cabang <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="membership" id="membership"
-                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Alasan Kepemilikan<span
-                                            class="text-danger">*</span></label>
-                                    <textarea type="text" class="form-control" name="mutasi_alasan" id="mutasi_alasan"
-                                        rows="5" placeholder="Alasan mutasi"
-                                        required>{{ old('mutasi_alasan') }}Kepentingan  Olahraga Menembak Berburu/reaksi.</textarea>
-                                </div>
-                            </div>
-                            {{-- end letter4 b1l4 --}}
-                            {{-- letter5 b1l5 --}}
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name" id="name"
-                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
-                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
-                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Pekerjaan / Jabatan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="occupation" id="occupation"
-                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="address" id="address"
-                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Klub / Perkumpulan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="club" id="club"
-                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor KTA PB-Perbakin <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
-                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
-                                        readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Keanggotaan Cabang <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="membership" id="membership"
-                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
-                                </div>
-                            </div>
-                            {{-- end letter5 b1l5 --}}
-
-                            {{-- letter6 b1l6 --}}
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name" id="name"
-                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
-                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
-                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Pekerjaan / Jabatan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="occupation" id="occupation"
-                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="address" id="address"
-                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Klub / Perkumpulan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="club" id="club"
-                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor KTA PB-Perbakin <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
-                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
-                                        readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Keanggotaan Cabang <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="membership" id="membership"
-                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
-                                </div>
-                            </div>
-                            {{-- end letter6 b1l6 --}}
-
-                            {{-- letter7 b1l7 --}}
-                            <div class="col-md-6 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name" id="name"
-                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
-                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
-                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Pekerjaan / Jabatan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="occupation" id="occupation"
-                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="address" id="address"
-                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Klub / Perkumpulan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="club" id="club"
-                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor KTA PB-Perbakin <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
-                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
-                                        readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Keanggotaan Cabang <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="membership" id="membership"
-                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
-                                </div>
-                            </div>
-                            {{-- end letter7 b1l7 --}}
-
-                            {{-- letter8 b1l8 --}}
-                            <div class="col-md-12 mb-3 letter8">
-                                <div class="form-group">
-                                    <label class="form-label">Dasar AD/ART<span class="text-danger">*</span></label>
-                                    <textarea type="text" class="form-control" name="dasar_adart" id="dasar_adart"
-                                        rows="5" placeholder="Masukan Dasar AD/ART"
-                                        required>AD/ART Perbakin Tahun 2019 BAB IV Keanggotaan Bagian Kesatu Keanggotaan  Pasal 9 ,ART BAB II Pasal 4 dan 5  dan ART Lampiran VIII halaman 48 Susunan Organisasi Klub Menembak.</textarea>
-                                </div>
-                            </div>
-                            {{-- end letter8 b1l8 --}}
-
-                            {{-- letter9 b1l9 --}}
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name" id="name"
-                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
-                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
-                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Pekerjaan / Jabatan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="occupation" id="occupation"
-                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="address" id="address"
-                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Klub / Perkumpulan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="club" id="club"
-                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor KTA PB-Perbakin <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
-                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
-                                        readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Keanggotaan Cabang <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="membership" id="membership"
-                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
-                                </div>
-                            </div>
-                            {{-- end letter9 b1l9 --}}
-
-                            {{-- letter10 b1l10 --}}
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name" id="name"
-                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
-                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
-                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Pekerjaan / Jabatan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="occupation" id="occupation"
-                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="address" id="address"
-                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Klub / Perkumpulan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="club" id="club"
-                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor KTA PB-Perbakin <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
-                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
-                                        readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Keanggotaan Cabang <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="membership" id="membership"
-                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
-                                </div>
-                            </div>
-                            {{-- end letter10 b1l10 --}}
 
                             {{-- ================================================================================= --}}
-                            <div class="col-md-12 mb-3 border-bottom border-dark section-title">
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
                                 <span class=" font-weight-bold">Bagian 2 Keterangan</span>
                             </div>
                             {{-- ================================================================================= --}}
@@ -920,7 +413,7 @@
                             <div class="col-md-6 mb-3 letter1">
                                 <div class="form-group">
                                     <label class="form-label">Nama Pemilik <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control letter1" name="nama_pemilik"
+                                    <input type="string" class="form-control nama_pemilik" name="nama_pemilik"
                                         id="nama_pemilik" placeholder="Masukan nama pemilik" required>
                                 </div>
                             </div>
@@ -941,415 +434,8 @@
                             </div>
                             {{-- end letter1 b2l1 --}}
 
-                            {{-- letter2 b2l2 --}}
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Jenis Senjata</label>
-                                    <select class="form-control" name="firearm_category_id" id="firearm_category_id">
-                                        <option value="">- Pilih Jenis Senjata -</option>
-                                        @if(sizeof($firearm_categories) > 0)
-                                        @foreach($firearm_categories as $firearm_category)
-                                        <option value="{{ $firearm_category->firearm_category_id }}">
-                                            {{ $firearm_category->firearm_category_name }}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Merek <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="merek" id="merek"
-                                        placeholder="Masukan merek">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Kaliber <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="kaliber" id="kaliber"
-                                        placeholder="Masukan kaliber">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor Pebrik <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_pabrik" id="no_pabrik"
-                                        placeholder="Masukan nomor pabrik">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor Buku Pas Senpi <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_buku_pas_senpi"
-                                        id="no_buku_pas_senpi" placeholder="Masukan nomor buku pas senpi">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Nama Pemilik <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="nama_pemilik" id="nama_pemilik"
-                                        placeholder="Masukan nama pemilik">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Jumlah <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="jumlah" id="jumlah"
-                                        placeholder="Masukan jumlah">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Penyimpanan/ Gudang<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="penyimpanan" id="penyimpanan"
-                                        placeholder="Masukan penyimpanan/ gudang">
-                                </div>
-                            </div>
-                            {{-- end letter2 b2l2 --}}
-
-                            {{-- letter3 b2l3 --}}
-                            <div class="col-md-12 mb-3 border-bottom border-gray letter3">
-                                <span class="font-weight-medium italic">Disebut Pihak II Penerima Hibah</span>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">Nama Penerima Hibah <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name2" id="name2" value=""
-                                        placeholder="Masukan nama">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">Pekerjaan / Jabatan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="occupation2" id="occupation2"
-                                        value="" placeholder="Masukan pekerjaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="user_address2" id="user_address2"
-                                        value="" placeholder="Masukan alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">No KTP <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_ktp2" id="no_ktp2" value=""
-                                        placeholder="Masukan klub / perkumupulan">
-                                </div>
-                            </div>
-                            {{-- end letter3 b2l3 --}}
-                            {{-- letter4 b2l4 --}}
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Jenis Senjata</label>
-                                    <select class="form-control" name="firearm_category_id" id="firearm_category_id">
-                                        <option value="">- Pilih Jenis Senjata -</option>
-                                        @if(sizeof($firearm_categories) > 0)
-                                        @foreach($firearm_categories as $firearm_category)
-                                        <option value="{{ $firearm_category->firearm_category_id }}">
-                                            {{ $firearm_category->firearm_category_name }}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Merek <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="merek" id="merek"
-                                        placeholder="Masukan merek">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Kaliber <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="kaliber" id="kaliber"
-                                        placeholder="Masukan kaliber">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor Pebrik <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_pabrik" id="no_pabrik"
-                                        placeholder="Masukan nomor pabrik">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor Buku Pas Senpi <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_buku_pas_senpi"
-                                        id="no_buku_pas_senpi" placeholder="Masukan nomor buku pas senpi">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor SI Impor <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_si_impor" id="no_si_impor"
-                                        placeholder="Masukan nomor SI Impor">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">BAP Senjata Api <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="bap_senpi" id="bap_senpi"
-                                        placeholder="Masukan BAP senpi">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Jumlah <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="jumlah" id="jumlah"
-                                        placeholder="Masukan jumlah">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Penyimpanan/ Gudang<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="penyimpanan" id="penyimpanan"
-                                        placeholder="Masukan penyimpanan/ gudang">
-                                </div>
-                            </div>
-                            {{-- end letter4 b2l4 --}}
-
-                            {{-- letter5 b2l5 --}}
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Dari Tanggal <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="waktu_mulai" id="waktu_mulai" value=""
-                                        placeholder="Masukan tanggal mulai">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Sampai Tanggal <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="waktu_selesai" id="waktu_selesai"
-                                        value="" placeholder="Masukan tanggal selesai">
-                                </div>
-                            </div>
-                            <div class="col-md-12 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Dalam rangka acara/ kegiatan<span
-                                            class="text-danger">*</span></label>
-                                    <textarea type="text" class="form-control" name="dalam_event" id="dalam_event"
-                                        rows="5" placeholder="Berikan keterangan dalam rangka acara/ kegiatan ..."
-                                        required>Latihan rutin dan dalam rangka menghadapi PON 2020 Papua</textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Lokasi pelaksanaan 1 <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="lokasi1" id="lokasi1"
-                                        placeholder="Masukan lokasi pelaksanaan 1">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Jumlah anggota rombongan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="jumlah_anggota" id="jumlah_anggota"
-                                        placeholder="Masukan jumlah angggota rombongan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter5">
-                                <span class="text-sm-center text-warning">Kosongkan bila tidak ada</span>
-                                <div class="form-group">
-                                    <label class="form-label">Lokasi pelaksanaan 2 </label>
-                                    <input type="string" class="form-control" name="lokasi2" id="lokasi2"
-                                        placeholder="Masukan lokasi pelaksanaan 2">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Lokasi pelaksanaan 3</label>
-                                    <input type="string" class="form-control" name="lokasi3" id="lokasi3"
-                                        placeholder="Masukan lokasi pelaksanaan 3">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Lokasi pelaksanaan 4</label>
-                                    <input type="string" class="form-control" name="lokasi4" id="lokasi4"
-                                        placeholder="Masukan lokasi pelaksanaan 4">
-                                </div>
-                            </div>
-                            {{-- end letter5 b2l5 --}}
-
-                            {{-- letter6 b2l6 --}}
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Dalam rangka acara/ kegiatan? <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="dalam_event" id="dalam_event"
-                                        placeholder="Masukan nama acara/ kegiatan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat daerah lokasi pelaksanaan<span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="lokasi1" id="lokasi1"
-                                        placeholder="Masukan lokasi pelaksanaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Dari Tanggal <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="waktu_mulai" id="waktu_mulai" value=""
-                                        placeholder="Masukan tanggal mulai">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Sampai Tanggal <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="waktu_selesai" id="waktu_selesai"
-                                        value="" placeholder="Masukan tanggal selesai">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Jumlah anggota rombongan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="jumlah_anggota" id="jumlah_anggota"
-                                        placeholder="Masukan jumlah angggota rombongan">
-                                </div>
-                            </div>
-                            {{-- end letter6 b2l6 --}}
-
-                            {{-- letter7 b2l7 --}}
-                            <div class="col-md-12 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Masa Bakti Tahun <span
-                                            class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="dalam_event" id="dalam_event"
-                                        placeholder="Masa bakti / tahun">
-                                </div>
-                            </div>
-                            <div class="col-md-12 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Alasan Pengunduran diri<span
-                                            class="text-danger">*</span></label>
-                                    <textarea type="text" class="form-control" name="l7_alasan_pengunduran"
-                                        id="l7_alasan_pengunduran" rows="5"
-                                        placeholder="Berikan alasan Pengunduran diri"
-                                        required>{{ old('l7_alasan_pengunduran') }}</textarea>
-                                </div>
-                            </div>
-                            {{-- end letter7 b2l7--}}
-
-                            {{-- letter8 b2l8--}}
-                            <div class="col-md-12 mb-3 letter8">
-                                <div class="form-group">
-                                    <label class="form-label">Sehubungan dasar tersebut diatas, diajukan permohonan
-                                        pengesahan/pendirian Klub Menembak di wilayah Kabupaten Bandung</label>
-                                </div>
-                            </div>
-                            {{-- end letter8 b2l8--}}
-
-                            {{-- letter9 b2l9 --}}
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Pindah / Mutasi Dari Klub <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="mutasi_dari" id="mutasi_dari"
-                                        placeholder="Masukan klub asal">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Pindah / Mutasi Menuju Klub <span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="mutasi_menuju" id="mutasi_menuju"
-                                        placeholder="Masasukan klub tujuan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Cabang Klub Tujuan<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="l9_cabang" id="l9_cabang"
-                                        placeholder="Masasukan klub tujuan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Alasan Pindah/ Mutasi<span
-                                            class="text-danger">*</span></label>
-                                    <textarea type="text" class="form-control" name="mutasi_alasan" id="mutasi_alasan"
-                                        rows="5" placeholder="Dikarenakan ..."
-                                        required>{{ old('mutasi_alasan') }}</textarea>
-                                </div>
-                            </div>
-                            {{-- end letter9 b2l9 --}}
-
-                            {{-- letter10 b2l10 --}}
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Jenis Senjata</label>
-                                    <select class="form-control" name="firearm_category_id" id="firearm_category_id">
-                                        <option value="">- Pilih Jenis Senjata -</option>
-                                        @if(sizeof($firearm_categories) > 0)
-                                        @foreach($firearm_categories as $firearm_category)
-                                        <option value="{{ $firearm_category->firearm_category_id }}">
-                                            {{ $firearm_category->firearm_category_name }}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Merek <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="merek" id="merek"
-                                        placeholder="Masukan merek">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Kaliber <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="kaliber" id="kaliber"
-                                        placeholder="Masukan kaliber">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor Buku Pas Senpi <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_buku_pas_senpi"
-                                        id="no_buku_pas_senpi" placeholder="Masukan nomor buku pas senpi">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Dikeluarkan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="tanggal_dikeluarkan"
-                                        id="tanggal_dikeluarkan" placeholder="Tanggal dikeluarkan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Jumlah <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="jumlah" id="jumlah"
-                                        placeholder="Masukan jumlah">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter10">
-                                <div class="form-group">
-                                    <label class="form-label">Nama Pemilik Buku Pas<span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="nama_pemilik" id="nama_pemilik"
-                                        placeholder="Masukan nama pemilik">
-                                </div>
-                            </div>
-                            {{-- end letter10 b2l10 --}}
-
                             {{-- ================================================================================= --}}
-                            <div class="col-md-12 mb-3 border-bottom border-dark section-title">
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
                                 <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
                             </div>
                             {{-- ================================================================================= --}}
@@ -1429,6 +515,237 @@
                                 </div>
                             </div>
                             {{-- end letter1 b3l1 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter1 b4l1 --}}
+                            <div class="col-md-6 mb-3 letter1">
+                                <div class="form-group">
+                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control pemohon" name="pemohon" id="pemohon"
+                                        placeholder="Masukan pemohon">
+                                </div>
+                            </div>
+                            {{-- end letter1 b4l1 --}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Letter 1 --}}
+
+{{-- Start Letter 2 --}}
+<div class="modal addModalLetter2 fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addFormLetter2"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body mx-2">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                            placeholder="Masukan tempat surat" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Surat <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 center">
+                                <div class="card" style="width: 10rem;">
+                                    <a target="_blank"
+                                        href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                        class="text text-sm-center">
+                                        <img class="card-img-top" src="/assets/img/letters/sample_letters/sample_6.jpg"
+                                            height="auto" alt="">
+                                        Lihat contoh surat</a>
+                                </div>
+                            </div>
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter2 b1l2--}}
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="name" id="name"
+                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
+                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan / Jabatan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="occupation" id="occupation"
+                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="address" id="address"
+                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Klub / Perkumpulan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="club" id="club"
+                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor KTA PB-Perbakin <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
+                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Keanggotaan Cabang <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="membership" id="membership"
+                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Alasan / untuk kepentingan<span
+                                            class="text-danger">*</span></label>
+                                    <textarea type="text" class="form-control" name="mutasi_alasan" id="mutasi_alasan"
+                                        rows="5" placeholder="Kepentinan ..."
+                                        required>{{ old('mutasi_alasan') }}kepentingan  Olahraga Menembak Berburu.</textarea>
+                                </div>
+                            </div>
+                            {{-- end letter2 b1l2--}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter2 b2l2 --}}
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Jenis Senjata</label>
+                                    <select class="form-control" name="firearm_category_id" id="firearm_category_id">
+                                        <option value="">- Pilih Jenis Senjata -</option>
+                                        @if(sizeof($firearm_categories) > 0)
+                                        @foreach($firearm_categories as $firearm_category)
+                                        <option value="{{ $firearm_category->firearm_category_id }}">
+                                            {{ $firearm_category->firearm_category_name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Merek <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="merek" id="merek"
+                                        placeholder="Masukan merek">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Kaliber <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="kaliber" id="kaliber"
+                                        placeholder="Masukan kaliber">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor Pebrik <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_pabrik" id="no_pabrik"
+                                        placeholder="Masukan nomor pabrik">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor Buku Pas Senpi <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_buku_pas_senpi"
+                                        id="no_buku_pas_senpi" placeholder="Masukan nomor buku pas senpi">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Pemilik <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control nama_pemilik" name="nama_pemilik"
+                                        id="nama_pemilik" placeholder="Masukan nama pemilik">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Jumlah <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="jumlah" id="jumlah"
+                                        placeholder="Masukan jumlah">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Penyimpanan/ Gudang<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="penyimpanan" id="penyimpanan"
+                                        placeholder="Masukan penyimpanan/ gudang">
+                                </div>
+                            </div>
+                            {{-- end letter2 b2l2 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
 
                             {{-- letter2 b3l2 --}}
                             <div class="col-md-6 mb-3 letter2">
@@ -1639,6 +956,164 @@
                             </div>
                             {{-- end letter2 b3l2 --}}
 
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter2 b4l2 --}}
+                            <div class="col-md-6 mb-3 letter2">
+                                <div class="form-group">
+                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
+                                        placeholder="Masukan pemohon">
+                                </div>
+                            </div>
+                            {{-- end letter2 b4l2 --}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Letter 2 --}}
+
+{{-- Start Letter 3 --}}
+<div class="modal addModalLetter3 fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addFormLetter3"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body mx-2">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-4 center">
+                                <div class="card" style="width: 10rem;">
+                                    <a target="_blank"
+                                        href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                        class="text text-sm-center">
+                                        <img class="card-img-top" src="/assets/img/letters/sample_letters/sample_6.jpg"
+                                            height="auto" alt="">
+                                        Lihat contoh surat</a>
+                                </div>
+                            </div>
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter3 b1l3 --}}
+                            <div class="col-md-12 mb-3 border-bottom border-gray letter3">
+                                <span class="font-weight-medium italic">Disebut Pihak I Pemberi Hibah</span>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Pemberi Hibah <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control pihak-1" name="name" id="name" value=""
+                                        placeholder="Masukan nama">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
+                                        value="" placeholder="Masukan tempat lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                                        value="" placeholder="Masukan tanggal lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan / Jabatan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="occupation" id="occupation" value=""
+                                        placeholder="Masukan pekerjaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="user_address" id="user_address"
+                                        value="" placeholder="Masukan alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">No KTP <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_ktp" id="no_ktp" value=""
+                                        placeholder="Masukan klub / perkumupulan">
+                                </div>
+                            </div>
+                            {{-- end letter3 b1l3 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter3 b2l3 --}}
+                            <div class="col-md-12 mb-3 border-bottom border-gray letter3">
+                                <span class="font-weight-medium italic">Disebut Pihak II Penerima Hibah</span>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Penerima Hibah <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control pihak-2" name="name2" id="name2" value=""
+                                        placeholder="Masukan nama">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan / Jabatan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="occupation2" id="occupation2"
+                                        value="" placeholder="Masukan pekerjaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="user_address2" id="user_address2"
+                                        value="" placeholder="Masukan alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">No KTP <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_ktp2" id="no_ktp2" value=""
+                                        placeholder="Masukan klub / perkumupulan">
+                                </div>
+                            </div>
+                            {{-- end letter3 b2l3 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
                             {{-- letter3 b3l3 --}}
                             <div class="col-md-6 mb-3 letter3">
                                 <div class="form-group">
@@ -1699,6 +1174,254 @@
                                 </div>
                             </div>
                             {{-- end letter3 b3l3 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter3 b4l3 --}}
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">Penerima Hibah Pihak II<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control pemohon_pihak_2" name="pemohon_pihak_2"
+                                        id="pemohon_pihak_2" placeholder="Masukan pemohon pihak 2">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter3">
+                                <div class="form-group">
+                                    <label class="form-label">Pemberi Hibah/ Menghibahkan/ Pihak I<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control pemohon_pihak_1" name="pemohon" id="pemohon"
+                                        placeholder="Masukan pemohon">
+                                </div>
+                            </div>
+                            {{-- end letter3 b4l3 --}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Letter 3 --}}
+
+{{-- Start Letter 4 --}}
+<div class="modal addModalLetter4 fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addFormLetter4"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body mx-2">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                            placeholder="Masukan tempat surat" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Surat <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 center">
+                                <div class="card" style="width: 10rem;">
+                                    <a target="_blank"
+                                        href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                        class="text text-sm-center">
+                                        <img class="card-img-top" src="/assets/img/letters/sample_letters/sample_6.jpg"
+                                            height="auto" alt="">
+                                        Lihat contoh surat</a>
+                                </div>
+                            </div>
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter4 b1l4 --}}
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="name" id="name"
+                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
+                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan / Jabatan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="occupation" id="occupation"
+                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="address" id="address"
+                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Klub / Perkumpulan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="club" id="club"
+                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor KTA PB-Perbakin <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
+                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Keanggotaan Cabang <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="membership" id="membership"
+                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Alasan Kepemilikan<span
+                                            class="text-danger">*</span></label>
+                                    <textarea type="text" class="form-control" name="mutasi_alasan" id="mutasi_alasan"
+                                        rows="5" placeholder="Alasan mutasi"
+                                        required>{{ old('mutasi_alasan') }}Kepentingan  Olahraga Menembak Berburu/reaksi.</textarea>
+                                </div>
+                            </div>
+                            {{-- end letter4 b1l4 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter4 b2l4 --}}
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Jenis Senjata</label>
+                                    <select class="form-control" name="firearm_category_id" id="firearm_category_id">
+                                        <option value="">- Pilih Jenis Senjata -</option>
+                                        @if(sizeof($firearm_categories) > 0)
+                                        @foreach($firearm_categories as $firearm_category)
+                                        <option value="{{ $firearm_category->firearm_category_id }}">
+                                            {{ $firearm_category->firearm_category_name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Merek <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="merek" id="merek"
+                                        placeholder="Masukan merek">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Kaliber <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="kaliber" id="kaliber"
+                                        placeholder="Masukan kaliber">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor Pebrik <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_pabrik" id="no_pabrik"
+                                        placeholder="Masukan nomor pabrik">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor Buku Pas Senpi <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_buku_pas_senpi"
+                                        id="no_buku_pas_senpi" placeholder="Masukan nomor buku pas senpi">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor SI Impor <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_si_impor" id="no_si_impor"
+                                        placeholder="Masukan nomor SI Impor">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">BAP Senjata Api <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="bap_senpi" id="bap_senpi"
+                                        placeholder="Masukan BAP senpi">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Jumlah <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="jumlah" id="jumlah"
+                                        placeholder="Masukan jumlah">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Penyimpanan/ Gudang<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="penyimpanan" id="penyimpanan"
+                                        placeholder="Masukan penyimpanan/ gudang">
+                                </div>
+                            </div>
+                            {{-- end letter4 b2l4 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
                             {{-- letter4 b3l4 --}}
                             <div class="col-md-6 mb-3 letter4">
                                 <label class="col-sm-12 col-form-label">Pilih Surat Izin Impor Senjata</label>
@@ -1891,6 +1614,220 @@
                             </div>
                             {{-- end letter4 b3l4 --}}
 
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter4 b4l4 --}}
+                            <div class="col-md-6 mb-3 letter4">
+                                <div class="form-group">
+                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control pemohon" name="pemohon" id="pemohon"
+                                        placeholder="Masukan pemohon">
+                                </div>
+                            </div>
+                            {{-- end letter4 b4l4 --}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Letter 4 --}}
+
+{{-- Start Letter 5 --}}
+<div class="modal addModalLetter5 fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addFormLetter5"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body mx-2">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                            placeholder="Masukan tempat surat" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Surat <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 center">
+                                <div class="card" style="width: 10rem;">
+                                    <a target="_blank"
+                                        href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                        class="text text-sm-center">
+                                        <img class="card-img-top" src="/assets/img/letters/sample_letters/sample_6.jpg"
+                                            height="auto" alt="">
+                                        Lihat contoh surat</a>
+                                </div>
+                            </div>
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter5 b1l5 --}}
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="name" id="name"
+                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
+                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan / Jabatan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="occupation" id="occupation"
+                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="address" id="address"
+                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Klub / Perkumpulan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="club" id="club"
+                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor KTA PB-Perbakin <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
+                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Keanggotaan Cabang <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="membership" id="membership"
+                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
+                                </div>
+                            </div>
+                            {{-- end letter5 b1l5 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter5 b2l5 --}}
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Dari Tanggal <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="waktu_mulai" id="waktu_mulai" value=""
+                                        placeholder="Masukan tanggal mulai">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Sampai Tanggal <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="waktu_selesai" id="waktu_selesai"
+                                        value="" placeholder="Masukan tanggal selesai">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Dalam rangka acara/ kegiatan<span
+                                            class="text-danger">*</span></label>
+                                    <textarea type="text" class="form-control" name="dalam_event" id="dalam_event"
+                                        rows="5" placeholder="Berikan keterangan dalam rangka acara/ kegiatan ..."
+                                        required>Latihan rutin dan dalam rangka menghadapi PON 2020 Papua</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Lokasi pelaksanaan 1 <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="lokasi1" id="lokasi1"
+                                        placeholder="Masukan lokasi pelaksanaan 1">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Jumlah anggota rombongan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="jumlah_anggota" id="jumlah_anggota"
+                                        placeholder="Masukan jumlah angggota rombongan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter5">
+                                <span class="text-sm-center text-warning">Kosongkan bila tidak ada</span>
+                                <div class="form-group">
+                                    <label class="form-label">Lokasi pelaksanaan 2 </label>
+                                    <input type="string" class="form-control" name="lokasi2" id="lokasi2"
+                                        placeholder="Masukan lokasi pelaksanaan 2">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Lokasi pelaksanaan 3</label>
+                                    <input type="string" class="form-control" name="lokasi3" id="lokasi3"
+                                        placeholder="Masukan lokasi pelaksanaan 3">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Lokasi pelaksanaan 4</label>
+                                    <input type="string" class="form-control" name="lokasi4" id="lokasi4"
+                                        placeholder="Masukan lokasi pelaksanaan 4">
+                                </div>
+                            </div>
+                            {{-- end letter5 b2l5 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
                             {{-- letter5 b3l5 --}}
                             <div class="col-md-6 mb-3 letter5">
                                 <label class="col-sm-12 col-form-label">Pilih lampiran surat izin penggunaan sarana/
@@ -1969,6 +1906,201 @@
                                 </div>
                             </div>
                             {{-- end letter5 b3l5 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter5 b4l5 --}}
+                            <div class="col-md-6 mb-3 letter5">
+                                <div class="form-group">
+                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control pemohon" name="pemohon" id="pemohon"
+                                        placeholder="Masukan pemohon">
+                                </div>
+                            </div>
+                            {{-- end letter5 b4l5 --}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Letter 5 --}}
+
+{{-- Start Letter 6 --}}
+<div class="modal addModalLetter6 fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addFormLetter6"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body mx-2">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                            placeholder="Masukan tempat surat" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Surat <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 center">
+                                <div class="card" style="width: 10rem;">
+                                    <a target="_blank"
+                                        href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                        class="text text-sm-center">
+                                        <img class="card-img-top" src="/assets/img/letters/sample_letters/sample_6.jpg"
+                                            height="auto" alt="">
+                                        Lihat contoh surat</a>
+                                </div>
+                            </div>
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter6 b1l6 --}}
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="name" id="name"
+                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
+                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan / Jabatan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="occupation" id="occupation"
+                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="address" id="address"
+                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Klub / Perkumpulan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="club" id="club"
+                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor KTA PB-Perbakin <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
+                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Keanggotaan Cabang <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="membership" id="membership"
+                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
+                                </div>
+                            </div>
+                            {{-- end letter6 b1l6 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter6 b2l6 --}}
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Dalam rangka acara/ kegiatan? <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="dalam_event" id="dalam_event"
+                                        placeholder="Masukan nama acara/ kegiatan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat daerah lokasi pelaksanaan<span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="lokasi1" id="lokasi1"
+                                        placeholder="Masukan lokasi pelaksanaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Dari Tanggal <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="waktu_mulai" id="waktu_mulai" value=""
+                                        placeholder="Masukan tanggal mulai">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Sampai Tanggal <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="waktu_selesai" id="waktu_selesai"
+                                        value="" placeholder="Masukan tanggal selesai">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Jumlah anggota rombongan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="jumlah_anggota" id="jumlah_anggota"
+                                        placeholder="Masukan jumlah angggota rombongan">
+                                </div>
+                            </div>
+                            {{-- end letter6 b2l6 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
 
                             {{-- letter6 b3l6 --}}
                             <div class="col-md-6 mb-3 letter6">
@@ -2087,6 +2219,182 @@
                                 </div>
                             </div>
                             {{-- end letter6 b3l6--}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter6 b4l6 --}}
+                            <div class="col-md-6 mb-3 letter6">
+                                <div class="form-group">
+                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control pemohon" name="pemohon" id="pemohon"
+                                        placeholder="Masukan pemohon">
+                                </div>
+                            </div>
+                            {{-- end letter6 b4l6 --}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Letter 6 --}}
+
+{{-- Start Letter 7 --}}
+<div class="modal addModalLetter7 fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addFormLetter7"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body mx-2">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                            placeholder="Masukan tempat surat" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Surat <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 center">
+                                <div class="card" style="width: 10rem;">
+                                    <a target="_blank"
+                                        href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                        class="text text-sm-center">
+                                        <img class="card-img-top" src="/assets/img/letters/sample_letters/sample_6.jpg"
+                                            height="auto" alt="">
+                                        Lihat contoh surat</a>
+                                </div>
+                            </div>
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter7 b1l7 --}}
+                            <div class="col-md-6 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="name" id="name"
+                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
+                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan / Jabatan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="occupation" id="occupation"
+                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="address" id="address"
+                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Klub / Perkumpulan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="club" id="club"
+                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor KTA PB-Perbakin <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
+                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Keanggotaan Cabang <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="membership" id="membership"
+                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
+                                </div>
+                            </div>
+                            {{-- end letter7 b1l7 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter7 b2l7 --}}
+                            <div class="col-md-12 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Masa Bakti Tahun <span
+                                            class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="dalam_event" id="dalam_event"
+                                        placeholder="Masa bakti / tahun">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Alasan Pengunduran diri<span
+                                            class="text-danger">*</span></label>
+                                    <textarea type="text" class="form-control" name="l7_alasan_pengunduran"
+                                        id="l7_alasan_pengunduran" rows="5"
+                                        placeholder="Berikan alasan Pengunduran diri"
+                                        required>{{ old('l7_alasan_pengunduran') }}</textarea>
+                                </div>
+                            </div>
+                            {{-- end letter7 b2l7--}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
                             {{-- letter7 b3l7 --}}
                             <div class="col-md-6 mb-3 letter7">
                                 <div class="form-group">
@@ -2105,6 +2413,117 @@
                                 </div>
                             </div>
                             {{-- end letter7 b3l7--}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter7 b4l7 --}}
+                            <div class="col-md-6 mb-3 letter7">
+                                <div class="form-group">
+                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control pemohon" name="pemohon" id="pemohon"
+                                        placeholder="Masukan pemohon">
+                                </div>
+                            </div>
+                            {{-- end letter7 b4l7 --}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Letter 7 --}}
+
+{{-- Start letter 8 --}}
+<div class="modal addModalLetter8 fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addFormLetter8"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body mx-2">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                            placeholder="Masukan tempat surat" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Surat <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 center">
+                                <div class="card" style="width: 10rem;">
+                                    <a target="_blank"
+                                        href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                        class="text text-sm-center">
+                                        <img class="card-img-top" src="/assets/img/letters/sample_letters/sample_6.jpg"
+                                            height="auto" alt="">
+                                        Lihat contoh surat</a>
+                                </div>
+                            </div>
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter8 b1l8 --}}
+                            <div class="col-md-12 mb-3 letter8">
+                                <div class="form-group">
+                                    <label class="form-label">Dasar AD/ART<span class="text-danger">*</span></label>
+                                    <textarea type="text" class="form-control" name="dasar_adart" id="dasar_adart"
+                                        rows="5" placeholder="Masukan Dasar AD/ART"
+                                        required>AD/ART Perbakin Tahun 2019 BAB IV Keanggotaan Bagian Kesatu Keanggotaan  Pasal 9 ,ART BAB II Pasal 4 dan 5  dan ART Lampiran VIII halaman 48 Susunan Organisasi Klub Menembak.</textarea>
+                                </div>
+                            </div>
+                            {{-- end letter8 b1l8 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter8 b2l8--}}
+                            <div class="col-md-12 mb-3 letter8">
+                                <div class="form-group">
+                                    <label class="form-label">Sehubungan dasar tersebut diatas, diajukan permohonan
+                                        pengesahan/pendirian Klub Menembak di wilayah Kabupaten Bandung</label>
+                                </div>
+                            </div>
+                            {{-- end letter8 b2l8--}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
                             {{-- letter8 b3l8 --}}
                             <div class="col-md-6 mb-3 letter8">
                                 <label class="col-sm-12 col-form-label">File berisi KTA 4(empat) orang anggota yang
@@ -2299,6 +2718,196 @@
                             </div>
                             {{-- end letter8 b3l8 --}}
 
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter8 b4l8 --}}
+                            <div class="col-md-6 mb-3 letter8">
+                                <div class="form-group">
+                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control pemohon" name="pemohon" id="pemohon"
+                                        placeholder="Masukan pemohon">
+                                </div>
+                            </div>
+                            {{-- end letter8 b4l8 --}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End letter 8 --}}
+
+{{-- Start letter 9 --}}
+<div class="modal addModalLetter9 fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addFormLetter9"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body mx-2">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                            placeholder="Masukan tempat surat" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Surat <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 center">
+                                <div class="card" style="width: 10rem;">
+                                    <a target="_blank"
+                                        href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                        class="text text-sm-center">
+                                        <img class="card-img-top" src="/assets/img/letters/sample_letters/sample_6.jpg"
+                                            height="auto" alt="">
+                                        Lihat contoh surat</a>
+                                </div>
+                            </div>
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter9 b1l9 --}}
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="name" id="name"
+                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
+                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan / Jabatan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="occupation" id="occupation"
+                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="address" id="address"
+                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Klub / Perkumpulan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="club" id="club"
+                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor KTA PB-Perbakin <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
+                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Keanggotaan Cabang <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="membership" id="membership"
+                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
+                                </div>
+                            </div>
+                            {{-- end letter9 b1l9 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter9 b2l9 --}}
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Pindah / Mutasi Dari Klub <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="mutasi_dari" id="mutasi_dari"
+                                        placeholder="Masukan klub asal">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Pindah / Mutasi Menuju Klub <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="mutasi_menuju" id="mutasi_menuju"
+                                        placeholder="Masasukan klub tujuan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Cabang Klub Tujuan<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="l9_cabang" id="l9_cabang"
+                                        placeholder="Masasukan klub tujuan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Alasan Pindah/ Mutasi<span
+                                            class="text-danger">*</span></label>
+                                    <textarea type="text" class="form-control" name="mutasi_alasan" id="mutasi_alasan"
+                                        rows="5" placeholder="Dikarenakan ..."
+                                        required>{{ old('mutasi_alasan') }}</textarea>
+                                </div>
+                            </div>
+                            {{-- end letter9 b2l9 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
                             {{-- letter9 b3l9 --}}
                             <div class="col-md-6 mb-3 letter9">
                                 <label class="col-sm-12 col-form-label">Pilih KTP</label>
@@ -2394,6 +3003,221 @@
                             </div>
                             {{-- end letter9 b3l9 --}}
 
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter9 b4l9 --}}
+                            <div class="col-md-6 mb-3 letter9">
+                                <div class="form-group">
+                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control pemohon" name="pemohon" id="pemohon"
+                                        placeholder="Masukan pemohon">
+                                </div>
+                            </div>
+                            {{-- end letter9 b4l9 --}}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End letter 9 --}}
+{{-- Start letter 10 --}}
+<div class="modal addModalLetter10 fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="{{ url('recomendationletter/store') }}" method="POST" id="addFormLetter10"
+                enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body mx-2">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                            placeholder="Masukan tempat surat" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Surat <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 center">
+                                <div class="card" style="width: 10rem;">
+                                    <a target="_blank"
+                                        href="{{ url('assets/img/letters/sample_letters/sample_6.jpg') }}"
+                                        class="text text-sm-center">
+                                        <img class="card-img-top" src="/assets/img/letters/sample_letters/sample_6.jpg"
+                                            height="auto" alt="">
+                                        Lihat contoh surat</a>
+                                </div>
+                            </div>
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter10 b1l10 --}}
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="name" id="name"
+                                        value="{{ $user->user_name }}" placeholder="Masukan nama">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
+                                        value="{{ $user->place_of_birth }}" placeholder="Masukan tempat lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
+                                        value="{{ $user->date_of_birth }}" placeholder="Masukan tanggal lahir">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Pekerjaan / Jabatan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="occupation" id="occupation"
+                                        value="{{ $user->occupation }}" placeholder="Masukan pekerjaan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="address" id="address"
+                                        value="{{ $user->user_address }}" placeholder="Masukan alamat">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Klub / Perkumpulan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="club" id="club"
+                                        value="{{ $user->club_name }}" placeholder="Masukan klub / perkumupulan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor KTA PB-Perbakin <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
+                                        placeholder="Masukan nomor KTA PB-Perbakin" value="{{ $user->user_kta }}"
+                                        readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Keanggotaan Cabang <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="membership" id="membership"
+                                        value="{{ $user->user_club_cab }}" placeholder="Masukan keanggotaan cabang">
+                                </div>
+                            </div>
+                            {{-- end letter10 b1l10 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
+                            {{-- letter10 b2l10 --}}
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Jenis Senjata</label>
+                                    <select class="form-control" name="firearm_category_id" id="firearm_category_id">
+                                        <option value="">- Pilih Jenis Senjata -</option>
+                                        @if(sizeof($firearm_categories) > 0)
+                                        @foreach($firearm_categories as $firearm_category)
+                                        <option value="{{ $firearm_category->firearm_category_id }}">
+                                            {{ $firearm_category->firearm_category_name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Merek <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="merek" id="merek"
+                                        placeholder="Masukan merek">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Kaliber <span class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="kaliber" id="kaliber"
+                                        placeholder="Masukan kaliber">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Nomor Buku Pas Senpi <span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control" name="no_buku_pas_senpi"
+                                        id="no_buku_pas_senpi" placeholder="Masukan nomor buku pas senpi">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Tanggal Dikeluarkan <span
+                                            class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" name="tanggal_dikeluarkan"
+                                        id="tanggal_dikeluarkan" placeholder="Tanggal dikeluarkan">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Jumlah <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="jumlah" id="jumlah"
+                                        placeholder="Masukan jumlah">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 letter10">
+                                <div class="form-group">
+                                    <label class="form-label">Nama Pemilik Buku Pas<span
+                                            class="text-danger">*</span></label>
+                                    <input type="string" class="form-control nama_pemilik" name="nama_pemilik"
+                                        id="nama_pemilik" placeholder="Masukan nama pemilik">
+                                </div>
+                            </div>
+                            {{-- end letter10 b2l10 --}}
+
+                            {{-- ================================================================================= --}}
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
+                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
+                            </div>
+                            {{-- ================================================================================= --}}
+
                             {{-- letter10 b3l10 --}}
                             <div class="col-md-6 mb-3 letter10">
                                 <label class="col-sm-12 col-form-label">Pilih KTA Klub</label>
@@ -2471,113 +3295,16 @@
                             {{-- end letter10 b3l10 --}}
 
                             {{-- ================================================================================= --}}
-                            <div class="col-md-12 mb-3 border-bottom border-dark section-title">
+                            <div class="col-md-12 mb-3 border-bottom border-dark">
                                 <span class=" font-weight-bold">Bagian 4 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            {{-- letter1 b4l1 --}}
-                            <div class="col-md-6 mb-3 letter1">
-                                <div class="form-group">
-                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
-                                        placeholder="Masukan pemohon">
-                                </div>
-                            </div>
-                            {{-- end letter1 b4l1 --}}
-
-                            {{-- letter2 b4l2 --}}
-                            <div class="col-md-6 mb-3 letter2">
-                                <div class="form-group">
-                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
-                                        placeholder="Masukan pemohon">
-                                </div>
-                            </div>
-                            {{-- end letter2 b4l2 --}}
-
-                            {{-- letter3 b4l3 --}}
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">Penerima Hibah Pihak II<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon_pihak_2" id="pemohon_pihak_2"
-                                        placeholder="Masukan pemohon pihak 2">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 letter3">
-                                <div class="form-group">
-                                    <label class="form-label">Pemberi Hibah/ Menghibahkan/ Pihak I<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
-                                        placeholder="Masukan pemohon">
-                                </div>
-                            </div>
-                            {{-- end letter3 b4l3 --}}
-
-                            {{-- letter4 b4l4 --}}
-                            <div class="col-md-6 mb-3 letter4">
-                                <div class="form-group">
-                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
-                                        placeholder="Masukan pemohon">
-                                </div>
-                            </div>
-                            {{-- end letter4 b4l4 --}}
-
-                            {{-- letter5 b4l5 --}}
-                            <div class="col-md-6 mb-3 letter5">
-                                <div class="form-group">
-                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
-                                        placeholder="Masukan pemohon">
-                                </div>
-                            </div>
-                            {{-- end letter5 b4l5 --}}
-
-                            {{-- letter6 b4l6 --}}
-                            <div class="col-md-6 mb-3 letter6">
-                                <div class="form-group">
-                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
-                                        placeholder="Masukan pemohon">
-                                </div>
-                            </div>
-                            {{-- end letter6 b4l6 --}}
-
-                            {{-- letter7 b4l7 --}}
-                            <div class="col-md-6 mb-3 letter7">
-                                <div class="form-group">
-                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
-                                        placeholder="Masukan pemohon">
-                                </div>
-                            </div>
-                            {{-- end letter7 b4l7 --}}
-                            {{-- letter8 b4l8 --}}
-                            <div class="col-md-6 mb-3 letter8">
-                                <div class="form-group">
-                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
-                                        placeholder="Masukan pemohon">
-                                </div>
-                            </div>
-                            {{-- end letter8 b4l8 --}}
-
-                            {{-- letter9 b4l9 --}}
-                            <div class="col-md-6 mb-3 letter9">
-                                <div class="form-group">
-                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
-                                        placeholder="Masukan pemohon">
-                                </div>
-                            </div>
-                            {{-- end letter9 b4l9 --}}
 
                             {{-- letter10 b4l10 --}}
                             <div class="col-md-6 mb-3 letter10">
                                 <div class="form-group">
                                     <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
+                                    <input type="text" class="form-control pemohon" name="pemohon" id="pemohon"
                                         placeholder="Masukan pemohon">
                                 </div>
                             </div>
@@ -2594,8 +3321,7 @@
         </div>
     </div>
 </div>
-<!-- Modal Add -->
-
+{{-- End letter 10 --}}
 @endsection
 
 @section('script')
@@ -2606,226 +3332,108 @@
     // set option persyaratan file
     $('#letter_category_id').change(function () {
         let letter = $('#letter_category_id').val();
+        let letterData = $('option:selected', '#letter_category_id').attr('data-tag');
         switch (letter) {
             case "1":
-                // $('.letter1').show();
-                // $('.header-letter').show();
-                // $('.sample-letter').show();
-                // $('.section-title').show();
 
-                // $('#downloadletter').hide();
-                // $('.letter2').hide();
-                // $('.letter3').hide();
-                // $('.letter4').hide();
-                // $('.letter5').hide();
-                // $('.letter6').hide();
-                // $('.letter7').hide();
-                // $('.letter8').hide();
-                // $('.letter9').hide();
-                // $('.letter10').hide();
+                document.getElementById("addFormLetter1").reset();
                 $('.letter1').show();
-                $('.header-letter').show();
-                $('.sample-letter').show();
-                $('.section-title').show();
-                document.querySelectorAll("#downloadletter").forEach(el => el.remove());
-                // $('#downloadletter').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
-                $('.btn-submit').show();
-
+                $('#downloadletter').hide();
+                $('.addModalLetter1 form').attr('action', "{{ url('recomendationletter/store') }}");
+                $('.addModalLetter1 .modal-title').text(letterData);
+                $('.addModalLetter1').modal('show');
                 break;
             case "2":
+                document.getElementById("addFormLetter2").reset();
                 $('.letter2').show();
-                $('.header-letter').show();
-                $('.sample-letter').show();
-                $('.section-title').show();
-
                 $('#downloadletter').hide();
-                $('.letter1').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
-                $('.btn-submit').show();
+
+                $('.addModalLetter2 form').attr('action', "{{ url('recomendationletter/store') }}");
+                $('.addModalLetter2 .modal-title').text(letterData);
+                $('.addModalLetter2').modal('show');
+
                 break;
 
             case "3":
+                document.getElementById("addFormLetter3").reset();
                 $('.letter3').show();
-                $('.sample-letter').show();
-                $('.section-title').show();
-
                 $('#downloadletter').hide();
-                $('.header-letter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
-                $('.btn-submit').show();
+
+                $('.addModalLetter3 form').attr('action', "{{ url('recomendationletter/store') }}");
+                $('.addModalLetter3 .modal-title').text(letterData);
+                $('.addModalLetter3').modal('show');
                 break;
 
             case "4":
+                document.getElementById("addFormLetter4").reset();
                 $('.letter4').show();
-                $('.sample-letter').show();
-                $('.header-letter').show();
-                $('.section-title').show();
-
                 $('#downloadletter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
-                $('.btn-submit').show();
+
+                $('.addModalLetter4 form').attr('action', "{{ url('recomendationletter/store') }}");
+                $('.addModalLetter4 .modal-title').text(letterData);
+                $('.addModalLetter4').modal('show');
                 break;
 
             case "5":
+                document.getElementById("addFormLetter5").reset();
                 $('.letter5').show();
-                $('.sample-letter').show();
-                $('.header-letter').show();
-                $('.section-title').show();
-
                 $('#downloadletter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
-                $('.btn-submit').show();
+
+                $('.addModalLetter5 form').attr('action', "{{ url('recomendationletter/store') }}");
+                $('.addModalLetter5 .modal-title').text(letterData);
+                $('.addModalLetter5').modal('show');
                 break;
             case "6":
+                document.getElementById("addFormLetter6").reset();
                 $('.letter6').show();
-                $('.sample-letter').show();
-                $('.header-letter').show();
-                $('.section-title').show();
-
                 $('#downloadletter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
-                $('.btn-submit').show();
+
+                $('.addModalLetter6 form').attr('action', "{{ url('recomendationletter/store') }}");
+                $('.addModalLetter6 .modal-title').text(letterData);
+                $('.addModalLetter6').modal('show');
                 break;
             case "7":
+                document.getElementById("addFormLetter7").reset();
                 $('.letter7').show();
-                $('.sample-letter').show();
-                $('.header-letter').show();
-                $('.section-title').show();
-
                 $('#downloadletter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
-                $('.btn-submit').show();
+
+                $('.addModalLetter7 form').attr('action', "{{ url('recomendationletter/store') }}");
+                $('.addModalLetter7 .modal-title').text(letterData);
+                $('.addModalLetter7').modal('show');
                 break;
 
             case "8":
+                document.getElementById("addFormLetter8").reset();
                 $('.letter8').show();
-                $('.sample-letter').show();
-                $('.header-letter').show();
-                $('.section-title').show();
-
                 $('#downloadletter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
-                $('.btn-submit').show();
+
+                $('.addModalLetter8 form').attr('action', "{{ url('recomendationletter/store') }}");
+                $('.addModalLetter8 .modal-title').text(letterData);
+                $('.addModalLetter8').modal('show');
                 break;
 
             case "9":
+                document.getElementById("addFormLetter9").reset();
                 $('.letter9').show();
-                $('.sample-letter').show();
-                $('.header-letter').show();
-                $('.section-title').show();
-
                 $('#downloadletter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter10').hide();
-                $('.btn-submit').show();
+
+                $('.addModalLetter9 form').attr('action', "{{ url('recomendationletter/store') }}");
+                $('.addModalLetter9 .modal-title').text(letterData);
+                $('.addModalLetter9').modal('show');
                 break;
 
             case "10":
+                document.getElementById("addFormLetter10").reset();
                 $('.letter10').show();
-                $('.sample-letter').show();
-                $('.header-letter').show();
-                $('.section-title').show();
-
                 $('#downloadletter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.btn-submit').show();
+
+                $('.addModalLetter10 form').attr('action', "{{ url('recomendationletter/store') }}");
+                $('.addModalLetter10 .modal-title').text(letterData);
+                $('.addModalLetter10').modal('show');
                 break;
 
             case "11":
                 $('#downloadletter').show();
-                $('.btn-submit').hide();
-                $('.section-title').hide();
-                $('.sample-letter').hide();
-                $('.header-letter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
 
                 var urldownload = 'recomendationletter/downloadletter/' + letter;
                 document.getElementById('downloadletter').innerHTML =
@@ -2834,20 +3442,6 @@
                 break;
             case "12":
                 $('#downloadletter').show();
-                $('.btn-submit').hide();
-                $('.section-title').hide();
-                $('.sample-letter').hide();
-                $('.header-letter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
                 var urldownload = 'recomendationletter/downloadletter/' + letter;
                 document.getElementById('downloadletter').innerHTML =
                     "<a href='" + urldownload +
@@ -2855,54 +3449,31 @@
                 break;
 
             default:
-                $('.section-title').hide();
-                $('.sample-letter').hide();
-                $('.header-letter').hide();
                 $('#downloadletter').hide();
-                $('.letter1').hide();
-                $('.letter2').hide();
-                $('.letter3').hide();
-                $('.letter4').hide();
-                $('.letter5').hide();
-                $('.letter6').hide();
-                $('.letter7').hide();
-                $('.letter8').hide();
-                $('.letter9').hide();
-                $('.letter10').hide();
+
                 break;
         }
 
     });
-    $("#name").keyup(function () {
-        let name = $("#name").val();
-        $('#nama_pemilik').val(name);
-        $('#pemohon').val(name);
+    $(".name").keyup(function () {
+        let name = $(".name").val();
+        $('.nama_pemilik').val(name);
+        $('.pemohon').val(name);
     });
 
+    $(".pihak-1").keyup(function () {
+        let name1 = $(".pihak-1").val();
+        $('.pemohon_pihak_1').val(name1);
+    });
     $("#name2").keyup(function () {
         let name2 = $("#name2").val();
-        $('#pemohon_pihak_2').val(name2);
+        $('.pemohon_pihak_2').val(name2);
     });
 
     // add data
     $('.btnAdd').click(function () {
-        document.getElementById("addForm").reset();
-
-        $('.section-title').hide();
-        $('.sample-letter').hide();
-        $('.header-letter').hide();
-        $('.letter1').hide();
-        $('.letter2').hide();
-        $('.letter3').hide();
-        $('.letter4').hide();
-        $('.letter5').hide();
-        $('.letter6').hide();
-        $('.letter7').hide();
-        $('.letter8').hide();
-        $('.letter9').hide();
-        $('.letter10').hide();
-
-        $('.addModal form').attr('action', "{{ url('recomendationletter/store') }}");
+        $('#letter_category_id').prop('selectedIndex', 0);
+        $('#downloadletter').hide();
         $('.addModal .modal-title').text('Tambah pengajuan surat rekomendasi');
         $('.addModal').modal('show');
     });
