@@ -3584,6 +3584,9 @@
                         "/";
 
 
+                    // document.getElementById('downloadletter').innerHTML =
+                    //     "<a href='" + filePath +
+                    //     "' class='btn btn-primary download'>Download file surat</i>";
                     // $('.file_buku_pas_senpi').innerHTML = "<a href='" + filePath + data.result[2]
                     //     .file_buku_pas_senpi "' target='_blank' class='btn btn-primary'>Lihat file</i>";
                     // $('.file_kta').innerHTML = "<a href='" + filePath + data.result[2]
