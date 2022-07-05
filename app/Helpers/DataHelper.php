@@ -147,7 +147,7 @@ class DataHelper
     public static function getFileName(UploadedFile $file)
     {
         $filename = preg_replace('/\s+/', '_', $file->getClientOriginalName());
-        $filename = 'data_' . Crypt::encryptString(Auth::user()->user_id) . '_' . time() .  '.' . pathinfo($filename, PATHINFO_EXTENSION);
+        $filename = 'data_' . md5(Auth::user()->user_id) . '_' . round(microtime(true) * 1000) .  '.' . pathinfo($filename, PATHINFO_EXTENSION);
         return $filename;
     }
 
@@ -158,7 +158,7 @@ class DataHelper
      *
      * @return null|string
      */
-    public static function getFilePath($filepath = false, $imagespath = false)
+    public static function getFilePath($filepath = false, $imagespath = false, $letterpath = false)
     {
 
         if ($filepath) {
@@ -167,6 +167,10 @@ class DataHelper
 
         if ($imagespath) {
             $path = 'uploads/images/';
+        }
+
+        if ($letterpath) {
+            $path = 'uploads/letters/';
         }
         return $path;
     }

@@ -15,7 +15,7 @@ class CreateLetterRequirements extends Migration
     {
         Schema::create('letter_requirements', function (Blueprint $table) {
             $table->bigIncrements('letter_requirement_id');
-            $table->string('buku_pas_senpi')->nullable();
+            $table->string('file_buku_pas_senpi')->nullable();
             $table->string('file_kta')->nullable();
             $table->string('file_kta_club')->nullable();
             $table->string('file_ktp')->nullable();
