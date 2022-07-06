@@ -434,7 +434,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -488,7 +488,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -635,7 +635,7 @@
                                         <label class="form-label">Tanggal Surat <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="letter_date" id="letter_date"
-                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}">
                                     </div>
                                 </div>
                             </div>
@@ -724,8 +724,8 @@
                                     <label class="form-label">Alasan / untuk kepentingan<span
                                             class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" name="mutasi_alasan" id="mutasi_alasan"
-                                        rows="5" placeholder="Kepentinan ..."
-                                        required>{{ old('mutasi_alasan') }}kepentingan  Olahraga Menembak Berburu.</textarea>
+                                        rows="5"
+                                        placeholder="Kepentinan ...">{{ old('mutasi_alasan') }}kepentingan  Olahraga Menembak Berburu.</textarea>
                                 </div>
                             </div>
                             {{-- end letter2 b1l2--}}
@@ -816,7 +816,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_surat_hibah_senpi"
-                                            id="file_surat_hibah_senpi" name="file_surat_hibah_senpi" required>
+                                            id="file_surat_hibah_senpi" name="file_surat_hibah_senpi">
                                         <label class="custom-file-label" for="file_surat_hibah_senpi"
                                             data-browse="Cari">Pilih
                                             file...</label>
@@ -825,7 +825,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -835,7 +835,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_buku_pas_senpi"
-                                            id="file_buku_pas_senpi" name="file_buku_pas_senpi" required>
+                                            id="file_buku_pas_senpi" name="file_buku_pas_senpi">
                                         <label class="custom-file-label" for="file_buku_pas_senpi"
                                             data-browse="Cari">Pilih
                                             file...</label>
@@ -844,7 +844,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -854,7 +854,7 @@
                                 <div class="col-sm-12">
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input file_foto_senjata"
-                                            id="file_foto_senjata" name="file_foto_senjata" required>
+                                            id="file_foto_senjata" name="file_foto_senjata">
                                         <label class="custom-file-label" for="file_foto_senjata"
                                             data-browse="Cari">Pilih
                                             file...</label>
@@ -919,7 +919,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -937,7 +937,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -956,7 +956,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -976,7 +976,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -994,7 +994,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1012,7 +1012,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1298,7 +1298,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="letter_place" id="letter_place"
-                                            placeholder="Masukan tempat surat" required>
+                                            placeholder="Masukan tempat surat">
                                     </div>
                                 </div>
 
@@ -1307,7 +1307,7 @@
                                         <label class="form-label">Tanggal Surat <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="letter_date" id="letter_date"
-                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}">
                                     </div>
                                 </div>
                             </div>
@@ -1396,8 +1396,8 @@
                                     <label class="form-label">Alasan Kepemilikan<span
                                             class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" name="mutasi_alasan" id="mutasi_alasan"
-                                        rows="5" placeholder="Alasan mutasi"
-                                        required>{{ old('mutasi_alasan') }}Kepentingan  Olahraga Menembak Berburu/reaksi.</textarea>
+                                        rows="5"
+                                        placeholder="Alasan mutasi">{{ old('mutasi_alasan') }}Kepentingan  Olahraga Menembak Berburu/reaksi.</textarea>
                                 </div>
                             </div>
                             {{-- end letter4 b1l4 --}}
@@ -1504,7 +1504,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1525,7 +1525,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1581,7 +1581,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1599,7 +1599,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1618,7 +1618,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1638,7 +1638,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1656,7 +1656,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1674,7 +1674,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1730,7 +1730,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="letter_place" id="letter_place"
-                                            placeholder="Masukan tempat surat" required>
+                                            placeholder="Masukan tempat surat">
                                     </div>
                                 </div>
 
@@ -1739,7 +1739,7 @@
                                         <label class="form-label">Tanggal Surat <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="letter_date" id="letter_date"
-                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}">
                                     </div>
                                 </div>
                             </div>
@@ -1851,8 +1851,8 @@
                                     <label class="form-label">Dalam rangka acara/ kegiatan<span
                                             class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" name="dalam_event" id="dalam_event"
-                                        rows="5" placeholder="Berikan keterangan dalam rangka acara/ kegiatan ..."
-                                        required>Latihan rutin dan dalam rangka menghadapi PON 2020 Papua</textarea>
+                                        rows="5"
+                                        placeholder="Berikan keterangan dalam rangka acara/ kegiatan ...">Latihan rutin dan dalam rangka menghadapi PON 2020 Papua</textarea>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3 letter5">
@@ -1912,7 +1912,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1932,7 +1932,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1969,7 +1969,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2025,7 +2025,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="letter_place" id="letter_place"
-                                            placeholder="Masukan tempat surat" required>
+                                            placeholder="Masukan tempat surat">
                                     </div>
                                 </div>
 
@@ -2034,7 +2034,7 @@
                                         <label class="form-label">Tanggal Surat <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="letter_date" id="letter_date"
-                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}">
                                     </div>
                                 </div>
                             </div>
@@ -2189,7 +2189,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2209,7 +2209,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2246,7 +2246,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2266,7 +2266,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2284,7 +2284,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2340,7 +2340,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="letter_place" id="letter_place"
-                                            placeholder="Masukan tempat surat" required>
+                                            placeholder="Masukan tempat surat">
                                     </div>
                                 </div>
 
@@ -2349,7 +2349,7 @@
                                         <label class="form-label">Tanggal Surat <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="letter_date" id="letter_date"
-                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}">
                                     </div>
                                 </div>
                             </div>
@@ -2456,8 +2456,7 @@
                                             class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" name="l7_alasan_pengunduran"
                                         id="l7_alasan_pengunduran" rows="5"
-                                        placeholder="Berikan alasan Pengunduran diri"
-                                        required>{{ old('l7_alasan_pengunduran') }}</textarea>
+                                        placeholder="Berikan alasan Pengunduran diri">{{ old('l7_alasan_pengunduran') }}</textarea>
                                 </div>
                             </div>
                             {{-- end letter7 b2l7--}}
@@ -2536,7 +2535,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="letter_place" id="letter_place"
-                                            placeholder="Masukan tempat surat" required>
+                                            placeholder="Masukan tempat surat">
                                     </div>
                                 </div>
 
@@ -2545,7 +2544,7 @@
                                         <label class="form-label">Tanggal Surat <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="letter_date" id="letter_date"
-                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}">
                                     </div>
                                 </div>
                             </div>
@@ -2572,8 +2571,8 @@
                                 <div class="form-group">
                                     <label class="form-label">Dasar AD/ART<span class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" name="dasar_adart" id="dasar_adart"
-                                        rows="5" placeholder="Masukan Dasar AD/ART"
-                                        required>AD/ART Perbakin Tahun 2019 BAB IV Keanggotaan Bagian Kesatu Keanggotaan  Pasal 9 ,ART BAB II Pasal 4 dan 5  dan ART Lampiran VIII halaman 48 Susunan Organisasi Klub Menembak.</textarea>
+                                        rows="5"
+                                        placeholder="Masukan Dasar AD/ART">AD/ART Perbakin Tahun 2019 BAB IV Keanggotaan Bagian Kesatu Keanggotaan  Pasal 9 ,ART BAB II Pasal 4 dan 5  dan ART Lampiran VIII halaman 48 Susunan Organisasi Klub Menembak.</textarea>
                                 </div>
                             </div>
                             {{-- end letter8 b1l8 --}}
@@ -2615,7 +2614,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2652,7 +2651,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2671,7 +2670,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2690,7 +2689,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2710,7 +2709,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2729,7 +2728,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2749,7 +2748,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2767,7 +2766,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2786,7 +2785,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2842,7 +2841,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="letter_place" id="letter_place"
-                                            placeholder="Masukan tempat surat" required>
+                                            placeholder="Masukan tempat surat">
                                     </div>
                                 </div>
 
@@ -2851,7 +2850,7 @@
                                         <label class="form-label">Tanggal Surat <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="letter_date" id="letter_date"
-                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}">
                                     </div>
                                 </div>
                             </div>
@@ -2973,8 +2972,7 @@
                                     <label class="form-label">Alasan Pindah/ Mutasi<span
                                             class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" name="mutasi_alasan" id="mutasi_alasan"
-                                        rows="5" placeholder="Dikarenakan ..."
-                                        required>{{ old('mutasi_alasan') }}</textarea>
+                                        rows="5" placeholder="Dikarenakan ...">{{ old('mutasi_alasan') }}</textarea>
                                 </div>
                             </div>
                             {{-- end letter9 b2l9 --}}
@@ -3037,7 +3035,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -3073,7 +3071,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -3129,7 +3127,7 @@
                                     <div class="form-group">
                                         <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="letter_place" id="letter_place"
-                                            placeholder="Masukan tempat surat" required>
+                                            placeholder="Masukan tempat surat">
                                     </div>
                                 </div>
 
@@ -3138,7 +3136,7 @@
                                         <label class="form-label">Tanggal Surat <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" class="form-control" name="letter_date" id="letter_date"
-                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}" required>
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}">
                                     </div>
                                 </div>
                             </div>
@@ -3349,7 +3347,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -3367,7 +3365,7 @@
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
+                                            file (pdf) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -3672,7 +3670,7 @@
 
     $("#addFormLetter1").validate({
         rules: {
-            letter_place: "required",
+            letter_place: "",
             letter_date: "required",
             name: "required",
             place_of_birth: "required",
@@ -3726,6 +3724,89 @@
             file_kta: "File harus dipilih",
             file_ktp: "File harus dipilih",
             file_foto_4x6: "File harus dipilih"
+        },
+        errorElement: "em",
+        errorClass: "invalid-feedback",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            $(element).parents('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+    $("#addFormLetter2").validate({
+        rules: {
+            letter_place: 'required',
+            letter_date: 'required',
+            letter_category_id: 'required',
+            name: 'required',
+            place_of_birth: 'required',
+            date_of_birth: 'required',
+            occupation: 'required',
+            address: 'required',
+            club: 'required',
+            no_kta: 'required',
+            membership: 'required',
+            mutasi_alasan: 'required',
+            firearm_category_id: 'required',
+            merek: 'required',
+            kaliber: 'required',
+            no_pabrik: 'required',
+            no_buku_pas_senpi: 'required',
+            nama_pemilik: 'required',
+            jumlah: 'required',
+            penyimpanan: 'required',
+            pemohon: 'required',
+            file_surat_hibah_senpi: 'required',
+            file_buku_pas_senpi: 'required',
+            file_foto_senjata: 'required',
+            file_kta: 'required',
+            file_ktp: 'required',
+            file_sertif_menembak: 'required',
+            file_skck: 'required',
+            file_surat_sehat: 'required',
+            file_tes_psikotes: 'required',
+            file_kk: 'required',
+            file_foto_4x6: 'required'
+        },
+        messages: {
+            letter_place: 'Form data tidak boleh kosong',
+            letter_date: 'Form data tidak boleh kosong',
+            letter_category_id: 'Form data tidak boleh kosong',
+            name: 'Form data tidak boleh kosong',
+            place_of_birth: 'Form data tidak boleh kosong',
+            date_of_birth: 'Form data tidak boleh kosong',
+            occupation: 'Form data tidak boleh kosong',
+            address: 'Form data tidak boleh kosong',
+            club: 'Form data tidak boleh kosong',
+            no_kta: 'Form data tidak boleh kosong',
+            membership: 'Form data tidak boleh kosong',
+            mutasi_alasan: 'Form data tidak boleh kosong',
+            firearm_category_id: 'Form data tidak boleh kosong',
+            merek: 'Form data tidak boleh kosong',
+            kaliber: 'Form data tidak boleh kosong',
+            no_pabrik: 'Form data tidak boleh kosong',
+            no_buku_pas_senpi: 'Form data tidak boleh kosong',
+            nama_pemilik: 'Form data tidak boleh kosong',
+            jumlah: 'Form data tidak boleh kosong',
+            penyimpanan: 'Form data tidak boleh kosong',
+            pemohon: 'Form data tidak boleh kosong',
+            file_surat_hibah_senpi: 'required',
+            file_buku_pas_senpi: 'required',
+            file_foto_senjata: 'required',
+            file_kta: 'File harus dipilih',
+            file_ktp: 'File harus dipilih',
+            file_sertif_menembak: 'File harus dipilih',
+            file_skck: 'File harus dipilih',
+            file_surat_sehat: 'File harus dipilih',
+            file_tes_psikotes: 'File harus dipilih',
+            file_kk: 'File harus dipilih',
+            file_foto_4x6: 'File harus dipilih'
         },
         errorElement: "em",
         errorClass: "invalid-feedback",

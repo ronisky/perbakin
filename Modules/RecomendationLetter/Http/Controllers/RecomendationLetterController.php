@@ -70,9 +70,24 @@ class RecomendationLetterController extends Controller
         switch ($categoryId) {
             case '1':
                 return [
-                    'file_buku_pas_senpi' => 'required|mimes:pdf,doc,docx|max:2048',
+                    'file_buku_pas_senpi' => 'required|mimes:pdf|max:2048',
                     'file_kta' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'file_ktp' => 'required|mimes:jpg,jpeg,png|max:2048',
+                    'file_foto_4x6' => 'required|mimes:jpg,jpeg,png|max:2048',
+                ];
+                break;
+            case '2':
+                return [
+                    'file_surat_hibah_senpi' => 'required|mimes:pdf|max:2048',
+                    'file_buku_pas_senpi' => 'required|mimes:pdf|max:2048',
+                    'file_foto_senjata' => 'required|mimes:jpg,jpeg,png|max:2048',
+                    'file_kta' => 'required|mimes:jpg,jpeg,png|max:2048',
+                    'file_ktp' => 'required|mimes:jpg,jpeg,png|max:2048',
+                    'file_sertif_menembak' => 'required|mimes:pdf|max:2048',
+                    'file_skck' => 'required|mimes:pdf|max:2048',
+                    'file_surat_sehat' => 'required|mimes:pdf|max:2048',
+                    'file_tes_psikotes' => 'required|mimes:pdf|max:2048',
+                    'file_kk' => 'required|mimes:pdf|max:2048',
                     'file_foto_4x6' => 'required|mimes:jpg,jpeg,png|max:2048',
                 ];
                 break;
@@ -93,7 +108,7 @@ class RecomendationLetterController extends Controller
         if (Gate::denies(__FUNCTION__, $this->module)) {
             return redirect('unauthorize');
         }
-        // dd($request->all());
+        dd($request->all());
 
         $categoryId = $request->letter_category_id;
         // check status pengajuan surat
@@ -156,7 +171,7 @@ class RecomendationLetterController extends Controller
                         'file_foto_4x6' => $name_file_foto_4x6,
                     ];
                     $letterRequirementId = $this->_letterRequirementRepository->insertGetId(array_merge($data, DataHelper::_signParams(true)));
-                    $this->_logHelper->store($this->module, "upload file letters required", 'create');
+                    $this->_logHelper->store($this->module, "upload file letters required category-" . $categoryId, 'create');
 
                     $data = [
                         'firearm_category_id' => $request->firearm_category_id,
@@ -211,7 +226,166 @@ class RecomendationLetterController extends Controller
                     return redirect('recomendationletter')->with('errorMessage', 'Gagal mengirim data');
                 }
                 break;
+            case '2':
+                DB::beginTransaction();
+                try {
 
+                    if (!$request->hasFile('file_surat_hibah_senpi')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
+                    }
+                    if (!$request->hasFile('file_buku_pas_senpi')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
+                    }
+                    if (!$request->hasFile('file_foto_senjata')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
+                    }
+                    if (!$request->hasFile('file_kta')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File kta harus dipilih!');
+                    }
+                    if (!$request->hasFile('file_ktp')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File ktp harus dipilih!');
+                    }
+                    if (!$request->hasFile('file_sertif_menembak')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File foto harus dipilih!');
+                    }
+                    if (!$request->hasFile('file_skck')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File foto harus dipilih!');
+                    }
+                    if (!$request->hasFile('file_surat_sehat')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File foto harus dipilih!');
+                    }
+                    if (!$request->hasFile('file_tes_psikotes')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File foto harus dipilih!');
+                    }
+                    if (!$request->hasFile('file_kk')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File foto harus dipilih!');
+                    }
+                    if (!$request->hasFile('file_foto_4x6')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File foto harus dipilih!');
+                    }
+
+                    $validatorImage = Validator::make($request->all(), $this->_validationRulesImage($categoryId));
+                    if ($validatorImage->fails()) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file/ gambar yang dimasukan sesuai.');
+                    }
+
+                    $filePath = DataHelper::getFilePath(null, null, true);
+
+                    $file_surat_hibah_senpi = $request->file_surat_hibah_senpi;
+                    $name_file_surat_hibah_senpi = DataHelper::getFileName($file_surat_hibah_senpi);
+                    $request->file('file_surat_hibah_senpi')->storeAs($filePath . "category-" . $categoryId, $name_file_surat_hibah_senpi, 'public');
+
+                    $file_buku_pas_senpi = $request->file_buku_pas_senpi;
+                    $name_file_buku_pas_senpi = DataHelper::getFileName($file_buku_pas_senpi);
+                    $request->file('file_buku_pas_senpi')->storeAs($filePath . "category-" . $categoryId, $name_file_buku_pas_senpi, 'public');
+
+                    $file_foto_senjata = $request->file_foto_senjata;
+                    $name_file_foto_senjata = DataHelper::getFileName($file_foto_senjata);
+                    $request->file('file_foto_senjata')->storeAs($filePath . "category-" . $categoryId, $name_file_foto_senjata, 'public');
+
+                    $file_kta = $request->file_kta;
+                    $name_file_kta = DataHelper::getFileName($file_kta);
+                    $request->file('file_kta')->storeAs($filePath . "category-" . $categoryId, $name_file_kta, 'public');
+
+
+                    $file_ktp = $request->file_ktp;
+                    $name_file_ktp = DataHelper::getFileName($file_ktp);
+                    $request->file('file_ktp')->storeAs($filePath . "category-" . $categoryId, $name_file_ktp, 'public');
+
+                    $file_sertif_menembak = $request->file_sertif_menembak;
+                    $name_file_sertif_menembak = DataHelper::getFileName($file_sertif_menembak);
+                    $request->file('file_sertif_menembak')->storeAs($filePath . "category-" . $categoryId, $name_file_sertif_menembak, 'public');
+
+                    $file_skck = $request->file_skck;
+                    $name_file_skck = DataHelper::getFileName($file_skck);
+                    $request->file('file_skck')->storeAs($filePath . "category-" . $categoryId, $name_file_skck, 'public');
+
+                    $file_surat_sehat = $request->file_surat_sehat;
+                    $name_file_surat_sehat = DataHelper::getFileName($file_surat_sehat);
+                    $request->file('file_surat_sehat')->storeAs($filePath . "category-" . $categoryId, $name_file_surat_sehat, 'public');
+
+                    $file_tes_psikotes = $request->file_tes_psikotes;
+                    $name_file_tes_psikotes = DataHelper::getFileName($file_tes_psikotes);
+                    $request->file('file_tes_psikotes')->storeAs($filePath . "category-" . $categoryId, $name_file_tes_psikotes, 'public');
+
+                    $file_kk = $request->file_kk;
+                    $name_file_kk = DataHelper::getFileName($file_kk);
+                    $request->file('file_kk')->storeAs($filePath . "category-" . $categoryId, $name_file_kk, 'public');
+
+                    $file_foto_4x6 = $request->file_foto_4x6;
+                    $name_file_foto_4x6 = DataHelper::getFileName($file_foto_4x6);
+                    $request->file('file_foto_4x6')->storeAs($filePath . "category-" . $categoryId, $name_file_foto_4x6, 'public');
+
+                    $data = [
+                        'file_surat_hibah_senpi' => $name_file_surat_hibah_senpi,
+                        'file_buku_pas_senpi' => $name_file_buku_pas_senpi,
+                        'file_foto_senjata' => $name_file_foto_senjata,
+                        'file_kta' => $name_file_kta,
+                        'file_ktp' => $name_file_ktp,
+                        'file_sertif_menembak' => $name_file_sertif_menembak,
+                        'file_skck' => $name_file_skck,
+                        'file_surat_sehat' => $name_file_surat_sehat,
+                        'file_tes_psikotes' => $name_file_tes_psikotes,
+                        'file_kk' => $name_file_kk,
+                        'file_foto_4x6' => $name_file_foto_4x6,
+                    ];
+                    $letterRequirementId = $this->_letterRequirementRepository->insertGetId(array_merge($data, DataHelper::_signParams(true)));
+                    $this->_logHelper->store($this->module, "upload file letters required category-" . $categoryId, 'create');
+
+                    $data = [
+                        'firearm_category_id' => $request->firearm_category_id,
+                        'merek' => $request->merek,
+                        'kaliber' => $request->kaliber,
+                        'no_pabrik' => $request->no_pabrik,
+                        'no_buku_pas_senpi' => $request->no_buku_pas_senpi,
+                        'nama_pemilik' => $request->nama_pemilik,
+                        'jumlah' => $request->jumlah,
+                        'penyimpanan' => $request->penyimpanan
+                    ];
+                    $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
+                    $this->_logHelper->store($this->module, $request->merek, 'create');
+
+                    $dataLetter = [
+                        'letter_category_id' => $request->letter_category_id,
+                        'firearm_id' => $firearmId,
+                        'letter_requirement_id' => $letterRequirementId,
+                        'letter_place' => $request->letter_place,
+                        'letter_date' => $request->letter_date,
+                        'letter_purpose_name' => 'Ketua Umum Pengcab PERBAKIN',
+                        'letter_purpose_place' => 'Soreang',
+                        'name' => $request->name,
+                        'place_of_birth' => $request->place_of_birth,
+                        'date_of_birth' => $request->date_of_birth,
+                        'occupation' => $request->occupation,
+                        'address' => $request->address,
+                        'club' => $request->club,
+                        'no_kta' => $request->no_kta,
+                        'membership' => $request->membership,
+                        'mutasi_alasan' => $request->mutasi_alasan,
+                        'pemohon' => $request->pemohon,
+                        'letter_status' => 1
+                    ];
+
+                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $this->_logHelper->store($this->module, $request->name, 'create');
+
+
+                    $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
+                    $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
+                    $email = [];
+                    foreach ($users as $user) {
+                        array_push($email, $user->user_email);
+                    }
+                    Mail::to($email)->send(new LetterSubmission($letter_id));
+
+                    DB::commit();
+                    return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
+                } catch (\Throwable $th) {
+
+                    DB::rollBack();
+                    return redirect('recomendationletter')->with('errorMessage', 'Gagal mengirim data');
+                }
+                break;
             default:
                 # code...
                 break;
