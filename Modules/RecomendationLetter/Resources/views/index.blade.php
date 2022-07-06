@@ -62,10 +62,11 @@
                         <thead>
                             <tr>
                                 <th width="5%">No</th>
-                                <th width="20%">Nama Pengaju</th>
-                                <th width="15%">Klub asal</th>
-                                <th width="20%">Tanggal pengajuan</th>
-                                <th width="10%">Status Pengajuan</th>
+                                <th>Nama Pengaju</th>
+                                <th>Klub asal</th>
+                                <th>Tanggal pengajuan</th>
+                                <th>Kategori Surat</th>
+                                <th>Status</th>
                                 <th width="15%">Aksi</th>
                             </tr>
                         </thead>
@@ -73,15 +74,26 @@
                         <tbody>
                             @if (sizeof($letters) == 0)
                             <tr>
-                                <td colspan="6" align="center">Data kosong</td>
+                                <td colspan="7" align="center">Data kosong</td>
                             </tr>
                             @else
                             @foreach ($letters as $letter)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $letter->name }}</td>
-                                <td>{{ $letter->club }}</td>
+                                <td title="{{ $letter->club}}">
+                                    @php
+                                    $clubName = substr( $letter->club, 0, 10);
+                                    @endphp
+                                    {{ $clubName }}
+                                </td>
                                 <td>{{ $letter->created_at }}</td>
+                                <td title="{{ $letter->letter_category_name}}">
+                                    @php
+                                    $categoryName = substr( $letter->letter_category_name, 0, 15);
+                                    @endphp
+                                    {{ $letter->letter_category_id }} - {{$categoryName}}
+                                </td>
                                 <td>
                                     @php
                                     $status = $letter->letter_status;
@@ -92,7 +104,7 @@
                                     $letter_status = 'Diproses';
                                     $class = 'badge badge-warning';
                                     }elseif($status == 3){
-                                    $letter_status = 'Diterima';
+                                    $letter_status = 'Selesai';
                                     $class = 'badge badge-success';
                                     }else {
                                     $letter_status = 'Ditolak';
@@ -164,7 +176,6 @@
                 <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            {{-- <form action="" method="POST" id="addForm"> --}}
             <div class="modal-body">
                 <div class="form-body">
                     <div class="row">
@@ -193,7 +204,6 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
             </div>
-            {{-- </form> --}}
         </div>
     </div>
 </div>
@@ -535,64 +545,65 @@
                 <form id="userDetail" name="userDetail">
                     <div class="form-body">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 row">
                                 <label for="letter_status" class="col-md-5 col-form-label">Status Pengajuan</label>
-                                <div class="letter_status">
+                                <div id="letter_status_detail1">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 row">
                                 <label for="letter_category_name" class="col-md-5 col-form-label">Kategori Surat</label>
                                 <div class="col-md-6">
                                     <input type="text" readonly class="form-control-plaintext letter_category_name">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 row">
                                 <label for="user_name" class="col-md-5 col-form-label">Nama Pemohon</label>
                                 <div class="col-md-6">
                                     <input type="text" readonly class="form-control-plaintext user_name">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 row">
                                 <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
                                 <div class="col-md-6">
                                     <input type="text" readonly class="form-control-plaintext user_kta"
                                         value="{{ old('user_kta') }}">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 row">
                                 <label for="club_name" class="col-md-5 col-form-label">Nama Club</label>
                                 <div class="col-md-6">
                                     <input type="text" readonly class="form-control-plaintext club_name"
                                         value="{{ old('club_name') }}">
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 row my-1">
                                 <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File Buku Pas
                                     Senpi</label>
                                 <div class="col-md-6">
-                                    <div class="file_buku_pas_senpi"></div>
+                                    <div id="file_buku_pas_senpi_detail1"></div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 row my-1">
                                 <label for="file_kta" class="col-md-5 col-form-label">File KTA</label>
                                 <div class="col-md-6">
-                                    <div class="file_kta"></div>
+                                    <div id="file_kta_detail1"></div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 row my-1">
                                 <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
                                 <div class="col-md-6">
-                                    <div class="file_ktp"></div>
+                                    <div id="file_ktp_detail1"></div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 row my-1">
                                 <label for="file_foto_4x6" class="col-md-5 col-form-label">File Foto</label>
                                 <div class="col-md-6">
-                                    <div class="file_foto_4x6"></div>
+                                    <div id="file_foto_4x6_detail1"></div>
                                 </div>
                             </div>
-
-                            <div class="col-md-6 mt-4" id="downloadletter"></div>
                         </div>
                     </div>
                 </form>
@@ -604,7 +615,6 @@
         </div>
     </div>
 </div>
-
 {{-- End Letter 1 --}}
 
 {{-- Start Letter 2 --}}
@@ -1118,8 +1128,8 @@
                             <div class="col-md-6 mb-3 letter3">
                                 <div class="form-group">
                                     <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="user_address" id="user_address"
-                                        value="" placeholder="Masukan alamat">
+                                    <input type="string" class="form-control" name="address" id="address" value=""
+                                        placeholder="Masukan alamat">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3 letter3">
@@ -1160,8 +1170,8 @@
                             <div class="col-md-6 mb-3 letter3">
                                 <div class="form-group">
                                     <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="user_address2" id="user_address2"
-                                        value="" placeholder="Masukan alamat">
+                                    <input type="string" class="form-control" name="address2" id="address2" value=""
+                                        placeholder="Masukan alamat">
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3 letter3">
@@ -2199,13 +2209,14 @@
                                     yang digunakan</label>
                                 <div class="col-sm-12">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input nama_anggota_senjata_digunakan"
-                                            id="nama_anggota_senjata_digunakan" name="nama_anggota_senjata_digunakan">
-                                        <label class="custom-file-label" for="nama_anggota_senjata_digunakan"
+                                        <input type="file" class="custom-file-input file_nama_anggota_senjata_digunakan"
+                                            id="file_nama_anggota_senjata_digunakan"
+                                            name="file_nama_anggota_senjata_digunakan">
+                                        <label class="custom-file-label" for="file_nama_anggota_senjata_digunakan"
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
-                                    @if ($errors->has('nama_anggota_senjata_digunakan'))
+                                    @if ($errors->has('file_nama_anggota_senjata_digunakan'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
@@ -3413,6 +3424,7 @@
             case "1":
                 document.getElementById("addFormLetter1").reset();
                 $('.letter1').show();
+                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter1 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter1 .modal-title').text(letterData);
@@ -3421,6 +3433,7 @@
             case "2":
                 document.getElementById("addFormLetter2").reset();
                 $('.letter2').show();
+                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter2 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter2 .modal-title').text(letterData);
@@ -3429,6 +3442,7 @@
             case "3":
                 document.getElementById("addFormLetter3").reset();
                 $('.letter3').show();
+                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter3 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter3 .modal-title').text(letterData);
@@ -3437,6 +3451,7 @@
             case "4":
                 document.getElementById("addFormLetter4").reset();
                 $('.letter4').show();
+                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter4 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter4 .modal-title').text(letterData);
@@ -3445,6 +3460,7 @@
             case "5":
                 document.getElementById("addFormLetter5").reset();
                 $('.letter5').show();
+                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter5 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter5 .modal-title').text(letterData);
@@ -3453,6 +3469,7 @@
             case "6":
                 document.getElementById("addFormLetter6").reset();
                 $('.letter6').show();
+                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter6 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter6 .modal-title').text(letterData);
@@ -3461,6 +3478,7 @@
             case "7":
                 document.getElementById("addFormLetter7").reset();
                 $('.letter7').show();
+                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter7 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter7 .modal-title').text(letterData);
@@ -3469,6 +3487,7 @@
             case "8":
                 document.getElementById("addFormLetter8").reset();
                 $('.letter8').show();
+                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter8 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter8 .modal-title').text(letterData);
@@ -3477,6 +3496,7 @@
             case "9":
                 document.getElementById("addFormLetter9").reset();
                 $('.letter9').show();
+                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter9 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter9 .modal-title').text(letterData);
@@ -3485,6 +3505,7 @@
             case "10":
                 document.getElementById("addFormLetter10").reset();
                 $('.letter10').show();
+                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter10 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter10 .modal-title').text(letterData);
@@ -3492,14 +3513,18 @@
                 break;
             case "11":
                 $('#downloadletter').show();
-                var urldownload = 'recomendationletter/downloadletter/' + letter;
+                var urldownload =
+                    'https://docs.google.com/document/d/1AW4MFEgsVA_NEQ3V45VMvjvw46ZmF49u/edit?usp=sharing&ouid=114630718812309264727&rtpof=true&sd=true';
+                // var urldownload = 'recomendationletter/downloadletter/' + letter;
                 document.getElementById('downloadletter').innerHTML =
                     "<a href='" + urldownload +
                     "' class='btn btn-primary download'>Download file surat</i>";
                 break;
             case "12":
                 $('#downloadletter').show();
-                var urldownload = 'recomendationletter/downloadletter/' + letter;
+                var urldownload =
+                    'https://docs.google.com/document/d/1lSkQLZZgg90JxRD7F1X3kuDcelywSNT6/edit?usp=sharing&ouid=114630718812309264727&rtpof=true&sd=true';
+                // var urldownload = 'recomendationletter/downloadletter/' + letter;
                 document.getElementById('downloadletter').innerHTML =
                     "<a href='" + urldownload +
                     "' class='btn btn-primary download'>Download file surat</i>";
@@ -3553,24 +3578,24 @@
             success: function (data) {
                 console.log(data);
                 if (data.status == 1) {
-                    let letterstatus = data.result[1].letter_status == 1;
+                    let letterstatus = data.result[1].letter_status;
                     switch (letterstatus) {
-                        case "1":
-                            $('.letter_status').innerHTML =
-                                "<span class=''badge badge-primary'>Diajukan</span>";
+                        case 1:
+                            document.getElementById('letter_status_detail1').innerHTML =
+                                "<span class='badge badge-primary'>Diajukan</span>";
                             break;
-                        case "2":
-                            $('.letter_status').innerHTML =
-                                "<span class=''badge badge-warning'>Diproses</span>";
+                        case 2:
+                            document.getElementById('letter_status_detail1').innerHTML =
+                                "<span class='badge badge-warning'>Diproses</span>";
                             break;
-                        case "3":
-                            $('.letter_status').innerHTML =
-                                "<span class=''badge badge-success'>Selesai</span>";
+                        case 3:
+                            document.getElementById('letter_status_detail1').innerHTML =
+                                "<span class='badge badge-success'>Selesai</span>";
                             break;
 
                         default:
-                            $('.letter_status').innerHTML =
-                                "<span class=''badge badge-danger'>Ditolak</span>";
+                            document.getElementById('letter_status_detail1').innerHTML =
+                                "<span class='badge badge-danger'>Ditolak</span>";
                             break;
                     }
                     $('.letter_category_name').val(': ' + data.result[1].letter_category_name);
@@ -3578,21 +3603,23 @@
                     $('.user_kta').val(': ' + data.result[1].no_kta);
                     $('.club_name').val(': ' + data.result[1].club);
 
-                    var filePath = 'uploads/letters/category-' + data.result[1].letter_category_id +
+                    var filePath = 'storage/uploads/letters/category-' + data.result[1]
+                        .letter_category_id +
                         "/";
+                    document.getElementById('file_buku_pas_senpi_detail1').innerHTML =
+                        "<a target='_blank' href='" + filePath + data.result[2]
+                        .file_buku_pas_senpi +
+                        "' class='btn btn-primary download'>Lihat File</i>";
 
-
-                    // document.getElementById('downloadletter').innerHTML =
-                    //     "<a href='" + filePath +
-                    //     "' class='btn btn-primary download'>Download file surat</i>";
-                    // $('.file_buku_pas_senpi').innerHTML = "<a href='" + filePath + data.result[2]
-                    //     .file_buku_pas_senpi "' target='_blank' class='btn btn-primary'>Lihat file</i>";
-                    // $('.file_kta').innerHTML = "<a href='" + filePath + data.result[2]
-                    //     .file_kta "' target='_blank' class='btn btn-primary'>Lihat file</i>";
-                    // $('.file_ktp').innerHTML = "<a href='" + filePath + data.result[2]
-                    //     .file_ktp "' target='_blank' class='btn btn-primary'>Lihat file</i>";
-                    // $('.file_foto_4x6').innerHTML = "<a href='" + filePath + data.result[2]
-                    //     .file_foto_4x6 "' target='_blank' class='btn btn-primary'>Lihat file</i>";
+                    document.getElementById('file_kta_detail1').innerHTML =
+                        "<a target='_blank' href='" + filePath + data.result[2].file_kta +
+                        "' class='btn btn-primary download'>Lihat File</i>";
+                    document.getElementById('file_ktp_detail1').innerHTML =
+                        "<a target='_blank' href='" + filePath + data.result[2].file_ktp +
+                        "' class='btn btn-primary download'>Lihat File</i>";
+                    document.getElementById('file_foto_4x6_detail1').innerHTML =
+                        "<a target='_blank' href='" + filePath + data.result[2].file_foto_4x6 +
+                        "' class='btn btn-primary download'>Lihat File</i>";
                 }
 
             },
@@ -3670,32 +3697,32 @@
 
     $("#addFormLetter1").validate({
         rules: {
-            letter_place: "",
-            letter_date: "required",
-            name: "required",
-            place_of_birth: "required",
-            date_of_birth: "required",
-            occupation: "required",
-            address: "required",
-            club: "required",
-            no_kta: "required",
-            membership: "required",
-            mutasi_dari: "required",
-            l9_cabang: "required",
-            mutasi_alasan: "required",
-            firearm_category_id: "required",
-            merek: "required",
-            kaliber: "required",
-            no_pabrik: "required",
-            no_buku_pas_senpi: "required",
-            nama_pemilik: "required",
-            jumlah: "required",
-            penyimpanan: "required",
-            pemohon: "required",
-            file_buku_pas_senpi: "required",
-            file_kta: "required",
-            file_ktp: "required",
-            file_foto_4x6: "required"
+            letter_place: 'required',
+            letter_date: 'required',
+            name: 'required',
+            place_of_birth: 'required',
+            date_of_birth: 'required',
+            occupation: 'required',
+            address: 'required',
+            club: 'required',
+            no_kta: 'required',
+            membership: 'required',
+            mutasi_dari: 'required',
+            l9_cabang: 'required',
+            mutasi_alasan: 'required',
+            firearm_category_id: 'required',
+            merek: 'required',
+            kaliber: 'required',
+            no_pabrik: 'required',
+            no_buku_pas_senpi: 'required',
+            nama_pemilik: 'required',
+            jumlah: 'required',
+            penyimpanan: 'required',
+            pemohon: 'required',
+            file_buku_pas_senpi: 'required',
+            file_kta: 'required',
+            file_ktp: 'required',
+            file_foto_4x6: 'required'
         },
         messages: {
             letter_place: "Form data tidak boleh kosong",
@@ -3821,6 +3848,526 @@
             $(element).addClass("is-valid").removeClass("is-invalid");
         }
     });
+
+    $("#addFormLetter3").validate({
+        rules: {
+            letter_category_id: 'required',
+            name: 'required',
+            place_of_birth: 'required',
+            date_of_birth: 'required',
+            occupation: 'required',
+            address: 'required',
+            no_ktp: 'required',
+            name2: 'required',
+            occupation2: 'required',
+            address2: 'required',
+            no_ktp2: 'required',
+            firearm_category_id: 'required',
+            merek: 'required',
+            kaliber: 'required',
+            no_pabrik: 'required',
+            no_buku_pas_senpi: 'required',
+            tanggal_dikeluarkan: 'required',
+            jumlah: 'required',
+            pemohon_pihak_2: 'required',
+            pemohon: 'required'
+        },
+        messages: {
+            letter_category_id: 'Form data tidak boleh kosong',
+            name: 'Form data tidak boleh kosong',
+            place_of_birth: 'Form data tidak boleh kosong',
+            date_of_birth: 'Form data tidak boleh kosong',
+            occupation: 'Form data tidak boleh kosong',
+            address: 'Form data tidak boleh kosong',
+            no_ktp: 'Form data tidak boleh kosong',
+            name2: 'Form data tidak boleh kosong',
+            occupation2: 'Form data tidak boleh kosong',
+            address2: 'Form data tidak boleh kosong',
+            no_ktp2: 'Form data tidak boleh kosong',
+            firearm_category_id: 'Form data tidak boleh kosong',
+            merek: 'Form data tidak boleh kosong',
+            kaliber: 'Form data tidak boleh kosong',
+            no_pabrik: 'Form data tidak boleh kosong',
+            no_buku_pas_senpi: 'Form data tidak boleh kosong',
+            tanggal_dikeluarkan: 'Form data tidak boleh kosong',
+            jumlah: 'Form data tidak boleh kosong',
+            pemohon_pihak_2: 'Form data tidak boleh kosong',
+            pemohon: 'Form data tidak boleh kosong'
+        },
+        errorElement: "em",
+        errorClass: "invalid-feedback",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            $(element).parents('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+    $("#addFormLetter4").validate({
+        rules: {
+            letter_place: 'required',
+            letter_date: 'required',
+            letter_category_id: 'required',
+            name: 'required',
+            place_of_birth: 'required',
+            date_of_birth: 'required',
+            occupation: 'required',
+            address: 'required',
+            club: 'required',
+            no_kta: 'required',
+            membership: 'required',
+            mutasi_alasan: 'required',
+            firearm_category_id: 'required',
+            merek: 'required',
+            kaliber: 'required',
+            no_pabrik: 'required',
+            no_buku_pas_senpi: 'required',
+            no_si_impor: 'required',
+            bap_senpi: 'required',
+            jumlah: 'required',
+            penyimpanan: 'required',
+            pemohon: 'required',
+            file_si_impor_senjata: 'required',
+            file_sba_penitipan_senpi: 'required',
+            file_kta: 'required',
+            file_ktp: 'required',
+            file_sertif_menembak: 'required',
+            file_skck: 'required',
+            file_surat_sehat: 'required',
+            file_tes_psikotes: 'required',
+            file_kk: 'required',
+            file_foto_4x6: 'required'
+        },
+        messages: {
+            letter_place: 'Form data tidak boleh kosong',
+            letter_date: 'Form data tidak boleh kosong',
+            letter_category_id: 'Form data tidak boleh kosong',
+            name: 'Form data tidak boleh kosong',
+            place_of_birth: 'Form data tidak boleh kosong',
+            date_of_birth: 'Form data tidak boleh kosong',
+            occupation: 'Form data tidak boleh kosong',
+            address: 'Form data tidak boleh kosong',
+            club: 'Form data tidak boleh kosong',
+            no_kta: 'Form data tidak boleh kosong',
+            membership: 'Form data tidak boleh kosong',
+            mutasi_alasan: 'Form data tidak boleh kosong',
+            firearm_category_id: 'Form data tidak boleh kosong',
+            merek: 'Form data tidak boleh kosong',
+            kaliber: 'Form data tidak boleh kosong',
+            no_pabrik: 'Form data tidak boleh kosong',
+            no_buku_pas_senpi: 'Form data tidak boleh kosong',
+            no_si_impor: 'Form data tidak boleh kosong',
+            bap_senpi: 'Form data tidak boleh kosong',
+            jumlah: 'Form data tidak boleh kosong',
+            penyimpanan: 'Form data tidak boleh kosong',
+            pemohon: 'Form data tidak boleh kosong',
+            file_si_impor_senjata: 'File harus dipilih',
+            file_sba_penitipan_senpi: 'File harus dipilih',
+            file_kta: 'File harus dipilih',
+            file_ktp: 'File harus dipilih',
+            file_sertif_menembak: 'File harus dipilih',
+            file_skck: 'File harus dipilih',
+            file_surat_sehat: 'File harus dipilih',
+            file_tes_psikotes: 'File harus dipilih',
+            file_kk: 'File harus dipilih',
+            file_foto_4x6: 'File harus dipilih'
+        },
+        errorElement: "em",
+        errorClass: "invalid-feedback",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            $(element).parents('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+    $("#addFormLetter5").validate({
+        rules: {
+            letter_place: 'required',
+            letter_date: 'required',
+            letter_category_id: 'required',
+            name: 'required',
+            place_of_birth: 'required',
+            date_of_birth: 'required',
+            occupation: 'required',
+            address: 'required',
+            club: 'required',
+            no_kta: 'required',
+            membership: 'required',
+            waktu_mulai: 'required',
+            waktu_selesai: 'required',
+            dalam_event: 'required',
+            lokasi1: 'required',
+            jumlah_anggota: 'required',
+            pemohon: 'required',
+            l5_lampiran1: 'required',
+            nama_anggota_senjata_digunakan: 'required',
+            file_kta: 'required',
+            file_buku_pas_senpi: 'required'
+        },
+        messages: {
+            letter_place: 'Form data tidak boleh kosong',
+            letter_date: 'Form data tidak boleh kosong',
+            letter_category_id: 'Form data tidak boleh kosong',
+            name: 'Form data tidak boleh kosong',
+            place_of_birth: 'Form data tidak boleh kosong',
+            date_of_birth: 'Form data tidak boleh kosong',
+            occupation: 'Form data tidak boleh kosong',
+            address: 'Form data tidak boleh kosong',
+            club: 'Form data tidak boleh kosong',
+            no_kta: 'Form data tidak boleh kosong',
+            membership: 'Form data tidak boleh kosong',
+            waktu_mulai: 'Form data tidak boleh kosong',
+            waktu_selesai: 'Form data tidak boleh kosong',
+            dalam_event: 'Form data tidak boleh kosong',
+            lokasi1: 'Form data tidak boleh kosong',
+            jumlah_anggota: 'Form data tidak boleh kosong',
+            pemohon: 'Form data tidak boleh kosong',
+            l5_lampiran1: 'File harus dipilih',
+            nama_anggota_senjata_digunakan: 'File harus dipilih',
+            file_kta: 'File harus dipilih',
+            file_buku_pas_senpi: 'File harus dipilih'
+        },
+        errorElement: "em",
+        errorClass: "invalid-feedback",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            $(element).parents('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+    $("#addFormLetter6").validate({
+        rules: {
+            letter_place: 'required',
+            letter_date: 'required',
+            letter_category_id: 'required',
+            name: 'required',
+            place_of_birth: 'required',
+            date_of_birth: 'required',
+            occupation: 'required',
+            address: 'required',
+            club: 'required',
+            no_kta: 'required',
+            membership: 'required',
+            dalam_event: 'required',
+            lokasi1: 'required',
+            waktu_mulai: 'required',
+            waktu_selesai: 'required',
+            jumlah_anggota: 'required',
+            pemohon: 'required',
+            surat_rekomendasi_pengcab: 'required',
+            file_nama_anggota_senjata_digunakan: 'required',
+            file_kta: 'required',
+            file_buku_pas_senpi: 'required',
+            l6_undangan_berburu: 'required',
+            file_surat_sehat: 'required'
+        },
+        messages: {
+            letter_place: 'Form data tidak boleh kosong',
+            letter_date: 'Form data tidak boleh kosong',
+            letter_category_id: 'Form data tidak boleh kosong',
+            name: 'Form data tidak boleh kosong',
+            place_of_birth: 'Form data tidak boleh kosong',
+            date_of_birth: 'Form data tidak boleh kosong',
+            occupation: 'Form data tidak boleh kosong',
+            address: 'Form data tidak boleh kosong',
+            club: 'Form data tidak boleh kosong',
+            no_kta: 'Form data tidak boleh kosong',
+            membership: 'Form data tidak boleh kosong',
+            dalam_event: 'Form data tidak boleh kosong',
+            lokasi1: 'Form data tidak boleh kosong',
+            waktu_mulai: 'Form data tidak boleh kosong',
+            waktu_selesai: 'Form data tidak boleh kosong',
+            jumlah_anggota: 'Form data tidak boleh kosong',
+            pemohon: 'Form data tidak boleh kosong',
+            surat_rekomendasi_pengcab: 'File harus dipilih',
+            file_nama_anggota_senjata_digunakan: 'File harus dipilih',
+            file_kta: 'File harus dipilih',
+            file_buku_pas_senpi: 'File harus dipilih',
+            l6_undangan_berburu: 'File harus dipilih',
+            file_surat_sehat: 'File harus dipilih'
+        },
+        errorElement: "em",
+        errorClass: "invalid-feedback",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            $(element).parents('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+    $("#addFormLetter7").validate({
+        rules: {
+            letter_place: 'required',
+            letter_date: 'required',
+            letter_category_id: 'required',
+            name: 'required',
+            place_of_birth: 'required',
+            date_of_birth: 'required',
+            occupation: 'required',
+            address: 'required',
+            club: 'required',
+            no_kta: 'required',
+            membership: 'required',
+            dalam_event: 'required',
+            l7_alasan_pengunduran: 'required',
+            tembusan1: 'required',
+            tembusan2: 'required',
+            pemohon: 'required'
+        },
+        messages: {
+            letter_place: 'Form data tidak boleh kosong',
+            letter_date: 'Form data tidak boleh kosong',
+            letter_category_id: 'Form data tidak boleh kosong',
+            name: 'Form data tidak boleh kosong',
+            place_of_birth: 'Form data tidak boleh kosong',
+            date_of_birth: 'Form data tidak boleh kosong',
+            occupation: 'Form data tidak boleh kosong',
+            address: 'Form data tidak boleh kosong',
+            club: 'Form data tidak boleh kosong',
+            no_kta: 'Form data tidak boleh kosong',
+            membership: 'Form data tidak boleh kosong',
+            dalam_event: 'Form data tidak boleh kosong',
+            l7_alasan_pengunduran: 'Form data tidak boleh kosong',
+            tembusan1: 'Form data tidak boleh kosong',
+            tembusan2: 'Form data tidak boleh kosong',
+            pemohon: 'Form data tidak boleh kosong'
+        },
+        errorElement: "em",
+        errorClass: "invalid-feedback",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            $(element).parents('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+    $("#addFormLetter8").validate({
+        rules: {
+            letter_place: 'required',
+            letter_date: 'required',
+            letter_category_id: 'required',
+            dasar_adart: 'required',
+            pemohon: 'required',
+            l8_kta_anggota_baru: 'required',
+            file_ktp: 'required',
+            l8_adart: 'required',
+            l8_struktur_organisasi: 'required',
+            l8_nama_para_pengurus: 'required',
+            l8_pas_foto_pengurus: 'required',
+            l8_data_anggota_club: 'required',
+            l8_surat_keterangan_domisili: 'required',
+            file_skck: 'required',
+            biaya_administrasi: 'required'
+        },
+        messages: {
+            letter_place: 'Form data tidak boleh kosong',
+            letter_date: 'Form data tidak boleh kosong',
+            letter_category_id: 'Form data tidak boleh kosong',
+            dasar_adart: 'Form data tidak boleh kosong',
+            pemohon: 'Form data tidak boleh kosong',
+            l8_kta_anggota_baru: 'File harus dipilih',
+            file_ktp: 'File harus dipilih',
+            l8_adart: 'File harus dipilih',
+            l8_struktur_organisasi: 'File harus dipilih',
+            l8_nama_para_pengurus: 'File harus dipilih',
+            l8_pas_foto_pengurus: 'File harus dipilih',
+            l8_data_anggota_club: 'File harus dipilih',
+            l8_surat_keterangan_domisili: 'File harus dipilih',
+            file_skck: 'File harus dipilih',
+            biaya_administrasi: 'File harus dipilih',
+        },
+        errorElement: "em",
+        errorClass: "invalid-feedback",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            $(element).parents('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+    $("#addFormLetter9").validate({
+        rules: {
+            letter_place: 'required',
+            letter_date: 'required',
+            letter_category_id: 'required',
+            name: 'required',
+            place_of_birth: 'required',
+            date_of_birth: 'required',
+            occupation: 'required',
+            address: 'required',
+            club: 'required',
+            no_kta: 'required',
+            membership: 'required',
+            mutasi_dari: 'required',
+            mutasi_menuju: 'required',
+            l9_cabang: 'required',
+            mutasi_alasan: 'required',
+            pemohon: 'required',
+            file_ktp: 'required',
+            file_kta_club: 'required',
+            surat_rekomendasi_club: 'required',
+            file_kta: 'required',
+            file_foto_4x6: 'required'
+        },
+        messages: {
+            letter_place: 'Form data tidak boleh kosong',
+            letter_date: 'Form data tidak boleh kosong',
+            letter_category_id: 'Form data tidak boleh kosong',
+            name: 'Form data tidak boleh kosong',
+            place_of_birth: 'Form data tidak boleh kosong',
+            date_of_birth: 'Form data tidak boleh kosong',
+            occupation: 'Form data tidak boleh kosong',
+            address: 'Form data tidak boleh kosong',
+            club: 'Form data tidak boleh kosong',
+            no_kta: 'Form data tidak boleh kosong',
+            membership: 'Form data tidak boleh kosong',
+            mutasi_dari: 'Form data tidak boleh kosong',
+            mutasi_menuju: 'Form data tidak boleh kosong',
+            l9_cabang: 'Form data tidak boleh kosong',
+            mutasi_alasan: 'Form data tidak boleh kosong',
+            pemohon: 'Form data tidak boleh kosong',
+            file_ktp: 'File harus dipilih',
+            file_kta_club: 'File harus dipilih',
+            surat_rekomendasi_club: 'File harus dipilih',
+            file_kta: 'File harus dipilih',
+            file_foto_4x6: 'File harus dipilih'
+        },
+        errorElement: "em",
+        errorClass: "invalid-feedback",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            $(element).parents('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+    $("#addFormLetter10").validate({
+        rules: {
+            letter_place: 'required',
+            letter_date: 'required',
+            letter_category_id: 'required',
+            name: 'required',
+            place_of_birth: 'required',
+            date_of_birth: 'required',
+            occupation: 'required',
+            address: 'required',
+            club: 'required',
+            no_kta: 'required',
+            membership: 'required',
+            firearm_category_id: 'required',
+            merek: 'required',
+            kaliber: 'required',
+            no_buku_pas_senpi: 'required',
+            tanggal_dikeluarkan: 'required',
+            jumlah: 'required',
+            nama_pemilik: 'required',
+            pemohon: 'required',
+            file_kta_club: 'required',
+            file_ktp: 'required',
+            file_buku_pas_senpi: 'required',
+            file_foto_4x6: 'required'
+        },
+        messages: {
+            letter_place: 'Form data tidak boleh kosong',
+            letter_date: 'Form data tidak boleh kosong',
+            letter_category_id: 'Form data tidak boleh kosong',
+            name: 'Form data tidak boleh kosong',
+            place_of_birth: 'Form data tidak boleh kosong',
+            date_of_birth: 'Form data tidak boleh kosong',
+            occupation: 'Form data tidak boleh kosong',
+            address: 'Form data tidak boleh kosong',
+            club: 'Form data tidak boleh kosong',
+            no_kta: 'Form data tidak boleh kosong',
+            membership: 'Form data tidak boleh kosong',
+            firearm_category_id: 'Form data tidak boleh kosong',
+            merek: 'Form data tidak boleh kosong',
+            kaliber: 'Form data tidak boleh kosong',
+            no_buku_pas_senpi: 'Form data tidak boleh kosong',
+            tanggal_dikeluarkan: 'Form data tidak boleh kosong',
+            jumlah: 'Form data tidak boleh kosong',
+            nama_pemilik: 'Form data tidak boleh kosong',
+            pemohon: 'Form data tidak boleh kosong',
+            file_kta_club: 'File harus dipilih',
+            file_ktp: 'File harus dipilih',
+            file_buku_pas_senpi: 'File harus dipilih',
+            file_foto_4x6: 'File harus dipilih'
+        },
+        errorElement: "em",
+        errorClass: "invalid-feedback",
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            $(element).parents('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        }
+    });
+
+    // // function for disable right right click
+    // window.oncontextmenu = function () {
+    //     return false;
+    // }
+
+    // // function for disable key shortcut
+    // $(window).on('keydown', function (event) {
+    //     if (event.keyCode == 123) {
+    //         return false; //Prevent from f12
+    //     } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+    //         return false; //Prevent from ctrl+shift+i
+    //     } else if (event.ctrlKey &&
+    //         // event.keyCode === 67 ||
+    //         // event.keyCode === 86 ||
+    //         event.keyCode === 85 ||
+    //         event.keyCode === 117) {
+    //         return false;
+    //         /*
+    //         67  = c
+    //         86  = v
+    //         85  = u
+    //         117 = f6
+    //         */
+    //     }
+    // });
 
 </script>
 @endsection

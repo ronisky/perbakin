@@ -44,7 +44,7 @@ class CreateLetterRequirements extends Migration
             $table->string('file_foto_4x6')->nullable();
             $table->string('l5_lampiran1')->nullable();
             $table->string('l6_undangan_berburu')->nullable();
-            $table->string('nama_anggota_senjata_digunakan')->nullable();
+            $table->string('file_nama_anggota_senjata_digunakan')->nullable();
             $table->string('l8_kta_anggota_baru')->nullable();
             $table->string('l8_adart')->nullable();
             $table->string('l8_struktur_organisasi')->nullable();

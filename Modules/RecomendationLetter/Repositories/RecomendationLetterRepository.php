@@ -32,6 +32,24 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
             return $e->getMessage();
         }
     }
+
+    public function getAllByParams(array $params)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table($this->table)
+                ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
+                ->select(
+                    'letters.*',
+                    'letter_categories.letter_category_name'
+                )
+                ->where($params)
+                ->get();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function getByIdLetter($id)
     {
         try {

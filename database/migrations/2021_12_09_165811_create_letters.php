@@ -21,8 +21,8 @@ class CreateLetters extends Migration
             $table->string('letter_no', 30);
             $table->string('letter_place', 30);
             $table->date('letter_date');
-            $table->string('letter_purpose_name', 100);
-            $table->string('letter_purpose_place', 20);
+            $table->string('letter_purpose_name', 100)->default('Ketua Umum Pengcab PERBAKIN');
+            $table->string('letter_purpose_place', 30)->default('Soreang');
             $table->string('name', 50);
             $table->string('place_of_birth', 30);
             $table->date('date_of_birth');
