@@ -257,7 +257,7 @@
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            <input type="hidden" class="letter_category_id" name="letter_category_id"
+                            <input type="hidden" class="letter_category_id" name="letter_category_id" value="1"
                                 id="letter_category_id">
                             {{-- letter1 b1l1--}}
                             <div class="col-md-6 mb-3 letter1">
@@ -665,7 +665,7 @@
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            <input type="hidden" class="letter_category_id" name="letter_category_id"
+                            <input type="hidden" class="letter_category_id" name="letter_category_id" value="2"
                                 id="letter_category_id">
                             {{-- letter2 b1l2--}}
                             <div class="col-md-6 mb-3 letter2">
@@ -1089,7 +1089,7 @@
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            <input type="hidden" class="letter_category_id" name="letter_category_id"
+                            <input type="hidden" class="letter_category_id" name="letter_category_id" value="3"
                                 id="letter_category_id">
                             {{-- letter3 b1l3 --}}
                             <div class="col-md-12 mb-3 border-bottom border-gray letter3">
@@ -1337,7 +1337,7 @@
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            <input type="hidden" class="letter_category_id" name="letter_category_id"
+                            <input type="hidden" class="letter_category_id" name="letter_category_id" value="4"
                                 id="letter_category_id">
                             {{-- letter4 b1l4 --}}
                             <div class="col-md-6 mb-3 letter4">
@@ -1769,7 +1769,7 @@
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            <input type="hidden" class="letter_category_id" name="letter_category_id"
+                            <input type="hidden" class="letter_category_id" name="letter_category_id" value="5"
                                 id="letter_category_id">
                             {{-- letter5 b1l5 --}}
                             <div class="col-md-6 mb-3 letter5">
@@ -2064,7 +2064,7 @@
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            <input type="hidden" class="letter_category_id" name="letter_category_id"
+                            <input type="hidden" class="letter_category_id" name="letter_category_id" value="6"
                                 id="letter_category_id">
                             {{-- letter6 b1l6 --}}
                             <div class="col-md-6 mb-3 letter6">
@@ -2380,7 +2380,7 @@
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            <input type="hidden" class="letter_category_id" name="letter_category_id"
+                            <input type="hidden" class="letter_category_id" name="letter_category_id" value="7"
                                 id="letter_category_id">
                             {{-- letter7 b1l7 --}}
                             <div class="col-md-6 mb-3 letter7">
@@ -2575,7 +2575,7 @@
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            <input type="hidden" class="letter_category_id" name="letter_category_id"
+                            <input type="hidden" class="letter_category_id" name="letter_category_id" value="8"
                                 id="letter_category_id">
                             {{-- letter8 b1l8 --}}
                             <div class="col-md-12 mb-3 letter8">
@@ -2881,7 +2881,7 @@
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            <input type="hidden" class="letter_category_id" name="letter_category_id"
+                            <input type="hidden" class="letter_category_id" name="letter_category_id" value="9"
                                 id="letter_category_id">
                             {{-- letter9 b1l9 --}}
                             <div class="col-md-6 mb-3 letter9">
@@ -3167,7 +3167,7 @@
                                 <span class=" font-weight-bold">Bagian 1 Pemohon</span>
                             </div>
                             {{-- ================================================================================= --}}
-                            <input type="hidden" class="letter_category_id" name="letter_category_id"
+                            <input type="hidden" class="letter_category_id" name="letter_category_id" value="10"
                                 id="letter_category_id">
                             {{-- letter10 b1l10 --}}
                             <div class="col-md-6 mb-3 letter10">
@@ -3424,7 +3424,6 @@
             case "1":
                 document.getElementById("addFormLetter1").reset();
                 $('.letter1').show();
-                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter1 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter1 .modal-title').text(letterData);
@@ -3433,7 +3432,6 @@
             case "2":
                 document.getElementById("addFormLetter2").reset();
                 $('.letter2').show();
-                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter2 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter2 .modal-title').text(letterData);
@@ -3442,7 +3440,6 @@
             case "3":
                 document.getElementById("addFormLetter3").reset();
                 $('.letter3').show();
-                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter3 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter3 .modal-title').text(letterData);
@@ -3451,7 +3448,6 @@
             case "4":
                 document.getElementById("addFormLetter4").reset();
                 $('.letter4').show();
-                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter4 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter4 .modal-title').text(letterData);
@@ -3460,7 +3456,6 @@
             case "5":
                 document.getElementById("addFormLetter5").reset();
                 $('.letter5').show();
-                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter5 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter5 .modal-title').text(letterData);
@@ -3469,7 +3464,6 @@
             case "6":
                 document.getElementById("addFormLetter6").reset();
                 $('.letter6').show();
-                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter6 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter6 .modal-title').text(letterData);
@@ -3478,7 +3472,6 @@
             case "7":
                 document.getElementById("addFormLetter7").reset();
                 $('.letter7').show();
-                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter7 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter7 .modal-title').text(letterData);
@@ -3487,7 +3480,6 @@
             case "8":
                 document.getElementById("addFormLetter8").reset();
                 $('.letter8').show();
-                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter8 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter8 .modal-title').text(letterData);
@@ -3496,7 +3488,6 @@
             case "9":
                 document.getElementById("addFormLetter9").reset();
                 $('.letter9').show();
-                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter9 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter9 .modal-title').text(letterData);
@@ -3505,7 +3496,6 @@
             case "10":
                 document.getElementById("addFormLetter10").reset();
                 $('.letter10').show();
-                $('.letter_category_id').val(letter);
                 $('#downloadletter').hide();
                 $('.addModalLetter10 form').attr('action', "{{ url('recomendationletter/store') }}");
                 $('.addModalLetter10 .modal-title').text(letterData);
