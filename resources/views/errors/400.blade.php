@@ -40,9 +40,9 @@
             <div class="col-lg-6 offset-lg-3 col-sm-6 offset-sm-3 col-12 p-3 error-main">
                 <div class="row">
                     <div class="col-lg-8 col-12 col-sm-10 offset-lg-2 offset-sm-1">
-                        <h1 class="m-0">419</h1>
-                        <h6>Sesi Berakhir</h6>
-                        <p><a href="{{ URL::to('/login') }}" class="btn btn-dark">Login kembali</a></p>
+                        <h1 class="m-0">400</h1>
+                        <h6>Permintaan buruk</h6>
+                        <p><a href="{{ URL::to('/') }}" class="btn btn-dark">Kembali ke home</a></p>
                     </div>
                 </div>
             </div>
