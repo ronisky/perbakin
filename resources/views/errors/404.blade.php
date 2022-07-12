@@ -42,7 +42,7 @@
                     <div class="col-lg-8 col-12 col-sm-10 offset-lg-2 offset-sm-1">
                         <h1 class="m-0">404</h1>
                         <h6>Halaman tidak ditemukan</h6>
-                        <p><a href="{{ url()->previous() }}" class="btn btn-dark">Kembali</a></p>
+                        <p><a href="{{ URL::previous() }}" class="btn btn-dark">Kembali</a></p>
                     </div>
                 </div>
             </div>
