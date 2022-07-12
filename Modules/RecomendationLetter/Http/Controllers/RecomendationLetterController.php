@@ -375,7 +375,7 @@ class RecomendationLetterController extends Controller
             'created_by'            => Auth::user()->user_id
         ];
         $check = $this->_recomendationLetterRepository->getByParams($params);
-        if ($check->letter_status == 1 || $check->letter_status == 2) {
+        if ($check->letter_status != 1 || $check->letter_status != 2) {
             return redirect('recomendationletter')->with('errorMessage', 'Gagal! Pengajuan sebelumnya masih diproses mohon ditunggu sampai pengajuan selesai! atau hubungi admin.');
         }
 
