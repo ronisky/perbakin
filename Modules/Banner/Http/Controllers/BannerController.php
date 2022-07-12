@@ -31,7 +31,7 @@ class BannerController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $banners    = $this->_bannerRepository->getAll();
@@ -46,7 +46,7 @@ class BannerController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('banner::create');
     }
@@ -60,7 +60,7 @@ class BannerController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $validator = Validator::make($request->all(), $this->_validationRules(''));
@@ -101,7 +101,7 @@ class BannerController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('banner::show');
     }
@@ -115,7 +115,7 @@ class BannerController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('banner::edit');
     }
@@ -130,7 +130,7 @@ class BannerController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $validator = Validator::make($request->all(), $this->_validationRules($id));
@@ -209,7 +209,7 @@ class BannerController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         // Check detail to db

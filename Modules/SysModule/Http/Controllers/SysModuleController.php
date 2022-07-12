@@ -32,7 +32,7 @@ class SysModuleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $modules = $this->_sysmoduleRepository->getAll();
@@ -48,7 +48,7 @@ class SysModuleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         return view('sysmodule::create');
@@ -63,7 +63,7 @@ class SysModuleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $validator = Validator::make($request->all(), $this->_validationRules(''));
@@ -91,7 +91,7 @@ class SysModuleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         return view('sysmodule::show');
@@ -106,7 +106,7 @@ class SysModuleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         return view('sysmodule::edit');
@@ -122,7 +122,7 @@ class SysModuleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $validator = Validator::make($request->all(), $this->_validationRules($id));
@@ -152,7 +152,7 @@ class SysModuleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         // Check detail to db
         $detail  = $this->_sysmoduleRepository->getById($id);

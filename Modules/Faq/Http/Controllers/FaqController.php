@@ -31,7 +31,7 @@ class FaqController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $faqs    = $this->_faqRepository->getAll();
@@ -46,7 +46,7 @@ class FaqController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('faq::create');
     }
@@ -75,7 +75,7 @@ class FaqController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         if ($request['faq_name'] == null) {
@@ -107,7 +107,7 @@ class FaqController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $getDetail  = $this->_faqRepository->getById($id);
@@ -126,7 +126,7 @@ class FaqController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('faq::edit');
     }
@@ -141,7 +141,7 @@ class FaqController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $validator = Validator::make($request->all(), $this->_validationRules($id));
@@ -192,7 +192,7 @@ class FaqController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         // Check detail to db
         $detail  = $this->_faqRepository->getById($id);

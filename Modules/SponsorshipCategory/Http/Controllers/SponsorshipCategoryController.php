@@ -30,7 +30,7 @@ class SponsorshipCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $sponsorship_categories    = $this->_sponsorshipCategoryRepository->getAll();
@@ -45,7 +45,7 @@ class SponsorshipCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('sponsorshipcategory::create');
     }
@@ -59,7 +59,7 @@ class SponsorshipCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $validator = Validator::make($request->all(), $this->_validationRules(''));
@@ -87,7 +87,7 @@ class SponsorshipCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('sponsorshipcategory::show');
     }
@@ -101,7 +101,7 @@ class SponsorshipCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('sponsorshipcategory::edit');
     }
@@ -116,7 +116,7 @@ class SponsorshipCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $validator = Validator::make($request->all(), $this->_validationRules($id));
@@ -146,7 +146,7 @@ class SponsorshipCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         // Check detail to db
         $detail  = $this->_sponsorshipCategoryRepository->getById($id);

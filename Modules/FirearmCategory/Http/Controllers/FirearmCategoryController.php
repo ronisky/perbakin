@@ -31,7 +31,7 @@ class FirearmCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $firearm_categories    = $this->_firearmCategoryRepository->getAll();
@@ -47,7 +47,7 @@ class FirearmCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('firearmcategory::create');
     }
@@ -61,7 +61,7 @@ class FirearmCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $validator = Validator::make($request->all(), $this->_validationRules(''));
@@ -89,7 +89,7 @@ class FirearmCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('firearmcategory::show');
     }
@@ -103,7 +103,7 @@ class FirearmCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('firearmcategory::edit');
     }
@@ -118,7 +118,7 @@ class FirearmCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $validator = Validator::make($request->all(), $this->_validationRules($id));
@@ -148,7 +148,7 @@ class FirearmCategoryController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         // Check detail to db
         $detail  = $this->_firearmCategoryRepository->getById($id);

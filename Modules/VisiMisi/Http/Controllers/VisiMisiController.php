@@ -31,7 +31,7 @@ class VisiMisiController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $visimisi    = $this->_visiMisiRepository->getAll();
@@ -46,7 +46,7 @@ class VisiMisiController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('visimisi::create');
     }
@@ -60,7 +60,7 @@ class VisiMisiController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         if ($request->title == 0) {
@@ -104,7 +104,7 @@ class VisiMisiController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('visimisi::show');
     }
@@ -118,7 +118,7 @@ class VisiMisiController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('visimisi::edit');
     }
@@ -133,7 +133,7 @@ class VisiMisiController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         // dd($id);
         $validator = Validator::make($request->all(), $this->_validationRules($id));
@@ -241,7 +241,7 @@ class VisiMisiController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         // Check detail to db

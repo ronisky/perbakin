@@ -36,7 +36,7 @@ class SponsorshipController extends Controller
 
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $sponsorships    = $this->_sponsorshipRepository->getAll();
@@ -52,7 +52,7 @@ class SponsorshipController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('sponsorship::create');
     }
@@ -66,7 +66,7 @@ class SponsorshipController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         $validator = Validator::make($request->all(), $this->_validationRules($request, ''));
 
@@ -138,7 +138,7 @@ class SponsorshipController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $getDetail  = $this->_sponsorshipRepository->getById($id);
@@ -157,7 +157,7 @@ class SponsorshipController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         return view('sponsorship::edit');
     }
@@ -172,7 +172,7 @@ class SponsorshipController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         $validator = Validator::make($request->all(), $this->_validationRules($request, $id));
 
@@ -278,7 +278,7 @@ class SponsorshipController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         // Check detail to db

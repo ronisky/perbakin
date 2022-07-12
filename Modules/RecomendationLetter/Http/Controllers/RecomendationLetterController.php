@@ -46,7 +46,7 @@ class RecomendationLetterController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         if (Auth::user()->user_id == 1 || Auth::user()->user_id == 2) {
@@ -365,7 +365,7 @@ class RecomendationLetterController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $categoryId = $request->letter_category_id;
@@ -1415,7 +1415,7 @@ class RecomendationLetterController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $getDetailLetter  = $this->_recomendationLetterRepository->getByIdLetter($id);
@@ -1465,7 +1465,7 @@ class RecomendationLetterController extends Controller
     {
         // // Authorize
         // if (Gate::denies(__FUNCTION__, $this->module)) {
-        //     return redirect('unauthorize');
+        //     return view('exceptions.unauthorize');
         // }
         // // Check detail to db
         // $detail  = $this->_recomendationLetterRepository->getById($id);

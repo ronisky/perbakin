@@ -26,7 +26,7 @@ Route::post('/do_forgot', [UserController::class, 'sendforgot']);
 Route::post('/do_login', [UserController::class, 'authenticate']);
 Route::post('/do_register', [UserController::class, 'registration']);
 
-Route::view('/unauthorize', 'exceptions.unauthorize');
+// Route::view('/unauthorize', 'exceptions.unauthorize');
 // Route::view('/', 			'layouts.landing');
 
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');

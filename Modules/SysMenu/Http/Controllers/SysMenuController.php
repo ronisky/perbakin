@@ -34,7 +34,7 @@ class SysMenuController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $menus      = $this->_sysmenuRepository->getAll();
@@ -52,7 +52,7 @@ class SysMenuController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         return view('sysmenu::create');
@@ -67,7 +67,7 @@ class SysMenuController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         DB::beginTransaction();
@@ -90,7 +90,7 @@ class SysMenuController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         return view('sysmenu::show');
@@ -105,7 +105,7 @@ class SysMenuController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         // $modules    = $this->_sysmoduleRepository->getAll();
@@ -123,7 +123,7 @@ class SysMenuController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         DB::beginTransaction();
 
@@ -144,7 +144,7 @@ class SysMenuController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         // Check detail to db
         $detail  = $this->_sysmenuRepository->getById($id);

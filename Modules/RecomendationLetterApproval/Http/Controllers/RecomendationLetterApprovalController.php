@@ -48,7 +48,7 @@ class RecomendationLetterApprovalController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $letters = $this->_recomendationLetterRepository->getAll();
@@ -370,7 +370,7 @@ class RecomendationLetterApprovalController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         // Check detail to db
         $detail  = $this->_recomendationLetterRepository->getById($id);

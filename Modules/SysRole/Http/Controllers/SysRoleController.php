@@ -34,7 +34,7 @@ class SysRoleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $roles      = $this->_sysroleRepository->getAll();
@@ -51,7 +51,7 @@ class SysRoleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         return view('sysrole::create');
@@ -66,7 +66,7 @@ class SysRoleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         DB::beginTransaction();
         $this->_sysroleRepository->insert(DataHelper::_normalizeParams($request->all(), true));
@@ -85,7 +85,7 @@ class SysRoleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         return view('sysrole::show');
@@ -101,7 +101,7 @@ class SysRoleController extends Controller
 
         // // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $modules     = $this->_sysroleRepository->getModuleTask();
@@ -128,7 +128,7 @@ class SysRoleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
 
         $tasks = $request->input('task');
@@ -176,7 +176,7 @@ class SysRoleController extends Controller
     {
         // Authorize
         if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
+            return view('exceptions.unauthorize');
         }
         // Check detail to db
         $detail  = $this->_sysroleRepository->getById($id);

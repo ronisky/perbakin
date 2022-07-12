@@ -18,7 +18,7 @@
         .error-main h1 {
             font-weight: bold;
             color: #444444;
-            font-size: 100px;
+            font-size: 80px;
             text-shadow: 2px 4px 5px #6E6E6E;
         }
 
@@ -42,7 +42,7 @@
                     <div class="col-lg-8 col-12 col-sm-10 offset-lg-2 offset-sm-1">
                         <h1 class="m-0">502</h1>
                         <h6>Bad Getway</h6>
-                        <p><a href="{{ URL::to('/') }}" class="btn btn-dark">Kembali ke home</a></p>
+                        <p><a href="{{ url()->previous() }}" class="btn btn-dark">Kembali</a></p>
                     </div>
                 </div>
             </div>
