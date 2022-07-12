@@ -372,11 +372,10 @@ class RecomendationLetterController extends Controller
         // check status pengajuan surat
         $params = [
             'letter_category_id'    => $categoryId,
-            'created_by'            => Auth::user()->user_id,
-            'letter_status'         => 1
+            'created_by'            => Auth::user()->user_id
         ];
         $check = $this->_recomendationLetterRepository->getByParams($params);
-        if ($check) {
+        if ($check->letter_status == 1 || $check->letter_status == 2) {
             return redirect('recomendationletter')->with('errorMessage', 'Gagal! Pengajuan sebelumnya masih diproses mohon ditunggu sampai pengajuan selesai! atau hubungi admin.');
         }
 
