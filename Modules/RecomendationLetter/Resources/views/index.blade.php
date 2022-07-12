@@ -95,23 +95,7 @@
                                     {{ $letter->letter_category_id }} - {{$categoryName}}
                                 </td>
                                 <td>
-                                    @php
-                                    $status = $letter->letter_status;
-                                    if($status == 1){
-                                    $letter_status = 'Diajukan';
-                                    $class = 'badge badge-primary';
-                                    }elseif($status == 2){
-                                    $letter_status = 'Diproses';
-                                    $class = 'badge badge-warning';
-                                    }elseif($status == 3){
-                                    $letter_status = 'Selesai';
-                                    $class = 'badge badge-success';
-                                    }else {
-                                    $letter_status = 'Ditolak';
-                                    $class = 'badge badge-danger';
-                                    }
-                                    @endphp
-                                    <span class="{{ $class }}">{{ $letter_status }}</span>
+                                    <span class="{{ $letter->style_class }}">{{ $letter->approval_status }}</span>
                                 </td>
                                 <td>
                                     @if($letter->letter_id > 0)
@@ -3568,26 +3552,9 @@
             success: function (data) {
                 console.log(data);
                 if (data.status == 1) {
-                    let letterstatus = data.result[1].letter_status;
-                    switch (letterstatus) {
-                        case 1:
-                            document.getElementById('letter_status_detail1').innerHTML =
-                                "<span class='badge badge-primary'>Diajukan</span>";
-                            break;
-                        case 2:
-                            document.getElementById('letter_status_detail1').innerHTML =
-                                "<span class='badge badge-warning'>Diproses</span>";
-                            break;
-                        case 3:
-                            document.getElementById('letter_status_detail1').innerHTML =
-                                "<span class='badge badge-success'>Selesai</span>";
-                            break;
-
-                        default:
-                            document.getElementById('letter_status_detail1').innerHTML =
-                                "<span class='badge badge-danger'>Ditolak</span>";
-                            break;
-                    }
+                    document.getElementById('letter_status_detail1').innerHTML =
+                        "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                        .approval_status + "</span>";
                     $('.letter_category_name').val(': ' + data.result[1].letter_category_name);
                     $('.user_name').val(': ' + data.result[1].name);
                     $('.user_kta').val(': ' + data.result[1].no_kta);

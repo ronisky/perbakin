@@ -23,9 +23,12 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
             return DB::connection($this->db)
                 ->table($this->table)
                 ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
+                ->join('approval_statuses', 'approval_statuses.approval_status_id', 'letters.letter_status')
                 ->select(
                     'letters.*',
-                    'letter_categories.letter_category_name'
+                    'letter_categories.letter_category_name',
+                    'approval_statuses.approval_status',
+                    'approval_statuses.style_class',
                 )
                 ->get();
         } catch (Exception $e) {
@@ -39,9 +42,12 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
             return DB::connection($this->db)
                 ->table($this->table)
                 ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
+                ->join('approval_statuses', 'approval_statuses.approval_status_id', 'letters.letter_status')
                 ->select(
                     'letters.*',
-                    'letter_categories.letter_category_name'
+                    'letter_categories.letter_category_name',
+                    'approval_statuses.approval_status',
+                    'approval_statuses.style_class',
                 )
                 ->where($params)
                 ->get();
@@ -56,11 +62,14 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
             return DB::connection($this->db)
                 ->table($this->table)
                 ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
+                ->join('approval_statuses', 'approval_statuses.approval_status_id', 'letters.letter_status')
                 ->leftJoin('firearms', 'firearms.firearm_id', 'letters.firearm_id')
                 ->leftJoin('firearm_categories', 'firearm_categories.firearm_category_id', 'firearms.firearm_category_id')
                 ->select(
                     'letters.*',
                     'letter_categories.letter_category_name',
+                    'approval_statuses.approval_status',
+                    'approval_statuses.style_class',
                     'firearms.firearm_category_id',
                     'firearms.merek',
                     'firearms.kaliber',

@@ -375,8 +375,10 @@ class RecomendationLetterController extends Controller
             'created_by'            => Auth::user()->user_id
         ];
         $check = $this->_recomendationLetterRepository->getByParams($params);
-        if ($check->letter_status != 1 || $check->letter_status != 2) {
-            return redirect('recomendationletter')->with('errorMessage', 'Gagal! Pengajuan sebelumnya masih diproses mohon ditunggu sampai pengajuan selesai! atau hubungi admin.');
+        if ($check) {
+            if ($check->letter_status != 3 || $check->letter_status != 4) {
+                return redirect('recomendationletter')->with('errorMessage', 'Gagal! Pengajuan sebelumnya masih diproses mohon ditunggu sampai pengajuan selesai! atau hubungi admin.');
+            }
         }
 
         switch ($categoryId) {
@@ -1072,12 +1074,13 @@ class RecomendationLetterController extends Controller
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
-                    $email = [];
-                    foreach ($users as $user) {
-                        array_push($email, $user->user_email);
+                    if ($users) {
+                        $email = [];
+                        foreach ($users as $user) {
+                            array_push($email, $user->user_email);
+                        }
+                        Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    Mail::to($email)->send(new LetterSubmission($letter_id));
-
                     DB::commit();
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
