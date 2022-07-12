@@ -1463,25 +1463,25 @@ class RecomendationLetterController extends Controller
      */
     public function destroy($id)
     {
-        // Authorize
-        if (Gate::denies(__FUNCTION__, $this->module)) {
-            return redirect('unauthorize');
-        }
-        // Check detail to db
-        $detail  = $this->_recomendationLetterRepository->getById($id);
+        // // Authorize
+        // if (Gate::denies(__FUNCTION__, $this->module)) {
+        //     return redirect('unauthorize');
+        // }
+        // // Check detail to db
+        // $detail  = $this->_recomendationLetterRepository->getById($id);
 
-        if (!$detail) {
-            return redirect('sysmenu');
-        }
+        // if (!$detail) {
+        //     return redirect('sysmenu');
+        // }
 
-        DB::beginTransaction();
-        $this->_recomendationLetterRepository->delete($id);
-        $this->_logHelper->store($this->module, $detail->name, 'delete');
-        $this->_recomendationLetterRepository->deleteFirearm($detail->firearm_id);
-        $this->_logHelper->store($this->module, $detail->firearm_id, 'delete');
-        DB::commit();
+        // DB::beginTransaction();
+        // $this->_recomendationLetterRepository->delete($id);
+        // $this->_logHelper->store($this->module, $detail->name, 'delete');
+        // $this->_recomendationLetterRepository->deleteFirearm($detail->firearm_id);
+        // $this->_logHelper->store($this->module, $detail->firearm_id, 'delete');
+        // DB::commit();
 
-        return redirect('recomendationletter')->with('successMessage', 'Surat berhasil dihapus');
+        // return redirect('recomendationletter')->with('successMessage', 'Surat berhasil dihapus');
     }
 
 

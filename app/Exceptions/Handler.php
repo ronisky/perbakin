@@ -34,9 +34,9 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        Route::fallback(function () {
-            return abort(404);
-            return view('/');  // incase you want to return view
-        });
+        // Route::fallback(function () {
+        //     return abort(404);
+        //     return view('/');  // incase you want to return view
+        // });
     }
 }

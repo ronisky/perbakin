@@ -132,11 +132,11 @@
                                     title="Ubah">
                                     <i data-feather="edit" width="16" height="16"></i>
                                     </a> --}}
-                                    <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btnDelete"
+                                    {{-- <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btnDelete"
                                         data-url="{{ url('recomendationletter/delete/'. $letter->letter_id) }}"
-                                        data-toggle="tooltip" data-placement="top" title="Hapus">
-                                        <i data-feather="trash-2" width="16" height="16"></i>
-                                    </a>
+                                    data-toggle="tooltip" data-placement="top" title="Hapus">
+                                    <i data-feather="trash-2" width="16" height="16"></i>
+                                    </a> --}}
                                     @else
                                     <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
                                         target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
@@ -3642,47 +3642,6 @@
                 alert('Error : Gagal mengambil data');
             }
         });
-    });
-
-
-    $('.btnDelete').click(function () {
-        $('.btnDelete').attr('disabled', true)
-        var url = $(this).attr('data-url');
-        Swal.fire({
-            title: 'Apakah anda yakin ingin menghapus data?',
-            text: "Kamu tidak akan bisa mengembalikan data ini setelah dihapus!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya. Hapus'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    success: function (data) {
-                        if (result.isConfirmed) {
-                            Swal.fire(
-                                'Terhapus!',
-                                'Data Berhasil Dihapus.',
-                                'success'
-                            ).then(() => {
-                                location.reload()
-                            })
-                        }
-                    },
-                    error: function (XMLHttpRequest, textStatus,
-                        errorThrown) {
-                        Swal.fire(
-                            'Gagal!',
-                            'Gagal menghapus data.',
-                            'error'
-                        );
-                    }
-                });
-            }
-        })
     });
 
     $("#addFormLetter1").validate({

@@ -7,7 +7,6 @@ use App\Helpers\LogHelper;
 use App\Mail\LetterSubmission;
 use App\Mail\LetterSubmissionFaild;
 use App\Mail\LetterSubmissionSuccess;
-use App\Mail\WelcomeMember;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -17,6 +16,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Modules\FirearmCategory\Repositories\FirearmCategoryRepository;
 use Modules\LetterCategory\Repositories\LetterCategoryRepository;
+use Modules\RecomendationLetter\Repositories\FirearmRepository;
+use Modules\RecomendationLetter\Repositories\LetterRequirementRepository;
 use Modules\RecomendationLetter\Repositories\RecomendationLetterRepository;
 use Modules\UserGroup\Repositories\UserGroupRepository;
 use Modules\Users\Repositories\UsersRepository;
@@ -31,6 +32,8 @@ class RecomendationLetterApprovalController extends Controller
         $this->_userRepository   = new UsersRepository;
         $this->_recomendationLetterRepository   = new RecomendationLetterRepository;
         $this->_letterCategoryRepository   = new LetterCategoryRepository;
+        $this->_letterRequirementRepository   = new LetterRequirementRepository;
+        $this->_firearmRepository   = new FirearmRepository;
         $this->_firearmCategoryRepository   = new FirearmCategoryRepository;
         $this->module = "RecomendationLetterApproval";
 
@@ -365,6 +368,30 @@ class RecomendationLetterApprovalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Authorize
+        if (Gate::denies(__FUNCTION__, $this->module)) {
+            return redirect('unauthorize');
+        }
+        // Check detail to db
+        $detail  = $this->_recomendationLetterRepository->getById($id);
+
+        if (!$detail) {
+            return DataHelper::_errorResponse(null, "Data suart tidak ditemukan");
+        }
+
+        DB::beginTransaction();
+        $this->_recomendationLetterRepository->delete($id);
+        $this->_logHelper->store($this->module, $detail->name, 'delete');
+        if ($detail->firearm_id != null) {
+            $this->_firearmRepository->delete($detail->firearm_id);
+            $this->_logHelper->store($this->module, $detail->firearm_id, 'delete');
+        }
+        if ($detail->letter_requirement_id != null) {
+            $this->_letterRequirementRepository->delete($detail->letter_requirement_id);
+            $this->_logHelper->store($this->module, $detail->letter_requirement_id, 'delete');
+        }
+        DB::commit();
+
+        return DataHelper::_successResponse(null, "Data berhasil dihapus.");
     }
 }

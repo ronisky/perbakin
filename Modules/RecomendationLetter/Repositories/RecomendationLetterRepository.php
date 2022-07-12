@@ -104,18 +104,6 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
         }
     }
 
-    public function deleteFirearm($id)
-    {
-        try {
-            return DB::connection($this->db)
-                ->table('firearms')
-                ->where('firearm_id', '=', $id)
-                ->delete();
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
     public function insertGetIdLetter(array $data)
     {
         try {

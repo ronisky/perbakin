@@ -121,7 +121,7 @@
                                 @php
                                 if (Auth::user()->group_id == 1) {
                                 echo '<td>';
-                                    echo '<select class="form-control" id="letter_approval_admin"
+                                    echo '<select class="form-control letter_approval_admin"
                                         name="letter_status_approval_admin" data-id="'.$letter->letter_id.'"
                                         data-user="admin">
                                         <option value="" selected>Update Status</option>
@@ -130,7 +130,7 @@
                                     </select>';
                                     echo '</td>';
                                 echo '<td>';
-                                    echo '<select class="form-control" id="letter_approval_sekum"
+                                    echo '<select class="form-control letter_approval_sekum"
                                         name="letter_status_approval_sekum" data-id="'.$letter->letter_id.'"
                                         data-user="sekum">
                                         <option value="" selected>Update Status</option>
@@ -139,7 +139,7 @@
                                     </select>';
                                     echo '</td>';
                                 echo '<td>';
-                                    echo '<select class="form-control" id="letter_approval_ketua"
+                                    echo '<select class="form-control letter_approval_ketua"
                                         name="letter_status_approval_ketua" data-id="'.$letter->letter_id.'"
                                         data-user="ketua">
                                         <option value="" selected>Update Status</option>
@@ -184,7 +184,7 @@
                                     echo '<span class="'. $class .'">'. $sekum_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
-                                    echo '<select class="form-control" id="letter_approval_ketua"
+                                    echo '<select class="form-control letter_approval_ketua"
                                         name="letter_status_approval_ketua" data-id="'.$letter->letter_id.'"
                                         data-user="ketua">
                                         <option value="" selected>Update Status</option>
@@ -194,7 +194,7 @@
                                     echo '</td>';
                                 }elseif (Auth::user()->group_id == 2){
                                 echo '<td>';
-                                    echo '<select class="form-control" id="letter_approval_admin"
+                                    echo '<select class="form-control letter_approval_admin"
                                         name="letter_status_approval_admin" data-id="'.$letter->letter_id.'"
                                         data-user="admin">
                                         <option value="" selected>Update Status</option>
@@ -222,7 +222,7 @@
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
-                                    echo '<select class="form-control" id="letter_approval_sekum"
+                                    echo '<select class="form-control letter_approval_sekum"
                                         name="letter_status_approval_sekum" data-id="'.$letter->letter_id.'"
                                         data-user="sekum">
                                         <option value="" selected>Update Status</option>
@@ -250,12 +250,13 @@
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                     title="Ubah">
                                     <i data-feather="edit" width="16" height="16"></i>
-                                    </a>
+                                    </a> --}}
                                     <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btnDelete"
                                         data-url="{{ url('recomendationletterapproval/delete/'. $letter->letter_id) }}"
                                         data-toggle="tooltip" data-placement="top" title="Hapus">
                                         <i data-feather="trash-2" width="16" height="16"></i>
-                                    </a> --}}
+                                    </a>
+                                    </a>
                                     @endif
                                 </td>
                             </tr>
@@ -791,10 +792,10 @@
         $('#pemohon').val(name);
     });
 
-    $('#letter_approval_admin').change(function () {
+    $('.letter_approval_admin').change(function () {
         let id = $(this).attr('data-id');
         let user = $(this).attr('data-user');
-        let status = $('#letter_approval_admin').val();
+        let status = $('.letter_approval_admin').val();
         let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
         if (status == 1) {
             Swal.fire({
@@ -870,10 +871,10 @@
         }
     });
 
-    $('#letter_approval_sekum').change(function () {
+    $('.letter_approval_sekum').change(function () {
         let id = $(this).attr('data-id');
         let user = $(this).attr('data-user');
-        let status = $('#letter_approval_sekum').val();
+        let status = $('.letter_approval_sekum').val();
         let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
         if (status == 1) {
             Swal.fire({
@@ -949,10 +950,10 @@
         }
     });
 
-    $('#letter_approval_ketua').change(function () {
+    $('.letter_approval_ketua').change(function () {
         let id = $(this).attr('data-id');
         let user = $(this).attr('data-user');
-        let status = $('#letter_approval_ketua').val();
+        let status = $('.letter_approval_ketua').val();
         let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
         if (status == 1) {
             Swal.fire({
@@ -1109,32 +1110,44 @@
     $('.addModal').modal('show');
     @endif
 
-    $('.btnEdit').click(function () {
-
-        var id = $(this).attr('data-id');
-        var url = "{{ url('recomendationletterapproval/getdata') }}";
-
-        $('.addModal form').attr('action', "{{ url('recomendationletterapproval/update') }}" + '/' + id);
-
-        $.ajax({
-            type: 'GET',
-            url: url + '/' + id,
-            dataType: 'JSON',
-            success: function (data) {
-                if (data.status == 1) {
-
-                    $('#letter_category_name').val(data.result.letter_category_name);
-                    $('.addModal .modal-title').text('Ubah Surat Rekomendasi');
-                    $('.addModal').modal('show');
-
-                }
-
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert('Error : Gagal mengambil data');
+    $('.btnDelete').click(function () {
+        $('.btnDelete').attr('disabled', true)
+        var url = $(this).attr('data-url');
+        Swal.fire({
+            title: 'Apakah anda yakin ingin menghapus data?',
+            text: "Kamu tidak akan bisa mengembalikan data ini setelah dihapus!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya. Hapus'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (data) {
+                        if (result.isConfirmed) {
+                            Swal.fire(
+                                'Terhapus!',
+                                'Data Berhasil Dihapus.',
+                                'success'
+                            ).then(() => {
+                                location.reload()
+                            })
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus,
+                        errorThrown) {
+                        Swal.fire(
+                            'Gagal!',
+                            'Gagal menghapus data.',
+                            'error'
+                        );
+                    }
+                });
             }
-        });
-
+        })
     });
 
     $("#addForm").validate({
