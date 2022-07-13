@@ -172,7 +172,7 @@
                                         @if(sizeof($letter_categories) > 0)
                                         @foreach($letter_categories as $key => $letter_category)
                                         <option value="{{ $letter_category->letter_category_id }}"
-                                            data-tag="{{$letter_category->letter_category_name}}">
+                                            data-tag="{{($key + 1).". " .$letter_category->letter_category_name }}">
                                             {{($key + 1).". " .$letter_category->letter_category_name }}
                                         </option>
                                         @endforeach
@@ -424,6 +424,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran
+                                        kurang dari 5MB</small>
                                     @if ($errors->has('file_buku_pas_senpi'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -442,6 +444,8 @@
                                         <label class="custom-file-label" for="file_kta" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_kta'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -460,6 +464,8 @@
                                         <label class="custom-file-label" for="file_ktp" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_ktp'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -478,11 +484,13 @@
                                         <label class="custom-file-label" for="file_foto_4x6" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_foto_4x6'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf) dengan ukuran kurang dari 2MB</label>
+                                            format file (jpg/jpeg/png) dengan ukuran kurang
+                                            dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -815,6 +823,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_surat_hibah_senpi'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -834,6 +844,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran
+                                        kurang dari 5MB</small>
                                     @if ($errors->has('file_buku_pas_senpi'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -853,6 +865,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_foto_senjata'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -871,6 +885,8 @@
                                         <label class="custom-file-label" for="file_kta" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_kta'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -889,6 +905,8 @@
                                         <label class="custom-file-label" for="file_ktp" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_ktp'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -909,6 +927,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_sertif_menembak'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -927,6 +947,8 @@
                                         <label class="custom-file-label" for="file_skck" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_skck'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -946,6 +968,8 @@
                                         <label class="custom-file-label" for="file_surat_sehat" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_surat_sehat'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -966,6 +990,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_tes_psikotes'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -984,6 +1010,8 @@
                                         <label class="custom-file-label" for="file_kk" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_kk'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1002,11 +1030,13 @@
                                         <label class="custom-file-label" for="file_foto_4x6" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_foto_4x6'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf) dengan ukuran kurang dari 2MB</label>
+                                            format file (jpg/jpeg/png) dengan ukuran kurang
+                                            dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1494,6 +1524,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_si_impor_senjata'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1515,6 +1547,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_sba_penitipan_senpi'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1533,6 +1567,8 @@
                                         <label class="custom-file-label" for="file_kta" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_kta'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1551,6 +1587,8 @@
                                         <label class="custom-file-label" for="file_ktp" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_ktp'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1571,6 +1609,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_sertif_menembak'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1589,6 +1629,8 @@
                                         <label class="custom-file-label" for="file_skck" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_skck'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1608,6 +1650,8 @@
                                         <label class="custom-file-label" for="file_surat_sehat" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_surat_sehat'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1628,6 +1672,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_tes_psikotes'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1646,6 +1692,8 @@
                                         <label class="custom-file-label" for="file_kk" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_kk'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1664,11 +1712,13 @@
                                         <label class="custom-file-label" for="file_foto_4x6" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_foto_4x6'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf) dengan ukuran kurang dari 2MB</label>
+                                            format file (jpg/jpeg/png) dengan ukuran kurang
+                                            dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -1940,6 +1990,8 @@
                                         <label class="custom-file-label" for="file_kta" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_kta'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1959,6 +2011,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran
+                                        kurang dari 5MB</small>
                                     @if ($errors->has('file_buku_pas_senpi'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2179,6 +2233,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('surat_rekomendasi_pengcab'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2200,6 +2256,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_nama_anggota_senjata_digunakan'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2218,6 +2276,8 @@
                                         <label class="custom-file-label" for="file_kta" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_kta'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2237,6 +2297,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran
+                                        kurang dari 5MB</small>
                                     @if ($errors->has('file_buku_pas_senpi'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2257,6 +2319,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('l6_undangan_berburu'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2275,7 +2339,11 @@
                                         <label class="custom-file-label" for="file_surat_sehat" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_surat_sehat'))
+                                    format file (pdf) dengan ukuran kurang dari 2MB</label> <small
+                                        class="text-info"></small>
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
@@ -2605,6 +2673,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('l8_kta_anggota_baru'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2623,6 +2693,8 @@
                                         <label class="custom-file-label" for="file_ktp" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_ktp'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2642,6 +2714,8 @@
                                         <label class="custom-file-label" for="l8_adart" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('l8_adart'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2661,6 +2735,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('l8_struktur_organisasi'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2680,6 +2756,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('l8_nama_para_pengurus'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2690,7 +2768,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3 letter8">
-                                <label class="col-sm-12 col-form-label">Pas Poto Pengurus Klub latar merah (3x4, 4x6)
+                                <label class="col-sm-12 col-form-label">Pas Foto Pengurus Klub latar merah (4x6)
                                 </label>
                                 <div class="col-sm-12">
                                     <div class="custom-file">
@@ -2700,6 +2778,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('l8_pas_foto_pengurus'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2719,6 +2799,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('l8_data_anggota_club'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2739,6 +2821,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('l8_surat_keterangan_domisili'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2757,6 +2841,8 @@
                                         <label class="custom-file-label" for="file_skck" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('file_skck'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -2776,11 +2862,13 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('biaya_administrasi'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
-                                            file (pdf) dengan ukuran kurang dari 2MB</label>
+                                            file (jpg/jpeg/png) dengan ukuran kurang dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -2988,6 +3076,8 @@
                                         <label class="custom-file-label" for="file_ktp" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_ktp'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -3006,6 +3096,8 @@
                                         <label class="custom-file-label" for="file_kta_club" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_kta_club'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -3026,6 +3118,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('surat_rekomendasi_club'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -3044,6 +3138,8 @@
                                         <label class="custom-file-label" for="file_kta" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_kta'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -3062,11 +3158,13 @@
                                         <label class="custom-file-label" for="file_foto_4x6" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_foto_4x6'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf) dengan ukuran kurang dari 2MB</label>
+                                            format file (jpg/jpeg/png) dengan ukuran kurang
+                                            dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>
@@ -3301,6 +3399,8 @@
                                         <label class="custom-file-label" for="file_kta_club" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_kta_club'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -3319,6 +3419,8 @@
                                         <label class="custom-file-label" for="file_ktp" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_ktp'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -3338,6 +3440,8 @@
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran
+                                        kurang dari 5MB</small>
                                     @if ($errors->has('file_buku_pas_senpi'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -3356,11 +3460,13 @@
                                         <label class="custom-file-label" for="file_foto_4x6" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (jpg/jpeg/png) dengan ukuran kurang
+                                        dari 2MB</small>
                                     @if ($errors->has('file_foto_4x6'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf) dengan ukuran kurang dari 2MB</label>
+                                            format file (jpg/jpeg/png) dengan ukuran kurang
+                                            dari 2MB</label>
                                     </span>
                                     @endif
                                 </div>

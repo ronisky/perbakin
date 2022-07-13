@@ -68,6 +68,7 @@
                                 <th>Nama</th>
                                 <th>Klub</th>
                                 <th>Tanggal</th>
+                                <th>Kategori</th>
                                 <th>Status</th>
                                 @php
                                 if (Auth::user()->group_id == 1 || Auth::user()->group_id == 4) {
@@ -88,7 +89,7 @@
                         <tbody>
                             @if (sizeof($letters) == 0)
                             <tr>
-                                <td colspan="9" align="center">Data kosong</td>
+                                <td colspan="10" align="center">Data kosong</td>
                             </tr>
                             @else
                             @foreach ($letters as $letter)
@@ -97,6 +98,12 @@
                                 <td>{{ $letter->name }}</td>
                                 <td>{{ $letter->club }}</td>
                                 <td>{{ $letter->created_at }}</td>
+                                <td title="{{ $letter->letter_category_name}}">
+                                    @php
+                                    $categoryName = substr( $letter->letter_category_name, 0, 15);
+                                    @endphp
+                                    {{ $letter->letter_category_id }} - {{$categoryName}}
+                                </td>
                                 <td>
                                     <span class="{{ $letter->style_class }}">{{ $letter->approval_status }}</span>
                                 </td>
@@ -224,25 +231,12 @@
 
                                 <td>
                                     @if($letter->letter_id > 0)
-                                    @if (Auth::user()->group_id != 1 || Auth::user()->group_id != 2)
-                                    <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
-                                        target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
+                                    @if (Auth::user()->group_id == 1 || Auth::user()->group_id == 2)
+                                    <a href="javascript:void(0)" class="btn btn-icon btnDetail btn-outline-info"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
-                                        title="Print">
-                                        <i data-feather="printer" width="16" height="16"></i>
+                                        title="Detail">
+                                        <i data-feather="eye" width="16" height="16"></i>
                                     </a>
-
-                                    @else
-                                    {{-- <a href="javascript:void(0)" class="btn btn-icon btnDetail btn-outline-info"
-                                        data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
-                                    title="Detail">
-                                    <i data-feather="eye" width="16" height="16"></i>
-                                    </a> --}}
-                                    {{-- <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
-                                        data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
-                                    title="Ubah">
-                                    <i data-feather="edit" width="16" height="16"></i>
-                                    </a> --}}
                                     <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
                                         target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
@@ -254,6 +248,18 @@
                                         data-toggle="tooltip" data-placement="top" title="Hapus">
                                         <i data-feather="trash-2" width="16" height="16"></i>
                                     </a>
+                                    @else
+
+                                    {{-- <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
+                                        data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
+                                    title="Ubah">
+                                    <i data-feather="edit" width="16" height="16"></i>
+                                    </a> --}}
+                                    <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
+                                        target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
+                                        data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
+                                        title="Print">
+                                        <i data-feather="printer" width="16" height="16"></i>
                                     </a>
                                     @endif
                                     @endif

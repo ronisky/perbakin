@@ -6,7 +6,7 @@ class PDF extends FPDF
 {
 // Page header
 function Header()
-{    
+{
     $user = Auth::user()->group_id;
     if ($user == 2 || $user == 1) {
         // kop surat
@@ -30,7 +30,7 @@ function Footer()
         // Arial italic 8
         $this->SetFont('Arial','I',8);
         $this->Cell(0, 5, Auth::user()->user_kta, 0, 0, 'L');
-        
+
     }
 }
 
@@ -43,13 +43,13 @@ function NoSurat($letter)
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords($letter->letter_no), 0, 0, 'L');
         $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
-        
+
         $this->Ln(5);
         $this->Cell(8);
         $this->Cell(20, 5, 'Lampiran', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
-        
+
         // Perihal
         $this->Ln(5);
         $this->cell(8);
@@ -63,7 +63,7 @@ function NoSurat($letter)
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
         $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
-        
+
         // Perihal
         $this->Ln(5);
         $this->cell(8);
@@ -173,7 +173,7 @@ function BodyDua($letter)
     $this->Cell(32, 5, 'Kaliber', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
     $this->Cell(120, 5, ucwords($letter->kaliber), 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'd.', 0, 0, 'C');

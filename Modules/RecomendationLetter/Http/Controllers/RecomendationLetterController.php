@@ -290,7 +290,7 @@ class RecomendationLetterController extends Controller
                     'l8_data_anggota_club' => 'required|mimes:pdf|max:2048',
                     'l8_surat_keterangan_domisili' => 'required|mimes:pdf|max:2048',
                     'file_skck' => 'required|mimes:pdf|max:2048',
-                    'biaya_administrasi' => 'required|mimes:pdf|max:2048',
+                    'biaya_administrasi' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'letter_place' => 'required',
                     'letter_date' => 'required',
                     'letter_category_id' => 'required',
@@ -1534,6 +1534,32 @@ class RecomendationLetterController extends Controller
             case 10:
                 return view('recomendationletter::letters.print_letter_10', compact('letter'));
                 break;
+
+                // belum update
+            case 3:
+                return view('recomendationletter::letters.print_letter_3', compact('letter'));
+                break;
+
+            case 5:
+                return view('recomendationletter::letters.print_letter_5', compact('letter'));
+                break;
+
+            case 6:
+                return view('recomendationletter::letters.print_letter_6', compact('letter'));
+                break;
+
+            case 7:
+                return view('recomendationletter::letters.print_letter_7', compact('letter'));
+                break;
+
+            case 8:
+                return view('recomendationletter::letters.print_letter_8', compact('letter'));
+                break;
+
+            case 9:
+                return view('recomendationletter::letters.print_letter_9', compact('letter'));
+                break;
+
 
             default:
                 # code...
