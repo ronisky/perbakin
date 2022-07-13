@@ -98,88 +98,80 @@
                                 <td>{{ $letter->club }}</td>
                                 <td>{{ $letter->created_at }}</td>
                                 <td>
-                                    @php
-                                    $status = $letter->letter_status;
-
-                                    if($status == 1){
-                                    $letter_status = 'Pengajuan Baru';
-                                    $class = 'badge badge-success';
-                                    }elseif($status == 2){
-                                    $letter_status = 'Diproses';
-                                    $class = 'badge badge-warning';
-                                    }elseif($status == 3){
-                                    $letter_status = 'Diterima';
-                                    $class = 'badge badge-success';
-                                    }else {
-                                    $letter_status = 'Ditolak';
-                                    $class = 'badge badge-danger';
-                                    }
-
-                                    @endphp
-                                    <span class="{{ $class }}">{{ $letter_status }}</span>
+                                    <span class="{{ $letter->style_class }}">{{ $letter->approval_status }}</span>
                                 </td>
                                 @php
                                 if (Auth::user()->group_id == 1) {
                                 echo '<td>';
-                                    echo '<select class="form-control letter_approval_admin"
-                                        name="letter_status_approval_admin" data-id="'.$letter->letter_id.'"
-                                        data-user="admin">
-                                        <option value="" selected>Update Status</option>
-                                        <option data-value="1" value="1">Terima</option>
-                                        <option data-value="2" value="2">Tolak</option>
-                                    </select>';
-                                    echo '</td>';
-                                echo '<td>';
-                                    echo '<select class="form-control letter_approval_sekum"
-                                        name="letter_status_approval_sekum" data-id="'.$letter->letter_id.'"
-                                        data-user="sekum">
-                                        <option value="" selected>Update Status</option>
-                                        <option value="1">Terima</option>
-                                        <option value="2">Tolak</option>
-                                    </select>';
-                                    echo '</td>';
-                                echo '<td>';
-                                    echo '<select class="form-control letter_approval_ketua"
-                                        name="letter_status_approval_ketua" data-id="'.$letter->letter_id.'"
-                                        data-user="ketua">
-                                        <option value="" selected>Update Status</option>
-                                        <option value="1">Terima</option>
-                                        <option value="2">Tolak</option>
-                                    </select>';
-                                    echo '</td>';
-                                }elseif(Auth::user()->group_id == 4){
-                                echo '<td>';
                                     $status = $letter->admin_status;
 
                                     if($status == 1){
-                                    $admin_status = 'Pengajuan Baru';
+                                    $admin_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
-                                    }elseif($status == 2){
-                                    $admin_status = 'Diproses';
-                                    $class = 'badge badge-warning';
-                                    }elseif($status == 3){
-                                    $admin_status = 'Diterima';
-                                    $class = 'badge badge-success';
-                                    }else {
+                                    }else if($status == 2){
                                     $admin_status = 'Ditolak';
                                     $class = 'badge badge-danger';
+                                    }else {
+                                    $admin_status = 'Diproses';
+                                    $class = 'badge badge-info';
                                     }
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
                                     $status = $letter->sekum_status;
                                     if($status == 1){
-                                    $sekum_status = 'Pengajuan Baru';
+                                    $admin_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
-                                    }elseif($status == 2){
-                                    $sekum_status = 'Diproses';
-                                    $class = 'badge badge-warning';
-                                    }elseif($status == 3){
-                                    $sekum_status = 'Diterima';
-                                    $class = 'badge badge-success';
-                                    }else {
-                                    $sekum_status = 'Ditolak';
+                                    }else if($status == 2){
+                                    $admin_status = 'Ditolak';
                                     $class = 'badge badge-danger';
+                                    }else {
+                                    $sekum_status = 'Diproses';
+                                    $class = 'badge badge-info';
+                                    }
+                                    echo '<span class="'. $class .'">'. $sekum_status .'</span>';
+                                    echo '</td>';
+                                echo '<td>';
+                                    $status = $letter->ketua_status;
+                                    if($status == 1){
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    }else if($status == 2){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else {
+                                    $sekum_status = 'Diproses';
+                                    $class = 'badge badge-info';
+                                    }
+                                    echo '<span class="'. $class .'">'. $sekum_status .'</span>';
+                                    echo '</td>';
+                                }elseif(Auth::user()->group_id == 4){
+                                echo '<td>';
+                                    $status = $letter->admin_status;
+
+                                    if($status == 1){
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    }else if($status == 2){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else {
+                                    $admin_status = 'Diproses';
+                                    $class = 'badge badge-info';
+                                    }
+                                    echo '<span class="'. $class .'">'. $admin_status .'</span>';
+                                    echo '</td>';
+                                echo '<td>';
+                                    $status = $letter->sekum_status;
+                                    if($status == 1){
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    }else if($status == 2){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else {
+                                    $sekum_status = 'Diproses';
+                                    $class = 'badge badge-info';
                                     }
                                     echo '<span class="'. $class .'">'. $sekum_status .'</span>';
                                     echo '</td>';
@@ -207,17 +199,14 @@
                                     $status = $letter->admin_status;
 
                                     if($status == 1){
-                                    $admin_status = 'Pengajuan Baru';
+                                    $admin_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
-                                    }elseif($status == 2){
-                                    $admin_status = 'Diproses';
-                                    $class = 'badge badge-warning';
-                                    }elseif($status == 3){
-                                    $admin_status = 'Diterima';
-                                    $class = 'badge badge-success';
-                                    }else {
+                                    }else if($status == 2){
                                     $admin_status = 'Ditolak';
                                     $class = 'badge badge-danger';
+                                    }else {
+                                    $admin_status = 'Diproses';
+                                    $class = 'badge badge-info';
                                     }
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
@@ -235,12 +224,15 @@
 
                                 <td>
                                     @if($letter->letter_id > 0)
+                                    @if (Auth::user()->group_id != 1 || Auth::user()->group_id != 2)
                                     <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
                                         target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                         title="Print">
                                         <i data-feather="printer" width="16" height="16"></i>
                                     </a>
+
+                                    @else
                                     {{-- <a href="javascript:void(0)" class="btn btn-icon btnDetail btn-outline-info"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                     title="Detail">
@@ -251,12 +243,19 @@
                                     title="Ubah">
                                     <i data-feather="edit" width="16" height="16"></i>
                                     </a> --}}
+                                    <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
+                                        target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
+                                        data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
+                                        title="Print">
+                                        <i data-feather="printer" width="16" height="16"></i>
+                                    </a>
                                     <a href="javascript:void(0)" class="btn btn-icon btn-outline-danger btnDelete"
                                         data-url="{{ url('recomendationletterapproval/delete/'. $letter->letter_id) }}"
                                         data-toggle="tooltip" data-placement="top" title="Hapus">
                                         <i data-feather="trash-2" width="16" height="16"></i>
                                     </a>
                                     </a>
+                                    @endif
                                     @endif
                                 </td>
                             </tr>

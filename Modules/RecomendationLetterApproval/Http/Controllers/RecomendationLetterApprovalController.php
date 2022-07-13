@@ -135,12 +135,13 @@ class RecomendationLetterApprovalController extends Controller
                         'admin_status'      => $request->status_code,
                         'admin_status_by'   => $user_id,
                         'admin_note'        => null,
+                        'letter_status'     => 2,
                     ];
                     $result = $this->_updateStatus($data, $id);
 
                     if ($result) {
                         Mail::to($email)->send(new LetterSubmission($id));
-                        return DataHelper::_successResponse($email, 'Status surat berhasil diubah');
+                        return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
                     } else {
                         return DataHelper::_errorResponse(null, 'Gagal mengubah status');
                     }
@@ -159,6 +160,7 @@ class RecomendationLetterApprovalController extends Controller
                         'sekum_status'      => $request->status_code,
                         'sekum_status_by'   => $user_id,
                         'sekum_note'        => null,
+                        'letter_status'     => 2,
                     ];
                     $result = $this->_updateStatus($data, $id);
 
@@ -180,7 +182,7 @@ class RecomendationLetterApprovalController extends Controller
                         'ketua_status'  => $request->status_code,
                         'ketua_status_by'   => $user_id,
                         'ketua_note'    => null,
-                        'letter_status'    => 1,
+                        'letter_status'    => 3,
                     ];
                     $result = $this->_updateStatus($data, $id);
                     if ($result) {
@@ -213,9 +215,10 @@ class RecomendationLetterApprovalController extends Controller
                         $data = implode("|", $checkData);
 
                         $updateData = [
-                            'admin_status'      => $request->status_code,
+                            'admin_status'      => 2,
                             'admin_status_by'   => $user_id,
                             'admin_note'        => $data,
+                            'letter_status'     => 4,
                         ];
 
                         $result = $this->_updateStatus($updateData, $id);
@@ -227,9 +230,10 @@ class RecomendationLetterApprovalController extends Controller
                         }
                     } elseif ($other_note != null) {
                         $updateData = [
-                            'admin_status'  => $request->status_code,
+                            'admin_status'  => 2,
                             'admin_status_by'   => $user_id,
                             'admin_note'    => $other_note,
+                            'letter_status'     => 4,
                         ];
 
                         $result = $this->_updateStatus($updateData, $id);
@@ -259,9 +263,10 @@ class RecomendationLetterApprovalController extends Controller
                         $data = implode("|", $checkData);
 
                         $updateData = [
-                            'sekum_status'  => $request->status_code,
+                            'sekum_status'  => 2,
                             'sekum_status_by'   => $user_id,
                             'sekum_note'    => $data,
+                            'letter_status'     => 4,
                         ];
 
                         $result = $this->_updateStatus($updateData, $id);
@@ -273,9 +278,10 @@ class RecomendationLetterApprovalController extends Controller
                         }
                     } elseif ($other_note != null) {
                         $updateData = [
-                            'sekum_status'  => $request->status_code,
+                            'sekum_status'  => 2,
                             'sekum_status_by'   => $user_id,
                             'sekum_note'    => $other_note,
+                            'letter_status'     => 4,
                         ];
 
                         $result = $this->_updateStatus($updateData, $id);
@@ -305,9 +311,10 @@ class RecomendationLetterApprovalController extends Controller
                         $data = implode("|", $checkData);
 
                         $updateData = [
-                            'ketua_status'  => $request->status_code,
+                            'ketua_status'  => 2,
                             'ketua_status_by'   => $user_id,
                             'ketua_note'    => $data,
+                            'letter_status'     => 4,
                         ];
 
                         $result = $this->_updateStatus($updateData, $id);
@@ -319,9 +326,10 @@ class RecomendationLetterApprovalController extends Controller
                         }
                     } elseif ($other_note != null) {
                         $updateData = [
-                            'ketua_status'  => $request->status_code,
+                            'ketua_status'  => 2,
                             'ketua_status_by'   => $user_id,
                             'ketua_note'    => $other_note,
+                            'letter_status'     => 4,
                         ];
 
                         $result = $this->_updateStatus($updateData, $id);
