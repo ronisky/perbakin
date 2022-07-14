@@ -21,7 +21,7 @@ class LetterSubmission extends Mailable
     {
         $this->_recomendationLetterRepository      = new RecomendationLetterRepository;
 
-        $this->letter = $this->_recomendationLetterRepository->getById($id);
+        $this->letter = $this->_recomendationLetterRepository->getByIdLetter($id);
     }
 
 

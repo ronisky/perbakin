@@ -1132,7 +1132,7 @@
                     type: 'GET',
                     url: url,
                     success: function (data) {
-                        if (result.isConfirmed) {
+                        if (data.status == 1) {
                             Swal.fire(
                                 'Terhapus!',
                                 'Data Berhasil Dihapus.',

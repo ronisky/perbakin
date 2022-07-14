@@ -1952,6 +1952,8 @@
                                         <label class="custom-file-label" for="l5_lampiran1" data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
                                     @if ($errors->has('l5_lampiran1'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
@@ -1962,17 +1964,20 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3 letter5">
-                                <label class="col-sm-12 col-form-label">Pilih Nama Anggota rombongan dan Senjata Api
+                                <label class="col-sm-12 col-form-label">Pilih nama anggota rombongan dan senjata api
                                     yang digunakan</label>
                                 <div class="col-sm-12">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input nama_anggota_senjata_digunakan"
-                                            id="nama_anggota_senjata_digunakan" name="nama_anggota_senjata_digunakan">
-                                        <label class="custom-file-label" for="nama_anggota_senjata_digunakan"
+                                        <input type="file" class="custom-file-input file_nama_anggota_senjata_digunakan"
+                                            id="file_nama_anggota_senjata_digunakan"
+                                            name="file_nama_anggota_senjata_digunakan">
+                                        <label class="custom-file-label" for="file_nama_anggota_senjata_digunakan"
                                             data-browse="Cari">Pilih
                                             file...</label>
                                     </div>
-                                    @if ($errors->has('nama_anggota_senjata_digunakan'))
+                                    <small class="text-info">Pastikan format file (pdf) dengan ukuran kurang dari
+                                        2MB</small>
+                                    @if ($errors->has('file_nama_anggota_senjata_digunakan'))
                                     <span class="text-danger">
                                         <label id="basic-error" class="validation-error-label" for="basic">Pastikan
                                             format
@@ -4033,7 +4038,7 @@
             jumlah_anggota: 'required',
             pemohon: 'required',
             l5_lampiran1: 'required',
-            nama_anggota_senjata_digunakan: 'required',
+            file_nama_anggota_senjata_digunakan: 'required',
             file_kta: 'required',
             file_buku_pas_senpi: 'required'
         },
@@ -4056,7 +4061,7 @@
             jumlah_anggota: 'Form data tidak boleh kosong',
             pemohon: 'Form data tidak boleh kosong',
             l5_lampiran1: 'File harus dipilih',
-            nama_anggota_senjata_digunakan: 'File harus dipilih',
+            file_nama_anggota_senjata_digunakan: 'File harus dipilih',
             file_kta: 'File harus dipilih',
             file_buku_pas_senpi: 'File harus dipilih'
         },

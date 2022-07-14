@@ -209,7 +209,7 @@ class RecomendationLetterController extends Controller
             case '5':
                 return [
                     'l5_lampiran1' => 'required|mimes:pdf|max:2048',
-                    'nama_anggota_senjata_digunakan' => 'required|mimes:pdf|max:2048',
+                    'file_nama_anggota_senjata_digunakan' => 'required|mimes:pdf|max:2048',
                     'file_kta' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'file_buku_pas_senpi' => 'required|mimes:pdf|max:2048',
                     'letter_place' => 'required',
@@ -854,7 +854,7 @@ class RecomendationLetterController extends Controller
                     if (!$request->hasFile('l5_lampiran1')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
                     }
-                    if (!$request->hasFile('nama_anggota_senjata_digunakan')) {
+                    if (!$request->hasFile('file_nama_anggota_senjata_digunakan')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
                     }
                     if (!$request->hasFile('file_kta')) {
@@ -875,9 +875,9 @@ class RecomendationLetterController extends Controller
                     $name_l5_lampiran1 = DataHelper::getFileName($l5_lampiran1);
                     $request->file('l5_lampiran1')->storeAs($filePath . "category-" . $categoryId, $name_l5_lampiran1, 'public');
 
-                    $nama_anggota_senjata_digunakan = $request->nama_anggota_senjata_digunakan;
-                    $name_nama_anggota_senjata_digunakan = DataHelper::getFileName($nama_anggota_senjata_digunakan);
-                    $request->file('nama_anggota_senjata_digunakan')->storeAs($filePath . "category-" . $categoryId, $name_nama_anggota_senjata_digunakan, 'public');
+                    $file_nama_anggota_senjata_digunakan = $request->file_nama_anggota_senjata_digunakan;
+                    $name_file_nama_anggota_senjata_digunakan = DataHelper::getFileName($file_nama_anggota_senjata_digunakan);
+                    $request->file('file_nama_anggota_senjata_digunakan')->storeAs($filePath . "category-" . $categoryId, $name_file_nama_anggota_senjata_digunakan, 'public');
 
                     $file_kta = $request->file_kta;
                     $name_file_kta = DataHelper::getFileName($file_kta);
@@ -889,7 +889,7 @@ class RecomendationLetterController extends Controller
 
                     $data = [
                         'l5_lampiran1' => $name_l5_lampiran1,
-                        'nama_anggota_senjata_digunakan' => $name_nama_anggota_senjata_digunakan,
+                        'file_nama_anggota_senjata_digunakan' => $name_file_nama_anggota_senjata_digunakan,
                         'file_kta' => $name_file_kta,
                         'file_buku_pas_senpi' => $name_file_buku_pas_senpi,
                     ];
@@ -921,18 +921,20 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
-                    $this->_logHelper->store($this->module, $request->pemohon, 'create');
+                    $letterId = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $this->_logHelper->store($this->module, $request->letter_id, 'create');
+                    DB::commit();
 
+                    // send mail
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
                     $email = [];
                     foreach ($users as $user) {
                         array_push($email, $user->user_email);
                     }
-                    Mail::to($email)->send(new LetterSubmission($letter_id));
+                    Mail::to($email)->send(new LetterSubmission($letterId));
 
-                    DB::commit();
+
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -976,7 +978,7 @@ class RecomendationLetterController extends Controller
 
                     $file_kta = $request->file_kta;
                     $name_file_kta = DataHelper::getFileName($file_kta);
-                    $request->file('file_kta')->storeAs($filePath . "category-" . $categoryId, $name_nama_anggota_senjata_digunakan, 'public');
+                    $request->file('file_kta')->storeAs($filePath . "category-" . $categoryId, $name_file_kta, 'public');
 
                     $surat_rekomendasi_pengcab = $request->surat_rekomendasi_pengcab;
                     $name_surat_rekomendasi_pengcab = DataHelper::getFileName($surat_rekomendasi_pengcab);
