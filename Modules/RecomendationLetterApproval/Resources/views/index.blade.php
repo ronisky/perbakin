@@ -54,12 +54,6 @@
                 </div>
             </div>
             <div class="card-body">
-                {{-- <div class="addData mb-3">
-                    <a href="javascript:void(0)" class="btn btn-success btnAdd">
-                        <i data-feather="plus" width="16" height="16" class="me-2"></i>
-                        Tambah Pengajuan Surat Rekomendasi
-                    </a>
-                </div> --}}
                 <div class="table-responsive">
                     <table class="table table-striped card-table table-hover text-nowrap table-data">
                         <thead>
@@ -237,7 +231,7 @@
                                         title="Detail">
                                         <i data-feather="eye" width="16" height="16"></i>
                                     </a>
-                                    <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
+                                    <a href="{{ url('recomendationletterapproval/printletter/'. $letter->letter_id) }}"
                                         target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                         title="Print">
@@ -249,13 +243,12 @@
                                         <i data-feather="trash-2" width="16" height="16"></i>
                                     </a>
                                     @else
-
-                                    {{-- <a href="javascript:void(0)" class="btn btn-icon btnEdit btn-outline-warning"
+                                    <a href="javascript:void(0)" class="btn btn-icon btnDetail btn-outline-info"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
-                                    title="Ubah">
-                                    <i data-feather="edit" width="16" height="16"></i>
-                                    </a> --}}
-                                    <a href="{{ url('recomendationletter/printletter/'. $letter->letter_id) }}"
+                                        title="Detail">
+                                        <i data-feather="eye" width="16" height="16"></i>
+                                    </a>
+                                    <a href="{{ url('recomendationletterapproval/printletter/'. $letter->letter_id) }}"
                                         target="_blank" class="btn btn-icon btnPrint btn-outline-secondary"
                                         data-id="{{ $letter->letter_id }}" data-toggle="tooltip" data-placement="top"
                                         title="Print">
@@ -282,445 +275,6 @@
 <!-- </div> -->
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
-
-<!-- Modal Add -->
-<div class="modal addModal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah pengajuan surat rekomendasi</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <form action="{{ url('recomendationletterapproval/store') }}" method="POST" id="addForm">
-                @csrf
-                <div class="modal-body">
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Jenis Surat Rekomendasi</label>
-                                    <select class="form-control" name="letter_category_id" id="letter_category_id">
-                                        <option value="">- Pilih Jenis Surat Rekomendasi -</option>
-                                        @if(sizeof($letter_categories) > 0)
-                                        @foreach($letter_categories as $letter_category)
-                                        <option value="{{ $letter_category->letter_category_id }}">
-                                            {{ $letter_category->letter_category_name }}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="letter_place" id="letter_place"
-                                        placeholder="Masukan tempat surat">
-                                </div>
-                            </div>
-                            <div class="col-md-12 mb-3 border-bottom border-dark">
-                                <span class=" font-weight-bold">Bagian 1 Pemohon</span>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Nama <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="name" id="name"
-                                        placeholder="Masukan nama">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="place_of_birth" id="place_of_birth"
-                                        placeholder="Masukan tempat lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" name="date_of_birth" id="date_of_birth"
-                                        placeholder="Masukan tanggal lahir">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Pekerjaan / Jabatan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="occupation" id="occupation"
-                                        placeholder="Masukan pekerjaan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Alamat<span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="address" id="address"
-                                        placeholder="Masukan alamat">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Klub / Perkumpulan <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="club" id="club"
-                                        placeholder="Masukan klub / perkumupulan">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor KTA PB-Perbakin <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_kta" id="no_kta"
-                                        placeholder="Masukan nomor KTA PB-Perbakin" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Keanggotaan Cabang <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="membership" id="membership"
-                                        placeholder="Masukan keanggotaan cabang">
-                                </div>
-                            </div>
-                            <div class="col-md-12 mb-3 border-bottom border-dark">
-                                <span class=" font-weight-bold">Bagian 2 Keterangan</span>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Jenis Senjata</label>
-                                    <select class="form-control" name="firearm_category_id" id="firearm_category_id">
-                                        <option value="">- Pilih Jenis Senjata -</option>
-                                        @if(sizeof($firearm_categories) > 0)
-                                        @foreach($firearm_categories as $firearm_category)
-                                        <option value="{{ $firearm_category->firearm_category_id }}">
-                                            {{ $firearm_category->firearm_category_name }}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Merek <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="merek" id="merek"
-                                        placeholder="Masukan merek">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Kaliber <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="kaliber" id="kaliber"
-                                        placeholder="Masukan kaliber">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor Pebrik <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_pabrik" id="no_pabrik"
-                                        placeholder="Masukan nomor pabrik">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Nomor Buku Pas Senpi <span
-                                            class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_buku_pas_senpi"
-                                        id="no_buku_pas_senpi" placeholder="Masukan nomor buku pas senpi">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Nama Pemilik <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="nama_pemilik" id="nama_pemilik"
-                                        placeholder="Masukan nama pemilik">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Jumlah <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" name="jumlah" id="jumlah"
-                                        placeholder="Masukan jumlah">
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Penyimpanan / Gudang<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="penyimpanan" id="penyimpanan"
-                                        placeholder="Masukan penyimpanan / gudang">
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 mb-3 border-bottom border-dark">
-                                <span class=" font-weight-bold">Bagian 3 Persyaratan</span>
-                            </div>
-
-                            <div class="col-md-6 mb-3 option-2">
-                                <label class="col-sm-12 col-form-label">Pilih Surat Pernyataan Hibah Senpi</label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_surat_pernyataan"
-                                            id="file_surat_pernyataan" name="file_surat_pernyataan">
-                                        <label class="custom-file-label" for="file_surat_pernyataan"
-                                            data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_surat_pernyataan'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-1">
-                                <label class="col-sm-12 col-form-label">Pilih Buku Pas Senpi</label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_buku_pas_senpi"
-                                            id="file_buku_pas_senpi" name="file_buku_pas_senpi">
-                                        <label class="custom-file-label" for="file_buku_pas_senpi"
-                                            data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_buku_pas_senpi'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-2">
-                                <label class="col-sm-12 col-form-label">Pilih Foto Senjata</label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_foto_senjata"
-                                            id="file_foto_senjata" name="file_foto_senjata">
-                                        <label class="custom-file-label" for="file_foto_senjata"
-                                            data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_foto_senjata'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (jpg/jpeg/png) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-1">
-                                <label class="col-sm-12 col-form-label">Pilih KTA Perbakin</label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_kta_perbakin"
-                                            id="file_kta_perbakin" name="file_kta_perbakin">
-                                        <label class="custom-file-label" for="file_kta_perbakin"
-                                            data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_kta_perbakin'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (jpg/jpeg/png) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-1">
-                                <label class="col-sm-12 col-form-label">Pilih KTP</label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_ktp" id="file_ktp"
-                                            name="file_ktp">
-                                        <label class="custom-file-label" for="file_ktp" data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_ktp'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (jpg/jpeg/png) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-2">
-                                <label class="col-sm-12 col-form-label">Pilih Sertifikat Lulus Penataran Menembak
-                                    Perbakin Bid Berburu / Reaksi </label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_sertifikat"
-                                            id="file_sertifikat" name="file_sertifikat">
-                                        <label class="custom-file-label" for="file_sertifikat" data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_sertifikat'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-2">
-                                <label class="col-sm-12 col-form-label">Pilih SKCK</label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_skck" id="file_skck"
-                                            name="file_skck">
-                                        <label class="custom-file-label" for="file_skck" data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_skck'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-2">
-                                <label class="col-sm-12 col-form-label">Pilih Surat Sehat dari Dokter Polda</label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_surat_sehat"
-                                            id="file_surat_sehat" name="file_surat_sehat">
-                                        <label class="custom-file-label" for="file_surat_sehat" data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_surat_sehat'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-2">
-                                <label class="col-sm-12 col-form-label">Pilih Hasil lulus Tes Psikotes dari
-                                    Kepolisian/Polda</label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_hasil_psikotes"
-                                            id="file_hasil_psikotes" name="file_hasil_psikotes">
-                                        <label class="custom-file-label" for="file_hasil_psikotes"
-                                            data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_hasil_psikotes'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-2">
-                                <label class="col-sm-12 col-form-label">Pilih Kartu Keluarga</label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_kartu_keluarga"
-                                            id="file_kartu_keluarga" name="file_kartu_keluarga">
-                                        <label class="custom-file-label" for="file_kartu_keluarga"
-                                            data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_kartu_keluarga'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-2">
-                                <label class="col-sm-12 col-form-label">Pilih Pas Foto (Latar Merah)</label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_pas_foto_23"
-                                            id="file_pas_foto_23" name="file_pas_foto_23">
-                                        <label class="custom-file-label" for="file_pas_foto_23" data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_pas_foto_23'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-2">
-                                <label class="col-sm-12 col-form-label">Pilih Pas Foto 3x4 (Latar Merah) </label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_pas_foto_34"
-                                            id="file_pas_foto_34" name="file_pas_foto_34">
-                                        <label class="custom-file-label" for="file_pas_foto_34" data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_pas_foto_34'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3 option-1">
-                                <label class="col-sm-12 col-form-label">Pilih Pas Foto 4x6 (Latar Merah) </label>
-                                <div class="col-sm-12">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input file_pas_foto_46"
-                                            id="file_pas_foto_46" name="file_pas_foto_46">
-                                        <label class="custom-file-label" for="file_pas_foto_46" data-browse="Cari">Pilih
-                                            file...</label>
-                                    </div>
-                                    @if ($errors->has('file_pas_foto_46'))
-                                    <span class="text-danger">
-                                        <label id="basic-error" class="validation-error-label" for="basic">Pastikan
-                                            format
-                                            file (pdf/doc/docx) dengan ukuran kurang dari 2MB</label>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 mb-3 border-bottom border-dark">
-                                <span class=" font-weight-bold">Bagian 4 Pemohon</span>
-                            </div>
-
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label class="form-label">Pemohon<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="pemohon" id="pemohon"
-                                        placeholder="Masukan pemohon">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Modal Add -->
 
 {{-- Reject Letter Modal --}}
 <div class="modal fade rejectLetter" id="rejectLetter" tabindex="-1" role="dialog" aria-labelledby="rejectLetterLabel"
@@ -776,6 +330,937 @@
     </div>
 </div>
 {{-- End Reject Letter Modal --}}
+
+{{-- Modal detail letter  --}}
+<div class=" modal detailModalLetter1" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body container">
+                <form id="userDetail" name="userDetail">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label for="letter_status" class="col-md-5 col-form-label">Status pengajuan</label>
+                                <div id="letter_status_detail1">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="letter_category_name" class="col-md-5 col-form-label">Kategori surat</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext letter_category_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_kta"
+                                        value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext club_name"
+                                        value="{{ old('club_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File buku pas
+                                    senpi</label>
+                                <div class="col-md-6">
+                                    <div id="file_buku_pas_senpi_detail1"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_kta" class="col-md-5 col-form-label">File KTA</label>
+                                <div class="col-md-6">
+                                    <div id="file_kta_detail1"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <div class="col-md-6">
+                                    <div id="file_ktp_detail1"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_foto_4x6" class="col-md-5 col-form-label">File foto</label>
+                                <div class="col-md-6">
+                                    <div id="file_foto_4x6_detail1"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" modal detailModalLetter2" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body container">
+                <form id="userDetail" name="userDetail">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label for="letter_status" class="col-md-5 col-form-label">Status pengajuan</label>
+                                <div id="letter_status_detail2">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="letter_category_name" class="col-md-5 col-form-label">Kategori surat</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext letter_category_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_kta"
+                                        value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext club_name"
+                                        value="{{ old('club_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_surat_hibah_senpi" class="col-md-5 col-form-label">File surat
+                                    pernyataan hibah senpi</label>
+                                <div class="col-md-6">
+                                    <div id="file_surat_hibah_senpi_detail2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File buku pas
+                                    senpi</label>
+                                <div class="col-md-6">
+                                    <div id="file_buku_pas_senpi_detail2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_foto_senjata" class="col-md-5 col-form-label">Foto senjata</label>
+                                <div class="col-md-6">
+                                    <div id="file_foto_senjata_detail2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_kta" class="col-md-5 col-form-label">File KTA</label>
+                                <div class="col-md-6">
+                                    <div id="file_kta_detail2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <div class="col-md-6">
+                                    <div id="file_ktp_detail2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_sertif_menembak" class="col-md-5 col-form-label">File sertifikat lulus
+                                    penataran menembak perbakin bid. berburu/reaksi</label>
+                                <div class="col-md-6">
+                                    <div id="file_sertif_menembak_detail2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_skck" class="col-md-5 col-form-label">File SKCK</label>
+                                <div class="col-md-6">
+                                    <div id="file_skck_detail2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_surat_sehat" class="col-md-5 col-form-label">File surat keterangan
+                                    sehat dari dokter Polda </label>
+                                <div class="col-md-6">
+                                    <div id="file_surat_sehat_detail2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_tes_psikotes" class="col-md-5 col-form-label">File hasil lulus tes
+                                    psikotes dari kepolisian/polda </label>
+                                <div class="col-md-6">
+                                    <div id="file_tes_psikotes_detail2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_kk" class="col-md-5 col-form-label">File kartu keluarga </label>
+                                <div class="col-md-6">
+                                    <div id="file_kk_detail2"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_foto_4x6" class="col-md-5 col-form-label">File foto</label>
+                                <div class="col-md-6">
+                                    <div id="file_foto_4x6_detail2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" modal detailModalLetter3" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body container">
+                <form id="userDetail" name="userDetail">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label for="letter_status" class="col-md-5 col-form-label">Status pengajuan</label>
+                                <div id="letter_status_detail3">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="letter_category_name" class="col-md-5 col-form-label">Kategori surat</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext letter_category_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_kta"
+                                        value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext club_name"
+                                        value="{{ old('club_name') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" modal detailModalLetter4" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body container">
+                <form id="userDetail" name="userDetail">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label for="letter_status" class="col-md-5 col-form-label">Status pengajuan</label>
+                                <div id="letter_status_detail4">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="letter_category_name" class="col-md-5 col-form-label">Kategori surat</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext letter_category_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_kta"
+                                        value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext club_name"
+                                        value="{{ old('club_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_si_impor_senjata" class="col-md-5 col-form-label">File SI impor senjata
+                                    api</label>
+                                <div class="col-md-6">
+                                    <div id="file_si_impor_senjata_detail4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_sba_penitipan_senpi" class="col-md-5 col-form-label">File surat berita
+                                    acara penitipan senpi dari Bid. Yanmas Mabes Polri </label>
+                                <div class="col-md-6">
+                                    <div id="file_sba_penitipan_senpi_detail4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_kta" class="col-md-5 col-form-label">File KTA Perbakin</label>
+                                <div class="col-md-6">
+                                    <div id="file_kta_detail4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <div class="col-md-6">
+                                    <div id="file_ktp_detail4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_sertif_menembak" class="col-md-5 col-form-label">File sertifikat lulus
+                                    penataran menembak perbakin bid. berburu/reaksi</label>
+                                <div class="col-md-6">
+                                    <div id="file_sertif_menembak_detail4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_skck" class="col-md-5 col-form-label">File SKCK</label>
+                                <div class="col-md-6">
+                                    <div id="file_skck_detail4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_surat_sehat" class="col-md-5 col-form-label">File surat keterangan
+                                    sehat dari dokter Polda </label>
+                                <div class="col-md-6">
+                                    <div id="file_surat_sehat_detail4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_tes_psikotes" class="col-md-5 col-form-label">File hasil lulus tes
+                                    psikotes dari Kepolisian/polda </label>
+                                <div class="col-md-6">
+                                    <div id="file_tes_psikotes_detail4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_kk" class="col-md-5 col-form-label">File kartu keluarga </label>
+                                <div class="col-md-6">
+                                    <div id="file_kk_detail4"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_foto_4x6" class="col-md-5 col-form-label">File foto</label>
+                                <div class="col-md-6">
+                                    <div id="file_foto_4x6_detail4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" modal detailModalLetter5" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body container">
+                <form id="userDetail" name="userDetail">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label for="letter_status" class="col-md-5 col-form-label">Status pengajuan</label>
+                                <div id="letter_status_detail5">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="letter_category_name" class="col-md-5 col-form-label">Kategori surat</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext letter_category_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_kta"
+                                        value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext club_name"
+                                        value="{{ old('club_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="l5_lampiran1" class="col-md-5 col-form-label">File izin penggunaan lapangan
+                                    tembak Denma Mako Korpaskhas TNI AU Sulaiman</label>
+                                <div class="col-md-6">
+                                    <div id="l5_lampiran1_detail5"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_nama_anggota_senjata_digunakan" class="col-md-5 col-form-label">File
+                                    nama anggota rombongan dan senjata api yang digunakan </label>
+                                <div class="col-md-6">
+                                    <div id="file_nama_anggota_senjata_digunakan_detail5"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_kta" class="col-md-5 col-form-label">File KTA Perbakin</label>
+                                <div class="col-md-6">
+                                    <div id="file_kta_detail5"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File Buku Pas Senjata
+                                    Api </label>
+                                <div class="col-md-6">
+                                    <div id="file_buku_pas_senpi_detail5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" modal detailModalLetter6" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body container">
+                <form id="userDetail" name="userDetail">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label for="letter_status" class="col-md-5 col-form-label">Status pengajuan</label>
+                                <div id="letter_status_detail6">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="letter_category_name" class="col-md-5 col-form-label">Kategori surat</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext letter_category_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_kta"
+                                        value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext club_name"
+                                        value="{{ old('club_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="surat_rekomendasi_pengcab" class="col-md-5 col-form-label">File rekomendasi
+                                    dari pengcab Perbakin Kab.Bandung</label>
+                                <div class="col-md-6">
+                                    <div id="surat_rekomendasi_pengcab_detail6"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_nama_anggota_senjata_digunakan" class="col-md-5 col-form-label">File
+                                    nama anggota
+                                    rombongan dan senjata api yang digunakan</label>
+                                <div class="col-md-6">
+                                    <div id="file_nama_anggota_senjata_digunakan_detail6"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_kta" class="col-md-5 col-form-label">File KTA Perbakin</label>
+                                <div class="col-md-6">
+                                    <div id="file_kta_detail6"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File buku pas senjata
+                                    api </label>
+                                <div class="col-md-6">
+                                    <div id="file_buku_pas_senpi_detail6"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="l6_undangan_berburu" class="col-md-5 col-form-label">File undangan berburu
+                                    dari Kepala Desa / Camat lokasi Berburu</label>
+                                <div class="col-md-6">
+                                    <div id="l6_undangan_berburu_detail6"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_surat_sehat" class="col-md-5 col-form-label">File surat keterangan
+                                    sehat dari dokter </label>
+                                <div class="col-md-6">
+                                    <div id="file_surat_sehat_detail6"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" modal detailModalLetter7" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body container">
+                <form id="userDetail" name="userDetail">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label for="letter_status" class="col-md-5 col-form-label">Status pengajuan</label>
+                                <div id="letter_status_detail7">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="letter_category_name" class="col-md-5 col-form-label">Kategori surat</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext letter_category_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_kta"
+                                        value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext club_name"
+                                        value="{{ old('club_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12 row">
+                                <label for="l7_alasan_pengunduran" class="col-md-5 col-form-label">Alasan Pengunduran
+                                    diri</label>
+                                <div class="col-md-12">
+                                    <textarea type="text" class="form-control l7_alasan_pengunduran"
+                                        name="l7_alasan_pengunduran" id="l7_alasan_pengunduran" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" modal detailModalLetter8" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body container">
+                <form id="userDetail" name="userDetail">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label for="letter_status" class="col-md-5 col-form-label">Status pengajuan</label>
+                                <div id="letter_status_detail8">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="letter_category_name" class="col-md-5 col-form-label">Kategori surat</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext letter_category_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_kta"
+                                        value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext club_name"
+                                        value="{{ old('club_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="l8_kta_anggota_baru" class="col-md-5 col-form-label">File KTA 4(empat) orang
+                                    anggota yang
+                                    sudah memiliki KTA Perbakin dari PB</label>
+                                <div class="col-md-6">
+                                    <div id="l8_kta_anggota_baru_detail8"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <div class="col-md-6">
+                                    <div id="file_ktp_detail8"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="l8_adart" class="col-md-5 col-form-label">File AD/ART klub/perkumpulan
+                                    menembak yang berisi nama lambang klub, logo klub/arti dan visi misi klub</label>
+                                <div class="col-md-6">
+                                    <div id="l8_adart_detail8"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="l8_struktur_organisasi" class="col-md-5 col-form-label">File struktur
+                                    organisasi pengurus klub </label>
+                                <div class="col-md-6">
+                                    <div id="l8_struktur_organisasi_detail8"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="l8_nama_para_pengurus" class="col-md-5 col-form-label">File daftar nama para
+                                    pengurus klub</label>
+                                <div class="col-md-6">
+                                    <div id="l8_nama_para_pengurus_detail8"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="l8_pas_foto_pengurus" class="col-md-5 col-form-label">File berisi foto
+                                    pengurus klub ukuran 4X6 latar merah</label>
+                                <div class="col-md-6">
+                                    <div id="l8_pas_foto_pengurus_detail8"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="l8_data_anggota_club" class="col-md-5 col-form-label">File data anggota klub
+                                    minimal 20 orang</label>
+                                <div class="col-md-6">
+                                    <div id="l8_data_anggota_club_detail8"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="l8_surat_keterangan_domisili" class="col-md-5 col-form-label">File surat
+                                    keterangan domisili sekretariat klub dari Desa/Kecamatan/Akte pendirian dari Notaris
+                                </label>
+                                <div class="col-md-6">
+                                    <div id="l8_surat_keterangan_domisili_detail8"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_skck" class="col-md-5 col-form-label">File SKCK ketua klub </label>
+                                <div class="col-md-6">
+                                    <div id="file_skck_detail8"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="biaya_administrasi" class="col-md-5 col-form-label">File bukti biaya
+                                    administrasi sebesar Rp. 15.000.000 </label>
+                                <div class="col-md-6">
+                                    <div id="biaya_administrasi_detail8"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" modal detailModalLetter9" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body container">
+                <form id="userDetail" name="userDetail">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label for="letter_status" class="col-md-5 col-form-label">Status pengajuan</label>
+                                <div id="letter_status_detail9">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="letter_category_name" class="col-md-5 col-form-label">Kategori surat</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext letter_category_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_kta"
+                                        value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext club_name"
+                                        value="{{ old('club_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <div class="col-md-6">
+                                    <div id="file_ktp_detail9"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_kta_club" class="col-md-5 col-form-label">File KTA Klub</label>
+                                <div class="col-md-6">
+                                    <div id="file_kta_club_detail9"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="surat_rekomendasi_club" class="col-md-5 col-form-label">File surat
+                                    rekomendasi
+                                    dari klub menembak</label>
+                                <div class="col-md-6">
+                                    <div id="surat_rekomendasi_club_detail9"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_kta" class="col-md-5 col-form-label">File KTA Perbakin</label>
+                                <div class="col-md-6">
+                                    <div id="file_kta_detail9"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_foto_4x6" class="col-md-5 col-form-label">File foto</label>
+                                <div class="col-md-6">
+                                    <div id="file_foto_4x6_detail9"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class=" modal detailModalLetter10" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail User</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body container">
+                <form id="userDetail" name="userDetail">
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <label for="letter_status" class="col-md-5 col-form-label">Status pengajuan</label>
+                                <div id="letter_status_detail10">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="letter_category_name" class="col-md-5 col-form-label">Kategori surat</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext letter_category_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext user_kta"
+                                        value="{{ old('user_kta') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext club_name"
+                                        value="{{ old('club_name') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_kta" class="col-md-5 col-form-label">File KTA Perbakin</label>
+                                <div class="col-md-6">
+                                    <div id="file_kta_detail10"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <div class="col-md-6">
+                                    <div id="file_ktp_detail10"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File buku pas senjata
+                                    api</label>
+                                <div class="col-md-6">
+                                    <div id="file_buku_pas_senpi_detail10"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row my-1">
+                                <label for="file_foto_4x6" class="col-md-5 col-form-label">File foto</label>
+                                <div class="col-md-6">
+                                    <div id="file_foto_4x6_detail10"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- End Modal detail letter  --}}
 
 @endsection
 
@@ -1099,22 +1584,6 @@
         }
     });
 
-    // add data
-    $('.btnAdd').click(function () {
-
-        $('.option-1').hide();
-        $('.option-2').hide();
-        document.getElementById("addForm").reset();
-        $('.addModal form').attr('action', "{{ url('recomendationletterapproval/store') }}");
-        $('.addModal .modal-title').text('Tambah pengajuan surat rekomendasi');
-        $('.addModal').modal('show');
-    });
-
-    // check error
-    @if(count($errors))
-    $('.addModal').modal('show');
-    @endif
-
     $('.btnDelete').click(function () {
         $('.btnDelete').attr('disabled', true)
         var url = $(this).attr('data-url');
@@ -1155,27 +1624,424 @@
         })
     });
 
-    $("#addForm").validate({
-        rules: {
-            letter_category_id: "required",
-            letter_place: "required",
-        },
-        messages: {
-            letter_category_id: "Jenis surat rekomendasi harus dipilih",
-            letter_place: "Alamat Surat tidak boleh kosong",
-        },
-        errorElement: "em",
-        errorClass: "invalid-feedback",
-        errorPlacement: function (error, element) {
-            // Add the `help-block` class to the error element
-            $(element).parents('.form-group').append(error);
-        },
-        highlight: function (element, errorClass, validClass) {
-            $(element).addClass("is-invalid").removeClass("is-valid");
-        },
-        unhighlight: function (element, errorClass, validClass) {
-            $(element).addClass("is-valid").removeClass("is-invalid");
-        }
+    // Detail Data
+    $('.btnDetail').click(function () {
+        let id = $(this).attr('data-id');
+        let url = "{{ url('recomendationletter/show') }}";
+
+        $.ajax({
+            type: 'GET',
+            url: url + '/' + id,
+            dataType: 'JSON',
+            success: function (data) {
+                if (data.status == 1) {
+                    switch (data.result[1].letter_category_id) {
+                        case 1:
+                            $('.detailModalLetter1 .modal-title').text('Detail Data Letter');
+                            $('.detailModalLetter1').modal('show');
+
+                            document.getElementById('letter_status_detail1').innerHTML =
+                                "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                                .approval_status + "</span>";
+                            $('.letter_category_name').val(': ' + data.result[1]
+                                .letter_category_name);
+                            $('.user_name').val(': ' + data.result[1].name);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+
+                            var filePath = 'storage/uploads/letters/category-' + data.result[1]
+                                .letter_category_id +
+                                "/";
+                            document.getElementById('file_buku_pas_senpi_detail1').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_buku_pas_senpi +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+
+                            document.getElementById('file_kta_detail1').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2].file_kta +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_ktp_detail1').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2].file_ktp +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_foto_4x6_detail1').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_foto_4x6 +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            break;
+                        case 2:
+                            $('.detailModalLetter2 .modal-title').text('Detail Data Letter');
+                            $('.detailModalLetter2').modal('show');
+
+                            document.getElementById('letter_status_detail2').innerHTML =
+                                "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                                .approval_status + "</span>";
+                            $('.letter_category_name').val(': ' + data.result[1]
+                                .letter_category_name);
+                            $('.user_name').val(': ' + data.result[1].name);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+
+                            var filePath = 'storage/uploads/letters/category-' + data.result[1]
+                                .letter_category_id +
+                                "/";
+                            document.getElementById('file_surat_hibah_senpi_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_surat_hibah_senpi +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+
+                            document.getElementById('file_buku_pas_senpi_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_buku_pas_senpi +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_foto_senjata_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_foto_senjata +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_kta_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_kta +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_ktp_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_ktp +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_sertif_menembak_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_sertif_menembak +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_skck_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_skck +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_surat_sehat_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_surat_sehat +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_tes_psikotes_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_tes_psikotes +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_kk_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_kk +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_foto_4x6_detail2').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_foto_4x6 +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            break;
+                        case 3:
+                            $('.detailModalLetter3 .modal-title').text('Detail Data Letter');
+                            $('.detailModalLetter3').modal('show');
+
+                            document.getElementById('letter_status_detail3').innerHTML =
+                                "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                                .approval_status + "</span>";
+                            $('.letter_category_name').val(': ' + data.result[1]
+                                .letter_category_name);
+                            $('.user_name').val(': ' + data.result[1].name);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+                            break;
+                        case 4:
+                            $('.detailModalLetter4 .modal-title').text('Detail Data Letter');
+                            $('.detailModalLetter4').modal('show');
+
+                            document.getElementById('letter_status_detail4').innerHTML =
+                                "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                                .approval_status + "</span>";
+                            $('.letter_category_name').val(': ' + data.result[1]
+                                .letter_category_name);
+                            $('.user_name').val(': ' + data.result[1].name);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+
+                            var filePath = 'storage/uploads/letters/category-' + data.result[1]
+                                .letter_category_id +
+                                "/";
+                            document.getElementById('file_si_impor_senjata_detail4').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_si_impor_senjata +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+
+                            document.getElementById('file_sba_penitipan_senpi_detail4').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_sba_penitipan_senpi +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_kta_detail4').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2].file_kta +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_ktp_detail4').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_ktp +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_sertif_menembak_detail4').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_sertif_menembak +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_skck_detail4').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_skck +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_surat_sehat_detail4').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_surat_sehat +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_tes_psikotes_detail4').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_tes_psikotes +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_kk_detail4').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_kk +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_foto_4x6_detail4').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_foto_4x6 +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            break;
+                        case 5:
+                            $('.detailModalLetter5 .modal-title').text('Detail Data Letter');
+                            $('.detailModalLetter5').modal('show');
+
+                            document.getElementById('letter_status_detail5').innerHTML =
+                                "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                                .approval_status + "</span>";
+                            $('.letter_category_name').val(': ' + data.result[1]
+                                .letter_category_name);
+                            $('.user_name').val(': ' + data.result[1].name);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+
+                            var filePath = 'storage/uploads/letters/category-' + data.result[1]
+                                .letter_category_id +
+                                "/";
+                            document.getElementById('l5_lampiran1_detail5').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .l5_lampiran1 +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_nama_anggota_senjata_digunakan_detail5')
+                                .innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_nama_anggota_senjata_digunakan +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_kta_detail5').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2].file_kta +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_buku_pas_senpi_detail5').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_buku_pas_senpi +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            break;
+                        case 6:
+                            $('.detailModalLetter6 .modal-title').text('Detail Data Letter');
+                            $('.detailModalLetter6').modal('show');
+
+                            document.getElementById('letter_status_detail6').innerHTML =
+                                "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                                .approval_status + "</span>";
+                            $('.letter_category_name').val(': ' + data.result[1]
+                                .letter_category_name);
+                            $('.user_name').val(': ' + data.result[1].name);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+
+                            var filePath = 'storage/uploads/letters/category-' + data.result[1]
+                                .letter_category_id +
+                                "/";
+                            document.getElementById('surat_rekomendasi_pengcab_detail6').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .surat_rekomendasi_pengcab +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_nama_anggota_senjata_digunakan_detail6')
+                                .innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_nama_anggota_senjata_digunakan +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_kta_detail6').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2].file_kta +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_buku_pas_senpi_detail6').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_buku_pas_senpi +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_surat_sehat_detail6').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_surat_sehat +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('l6_undangan_berburu_detail6').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .l6_undangan_berburu +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            break;
+                        case 7:
+                            $('.detailModalLetter7 .modal-title').text('Detail Data Letter');
+                            $('.detailModalLetter7').modal('show');
+
+                            document.getElementById('letter_status_detail7').innerHTML =
+                                "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                                .approval_status + "</span>";
+                            $('.letter_category_name').val(': ' + data.result[1]
+                                .letter_category_name);
+                            $('.user_name').val(': ' + data.result[1].name);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+                            $('.l7_alasan_pengunduran').val('Dikarenakan: ' + data.result[1]
+                                .l7_alasan_pengunduran);
+
+                            break;
+                        case 8:
+                            $('.detailModalLetter8 .modal-title').text('Detail Data Letter');
+                            $('.detailModalLetter8').modal('show');
+
+                            document.getElementById('letter_status_detail8').innerHTML =
+                                "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                                .approval_status + "</span>";
+                            $('.letter_category_name').val(': ' + data.result[1]
+                                .letter_category_name);
+                            $('.user_name').val(': ' + data.result[1].name);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+
+                            var filePath = 'storage/uploads/letters/category-' + data.result[1]
+                                .letter_category_id +
+                                "/";
+                            document.getElementById('l8_kta_anggota_baru_detail8').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .l8_kta_anggota_baru +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_ktp_detail8')
+                                .innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_ktp +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('l8_adart_detail8').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2].l8_adart +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('l8_struktur_organisasi_detail8').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .l8_struktur_organisasi +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('l8_nama_para_pengurus_detail8').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .l8_nama_para_pengurus +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('l8_pas_foto_pengurus_detail8').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .l8_pas_foto_pengurus +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('l8_data_anggota_club_detail8').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .l8_data_anggota_club +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('l8_surat_keterangan_domisili_detail8')
+                                .innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .l8_surat_keterangan_domisili +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_skck_detail8').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_skck +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('biaya_administrasi_detail8').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .biaya_administrasi +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            break;
+                        case 9:
+                            $('.detailModalLetter9 .modal-title').text('Detail Data Letter');
+                            $('.detailModalLetter9').modal('show');
+
+                            document.getElementById('letter_status_detail9').innerHTML =
+                                "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                                .approval_status + "</span>";
+                            $('.letter_category_name').val(': ' + data.result[1]
+                                .letter_category_name);
+                            $('.user_name').val(': ' + data.result[1].name);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+
+                            var filePath = 'storage/uploads/letters/category-' + data.result[1]
+                                .letter_category_id +
+                                "/";
+                            document.getElementById('file_ktp_detail9').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_ktp +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_kta_club_detail9')
+                                .innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_kta_club +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('surat_rekomendasi_club_detail9').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .surat_rekomendasi_club +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            if (data.result[2].file_kta) {
+                                document.getElementById('file_kta_detail9').innerHTML =
+                                    "<a target='_blank' href='" + filePath + data.result[2]
+                                    .file_kta +
+                                    "' class='btn btn-primary download'>Lihat File</i>";
+                            } else {
+                                document.getElementById('file_kta_detail9').innerHTML =
+                                    "<label for='surat_rekomendasi_club' class='col-md-5 col-form-label'>Tidak ada file</label>";
+                            }
+
+                            document.getElementById('file_foto_4x6_detail9').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_foto_4x6 +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            break;
+                        case 10:
+                            $('.detailModalLetter10 .modal-title').text('Detail Data Letter');
+                            $('.detailModalLetter10').modal('show');
+
+                            document.getElementById('letter_status_detail10').innerHTML =
+                                "<span class='" + data.result[1].style_class + "'>" + data.result[1]
+                                .approval_status + "</span>";
+                            $('.letter_category_name').val(': ' + data.result[1]
+                                .letter_category_name);
+                            $('.user_name').val(': ' + data.result[1].name);
+                            $('.user_kta').val(': ' + data.result[1].no_kta);
+                            $('.club_name').val(': ' + data.result[1].club);
+
+                            var filePath = 'storage/uploads/letters/category-' + data.result[1]
+                                .letter_category_id +
+                                "/";
+                            document.getElementById('file_kta_detail10').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_kta +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_ktp_detail10')
+                                .innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_ktp +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_buku_pas_senpi_detail10').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_buku_pas_senpi +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            document.getElementById('file_foto_4x6_detail10').innerHTML =
+                                "<a target='_blank' href='" + filePath + data.result[2]
+                                .file_foto_4x6 +
+                                "' class='btn btn-primary download'>Lihat File</i>";
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                Swal.fire(
+                    'Gagal!',
+                    'Gagal mengambil data.',
+                    'error'
+                );
+            }
+        });
     });
 
 </script>

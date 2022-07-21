@@ -6,7 +6,7 @@ class PDF extends FPDF
 {
 // Page header
 function Header()
-{    
+{
     $user = Auth::user()->group_id;
     if ($user == 2 || $user == 1) {
         // kop surat
@@ -30,26 +30,26 @@ function Footer()
         // Arial italic 8
         $this->SetFont('Arial','I',8);
         $this->Cell(0, 5, Auth::user()->user_kta, 0, 0, 'L');
-        
+
     }
 }
 
-function NoSurat()
+function NoSurat($letter)
 {
     $user = Auth::user()->group_id;
     if ($user == 2 || $user == 1) {
         $this->Cell(8);
         $this->Cell(20, 5, 'Nomor Surat', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->Cell(96, 5, ucwords('1/23P/2025'), 0, 0, 'L');
-        $this->Cell(30, 5, ucwords('Bandung') .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
-        
+        $this->Cell(96, 5, ucwords($letter->letter_no), 0, 0, 'L');
+        $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
+
         $this->Ln(5);
         $this->Cell(8);
         $this->Cell(20, 5, 'Lampiran', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
-        
+
         // Perihal
         $this->Ln(5);
         $this->cell(8);
@@ -62,8 +62,8 @@ function NoSurat()
         $this->Cell(20, 5, 'Lampiran', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
-        $this->Cell(30, 5, ucwords('Bandung') .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
-        
+        $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
+
         // Perihal
         $this->Ln(5);
         $this->cell(8);
@@ -122,7 +122,7 @@ function bodySatu()
     $this->Cell(32, 5, 'Cabang', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
     $this->Cell(120, 5, ucwords('Kab. Bandung'), 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'Perkumpulan', 0, 0, 'L');
@@ -165,7 +165,7 @@ function BodyEmpat()
     $this->Cell(15);
     $this->Cell(2, 5, 'a.', 0, 0, 'C');
     $this->Cell(32, 5, 'Rekomendasi dari Pengcab Perbakin Kab.Bandung', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'b.', 0, 0, 'C');
@@ -180,12 +180,12 @@ function BodyEmpat()
     $this->Cell(15);
     $this->Cell(2, 5, 'd.', 0, 0, 'C');
     $this->Cell(32, 5, 'Foto kopi Buku Pas Senjata Api', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'e.', 0, 0, 'C');
     $this->Cell(32, 5, 'Undangan Berburu , dari Kepala Desa / Camat lokasi Berburu', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'f.', 0, 0, 'C');
@@ -213,11 +213,11 @@ function TandaTangan()
 
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
-$pdf->SetTitle('Surat Rekomendasi');
+$pdf->SetTitle(ucwords($letter->letter_category_name));
 $pdf->SetFont('Arial','',8);
 
 // Nomor surat
-$pdf->NoSurat();
+$pdf->NoSurat($letter);
 // Tujuan surat kepada
 $pdf->TujuanSurat();
 

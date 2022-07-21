@@ -6,7 +6,7 @@ class PDF extends FPDF
 {
 // Page header
 function Header()
-{    
+{
     $user = Auth::user()->group_id;
     if ($user == 2 || $user == 1) {
         // kop surat
@@ -15,7 +15,7 @@ function Header()
         $this->Ln(25);
     }else{
         $this->SetFont('Arial','B',12);
-        $this->MultiCell(0,5,"Permohonan pengesahan Klub Menembak di wilayah Kab. Bandung",0,'C',0);
+        $this->MultiCell(0,5,ucwords('Permohonan pengesahan Klub Menembak'),0,'C',0);
         $this->Ln(10);
     }
 }
@@ -30,70 +30,70 @@ function Footer()
         // Arial italic 8
         $this->SetFont('Arial','I',8);
         $this->Cell(0, 5, Auth::user()->user_kta, 0, 0, 'L');
-        
+
     }
 }
 
-function NoSurat()
+function NoSurat($letter)
 {
     $user = Auth::user()->group_id;
     if ($user == 2 || $user == 1) {
         $this->Cell(8);
         $this->Cell(20, 5, 'Nomor Surat', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->Cell(96, 5, ucwords('1/23P/2025'), 0, 0, 'L');
-        $this->Cell(30, 5, ucwords('Bandung') .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
-        
+        $this->Cell(96, 5, ucwords($letter->letter_no), 0, 0, 'L');
+        $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
+
         $this->Ln(5);
         $this->Cell(8);
         $this->Cell(20, 5, 'Lampiran', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
-        
+
         // Perihal
         $this->Ln(5);
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,"Permohonan pengesahan Klub Menembak di wilayah Kab. Bandung",0,'L',0);
+        $this->MultiCell(70,5,$letter->letter_category_name,0,'L',0);
     }else{
         $this->Ln(5);
         $this->Cell(8);
         $this->Cell(20, 5, 'Lampiran', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
-        $this->Cell(30, 5, ucwords('Bandung') .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
-        
+        $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
+
         // Perihal
         $this->Ln(5);
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,"Permohonan pengesahan Klub Menembak di wilayah Kab. Bandung",0,'L',0);
+        $this->MultiCell(70,5,ucwords($letter->letter_category_name),0,'L',0);
     }
 
 }
 
-function TujuanSurat()
+function TujuanSurat($letter)
 {
     $this->Cell(125);
     $this->Cell(20, 5,'Kepada', 0, 0);
     $this->Ln(5);
     $this->Cell(119);
-    $this->Cell(6, 5,'Yth.', 0, 0);
-    $this->MultiCell(40, 5,'Ketum Perbakin Kab.Bandung', 0,'L', 0);
+    $this->Cell(30, 5,'Yth. '.ucwords($letter->letter_purpose_name), 0, 0);
+    $this->Ln(5);
     $this->Cell(125);
-    $this->MultiCell(15, 5,'Di Soreang', 0,'L',0);
+    $this->MultiCell(15, 5,'Di '.ucwords($letter->letter_purpose_place), 0,'L',0);
 }
 
-function bodySatu()
+function BodySatu($letter)
 {
     $this->Cell(10);
     $this->Cell(15, 5, 'Salam Olahraga', 0, 0, 'L');
     $this->Ln(5);
     $this->Cell(10);
     $this->Cell(3, 5, '1. ', 0, 0, 'J');
-    $this->MultiCell(155,5,"Dasar. AD/ART Perbakin Tahun 2019 BAB IV Keanggotaan Bagian Kesatu Keanggotaan  Pasal 9 ,ART BAB II Pasal 4 dan 5  dan ART Lampiran VIII halaman 48 Susunan Organisasi Klub Menembak.",0,'J',0);
+    $this->MultiCell(155,5,"Dasar. ".$letter->dasar_adart,0,'J',0);
 }
 
 function bodyDua()
@@ -113,7 +113,7 @@ function BodyTiga()
     $this->Cell(15);
     $this->Cell(2, 5, 'a.', 0, 0, 'C');
     $this->Cell(32, 5, 'FC 4(empat) orang anggota yang sudah memiliki KTA Perbakin dari PB', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'b.', 0, 0, 'C');
@@ -128,32 +128,32 @@ function BodyTiga()
     $this->Cell(15);
     $this->Cell(2, 5, 'd.', 0, 0, 'C');
     $this->Cell(32, 5, 'Struktur Organisasi Pengurus Klub', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'e.', 0, 0, 'C');
     $this->Cell(32, 5, 'Daftar Nama para Pengurus Klub', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'f.', 0, 0, 'C');
     $this->Cell(32, 5, 'Pas Poto Pengurus Klub ukuran 3X4, 4X6 latar merah masing masing 5 lembar', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'g.', 0, 0, 'C');
     $this->Cell(32, 5, 'Data anggota Klub minimal 20 Orang', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'h.', 0, 0, 'C');
     $this->Cell(32, 5, 'Surat Keterangan Domisili Sekretariat Klub dari Desa/Kecamatan/akte pendirian dari Notaris', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'i.', 0, 0, 'C');
     $this->Cell(32, 5, 'SKCK Ketua Klub dari Polsek/Polres', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'j.', 0, 0, 'C');
@@ -167,7 +167,7 @@ function BodyEmpat()
     $this->MultiCell(155,5,"Demikian disampaikan mohon menjadi periksa, besar harapan untuk dikabulkan dan  atas bantuan dan kerjasamanya diucapkan terimakasih.",0,'J',0);
 }
 
-function TandaTangan()
+function TandaTangan($letter)
 {
     $this->Cell(138);
     $this->Cell(32, 5, 'Hormat Kami ', 0, 0, 'L');
@@ -176,23 +176,23 @@ function TandaTangan()
     $this->Cell(32, 5, 'Ketua Klub/ Perkumpulan ', 0, 0, 'L');
     $this->Ln(15);
     $this->Cell(138);
-    $this->MultiCell(25, 5,'Roni Setiawan', 0, 0);
+    $this->MultiCell(25, 5,ucwords($letter->pemohon), 0, 0);
 }
 }
 
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
-$pdf->SetTitle('Surat Rekomendasi');
+$pdf->SetTitle(ucwords($letter->letter_category_name));
 $pdf->SetFont('Arial','',8);
 
 // Nomor surat
-$pdf->NoSurat();
+$pdf->NoSurat($letter);
 // Tujuan surat kepada
-$pdf->TujuanSurat();
+$pdf->TujuanSurat($letter);
 
 // body surat 1
 $pdf->Ln(5);
-$pdf->BodySatu();
+$pdf->BodySatu($letter);
 
 // body surat 2
 $pdf->Ln(2);
@@ -208,7 +208,7 @@ $pdf->BodyEmpat();
 
 //Tanda tangan
 $pdf->Ln(7);
-$pdf->TandaTangan();
+$pdf->TandaTangan($letter);
 
 $pdf->Output();
 exit;

@@ -6,7 +6,7 @@ class PDF extends FPDF
 {
 // Page header
 function Header()
-{    
+{
     $user = Auth::user()->group_id;
     if ($user == 2 || $user == 1) {
         // kop surat
@@ -15,7 +15,7 @@ function Header()
         $this->Ln(25);
     }else{
         $this->SetFont('Arial','B',12);
-        $this->MultiCell(0,5,"Permohonan Rekomendasi Uji Balistik Senjata Api Untuk Olahraga Menembak",0,'C',0);
+        $this->MultiCell(0,5,ucwords('Permohonan Rekomendasi Uji Balistik Senjata Api'),0,'C',0);
         $this->Ln(10);
     }
 }
@@ -30,7 +30,7 @@ function Footer()
         // Arial italic 8
         $this->SetFont('Arial','I',8);
         $this->Cell(0, 5, Auth::user()->user_kta, 0, 0, 'L');
-        
+
     }
 }
 
@@ -43,19 +43,19 @@ function NoSurat($letter)
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords($letter->letter_no), 0, 0, 'L');
         $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
-        
+
         $this->Ln(5);
         $this->Cell(8);
         $this->Cell(20, 5, 'Lampiran', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
-        
+
         // Perihal
         $this->Ln(5);
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,"Permohonan Rekomendasi Uji Balistik Senjata Api Untuk Olahraga Menembak",0,'L',0);
+        $this->MultiCell(70,5,ucwords($letter->letter_category_name),0,'L',0);
     }else{
         $this->Ln(5);
         $this->Cell(8);
@@ -63,27 +63,27 @@ function NoSurat($letter)
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
         $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
-        
+
         // Perihal
         $this->Ln(5);
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,"Permohonan Rekomendasi Uji Balistik Senjata Api Untuk Olahraga Menembak",0,'L',0);
+        $this->MultiCell(70,5,ucwords($letter->letter_category_name),0,'L',0);
     }
 
 }
 
-function TujuanSurat()
+function TujuanSurat($letter)
 {
     $this->Cell(125);
     $this->Cell(20, 5,'Kepada', 0, 0);
     $this->Ln(5);
     $this->Cell(119);
-    $this->Cell(6, 5,'Yth.', 0, 0);
-    $this->MultiCell(40, 5,'Ketum Perbakin Kab.Bandung', 0,'L', 0);
+    $this->Cell(30, 5,'Yth. '.ucwords($letter->letter_purpose_name), 0, 0);
+    $this->Ln(5);
     $this->Cell(125);
-    $this->MultiCell(15, 5,'Di Soreang', 0,'L',0);
+    $this->MultiCell(15, 5,'Di '.ucwords($letter->letter_purpose_place), 0,'L',0);
 }
 
 function bodySatu($letter)
@@ -150,8 +150,8 @@ function bodyDua($letter)
     $this->Cell(32, 5, 'Kaliber', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
     $this->Cell(120, 5, ucwords($letter->kaliber), 0, 0, 'L');
-    
-    
+
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'e.', 0, 0, 'C');
@@ -164,7 +164,7 @@ function bodyDua($letter)
     $this->Cell(2, 5, 'f.', 0, 0, 'C');
     $this->Cell(32, 5, 'Tanggal Dikeluarkan', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, "", 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter->tanggal_dikeluarkan), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
@@ -172,7 +172,7 @@ function bodyDua($letter)
     $this->Cell(32, 5, 'Jumlah', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
     $this->Cell(120, 5, ucwords($letter->jumlah), 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'g.', 0, 0, 'C');
@@ -227,13 +227,13 @@ function TandaTangan($letter)
 
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
-$pdf->SetTitle('Surat Permohonan Rekomendasi Uji Balistik Senjata Api Untuk Olahraga Menembak');
+$pdf->SetTitle(ucwords($letter->letter_category_name));
 $pdf->SetFont('Arial','',8);
 
 // Nomor surat
 $pdf->NoSurat($letter);
 // Tujuan surat kepada
-$pdf->TujuanSurat();
+$pdf->TujuanSurat($letter);
 
 // body surat 1
 $pdf->Ln(5);

@@ -81,6 +81,7 @@ class RecomendationLetterController extends Controller
                     'file_kta' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'file_ktp' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'file_foto_4x6' => 'required|mimes:jpg,jpeg,png|max:2048',
+
                     'firearm_category_id' => 'required',
                     'merek' => 'required',
                     'kaliber' => 'required',
@@ -89,6 +90,7 @@ class RecomendationLetterController extends Controller
                     'nama_pemilik' => 'required',
                     'jumlah' => 'required',
                     'penyimpanan' => 'required',
+
                     'letter_category_id' => 'required',
                     'letter_place' => 'required',
                     'letter_date' => 'required',
@@ -116,6 +118,7 @@ class RecomendationLetterController extends Controller
                     'file_tes_psikotes' => 'required|mimes:pdf|max:2048',
                     'file_kk' => 'required|mimes:pdf|max:2048',
                     'file_foto_4x6' => 'required|mimes:jpg,jpeg,png|max:2048',
+
                     'firearm_category_id' => 'required',
                     'merek' => 'required',
                     'kaliber' => 'required',
@@ -124,6 +127,7 @@ class RecomendationLetterController extends Controller
                     'nama_pemilik' => 'required',
                     'jumlah' => 'required',
                     'penyimpanan' => 'required',
+
                     'letter_category_id' => 'required',
                     'letter_place' => 'required',
                     'letter_date' => 'required',
@@ -149,6 +153,7 @@ class RecomendationLetterController extends Controller
                     'tanggal_dikeluarkan' => 'required',
                     'nama_pemilik' => 'required',
                     'jumlah' => 'required',
+
                     'letter_category_id' => 'required',
                     'letter_place' => 'required',
                     'letter_date' => 'required',
@@ -162,7 +167,7 @@ class RecomendationLetterController extends Controller
                     'address2' => 'required',
                     'club' => 'required',
                     'no_kta' => 'required',
-                    'no_kta2' => 'required',
+                    'no_ktp2' => 'required',
                     'membership' => 'required',
                     'pemohon' => 'required',
                     'pemohon_pihak_2' => 'required',
@@ -181,6 +186,7 @@ class RecomendationLetterController extends Controller
                     'file_tes_psikotes' => 'required|mimes:pdf|max:2048',
                     'file_kk' => 'required|mimes:pdf|max:2048',
                     'file_foto_4x6' => 'required|mimes:jpg,jpeg,png|max:2048',
+
                     'firearm_category_id' => 'required',
                     'merek' => 'required',
                     'kaliber' => 'required',
@@ -212,6 +218,7 @@ class RecomendationLetterController extends Controller
                     'file_nama_anggota_senjata_digunakan' => 'required|mimes:pdf|max:2048',
                     'file_kta' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'file_buku_pas_senpi' => 'required|mimes:pdf|max:2048',
+
                     'letter_place' => 'required',
                     'letter_date' => 'required',
                     'letter_category_id' => 'required',
@@ -239,6 +246,7 @@ class RecomendationLetterController extends Controller
                     'file_buku_pas_senpi' => 'required|mimes:pdf|max:2048',
                     'file_surat_sehat' => 'required|mimes:pdf|max:2048',
                     'l6_undangan_berburu' => 'required|mimes:pdf|max:2048',
+
                     'letter_place' => 'required',
                     'letter_date' => 'required',
                     'letter_category_id' => 'required',
@@ -271,7 +279,7 @@ class RecomendationLetterController extends Controller
                     'club' => 'required',
                     'no_kta' => 'required',
                     'membership' => 'required',
-                    'dalam_event' => 'required',
+                    'l7_masa_bakti' => 'required',
                     'l7_alasan_pengunduran' => 'required',
                     'tembusan1' => 'required',
                     'tembusan2' => 'required',
@@ -291,6 +299,7 @@ class RecomendationLetterController extends Controller
                     'l8_surat_keterangan_domisili' => 'required|mimes:pdf|max:2048',
                     'file_skck' => 'required|mimes:pdf|max:2048',
                     'biaya_administrasi' => 'required|mimes:jpg,jpeg,png|max:2048',
+
                     'letter_place' => 'required',
                     'letter_date' => 'required',
                     'letter_category_id' => 'required',
@@ -303,8 +312,9 @@ class RecomendationLetterController extends Controller
                     'file_ktp' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'file_kta_club' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'surat_rekomendasi_club' => 'required|mimes:pdf|max:2048',
-                    'file_kta' => 'required|mimes:jpg,jpeg,png|max:2048',
+                    // 'file_kta' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'file_foto_4x6' => 'required|mimes:jpg,jpeg,png|max:2048',
+
                     'letter_place' => 'required',
                     'letter_date' => 'required',
                     'letter_category_id' => 'required',
@@ -326,10 +336,11 @@ class RecomendationLetterController extends Controller
 
             case '10':
                 return [
-                    'file_kta_club' => 'required|mimes:jpg,jpeg,png|max:2048',
+                    'file_kta' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'file_ktp' => 'required|mimes:jpg,jpeg,png|max:2048',
                     'file_buku_pas_senpi' => 'required|mimes:pdf|max:2048',
                     'file_foto_4x6' => 'required|mimes:jpg,jpeg,png|max:2048',
+
                     'letter_place' => 'required',
                     'letter_date' => 'required',
                     'letter_category_id' => 'required',
@@ -643,6 +654,10 @@ class RecomendationLetterController extends Controller
             case '3':
                 DB::beginTransaction();
                 try {
+                    $validatorImage = Validator::make($request->all(), $this->_validationRulesImage($categoryId));
+                    if ($validatorImage->fails()) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file/ gambar yang dimasukan sesuai.');
+                    }
 
                     $data = [
                         'firearm_category_id' => $request->firearm_category_id,
@@ -672,7 +687,7 @@ class RecomendationLetterController extends Controller
                         'address2' => $request->address2,
                         'club' => $request->club,
                         'no_kta' => $request->no_kta,
-                        'no_kta2' => $request->no_kta2,
+                        'no_ktp2' => $request->no_ktp2,
                         'membership' => $request->membership,
                         'pemohon' => $request->pemohon,
                         'pemohon_pihak_2' => $request->pemohon_pihak_2,
@@ -1051,6 +1066,11 @@ class RecomendationLetterController extends Controller
             case '7':
                 DB::beginTransaction();
                 try {
+                    $validatorImage = Validator::make($request->all(), $this->_validationRulesImage($categoryId));
+                    if ($validatorImage->fails()) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file/ gambar yang dimasukan sesuai.');
+                    }
+
                     $dataLetter = [
                         'letter_category_id' => $request->letter_category_id,
                         'letter_place' => $request->letter_place,
@@ -1063,7 +1083,7 @@ class RecomendationLetterController extends Controller
                         'club' => $request->club,
                         'no_kta' => $request->no_kta,
                         'membership' => $request->membership,
-                        'dalam_event' => $request->dalam_event,
+                        'l7_masa_bakti' => $request->l7_masa_bakti,
                         'l7_alasan_pengunduran' => $request->l7_alasan_pengunduran,
                         'tembusan1' => $request->tembusan1,
                         'tembusan2' => $request->tembusan2,
@@ -1229,13 +1249,22 @@ class RecomendationLetterController extends Controller
                     if (!$request->hasFile('surat_rekomendasi_club')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
                     }
-                    if (!$request->hasFile('file_kta')) {
-                        return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
+                    if ($request->hasFile('file_kta')) {
+                        $validated = $request->validate([
+                            'file_kta' => 'required|mimes:jpg,jpeg,png|max:2048'
+                        ]);
+                        if ($validated->fails()) {
+                            return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file KTA Perbakin sesuai ketentuan');
+                        }
                     }
                     if (!$request->hasFile('file_foto_4x6')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File kta harus dipilih!');
                     }
 
+                    $validatorImage = Validator::make($request->all(), $this->_validationRulesImage($categoryId));
+                    if ($validatorImage->fails()) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file/ gambar yang dimasukan sesuai.');
+                    }
 
                     $filePath = DataHelper::getFilePath(null, null, true);
 
@@ -1312,7 +1341,7 @@ class RecomendationLetterController extends Controller
             case '10':
                 DB::beginTransaction();
                 try {
-                    if (!$request->hasFile('file_kta_club')) {
+                    if (!$request->hasFile('file_kta')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
                     }
                     if (!$request->hasFile('file_ktp')) {
@@ -1325,12 +1354,15 @@ class RecomendationLetterController extends Controller
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File kta harus dipilih!');
                     }
 
-
+                    $validatorImage = Validator::make($request->all(), $this->_validationRulesImage($categoryId));
+                    if ($validatorImage->fails()) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file/ gambar yang dimasukan sesuai.');
+                    }
                     $filePath = DataHelper::getFilePath(null, null, true);
 
-                    $file_kta_club = $request->file_kta_club;
-                    $name_file_kta_club = DataHelper::getFileName($file_kta_club);
-                    $request->file('file_kta_club')->storeAs($filePath . "category-" . $categoryId, $name_file_kta_club, 'public');
+                    $file_kta = $request->file_kta;
+                    $name_file_kta = DataHelper::getFileName($file_kta);
+                    $request->file('file_kta')->storeAs($filePath . "category-" . $categoryId, $name_file_kta, 'public');
 
                     $file_ktp = $request->file_ktp;
                     $name_file_ktp = DataHelper::getFileName($file_ktp);
@@ -1345,7 +1377,7 @@ class RecomendationLetterController extends Controller
                     $request->file('file_foto_4x6')->storeAs($filePath . "category-" . $categoryId, $name_file_foto_4x6, 'public');
 
                     $data = [
-                        'file_kta_club' => $name_file_kta_club,
+                        'file_kta' => $name_file_kta,
                         'file_ktp' => $name_file_ktp,
                         'file_buku_pas_senpi' => $name_file_buku_pas_senpi,
                         'file_foto_4x6' => $name_file_foto_4x6,
@@ -1467,25 +1499,10 @@ class RecomendationLetterController extends Controller
      */
     public function destroy($id)
     {
-        // // Authorize
-        // if (Gate::denies(__FUNCTION__, $this->module)) {
-        //     return view('exceptions.unauthorize');
-        // }
-        // // Check detail to db
-        // $detail  = $this->_recomendationLetterRepository->getById($id);
-
-        // if (!$detail) {
-        //     return redirect('sysmenu');
-        // }
-
-        // DB::beginTransaction();
-        // $this->_recomendationLetterRepository->delete($id);
-        // $this->_logHelper->store($this->module, $detail->name, 'delete');
-        // $this->_recomendationLetterRepository->deleteFirearm($detail->firearm_id);
-        // $this->_logHelper->store($this->module, $detail->firearm_id, 'delete');
-        // DB::commit();
-
-        // return redirect('recomendationletter')->with('successMessage', 'Surat berhasil dihapus');
+        // Authorize
+        if (Gate::denies(__FUNCTION__, $this->module)) {
+            return view('exceptions.unauthorize');
+        }
     }
 
 
@@ -1520,6 +1537,7 @@ class RecomendationLetterController extends Controller
     {
         $letter = $this->_recomendationLetterRepository->getByIdLetter($id);
         $category = $letter->letter_category_id;
+
         switch ($category) {
             case 1:
                 return view('recomendationletter::letters.print_letter_1', compact('letter'));
@@ -1529,17 +1547,12 @@ class RecomendationLetterController extends Controller
                 return view('recomendationletter::letters.print_letter_2', compact('letter'));
                 break;
 
-            case 4:
-                return view('recomendationletter::letters.print_letter_4', compact('letter'));
-                break;
-
-            case 10:
-                return view('recomendationletter::letters.print_letter_10', compact('letter'));
-                break;
-
-                // belum update
             case 3:
                 return view('recomendationletter::letters.print_letter_3', compact('letter'));
+                break;
+
+            case 4:
+                return view('recomendationletter::letters.print_letter_4', compact('letter'));
                 break;
 
             case 5:
@@ -1562,6 +1575,9 @@ class RecomendationLetterController extends Controller
                 return view('recomendationletter::letters.print_letter_9', compact('letter'));
                 break;
 
+            case 10:
+                return view('recomendationletter::letters.print_letter_10', compact('letter'));
+                break;
 
             default:
                 # code...

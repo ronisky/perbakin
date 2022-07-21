@@ -85,7 +85,26 @@ class RecomendationLetterApprovalController extends Controller
      */
     public function show($id)
     {
-        return view('recomendationletterapproval::show');
+        // Authorize
+        if (Gate::denies(__FUNCTION__, $this->module)) {
+            return view('exceptions.unauthorize');
+        }
+
+        $getDetailLetter  = $this->_recomendationLetterRepository->getByIdLetter($id);
+
+        $user = $this->_userRepository->getById($getDetailLetter->created_by);
+        $idLetterRequirement = $getDetailLetter->letter_requirement_id;
+        $idLetterRequirement != null ?  $letterRequireFile =  $this->_letterRequirementRepository->getById($getDetailLetter->letter_requirement_id) :  $letterRequireFile = null;
+        $result = [
+            $user,
+            $getDetailLetter,
+            $letterRequireFile,
+        ];
+        if ($getDetailLetter) {
+            return DataHelper::_successResponse($result, 'Data berhasil ditemukan');
+        } else {
+            return DataHelper::_errorResponse(null, 'Data tidak ditemukan');
+        }
     }
 
     /**
@@ -489,9 +508,6 @@ class RecomendationLetterApprovalController extends Controller
             if ($letterReq->l8_surat_keterangan_domisili != null) {
                 Storage::delete('public/' . $filePath . $letterReq->l8_surat_keterangan_domisili);
             }
-            if ($letterReq->nama_anggota_rombongan != null) {
-                Storage::delete('public/' . $filePath . $letterReq->nama_anggota_rombongan);
-            }
             if ($letterReq->sertifikat_lulus_pentaran_berburu_reaksi != null) {
                 Storage::delete('public/' . $filePath . $letterReq->sertifikat_lulus_pentaran_berburu_reaksi);
             }
@@ -520,5 +536,61 @@ class RecomendationLetterApprovalController extends Controller
         DB::commit();
 
         return DataHelper::_successResponse(null, "Data berhasil dihapus.");
+    }
+
+    /**
+     * Print letter on PDF view file.
+     * @return Location
+     */
+    public function printLetter($id)
+    {
+        $letter = $this->_recomendationLetterRepository->getByIdLetter($id);
+        $category = $letter->letter_category_id;
+
+        switch ($category) {
+            case 1:
+                return view('recomendationletter::letters.print_letter_1', compact('letter'));
+                break;
+
+            case 2:
+                return view('recomendationletter::letters.print_letter_2', compact('letter'));
+                break;
+
+            case 3:
+                return view('recomendationletter::letters.print_letter_3', compact('letter'));
+                break;
+
+            case 4:
+                return view('recomendationletter::letters.print_letter_4', compact('letter'));
+                break;
+
+            case 5:
+                return view('recomendationletter::letters.print_letter_5', compact('letter'));
+                break;
+
+            case 6:
+                return view('recomendationletter::letters.print_letter_6', compact('letter'));
+                break;
+
+            case 7:
+                return view('recomendationletter::letters.print_letter_7', compact('letter'));
+                break;
+
+            case 8:
+                return view('recomendationletter::letters.print_letter_8', compact('letter'));
+                break;
+
+            case 9:
+                return view('recomendationletter::letters.print_letter_9', compact('letter'));
+                break;
+
+            case 10:
+                return view('recomendationletter::letters.print_letter_10', compact('letter'));
+                break;
+
+            default:
+                # code...
+                break;
+        }
     }
 }

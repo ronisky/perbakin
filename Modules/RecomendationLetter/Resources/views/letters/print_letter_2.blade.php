@@ -6,7 +6,7 @@ class PDF extends FPDF
 {
 // Page header
 function Header()
-{    
+{
     $user = Auth::user()->group_id;
     if ($user == 2 || $user == 1) {
         // kop surat
@@ -15,7 +15,7 @@ function Header()
         $this->Ln(25);
     }else{
         $this->SetFont('Arial','B',12);
-        $this->MultiCell(0,5,"Permohonan rekomendasi Hibah Senpi/amunisi untuk kepentingan Olahraga Menembak",0,'C',0);
+        $this->MultiCell(0,5,ucwords('Permohonan Rekomendasi Hibah Senpi/amunisi untuk kepentingan Olahraga Menembak'),0,'C',0);
         $this->Ln(10);
     }
 }
@@ -30,7 +30,7 @@ function Footer()
         // Arial italic 8
         $this->SetFont('Arial','I',8);
         $this->Cell(0, 5, Auth::user()->user_kta, 0, 0, 'L');
-        
+
     }
 }
 
@@ -43,19 +43,19 @@ function NoSurat($letter)
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords($letter->letter_no), 0, 0, 'L');
         $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
-        
+
         $this->Ln(5);
         $this->Cell(8);
         $this->Cell(20, 5, 'Lampiran', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
-        
+
         // Perihal
         $this->Ln(5);
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,"Permohonan rekomendasi Hibah Senpi/amunisi untuk kepentingan Olahraga Menembak",0,'L',0);
+        $this->MultiCell(70,5,ucwords($letter->letter_category_name),0,'L',0);
     }else{
         $this->Ln(5);
         $this->Cell(8);
@@ -63,27 +63,27 @@ function NoSurat($letter)
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
         $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
-        
+
         // Perihal
         $this->Ln(5);
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,"Permohonan rekomendasi Hibah Senpi/amunisi untuk kepentingan Olahraga Menembak",0,'L',0);
+        $this->MultiCell(70,5,ucwords($letter->letter_category_name),0,'L',0);
     }
 
 }
 
-function TujuanSurat()
+function TujuanSurat($letter)
 {
     $this->Cell(125);
     $this->Cell(20, 5,'Kepada', 0, 0);
     $this->Ln(5);
     $this->Cell(119);
-    $this->Cell(30, 5,'Yth. Ketum Perbakin Kab. Bandung', 0, 0);
+    $this->Cell(30, 5,'Yth. '.ucwords($letter->letter_purpose_name), 0, 0);
     $this->Ln(5);
     $this->Cell(125);
-    $this->MultiCell(15, 5,'Di Soreang', 0,'L',0);
+    $this->MultiCell(15, 5,'Di '.ucwords($letter->letter_purpose_place), 0,'L',0);
 }
 
 function bodySatu($letter)
@@ -143,7 +143,7 @@ function bodySatu($letter)
 function BodySatuDesc()
 {
     $this->Cell(10);
-    $this->MultiCell(160,5,"     Dengan ini mengajukan Permohonan Rekomendasi Hibah Senpi/amuniusi untuk Kepentingan  Olahraga Menembak Berburu.",0,'J',0);
+    $this->MultiCell(160,5,"     Dengan ini mengajukan ".ucwords($letter->letter_category_name).".",0,'J',0);
 
 }
 
@@ -173,7 +173,7 @@ function BodyDua($letter)
     $this->Cell(32, 5, 'Kaliber', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
     $this->Cell(120, 5, ucwords($letter->kaliber), 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'd.', 0, 0, 'C');
@@ -225,7 +225,7 @@ function BodyTiga()
     $this->Cell(15);
     $this->Cell(2, 5, 'b.', 0, 0, 'C');
     $this->Cell(32, 5, 'FC Buku Pas Senpi', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'c.', 0, 0, 'C');
@@ -240,27 +240,27 @@ function BodyTiga()
     $this->Cell(15);
     $this->Cell(2, 5, 'e.', 0, 0, 'C');
     $this->Cell(32, 5, 'FC KTP', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'f.', 0, 0, 'C');
     $this->Cell(32, 5, 'FC Sertifikat Lulus Penataran Menembak Perbakin Bid Berburu/Reaksi', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'g.', 0, 0, 'C');
     $this->Cell(32, 5, 'FC SKCK', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'h.', 0, 0, 'C');
     $this->Cell(32, 5, 'Surat Keterangan Sehat dari Dokter Polda', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'i.', 0, 0, 'C');
     $this->Cell(32, 5, 'Hasil lulus Tes Psikotes dari Kepolisian/Polda', 0, 0, 'L');
-    
+
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'j.', 0, 0, 'C');
@@ -269,7 +269,7 @@ function BodyTiga()
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'k.', 0, 0, 'C');
-    $this->Cell(32, 5, 'Pas Foto (2x3), (3x4), (4x6)', 0, 0, 'L');
+    $this->Cell(32, 5, 'Pas Foto (4x6)', 0, 0, 'L');
 }
 
 function BodyEmpat()
@@ -290,19 +290,19 @@ function TandaTangan($letter)
 
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
-$pdf->SetTitle('Surat Permohonan Rekomendasi Hibah Senpi/amunisi untuk Kepentingan Olahraga Menembak');
+$pdf->SetTitle(ucwords($letter->letter_purpose_name));
 $pdf->SetFont('Arial','',8);
 
 // Nomor surat
 $pdf->NoSurat($letter);
 // Tujuan surat kepada
-$pdf->TujuanSurat();
+$pdf->TujuanSurat($letter);
 
 // body surat 1
 $pdf->Ln(3);
 $pdf->BodySatu($letter);
 
-$pdf->Ln(5);
+$pdf->Ln(7);
 $pdf->BodySatuDesc();
 
 // body surat 2

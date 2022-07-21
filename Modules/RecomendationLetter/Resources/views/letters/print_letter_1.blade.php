@@ -15,7 +15,7 @@ function Header()
         $this->Ln(25);
     }else{
         $this->SetFont('Arial','B',12);
-        $this->MultiCell(0,5,"Permohonan rekomendasi Pindah/Mutasi Senpi/amunisi anggota Perbakin Kab. Bandung",0,'C',0);
+        $this->MultiCell(0,5,ucwords('Permohonan Remomendasi Pindah/Mutasi Senpi Amunisi'),0,'C',0);
         $this->Ln(10);
     }
 }
@@ -55,7 +55,7 @@ function NoSurat($letter)
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,"Permohonan rekomendasi Pindah/Mutasi Senpi/amunisi anggota Perbakin Kab. Bandung",0,'L',0);
+        $this->MultiCell(70,5,ucwords($letter->letter_category_name),0,'L',0);
     }else{
         $this->Ln(5);
         $this->Cell(8);
@@ -69,21 +69,21 @@ function NoSurat($letter)
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,"Permohonan rekomendasi Pindah/Mutasi Senpi/amunisi anggota Perbakin Kab. Bandung",0,'L',0);
+        $this->MultiCell(70,5,ucwords($letter->letter_category_name),0,'L',0);
     }
 
 }
 
-function TujuanSurat()
+function TujuanSurat($letter)
 {
     $this->Cell(125);
     $this->Cell(20, 5,'Kepada', 0, 0);
     $this->Ln(5);
     $this->Cell(119);
-    $this->Cell(30, 5,'Yth. Ketum Perbakin Kab. Bandung', 0, 0);
+    $this->Cell(30, 5,'Yth. '.ucwords($letter->letter_purpose_name), 0, 0);
     $this->Ln(5);
     $this->Cell(125);
-    $this->MultiCell(15, 5,'Di Soreang', 0,'L',0);
+    $this->MultiCell(15, 5,'Di '.ucwords($letter->letter_purpose_place), 0,'L',0);
 }
 
 function bodySatu($letter)
@@ -143,7 +143,7 @@ function bodySatu($letter)
 function BodySatuDesc()
 {
     $this->Cell(10);
-    $this->MultiCell(160,5,"     Dengan ini mengajukan Permohonan Rekomendasi Pindah/mutasi Gudang penyimpanan Senpi/amuniusi dari Gudang Senpi Polrestabes Bandung(Gudang Senpi Perbakin Kota Bandung) pindah  ke Gudang penyimpanan Senpi di Wasendak Sat Intelkam Polresta Bandung(Gudang Senpi Perbakin Kab. Bandung) dengan maksut agar lebih dekat dengan tempat tinggal, memudahkan dalam mengkoordinir Izin angkut Senjata dan mengikuti Program Kerja Perbakin Kab. Bandung Th.2021 -2022.",0,'J',0);
+    $this->MultiCell(160,5,"Dengan ini mengajukan Permohonan Rekomendasi Pindah/mutasi Gudang penyimpanan Senpi/amuniusi dari Gudang Senpi Polrestabes Bandung(Gudang Senpi Perbakin Kota Bandung) pindah  ke Gudang penyimpanan Senpi di Wasendak Sat Intelkam Polresta Bandung(Gudang Senpi Perbakin Kab. Bandung) dengan maksut agar lebih dekat dengan tempat tinggal, memudahkan dalam mengkoordinir Izin angkut Senjata dan mengikuti Program Kerja Perbakin Kab. Bandung Th.2021 -2022.",0,'J',0);
 
 }
 
@@ -255,13 +255,13 @@ function TandaTangan($letter)
 
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
-$pdf->SetTitle('Surat Permohonan rekomendasi Pindah/Mutasi Senpi/amunisi anggota Perbakin Kab. Bandung');
+$pdf->SetTitle(ucwords($letter->letter_category_name));
 $pdf->SetFont('Arial','',8);
 
 // Nomor surat
 $pdf->NoSurat($letter);
 // Tujuan surat kepada
-$pdf->TujuanSurat();
+$pdf->TujuanSurat($letter);
 
 // body surat 1
 $pdf->Ln(5);
