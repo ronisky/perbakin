@@ -24,11 +24,15 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
                 ->table($this->table)
                 ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
                 ->join('approval_statuses', 'approval_statuses.approval_status_id', 'letters.letter_status')
+                ->join('sys_users', 'sys_users.user_id', 'letters.created_by')
+                ->join('clubs', 'sys_users.club_id', 'clubs.club_id')
                 ->select(
                     'letters.*',
                     'letter_categories.letter_category_name',
                     'approval_statuses.approval_status',
                     'approval_statuses.style_class',
+                    'sys_users.user_name',
+                    'clubs.club_name'
                 )
                 ->get();
         } catch (Exception $e) {
@@ -43,11 +47,15 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
                 ->table($this->table)
                 ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
                 ->join('approval_statuses', 'approval_statuses.approval_status_id', 'letters.letter_status')
+                ->join('sys_users', 'sys_users.user_id', 'letters.created_by')
+                ->join('clubs', 'sys_users.club_id', 'clubs.club_id')
                 ->select(
                     'letters.*',
                     'letter_categories.letter_category_name',
                     'approval_statuses.approval_status',
                     'approval_statuses.style_class',
+                    'sys_users.user_name',
+                    'clubs.club_name'
                 )
                 ->where($params)
                 ->get();

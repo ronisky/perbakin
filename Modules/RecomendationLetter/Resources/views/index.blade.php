@@ -80,10 +80,10 @@
                             @foreach ($letters as $letter)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $letter->name }}</td>
-                                <td title="{{ $letter->club}}">
+                                <td>{{ $letter->user_name }}</td>
+                                <td title="{{ $letter->club_name}}">
                                     @php
-                                    $clubName = substr( $letter->club, 0, 10);
+                                    $clubName = substr( $letter->club_name, 0, 10);
                                     @endphp
                                     {{ $clubName }}
                                 </td>
@@ -5010,6 +5010,7 @@
             jumlah: 'required',
             penyimpanan: 'required',
             pemohon: 'required',
+
             file_surat_hibah_senpi: 'required',
             file_buku_pas_senpi: 'required',
             file_foto_senjata: 'required',

@@ -5,6 +5,7 @@ namespace Modules\RecomendationLetter\Http\Controllers;
 use App\Helpers\DataHelper;
 use App\Helpers\LogHelper;
 use App\Mail\LetterSubmission;
+use Error;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -496,7 +497,6 @@ class RecomendationLetterController extends Controller
             case '2':
                 DB::beginTransaction();
                 try {
-
                     if (!$request->hasFile('file_surat_hibah_senpi')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
                     }
@@ -648,7 +648,8 @@ class RecomendationLetterController extends Controller
                 } catch (\Throwable $th) {
 
                     DB::rollBack();
-                    return redirect('recomendationletter')->with('errorMessage', 'Gagal mengirim data');
+                    return redirect('recomendationletter')->with('errorMessage', $th);
+                    // return redirect('recomendationletter')->with('errorMessage', 'Gagal mengirim data');
                 }
                 break;
             case '3':
