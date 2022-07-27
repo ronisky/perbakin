@@ -34,6 +34,7 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
                     'sys_users.user_name',
                     'clubs.club_name'
                 )
+                ->latest()
                 ->get();
         } catch (Exception $e) {
             return $e->getMessage();
@@ -58,6 +59,7 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
                     'clubs.club_name'
                 )
                 ->where($params)
+                ->latest()
                 ->get();
         } catch (Exception $e) {
             return $e->getMessage();

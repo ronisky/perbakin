@@ -315,8 +315,7 @@
                             </div>
                             <div class="col-md-6 mb-3 letter1">
                                 <div class="form-group">
-                                    <label class="form-label">Cabang Klub Tujuan<span
-                                            class="text-danger">*</span></label>
+                                    <label class="form-label">Gudang Tujuan<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" name="l9_cabang" id="l9_cabang"
                                         placeholder="Masasukan mutasi tujuan">
                                 </div>
@@ -1277,7 +1276,7 @@
                             <div class="col-md-6 mb-3 letter3">
                                 <div class="form-group">
                                     <label class="form-label">No KTP <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_ktp" id="no_ktp" value=""
+                                    <input type="number" class="form-control" name="no_ktp" id="no_ktp" value=""
                                         placeholder="Masukan klub / perkumupulan">
                                 </div>
                             </div>
@@ -1319,7 +1318,7 @@
                             <div class="col-md-6 mb-3 letter3">
                                 <div class="form-group">
                                     <label class="form-label">No KTP <span class="text-danger">*</span></label>
-                                    <input type="string" class="form-control" name="no_ktp2" id="no_ktp2" value=""
+                                    <input type="number" class="form-control" name="no_ktp2" id="no_ktp2" value=""
                                         placeholder="Masukan klub / perkumupulan">
                                 </div>
                             </div>
@@ -1453,23 +1452,29 @@
                                 </div>
                             </div>
                             <div class="col-md-6 row">
-                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <label for="firearm_category_name" class="col-md-5 col-form-label">Jenis Senjata</label>
                                 <div class="col-md-6">
-                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                    <input type="text" readonly class="form-control-plaintext firearm_category_name">
                                 </div>
                             </div>
                             <div class="col-md-6 row">
-                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <label for="merek" class="col-md-5 col-form-label">Merek Senjata</label>
                                 <div class="col-md-6">
-                                    <input type="text" readonly class="form-control-plaintext user_kta"
-                                        value="{{ old('user_kta') }}">
+                                    <input type="text" readonly class="form-control-plaintext merek">
                                 </div>
                             </div>
                             <div class="col-md-6 row">
-                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <label for="pemohon" class="col-md-5 col-form-label">Nama pemberi hibah (Pihak
+                                    I)</label>
                                 <div class="col-md-6">
-                                    <input type="text" readonly class="form-control-plaintext club_name"
-                                        value="{{ old('club_name') }}">
+                                    <input type="text" readonly class="form-control-plaintext pemohon">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="pemohon_pihak_2" class="col-md-5 col-form-label">Nama penerima hibah (Pihak
+                                    II)</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext pemohon_pihak_2">
                                 </div>
                             </div>
                         </div>
@@ -4609,11 +4614,14 @@
                             document.getElementById('letter_status_detail3').innerHTML =
                                 "<span class='" + data.result[1].style_class + "'>" + data.result[1]
                                 .approval_status + "</span>";
+                            $('.firearm_category_name').val(': ' + data.result[1]
+                                .firearm_category_name);
                             $('.letter_category_name').val(': ' + data.result[1]
                                 .letter_category_name);
-                            $('.user_name').val(': ' + data.result[1].name);
-                            $('.user_kta').val(': ' + data.result[1].no_kta);
-                            $('.club_name').val(': ' + data.result[1].club);
+                            $('.merek').val(': ' + data.result[1]
+                                .merek);
+                            $('.pemohon').val(': ' + data.result[1].pemohon);
+                            $('.pemohon_pihak_2').val(': ' + data.result[1].pemohon_pihak_2);
                             break;
                         case 4:
                             $('.detailModalLetter4 .modal-title').text('Detail Data Letter');

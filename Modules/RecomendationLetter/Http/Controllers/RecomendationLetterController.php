@@ -142,6 +142,7 @@ class RecomendationLetterController extends Controller
                     'membership' => 'required',
                     'mutasi_alasan' => 'required',
                     'pemohon' => 'required'
+
                 ];
                 break;
             case '3':
@@ -152,12 +153,9 @@ class RecomendationLetterController extends Controller
                     'no_pabrik' => 'required',
                     'no_buku_pas_senpi' => 'required',
                     'tanggal_dikeluarkan' => 'required',
-                    'nama_pemilik' => 'required',
                     'jumlah' => 'required',
 
                     'letter_category_id' => 'required',
-                    'letter_place' => 'required',
-                    'letter_date' => 'required',
                     'name' => 'required',
                     'name2' => 'required',
                     'place_of_birth' => 'required',
@@ -166,10 +164,7 @@ class RecomendationLetterController extends Controller
                     'occupation2' => 'required',
                     'address' => 'required',
                     'address2' => 'required',
-                    'club' => 'required',
-                    'no_kta' => 'required',
                     'no_ktp2' => 'required',
-                    'membership' => 'required',
                     'pemohon' => 'required',
                     'pemohon_pihak_2' => 'required',
 
@@ -497,6 +492,11 @@ class RecomendationLetterController extends Controller
             case '2':
                 DB::beginTransaction();
                 try {
+                    $validatorImage = Validator::make($request->all(), $this->_validationRulesImage($categoryId));
+                    if ($validatorImage->fails()) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file/ gambar yang dimasukan sesuai.');
+                    }
+
                     if (!$request->hasFile('file_surat_hibah_senpi')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
                     }
@@ -531,10 +531,6 @@ class RecomendationLetterController extends Controller
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File foto harus dipilih!');
                     }
 
-                    $validatorImage = Validator::make($request->all(), $this->_validationRulesImage($categoryId));
-                    if ($validatorImage->fails()) {
-                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file/ gambar yang dimasukan sesuai.');
-                    }
 
                     $filePath = DataHelper::getFilePath(null, null, true);
 
@@ -657,7 +653,7 @@ class RecomendationLetterController extends Controller
                 try {
                     $validatorImage = Validator::make($request->all(), $this->_validationRulesImage($categoryId));
                     if ($validatorImage->fails()) {
-                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file/ gambar yang dimasukan sesuai.');
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan anda memasukan data dengan benar');
                     }
 
                     $data = [
@@ -667,7 +663,6 @@ class RecomendationLetterController extends Controller
                         'no_pabrik' => $request->no_pabrik,
                         'no_buku_pas_senpi' => $request->no_buku_pas_senpi,
                         'tanggal_dikeluarkan' => $request->tanggal_dikeluarkan,
-                        'nama_pemilik' => $request->nama_pemilik,
                         'jumlah' => $request->jumlah,
                     ];
                     $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
@@ -676,8 +671,7 @@ class RecomendationLetterController extends Controller
                     $dataLetter = [
                         'letter_category_id' => $request->letter_category_id,
                         'firearm_id' => $firearmId,
-                        'letter_place' => $request->letter_place,
-                        'letter_date' => $request->letter_date,
+                        'letter_date' => date('Y-m-d H:i:s'),
                         'name' => $request->name,
                         'name2' => $request->name2,
                         'place_of_birth' => $request->place_of_birth,
@@ -686,10 +680,7 @@ class RecomendationLetterController extends Controller
                         'occupation2' => $request->occupation2,
                         'address' => $request->address,
                         'address2' => $request->address2,
-                        'club' => $request->club,
-                        'no_kta' => $request->no_kta,
                         'no_ktp2' => $request->no_ktp2,
-                        'membership' => $request->membership,
                         'pemohon' => $request->pemohon,
                         'pemohon_pihak_2' => $request->pemohon_pihak_2,
                         'letter_status' => 1
@@ -717,6 +708,7 @@ class RecomendationLetterController extends Controller
                 break;
             case '4':
                 DB::beginTransaction();
+
                 try {
                     if (!$request->hasFile('file_si_impor_senjata')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
@@ -750,6 +742,7 @@ class RecomendationLetterController extends Controller
                     }
 
                     $validatorImage = Validator::make($request->all(), $this->_validationRulesImage($categoryId));
+                    dd($validatorImage);
                     if ($validatorImage->fails()) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file/ gambar yang dimasukan sesuai.');
                     }
