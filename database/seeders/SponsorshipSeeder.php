@@ -18,7 +18,6 @@ class SponsorshipSeeder extends Seeder
             [
                 'sponsorship_id'    => '1',
                 'sponsorship_category_id'  => '2',
-                'day_show'        => 14,
                 'sponsorship_name' => "Eiger",
                 'sponsorship_type' => "photo",
                 'sponsorship_description' => "Deskripsi",
@@ -33,7 +32,6 @@ class SponsorshipSeeder extends Seeder
             [
                 'sponsorship_id'    => '2',
                 'sponsorship_category_id'  => '1',
-                'day_show'        => 7,
                 'sponsorship_name' => "Eiger",
                 'sponsorship_type' => "video",
                 'sponsorship_description' => "Deskripsi",

@@ -510,7 +510,7 @@
         });
 
     });
-
+    
     $('.btnDetail').click(function () {
         let id = $(this).attr('data-id');
         let url = "{{ url('sponsorship/show') }}";

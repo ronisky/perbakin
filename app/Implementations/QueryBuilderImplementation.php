@@ -103,6 +103,17 @@ class QueryBuilderImplementation implements CRUDContract
         }
     }
 
+    public function insertGetId(array $data)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table($this->table)
+                ->insertGetId($data);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function delete($id)
     {
         try {

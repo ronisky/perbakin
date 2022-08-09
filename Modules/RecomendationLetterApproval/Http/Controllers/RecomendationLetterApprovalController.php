@@ -90,7 +90,7 @@ class RecomendationLetterApprovalController extends Controller
             return view('exceptions.unauthorize');
         }
 
-        $getDetailLetter  = $this->_recomendationLetterRepository->getByIdLetter($id);
+        $getDetailLetter  = $this->_recomendationLetterRepository->getById($id);
 
         $user = $this->_userRepository->getById($getDetailLetter->created_by);
         $idLetterRequirement = $getDetailLetter->letter_requirement_id;
@@ -508,8 +508,8 @@ class RecomendationLetterApprovalController extends Controller
             if ($letterReq->l8_surat_keterangan_domisili != null) {
                 Storage::delete('public/' . $filePath . $letterReq->l8_surat_keterangan_domisili);
             }
-            if ($letterReq->sertifikat_lulus_pentaran_berburu_reaksi != null) {
-                Storage::delete('public/' . $filePath . $letterReq->sertifikat_lulus_pentaran_berburu_reaksi);
+            if ($letterReq->file_sertif_menembak != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_sertif_menembak);
             }
             if ($letterReq->struktur_organisasi != null) {
                 Storage::delete('public/' . $filePath . $letterReq->struktur_organisasi);
@@ -544,7 +544,7 @@ class RecomendationLetterApprovalController extends Controller
      */
     public function printLetter($id)
     {
-        $letter = $this->_recomendationLetterRepository->getByIdLetter($id);
+        $letter = $this->_recomendationLetterRepository->getById($id);
         $category = $letter->letter_category_id;
 
         switch ($category) {

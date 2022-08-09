@@ -39,7 +39,7 @@ class UsersRepository extends QueryBuilderImplementation
             return DB::connection($this->db)
                 ->table($this->table)
                 ->join('sys_user_groups', 'sys_user_groups.group_id', '=', 'sys_users.group_id')
-                ->join('clubs', 'clubs.club_id', '=', 'sys_users.club_id')
+                ->leftJoin('clubs', 'clubs.club_id', '=', 'sys_users.club_id')
                 ->select('sys_users.*', 'sys_user_groups.group_name', 'clubs.club_name')
                 ->where($this->pk, '=', $id)
                 ->first();

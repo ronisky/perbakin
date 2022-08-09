@@ -19,9 +19,9 @@ class CreateLetterRequirements extends Migration
             $table->string('file_kta')->nullable();
             $table->string('file_kta_club')->nullable();
             $table->string('file_ktp')->nullable();
-            $table->string('surat_pernyataan_hibah_senpi')->nullable();
+            $table->string('file_surat_hibah_senpi')->nullable();
             $table->string('file_foto_senjata')->nullable();
-            $table->string('sertifikat_lulus_pentaran_berburu_reaksi')->nullable();
+            $table->string('file_sertif_menembak')->nullable();
             $table->string('file_skck')->nullable();
             $table->string('file_surat_sehat')->nullable();
             $table->string('file_tes_psikotes')->nullable();

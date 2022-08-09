@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Modules\FirearmCategory\Repositories\FirearmCategoryRepository;
 use Modules\LetterCategory\Repositories\LetterCategoryRepository;
+use Modules\RecomendationLetter\Repositories\FirearmRepository;
 use Modules\RecomendationLetter\Repositories\LetterRequirementRepository;
 use Modules\RecomendationLetter\Repositories\RecomendationLetterRepository;
 use Modules\UserGroup\Repositories\UserGroupRepository;
@@ -34,6 +35,7 @@ class RecomendationLetterController extends Controller
         $this->_letterRequirementRepository   = new LetterRequirementRepository;
         $this->_letterCategoryRepository   = new LetterCategoryRepository;
         $this->_firearmCategoryRepository   = new FirearmCategoryRepository;
+        $this->_firearmRepository   = new FirearmRepository;
         $this->module = "RecomendationLetter";
 
         $this->_logHelper       = new LogHelper;
@@ -448,7 +450,7 @@ class RecomendationLetterController extends Controller
                         'jumlah' => $request->jumlah,
                         'penyimpanan' => $request->penyimpanan
                     ];
-                    $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
+                    $firearmId = $this->_firearmRepository->insertGetId(array_merge($data, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->merek, 'create');
 
                     $dataLetter = [
@@ -469,9 +471,10 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letter_id = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->pemohon, 'create');
 
+                    DB::commit();
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
@@ -481,7 +484,6 @@ class RecomendationLetterController extends Controller
                     }
                     Mail::to($email)->send(new LetterSubmission($letter_id));
 
-                    DB::commit();
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -592,6 +594,7 @@ class RecomendationLetterController extends Controller
                         'file_kk' => $name_file_kk,
                         'file_foto_4x6' => $name_file_foto_4x6,
                     ];
+
                     $letterRequirementId = $this->_letterRequirementRepository->insertGetId(array_merge($data, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, "upload file letters required category-" . $categoryId, 'create');
 
@@ -605,7 +608,7 @@ class RecomendationLetterController extends Controller
                         'jumlah' => $request->jumlah,
                         'penyimpanan' => $request->penyimpanan
                     ];
-                    $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
+                    $firearmId = $this->_firearmRepository->insertGetId(array_merge($data, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->merek, 'create');
 
                     $dataLetter = [
@@ -627,9 +630,10 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letter_id = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->pemohon, 'create');
 
+                    DB::commit();
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
@@ -639,7 +643,6 @@ class RecomendationLetterController extends Controller
                     }
                     Mail::to($email)->send(new LetterSubmission($letter_id));
 
-                    DB::commit();
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -655,7 +658,6 @@ class RecomendationLetterController extends Controller
                     if ($validatorImage->fails()) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan anda memasukan data dengan benar');
                     }
-
                     $data = [
                         'firearm_category_id' => $request->firearm_category_id,
                         'merek' => $request->merek,
@@ -665,7 +667,7 @@ class RecomendationLetterController extends Controller
                         'tanggal_dikeluarkan' => $request->tanggal_dikeluarkan,
                         'jumlah' => $request->jumlah,
                     ];
-                    $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
+                    $firearmId = $this->_firearmRepository->insertGetId(array_merge($data, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->merek, 'create');
 
                     $dataLetter = [
@@ -686,9 +688,10 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letter_id = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->pemohon, 'create');
 
+                    DB::commit();
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
@@ -698,7 +701,6 @@ class RecomendationLetterController extends Controller
                     }
                     Mail::to($email)->send(new LetterSubmission($letter_id));
 
-                    DB::commit();
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -742,7 +744,6 @@ class RecomendationLetterController extends Controller
                     }
 
                     $validatorImage = Validator::make($request->all(), $this->_validationRulesImage($categoryId));
-                    dd($validatorImage);
                     if ($validatorImage->fails()) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file/ gambar yang dimasukan sesuai.');
                     }
@@ -803,7 +804,6 @@ class RecomendationLetterController extends Controller
                     ];
                     $letterRequirementId = $this->_letterRequirementRepository->insertGetId(array_merge($data, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, "upload file letters required category-" . $categoryId, 'create');
-
                     $data = [
                         'firearm_category_id' => $request->firearm_category_id,
                         'merek' => $request->merek,
@@ -816,7 +816,7 @@ class RecomendationLetterController extends Controller
                         'jumlah' => $request->jumlah,
                         'penyimpanan' => $request->penyimpanan
                     ];
-                    $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
+                    $firearmId = $this->_firearmRepository->insertGetId(array_merge($data, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->merek, 'create');
 
                     $dataLetter = [
@@ -838,8 +838,10 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letter_id = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->pemohon, 'create');
+
+                    DB::commit();
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
@@ -849,7 +851,6 @@ class RecomendationLetterController extends Controller
                     }
                     Mail::to($email)->send(new LetterSubmission($letter_id));
 
-                    DB::commit();
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -930,8 +931,9 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letterId = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letterId = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->letter_id, 'create');
+
                     DB::commit();
 
                     // send mail
@@ -1038,8 +1040,10 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letter_id = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->pemohon, 'create');
+
+                    DB::commit();
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
@@ -1049,7 +1053,6 @@ class RecomendationLetterController extends Controller
                     }
                     Mail::to($email)->send(new LetterSubmission($letter_id));
 
-                    DB::commit();
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -1085,8 +1088,10 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letter_id = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->pemohon, 'create');
+
+                    DB::commit();
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
@@ -1097,7 +1102,6 @@ class RecomendationLetterController extends Controller
                         }
                         Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    DB::commit();
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -1211,9 +1215,10 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letter_id = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->pemohon, 'create');
 
+                    DB::commit();
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
@@ -1223,7 +1228,6 @@ class RecomendationLetterController extends Controller
                     }
                     Mail::to($email)->send(new LetterSubmission($letter_id));
 
-                    DB::commit();
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -1243,13 +1247,8 @@ class RecomendationLetterController extends Controller
                     if (!$request->hasFile('surat_rekomendasi_club')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
                     }
-                    if ($request->hasFile('file_kta')) {
-                        $validated = $request->validate([
-                            'file_kta' => 'required|mimes:jpg,jpeg,png|max:2048'
-                        ]);
-                        if ($validated->fails()) {
-                            return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file KTA Perbakin sesuai ketentuan');
-                        }
+                    if (!$request->hasFile('file_kta')) {
+                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file KTA Perbakin sesuai ketentuan');
                     }
                     if (!$request->hasFile('file_foto_4x6')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File kta harus dipilih!');
@@ -1313,8 +1312,10 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letter_id = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->pemohon, 'create');
+
+                    DB::commit();
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
@@ -1324,7 +1325,6 @@ class RecomendationLetterController extends Controller
                     }
                     Mail::to($email)->send(new LetterSubmission($letter_id));
 
-                    DB::commit();
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -1390,7 +1390,7 @@ class RecomendationLetterController extends Controller
                         'jumlah' => $request->jumlah,
                         'penyimpanan' => $request->penyimpanan
                     ];
-                    $firearmId = $this->_recomendationLetterRepository->insertGetIdFirearm(array_merge($data, DataHelper::_signParams(true)));
+                    $firearmId = $this->_firearmRepository->insertGetId(array_merge($data, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->merek, 'create');
 
                     $dataLetter = [
@@ -1411,8 +1411,10 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letter_id = $this->_recomendationLetterRepository->insertGetIdLetter(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letter_id = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->pemohon, 'create');
+
+                    DB::commit();
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
@@ -1422,7 +1424,6 @@ class RecomendationLetterController extends Controller
                     }
                     Mail::to($email)->send(new LetterSubmission($letter_id));
 
-                    DB::commit();
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -1448,7 +1449,7 @@ class RecomendationLetterController extends Controller
             return view('exceptions.unauthorize');
         }
 
-        $getDetailLetter  = $this->_recomendationLetterRepository->getByIdLetter($id);
+        $getDetailLetter  = $this->_recomendationLetterRepository->getById($id);
 
         $user = $this->_userRepository->getById($getDetailLetter->created_by);
         $idLetterRequirement = $getDetailLetter->letter_requirement_id;
@@ -1483,7 +1484,18 @@ class RecomendationLetterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    }
+
+    public function sendMain($id)
+    {
+        // $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
+        // $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
+
+        // $email = [];
+        // foreach ($users as $user) {
+        //     array_push($email, $user->user_email);
+        // }
+        Mail::to('foxoxez@getnada.com')->send(new LetterSubmission($id));
     }
 
     /**
@@ -1503,24 +1515,25 @@ class RecomendationLetterController extends Controller
 
     public function downloadLetter($id)
     {
-        switch ($id) {
-            case 11:
-                $letterName = '\data-anggota.docx';
-                break;
+        Mail::to('foxoxez@getnada.com')->send(new LetterSubmission($id));
+        // switch ($id) {
+        //     case 11:
+        //         $letterName = '\data-anggota.docx';
+        //         break;
 
-            case 12:
-                $letterName = '\pendaftaran-anggota-baru.docx';
-                break;
+        //     case 12:
+        //         $letterName = '\pendaftaran-anggota-baru.docx';
+        //         break;
 
-            default:
-                # code...
-                break;
-        }
-        $filePath = public_path('storage\downloads\letters' . $letterName);
-        $headers = ['Content-Type: application/docx'];
-        $fileName = time() . '.docx';
+        //     default:
+        //         # code...
+        //         break;
+        // }
+        // $filePath = public_path('storage\downloads\letters' . $letterName);
+        // $headers = ['Content-Type: application/docx'];
+        // $fileName = time() . '.docx';
 
-        return response()->download($filePath, $fileName, $headers);
+        // return response()->download($filePath, $fileName, $headers);
     }
 
     /**
@@ -1529,7 +1542,7 @@ class RecomendationLetterController extends Controller
      */
     public function printLetter($id)
     {
-        $letter = $this->_recomendationLetterRepository->getByIdLetter($id);
+        $letter = $this->_recomendationLetterRepository->getById($id);
         $category = $letter->letter_category_id;
 
         switch ($category) {

@@ -16,17 +16,17 @@ class CreateFirearms extends Migration
         Schema::create('firearms', function (Blueprint $table) {
             $table->bigIncrements('firearm_id');
             $table->unsignedBigInteger('firearm_category_id')->nullable();
-            $table->string('merek', 100);
-            $table->string('kaliber', 100);
-            $table->string('no_pabrik', 100);
-            $table->string('no_buku_pas_senpi', 100);
-            $table->string('nama_pemilik', 100);
-            $table->smallInteger('jumlah');
-            $table->string('penyimpanan', 100);
-            $table->string('no_si_impor', 30);
-            $table->string('pelaksana_impor', 100);
-            $table->string('bap_senpi', 100);
-            $table->string('tanggal_dikeluarkan', 20);
+            $table->string('merek', 100)->nullable();
+            $table->string('kaliber', 100)->nullable();
+            $table->string('no_pabrik', 100)->nullable();
+            $table->string('no_buku_pas_senpi', 100)->nullable();
+            $table->string('nama_pemilik', 100)->nullable();
+            $table->smallInteger('jumlah')->nullable();
+            $table->string('penyimpanan', 100)->nullable();
+            $table->string('no_si_impor', 30)->nullable();
+            $table->string('pelaksana_impor', 100)->nullable();
+            $table->string('bap_senpi', 100)->nullable();
+            $table->string('tanggal_dikeluarkan', 20)->nullable();
             $table->dateTime('created_at');
             $table->bigInteger('created_by')->unsigned();
             $table->dateTime('updated_at')->nullable();

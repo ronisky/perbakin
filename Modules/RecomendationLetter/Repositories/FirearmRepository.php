@@ -17,15 +17,4 @@ class FirearmRepository extends QueryBuilderImplementation
         $this->table = 'firearms';
         $this->pk = 'firearm_id';
     }
-
-    public function insertGetId(array $data)
-    {
-        try {
-            return DB::connection($this->db)
-                ->table($this->table)
-                ->insertGetId($data);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
 }

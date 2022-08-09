@@ -25,7 +25,7 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
                 ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
                 ->join('approval_statuses', 'approval_statuses.approval_status_id', 'letters.letter_status')
                 ->join('sys_users', 'sys_users.user_id', 'letters.created_by')
-                ->join('clubs', 'sys_users.club_id', 'clubs.club_id')
+                ->leftJoin('clubs', 'sys_users.club_id', 'clubs.club_id')
                 ->select(
                     'letters.*',
                     'letter_categories.letter_category_name',
@@ -49,7 +49,7 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
                 ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
                 ->join('approval_statuses', 'approval_statuses.approval_status_id', 'letters.letter_status')
                 ->join('sys_users', 'sys_users.user_id', 'letters.created_by')
-                ->join('clubs', 'sys_users.club_id', 'clubs.club_id')
+                ->leftJoin('clubs', 'sys_users.club_id', 'clubs.club_id')
                 ->select(
                     'letters.*',
                     'letter_categories.letter_category_name',
@@ -66,35 +66,49 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
         }
     }
 
-    public function getByIdLetter($id)
+    public function getById($id)
     {
         try {
             return DB::connection($this->db)
                 ->table($this->table)
                 ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
                 ->join('approval_statuses', 'approval_statuses.approval_status_id', 'letters.letter_status')
-                ->leftJoin('firearms', 'firearms.firearm_id', 'letters.firearm_id')
-                ->leftJoin('firearm_categories', 'firearm_categories.firearm_category_id', 'firearms.firearm_category_id')
+                ->join('sys_users', 'sys_users.user_id', 'letters.created_by')
+                ->leftJoin('clubs', 'sys_users.club_id', 'clubs.club_id')
                 ->select(
                     'letters.*',
                     'letter_categories.letter_category_name',
                     'approval_statuses.approval_status',
                     'approval_statuses.style_class',
-                    'firearms.firearm_category_id',
-                    'firearms.merek',
-                    'firearms.kaliber',
-                    'firearms.no_pabrik',
-                    'firearms.no_buku_pas_senpi',
-                    'firearms.nama_pemilik',
-                    'firearms.jumlah',
-                    'firearms.penyimpanan',
-                    'firearms.no_si_impor',
-                    'firearms.pelaksana_impor',
-                    'firearms.bap_senpi',
-                    'firearms.tanggal_dikeluarkan',
-                    'firearm_categories.firearm_category_name',
+                    'sys_users.user_name',
+                    'clubs.club_name'
                 )
-                ->where($this->pk, '=', $id)
+                ->where('letters.letter_id', '=', $id)
+                ->orderBy('letter_id', 'DESC')
+                ->first();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getByLastLetter()
+    {
+        try {
+            return DB::connection($this->db)
+                ->table($this->table)
+                ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
+                ->join('approval_statuses', 'approval_statuses.approval_status_id', 'letters.letter_status')
+                ->join('sys_users', 'sys_users.user_id', 'letters.created_by')
+                ->leftJoin('clubs', 'sys_users.club_id', 'clubs.club_id')
+                ->select(
+                    'letters.*',
+                    'letter_categories.letter_category_name',
+                    'approval_statuses.approval_status',
+                    'approval_statuses.style_class',
+                    'sys_users.user_name',
+                    'clubs.club_name'
+                )
+                ->orderBy('letter_id', 'DESC')
                 ->first();
         } catch (Exception $e) {
             return $e->getMessage();
@@ -107,45 +121,6 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
             return DB::connection($this->db)
                 ->table($this->table)
                 ->insert($data);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    public function insertGetIdFirearm(array $data)
-    {
-        try {
-            return DB::connection($this->db)
-                ->table('firearms')
-                ->insertGetId($data);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    public function insertGetIdLetter(array $data)
-    {
-        try {
-            return DB::connection($this->db)
-                ->table('letters')
-                ->insertGetId($data);
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    public function getById($id)
-    {
-        try {
-            return DB::connection($this->db)
-                ->table($this->table)
-                ->join('letter_categories', 'letter_categories.letter_category_id', 'letters.letter_category_id')
-                ->select(
-                    'letters.*',
-                    'letter_categories.letter_category_name',
-                )
-                ->where($this->pk, '=', $id)
-                ->first();
         } catch (Exception $e) {
             return $e->getMessage();
         }
