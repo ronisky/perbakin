@@ -180,18 +180,26 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label class="form-label">Club Anggota saat ini: <br>
-                                            <b>({{$getDetail->club_name}})</b>
+                                            <input type="hidden" value="{{$getDetail->club_id}}" name="club_id">
+                                            <b class="current-club-name">({{$getDetail->club_name != "" ? $getDetail->club_name : "Club belum dipilih"}})</b>
                                         </label>
-                                        <select class="form-control" name="club_id" id="club_id">
-                                            <option value="">- Ubah Club Anggota -</option>
-                                            @if(sizeof($clubs) > 0)
-                                            @foreach($clubs as $club)
-                                            <option value="{{ $club->club_id }}">{{$club->club_name }}</option>
-                                            @endforeach
-                                            @endif
-                                        </select>
+                                        <br>
+                                        <button type="button" class="btn btn-warning mb-2"
+                                            data-toggle="collapse" data-target="#toggle-collapse-club"
+                                            id="btn-title-collapse">Update club</button>
+                                        <span class="form-label text-sm text-danger" id="hint_password"></span>
+                                        <div id="toggle-collapse-club" class="collapse">
+                                            <select class="form-control" name="club_id_update">
+                                                <option value="">- Pilih Club -</option>
+                                                @if(sizeof($clubs) > 0)
+                                                @foreach($clubs as $club)
+                                                <option value="{{ $club->club_id }}">{{$club->club_name }}</option>
+                                                @endforeach
+                                                @endif
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -229,6 +237,17 @@
 
 @section('script')
 <script type="text/javascript">
+
+    let current_club = $('.current-club-id').val();
+    let options = document.getElementById("club_id").options;
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].text == current_club) {
+            options[i].selected = true;
+            break;
+        }
+    }
+
+
     $('#generate_password').click(function () {
 
         let keylist = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*"
@@ -265,9 +284,9 @@
         }
     }
     // function for disable right right click
-    window.oncontextmenu = function () {
-        return false;
-    }
+    // window.oncontextmenu = function () {
+    //     return false;
+    // }
 
     // function for disable key shortcut
     $(window).on('keydown', function (event) {

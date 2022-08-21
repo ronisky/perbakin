@@ -175,9 +175,12 @@ class UsersController extends Controller
 
     public function updateProfile(Request $request, $id)
     {
-        DB::beginTransaction();
         $getDetail  = $this->_usersRepository->getById($id);
         $filePath = DataHelper::getFilePath(false, true);
+        DB::beginTransaction();
+        // check and update club 
+        $request->club_id_update == null ? $request['club_id'] = $request->club_id : $request['club_id'] = $request->club_id_update;
+
         if ($request->user_image <> "") {
             if ($getDetail->user_image != null) {
                 Storage::delete('public/' . $filePath . $getDetail->user_image);
@@ -253,7 +256,7 @@ class UsersController extends Controller
                     'user_club_cab' => $request->user_club_cab,
                 ];
             }
-            $this->_usersRepository->update(array_merge($dataUser, DataHelper::_signParams(false, true)), $id);
+            $data = $this->_usersRepository->update(array_merge($dataUser, DataHelper::_signParams(false, true)), $id);
         }
 
         $this->_logHelper->store($this->module, $request->user_name, 'update');
