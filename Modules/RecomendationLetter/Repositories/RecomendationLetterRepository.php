@@ -91,7 +91,7 @@ class RecomendationLetterRepository extends QueryBuilderImplementation
         }
     }
 
-    public function getByLastLetter()
+    public function getLastLetter()
     {
         try {
             return DB::connection($this->db)

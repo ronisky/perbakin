@@ -41,8 +41,8 @@ function NoSurat($letter)
         $this->Cell(8);
         $this->Cell(20, 5, 'Nomor Surat', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->Cell(96, 5, ucwords($letter->letter_no), 0, 0, 'L');
-        $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
+        $this->Cell(96, 5, ucwords($letter[0]->letter_no), 0, 0, 'L');
+        $this->Cell(30, 5, ucwords($letter[0]->letter_place) .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
 
         $this->Ln(5);
         $this->Cell(8);
@@ -55,21 +55,21 @@ function NoSurat($letter)
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,$letter->letter_category_name,0,'L',0);
+        $this->MultiCell(70,5,$letter[0]->letter_category_name,0,'L',0);
     }else{
         $this->Ln(5);
         $this->Cell(8);
         $this->Cell(20, 5, 'Lampiran', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
-        $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
+        $this->Cell(30, 5, ucwords($letter[0]->letter_place) .', '. DateFormatHelper::dateIn('2022-12-20 17:28:34'), 0, 0, 'L');
 
         // Perihal
         $this->Ln(5);
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,ucwords($letter->letter_category_name),0,'L',0);
+        $this->MultiCell(70,5,ucwords($letter[0]->letter_category_name),0,'L',0);
     }
 
 }
@@ -80,10 +80,10 @@ function TujuanSurat($letter)
     $this->Cell(20, 5,'Kepada', 0, 0);
     $this->Ln(5);
     $this->Cell(119);
-    $this->Cell(30, 5,'Yth. '.ucwords($letter->letter_purpose_name), 0, 0);
+    $this->Cell(30, 5,'Yth. '.ucwords($letter[0]->letter_purpose_name), 0, 0);
     $this->Ln(5);
     $this->Cell(125);
-    $this->MultiCell(15, 5,'Di '.ucwords($letter->letter_purpose_place), 0,'L',0);
+    $this->MultiCell(15, 5,'Di '.ucwords($letter[0]->letter_purpose_place), 0,'L',0);
 }
 
 function BodySatu($letter)
@@ -93,7 +93,7 @@ function BodySatu($letter)
     $this->Ln(5);
     $this->Cell(10);
     $this->Cell(3, 5, '1. ', 0, 0, 'J');
-    $this->MultiCell(155,5,"Dasar. ".$letter->dasar_adart,0,'J',0);
+    $this->MultiCell(155,5,"Dasar. ".$letter[0]->dasar_adart,0,'J',0);
 }
 
 function bodyDua()
@@ -176,13 +176,13 @@ function TandaTangan($letter)
     $this->Cell(32, 5, 'Ketua Klub/ Perkumpulan ', 0, 0, 'L');
     $this->Ln(15);
     $this->Cell(138);
-    $this->MultiCell(25, 5,ucwords($letter->pemohon), 0, 0);
+    $this->MultiCell(25, 5,ucwords($letter[0]->pemohon), 0, 0);
 }
 }
 
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
-$pdf->SetTitle(ucwords($letter->letter_category_name));
+$pdf->SetTitle(ucwords($letter[0]->letter_category_name));
 $pdf->SetFont('Arial','',8);
 
 // Nomor surat

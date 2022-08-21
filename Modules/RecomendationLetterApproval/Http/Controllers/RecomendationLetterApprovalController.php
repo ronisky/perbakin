@@ -415,41 +415,15 @@ class RecomendationLetterApprovalController extends Controller
             $this->_firearmRepository->delete($detail->firearm_id);
             $this->_logHelper->store($this->module, $detail->firearm_id, 'delete');
         }
+
         if ($detail->letter_requirement_id != null) {
             $letterReq = $this->_letterRequirementRepository->getById($detail->letter_requirement_id);
 
             $filePathLetter = DataHelper::getFilePath(null, null, true);
             $filePath = $filePathLetter . "category-" . $detail->letter_category_id . "/";
 
-            if ($letterReq->ad_art_klub != null) {
-                Storage::delete('public/' . $filePath . $letterReq->ad_art_klub);
-            }
-            if ($letterReq->biaya_administrasi != null) {
-                Storage::delete('public/' . $filePath . $letterReq->biaya_administrasi);
-            }
-            if ($letterReq->daftar_nama_pengurus != null) {
-                Storage::delete('public/' . $filePath . $letterReq->daftar_nama_pengurus);
-            }
-            if ($letterReq->data_anggota_klub != null) {
-                Storage::delete('public/' . $filePath . $letterReq->data_anggota_klub);
-            }
             if ($letterReq->file_buku_pas_senpi != null) {
                 Storage::delete('public/' . $filePath . $letterReq->file_buku_pas_senpi);
-            }
-            if ($letterReq->file_foto_2x3 != null) {
-                Storage::delete('public/' . $filePath . $letterReq->file_foto_2x3);
-            }
-            if ($letterReq->file_foto_3x4 != null) {
-                Storage::delete('public/' . $filePath . $letterReq->file_foto_3x4);
-            }
-            if ($letterReq->file_foto_4x6 != null) {
-                Storage::delete('public/' . $filePath . $letterReq->file_foto_4x6);
-            }
-            if ($letterReq->file_foto_senjata != null) {
-                Storage::delete('public/' . $filePath . $letterReq->file_foto_senjata);
-            }
-            if ($letterReq->file_kk != null) {
-                Storage::delete('public/' . $filePath . $letterReq->file_kk);
             }
             if ($letterReq->file_kta != null) {
                 Storage::delete('public/' . $filePath . $letterReq->file_kta);
@@ -460,14 +434,14 @@ class RecomendationLetterApprovalController extends Controller
             if ($letterReq->file_ktp != null) {
                 Storage::delete('public/' . $filePath . $letterReq->file_ktp);
             }
-            if ($letterReq->file_nama_anggota_senjata_digunakan != null) {
-                Storage::delete('public/' . $filePath . $letterReq->file_nama_anggota_senjata_digunakan);
+            if ($letterReq->file_surat_hibah_senpi != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_surat_hibah_senpi);
             }
-            if ($letterReq->file_sba_penitipan_senpi != null) {
-                Storage::delete('public/' . $filePath . $letterReq->file_sba_penitipan_senpi);
+            if ($letterReq->file_foto_senjata != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_foto_senjata);
             }
-            if ($letterReq->file_si_impor_senjata != null) {
-                Storage::delete('public/' . $filePath . $letterReq->file_si_impor_senjata);
+            if ($letterReq->file_sertif_menembak != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_sertif_menembak);
             }
             if ($letterReq->file_skck != null) {
                 Storage::delete('public/' . $filePath . $letterReq->file_skck);
@@ -478,23 +452,70 @@ class RecomendationLetterApprovalController extends Controller
             if ($letterReq->file_tes_psikotes != null) {
                 Storage::delete('public/' . $filePath . $letterReq->file_tes_psikotes);
             }
+            if ($letterReq->file_kk != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_kk);
+            }
+            if ($letterReq->file_si_impor_senjata != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_si_impor_senjata);
+            }
+            if ($letterReq->file_sba_penitipan_senpi != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_sba_penitipan_senpi);
+            }
             if ($letterReq->izin_penggunaan_lapangan != null) {
                 Storage::delete('public/' . $filePath . $letterReq->izin_penggunaan_lapangan);
             }
+            if ($letterReq->surat_rekomendasi_pengcab != null) {
+                Storage::delete('public/' . $filePath . $letterReq->surat_rekomendasi_pengcab);
+            }
+            if ($letterReq->surat_rekomendasi_club != null) {
+                Storage::delete('public/' . $filePath . $letterReq->surat_rekomendasi_club);
+            }
+            if ($letterReq->ad_art_klub != null) {
+                Storage::delete('public/' . $filePath . $letterReq->ad_art_klub);
+            }
+            if ($letterReq->struktur_organisasi != null) {
+                Storage::delete('public/' . $filePath . $letterReq->struktur_organisasi);
+            }
+            if ($letterReq->daftar_nama_pengurus != null) {
+                Storage::delete('public/' . $filePath . $letterReq->daftar_nama_pengurus);
+            }
+            if ($letterReq->data_anggota_klub != null) {
+                Storage::delete('public/' . $filePath . $letterReq->data_anggota_klub);
+            }
+            if ($letterReq->suket_domisili_sekretariat != null) {
+                Storage::delete('public/' . $filePath . $letterReq->suket_domisili_sekretariat);
+            }
+            if ($letterReq->biaya_administrasi != null) {
+                Storage::delete('public/' . $filePath . $letterReq->biaya_administrasi);
+            }
+
+            if ($letterReq->file_foto_2x3 != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_foto_2x3);
+            }
+            if ($letterReq->file_foto_3x4 != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_foto_3x4);
+            }
+            if ($letterReq->file_foto_4x6 != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_foto_4x6);
+            }
+
             if ($letterReq->l5_lampiran1 != null) {
                 Storage::delete('public/' . $filePath . $letterReq->l5_lampiran1);
             }
             if ($letterReq->l6_undangan_berburu != null) {
                 Storage::delete('public/' . $filePath . $letterReq->l6_undangan_berburu);
             }
-            if ($letterReq->l8_adart != null) {
-                Storage::delete('public/' . $filePath . $letterReq->l8_adart);
-            }
-            if ($letterReq->l8_data_anggota_club != null) {
-                Storage::delete('public/' . $filePath . $letterReq->l8_data_anggota_club);
+            if ($letterReq->file_nama_anggota_senjata_digunakan != null) {
+                Storage::delete('public/' . $filePath . $letterReq->file_nama_anggota_senjata_digunakan);
             }
             if ($letterReq->l8_kta_anggota_baru != null) {
                 Storage::delete('public/' . $filePath . $letterReq->l8_kta_anggota_baru);
+            }
+            if ($letterReq->l8_adart != null) {
+                Storage::delete('public/' . $filePath . $letterReq->l8_adart);
+            }
+            if ($letterReq->l8_struktur_organisasi != null) {
+                Storage::delete('public/' . $filePath . $letterReq->l8_struktur_organisasi);
             }
             if ($letterReq->l8_nama_para_pengurus != null) {
                 Storage::delete('public/' . $filePath . $letterReq->l8_nama_para_pengurus);
@@ -502,32 +523,11 @@ class RecomendationLetterApprovalController extends Controller
             if ($letterReq->l8_pas_foto_pengurus != null) {
                 Storage::delete('public/' . $filePath . $letterReq->l8_pas_foto_pengurus);
             }
-            if ($letterReq->l8_struktur_organisasi != null) {
-                Storage::delete('public/' . $filePath . $letterReq->l8_struktur_organisasi);
+            if ($letterReq->l8_data_anggota_club != null) {
+                Storage::delete('public/' . $filePath . $letterReq->l8_data_anggota_club);
             }
             if ($letterReq->l8_surat_keterangan_domisili != null) {
                 Storage::delete('public/' . $filePath . $letterReq->l8_surat_keterangan_domisili);
-            }
-            if ($letterReq->file_sertif_menembak != null) {
-                Storage::delete('public/' . $filePath . $letterReq->file_sertif_menembak);
-            }
-            if ($letterReq->struktur_organisasi != null) {
-                Storage::delete('public/' . $filePath . $letterReq->struktur_organisasi);
-            }
-            if ($letterReq->suket_domisili_sekretariat != null) {
-                Storage::delete('public/' . $filePath . $letterReq->suket_domisili_sekretariat);
-            }
-            if ($letterReq->surat_pernyataan_hibah_senpi != null) {
-                Storage::delete('public/' . $filePath . $letterReq->surat_pernyataan_hibah_senpi);
-            }
-            if ($letterReq->surat_rekomendasi_club != null) {
-                Storage::delete('public/' . $filePath . $letterReq->surat_rekomendasi_club);
-            }
-            if ($letterReq->surat_rekomendasi_pengcab != null) {
-                Storage::delete('public/' . $filePath . $letterReq->surat_rekomendasi_pengcab);
-            }
-            if ($letterReq->undangan_berburu != null) {
-                Storage::delete('public/' . $filePath . $letterReq->undangan_berburu);
             }
 
             $this->_letterRequirementRepository->delete($detail->letter_requirement_id);
@@ -544,9 +544,15 @@ class RecomendationLetterApprovalController extends Controller
      */
     public function printLetter($id)
     {
-        $letter = $this->_recomendationLetterRepository->getById($id);
-        $category = $letter->letter_category_id;
+        $letter = [];
+        $letters = $this->_recomendationLetterRepository->getById($id);
 
+        array_push($letter, $letters);
+        $category = $letters->letter_category_id;
+        if ($letters->firearm_id != null) {
+            $firearms = $this->_firearmRepository->getById($letters->firearm_id);
+            array_push($letter, $firearms);
+        }
         switch ($category) {
             case 1:
                 return view('recomendationletter::letters.print_letter_1', compact('letter'));

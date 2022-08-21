@@ -103,48 +103,48 @@
                                 </td>
                                 @php
                                 if (Auth::user()->group_id == 1) {
-                                echo '<td>';
-                                    $status = $letter->admin_status;
-
-                                    if($status == 1){
-                                    $admin_status = 'Diterima / ACC';
-                                    $class = 'badge badge-success';
-                                    }else if($status == 2){
-                                    $admin_status = 'Ditolak';
-                                    $class = 'badge badge-danger';
-                                    }else {
-                                    $admin_status = 'Diproses';
-                                    $class = 'badge badge-info';
-                                    }
+                                    echo '<td>';
+                                        $status = $letter->admin_status;
+    
+                                        if($status == 1){
+                                        $admin_status = 'Diterima / ACC';
+                                        $class = 'badge badge-success';
+                                        }else if($status == 2){
+                                        $admin_status = 'Ditolak';
+                                        $class = 'badge badge-danger';
+                                        }else {
+                                        $admin_status = 'Diproses';
+                                        $class = 'badge badge-info';
+                                        }
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
                                     $status = $letter->sekum_status;
                                     if($status == 1){
-                                    $admin_status = 'Diterima / ACC';
+                                    $sekum_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
                                     }else if($status == 2){
-                                    $admin_status = 'Ditolak';
+                                    $sekum_status = 'Ditolak';
                                     $class = 'badge badge-danger';
                                     }else {
-                                    $sekum_status = 'Diproses';
-                                    $class = 'badge badge-info';
+                                    $sekum_status = 'Perlu diproses';
+                                    $class = 'badge badge-secondary';
                                     }
                                     echo '<span class="'. $class .'">'. $sekum_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
                                     $status = $letter->ketua_status;
                                     if($status == 1){
-                                    $admin_status = 'Diterima / ACC';
+                                    $ketua_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
                                     }else if($status == 2){
-                                    $admin_status = 'Ditolak';
+                                    $ketua_status = 'Ditolak';
                                     $class = 'badge badge-danger';
                                     }else {
-                                    $sekum_status = 'Diproses';
-                                    $class = 'badge badge-info';
+                                    $ketua_status = 'Perlu diproses';
+                                    $class = 'badge badge-secondary';
                                     }
-                                    echo '<span class="'. $class .'">'. $sekum_status .'</span>';
+                                    echo '<span class="'. $class .'">'. $ketua_status .'</span>';
                                     echo '</td>';
                                 }elseif(Auth::user()->group_id == 4){
                                 echo '<td>';
@@ -157,26 +157,38 @@
                                     $admin_status = 'Ditolak';
                                     $class = 'badge badge-danger';
                                     }else {
-                                    $admin_status = 'Diproses';
-                                    $class = 'badge badge-info';
+                                    $admin_status = 'Perlu diproses';
+                                    $class = 'badge badge-secondary';
                                     }
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
                                     $status = $letter->sekum_status;
                                     if($status == 1){
-                                    $admin_status = 'Diterima / ACC';
+                                    $sekum_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
                                     }else if($status == 2){
-                                    $admin_status = 'Ditolak';
+                                    $sekum_status = 'Ditolak';
                                     $class = 'badge badge-danger';
                                     }else {
-                                    $sekum_status = 'Diproses';
-                                    $class = 'badge badge-info';
+                                    $sekum_status = 'Perlu diproses';
+                                    $class = 'badge badge-secondary';
                                     }
                                     echo '<span class="'. $class .'">'. $sekum_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
+                                    $status = $letter->ketua_status;
+                                    if($status == 1){
+                                    $ketua_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    }else if($status == 2){
+                                    $ketua_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else {
+                                    $ketua_status = 'Perlu diproses';
+                                    $class = 'badge badge-secondary';
+                                    }
+                                    echo '<span class="'. $class .'">'. $ketua_status .'</span>';
                                     echo '<select class="form-control letter_approval_ketua"
                                         name="letter_status_approval_ketua" data-id="'.$letter->letter_id.'"
                                         data-user="ketua">
@@ -187,6 +199,18 @@
                                     echo '</td>';
                                 }elseif (Auth::user()->group_id == 2){
                                 echo '<td>';
+                                    $status = $letter->admin_status;
+                                    if($status == 1){
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    }else if($status == 2){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else {
+                                    $admin_status = 'Perlu diproses';
+                                    $class = 'badge badge-secondary';
+                                    }
+                                    echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '<select class="form-control letter_approval_admin"
                                         name="letter_status_approval_admin" data-id="'.$letter->letter_id.'"
                                         data-user="admin">
@@ -206,12 +230,24 @@
                                     $admin_status = 'Ditolak';
                                     $class = 'badge badge-danger';
                                     }else {
-                                    $admin_status = 'Diproses';
-                                    $class = 'badge badge-info';
+                                    $admin_status = 'Perlu diproses';
+                                    $class = 'badge badge-secondary';
                                     }
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
+                                    $status = $letter->sekum_status;
+                                    if($status == 1){
+                                    $sekum_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    }else if($status == 2){
+                                    $sekum_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else {
+                                    $sekum_status = 'Perlu diproses';
+                                    $class = 'badge badge-secondary';
+                                    }
+                                    echo '<span class="'. $class .'">'. $sekum_status .'</span>';
                                     echo '<select class="form-control letter_approval_sekum"
                                         name="letter_status_approval_sekum" data-id="'.$letter->letter_id.'"
                                         data-user="sekum">
@@ -1601,6 +1637,7 @@
                     type: 'GET',
                     url: url,
                     success: function (data) {
+                        console.log(data);
                         if (data.status == 1) {
                             Swal.fire(
                                 'Terhapus!',

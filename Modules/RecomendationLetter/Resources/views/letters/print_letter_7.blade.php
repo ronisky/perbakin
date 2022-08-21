@@ -41,9 +41,9 @@ function TujuanSurat($letter)
     $this->Ln(5);
     $this->Cell(119);
     $this->Cell(6, 5,'Yth.', 0, 0);
-    $this->MultiCell(40, 5,ucwords($letter->letter_purpose_name), 0,'L', 0);
+    $this->MultiCell(40, 5,ucwords($letter[0]->letter_purpose_name), 0,'L', 0);
     $this->Cell(125);
-    $this->MultiCell(15, 5,'Di '.$letter->letter_purpose_place, 0,'L',0);
+    $this->MultiCell(15, 5,'Di '.$letter[0]->letter_purpose_place, 0,'L',0);
 }
 
 function bodySatu($letter)
@@ -62,37 +62,37 @@ function bodySatu($letter)
     $this->Cell(15);
     $this->Cell(32, 5, 'Nama', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->name), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->name), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'Alamat KTP', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->MultiCell(120,5,ucwords($letter->address),0,'L',0);
+    $this->MultiCell(120,5,ucwords($letter[0]->address),0,'L',0);
 
     $this->Cell(15);
     $this->Cell(32, 5, 'Pekerjaan', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->occupation), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->occupation), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'Club', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->club), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->club), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'No. KTA Perbakin', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->no_kta), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->no_kta), 0, 0, 'L');
 }
 
 function BodyDua($letter)
 {
     $this->Cell(10);
     $this->Cell(3, 5, '2. ', 0, 0, 'J');
-    $this->MultiCell(155,5,"Bermaksud mengajukan permohonan mengundurkan diri dari kepengurusan Pengcab Perbakin Kab. Bandung Masa Bakti Tahun ".$letter->l7_masa_bakti." dikarenakan " .$letter->l7_alasan_pengunduran.".",0,'J',0);
+    $this->MultiCell(155,5,"Bermaksud mengajukan permohonan mengundurkan diri dari kepengurusan Pengcab Perbakin Kab. Bandung Masa Bakti Tahun ".$letter[0]->l7_masa_bakti." dikarenakan " .$letter[0]->l7_alasan_pengunduran.".",0,'J',0);
 
 
     $this->Cell(10);
@@ -109,13 +109,13 @@ function BodyTiga()
 function TandaTangan($letter)
 {
     $this->Cell(125);
-    $this->Cell(20, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
+    $this->Cell(20, 5, ucwords($letter[0]->letter_place) .', '. DateFormatHelper::dateIn($letter[0]->letter_date), 0, 0, 'L');
     $this->Ln(5);
     $this->Cell(130);
     $this->MultiCell(25, 5,'Hormat Kami Pemohon', 0,'C', 0);
     $this->Ln(15);
     $this->Cell(133);
-    $this->MultiCell(25, 5,ucwords($letter->pemohon), 0, 0);
+    $this->MultiCell(25, 5,ucwords($letter[0]->pemohon), 0, 0);
 }
 
 function Tembusan($letter)
@@ -125,17 +125,17 @@ function Tembusan($letter)
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(3, 5,'1. ' , 0, 0, 'L');
-    $this->Cell(20, 5,ucwords($letter->tembusan1) , 0, 0, 'L');
+    $this->Cell(20, 5,ucwords($letter[0]->tembusan1) , 0, 0, 'L');
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(3, 5,'2. ' , 0, 0, 'L');
-    $this->Cell(20, 5,ucwords($letter->tembusan2) , 0, 0, 'L');
+    $this->Cell(20, 5,ucwords($letter[0]->tembusan2) , 0, 0, 'L');
 }
 }
 
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
-$pdf->SetTitle(ucwords($letter->letter_category_name));
+$pdf->SetTitle(ucwords($letter[0]->letter_category_name));
 $pdf->SetFont('Arial','',8);
 
 // Tujuan surat kepada

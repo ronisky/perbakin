@@ -1214,6 +1214,24 @@
                 <div class="modal-body">
                     <div class="form-body container">
                         <div class="row">
+                            <div class="col-md-8">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tempat Surat<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="letter_place" id="letter_place"
+                                            placeholder="Masukan tempat surat">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Tanggal Surat <span
+                                                class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" name="letter_date" id="letter_date"
+                                            placeholder="Masukan tanggal surat" value="{{ date('Y-m-d') }}">
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-4 center">
                                 <div class="card" style="width: 10rem;">
                                     <a target="_blank"
@@ -4781,9 +4799,9 @@
                                 .approval_status + "</span>";
                             $('.letter_category_name').val(': ' + data.result[1]
                                 .letter_category_name);
-                            $('.user_name').val(': ' + data.result[1].name);
-                            $('.user_kta').val(': ' + data.result[1].no_kta);
-                            $('.club_name').val(': ' + data.result[1].club);
+                            $('.user_name').val(': ' + data.result[1].pemohon);
+                            $('.user_kta').val(': ' + data.result[0].user_kta);
+                            $('.club_name').val(': ' + data.result[0].club_name);
 
                             var filePath = 'storage/uploads/letters/category-' + data.result[1]
                                 .letter_category_id +
@@ -5081,6 +5099,8 @@
 
     $("#addFormLetter3").validate({
         rules: {
+            letter_place: 'required',
+            letter_date: 'required',
             letter_category_id: 'required',
             name: 'required',
             place_of_birth: 'required',
@@ -5103,6 +5123,8 @@
             pemohon: 'required'
         },
         messages: {
+            letter_place: 'Form data tidak boleh kosong',
+            letter_date: 'Form data tidak boleh kosong',
             letter_category_id: 'Form data tidak boleh kosong',
             name: 'Form data tidak boleh kosong',
             place_of_birth: 'Form data tidak boleh kosong',

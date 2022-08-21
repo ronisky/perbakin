@@ -17,4 +17,22 @@ class FirearmRepository extends QueryBuilderImplementation
         $this->table = 'firearms';
         $this->pk = 'firearm_id';
     }
+
+    public function getById($id)
+    {
+        try {
+            return DB::connection($this->db)
+                ->table($this->table)
+                ->join('firearm_categories', 'firearm_categories.firearm_category_id', 'firearms.firearm_category_id')
+                ->select(
+                    'firearms.*',
+                    'firearm_categories.firearm_category_name'
+                )
+                ->where('firearms.firearm_id', '=', $id)
+                ->latest()
+                ->first();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }

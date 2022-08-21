@@ -43,25 +43,25 @@ function bodySatu($letter)
     $this->Cell(15);
     $this->Cell(32, 5, 'Nama', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->name), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->name), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'Tempat/Tgl lahir', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->place_of_birth) . ', '. $letter->date_of_birth , 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->place_of_birth) . ', '. $letter[0]->date_of_birth , 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'Pekerjaan /Jabatan', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->occupation), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->occupation), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'Alamat KTP', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->MultiCell(120,5,ucwords($letter->address),0,'L',0);
+    $this->MultiCell(120,5,ucwords($letter[0]->address),0,'L',0);
 }
 
 function BodySatuDesc()
@@ -81,24 +81,24 @@ function BodyDua($letter)
     $this->Cell(15);
     $this->Cell(32, 5, 'Nama', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->name2), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->name2), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'Pekerjaan /Jabatan', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->occupation2), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->occupation2), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'Alamat KTP', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->MultiCell(120,5,ucwords($letter->address2),0,'L',0);
+    $this->MultiCell(120,5,ucwords($letter[0]->address2),0,'L',0);
 
     $this->Cell(15);
     $this->Cell(32, 5, 'No. KTP', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->no_ktp2), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->no_ktp2), 0, 0, 'L');
 }
 
 function BodyDuaDesc()
@@ -120,48 +120,48 @@ function BodyTiga($letter)
     $this->Cell(2, 5, 'a.', 0, 0, 'C');
     $this->Cell(32, 5, 'Jenis', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->firearm_category_name), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[1]->firearm_category_name), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'b.', 0, 0, 'C');
     $this->Cell(32, 5, 'Merek', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5,  ucwords($letter->merek), 0, 0, 'L');
+    $this->Cell(120, 5,  ucwords($letter[1]->merek), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'c.', 0, 0, 'C');
     $this->Cell(32, 5, 'Kaliber', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->kaliber), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[1]->kaliber), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'd.', 0, 0, 'C');
     $this->Cell(32, 5, 'Nomor Pabrik', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->MultiCell(120,5,ucwords($letter->no_pabrik),0,'L',0);
+    $this->MultiCell(120,5,ucwords($letter[1]->no_pabrik),0,'L',0);
 
     $this->Cell(15);
     $this->Cell(2, 5, 'e.', 0, 0, 'C');
     $this->Cell(32, 5, 'No Buku Pas Senpi', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->no_buku_pas_senpi), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[1]->no_buku_pas_senpi), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'f.', 0, 0, 'C');
     $this->Cell(32, 5, 'Tanggal Dikeluarkan', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, DateFormatHelper::dateIn($letter->tanggal_dikeluarkan), 0, 0, 'L');
+    $this->Cell(120, 5, DateFormatHelper::dateIn($letter[1]->tanggal_dikeluarkan), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(2, 5, 'g.', 0, 0, 'C');
     $this->Cell(32, 5, 'Jumlah', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, $letter->jumlah, 0, 0, 'L');
+    $this->Cell(120, 5, $letter[1]->jumlah, 0, 0, 'L');
 }
 
 function BodyTigaDesc()
@@ -180,7 +180,7 @@ function BodyEmpat()
 function DateAndTandaTangan($letter)
 {
     $this->Cell(120);
-    $this->Cell(20, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
+    $this->Cell(20, 5, ucwords($letter[0]->letter_place) .', '. DateFormatHelper::dateIn($letter[0]->letter_date), 0, 0, 'L');
     $this->Ln(7);
     $this->Cell(125);
     $this->Cell(20, 5, 'Yang menyatakan', 0, 0, 'L');
@@ -190,14 +190,14 @@ function DateAndTandaTangan($letter)
     $this->Cell(20, 5, 'Yang menghibahkan/Pemberi Hibah', 0, 0, 'L');
     $this->Ln(20);
     $this->Cell(30);
-    $this->Cell(85, 5,ucwords($letter->pemohon_pihak_2), 0, 0,'L');
-    $this->Cell(25, 5,ucwords($letter->pemohon), 0, 0,'L');
+    $this->Cell(85, 5,ucwords($letter[0]->pemohon_pihak_2), 0, 0,'L');
+    $this->Cell(25, 5,ucwords($letter[0]->pemohon), 0, 0,'L');
 }
 }
 
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
-$pdf->SetTitle(ucwords($letter->letter_category_name));
+$pdf->SetTitle(ucwords($letter[0]->letter_category_name));
 $pdf->SetFont('Arial','',8);
 
 // body surat 1

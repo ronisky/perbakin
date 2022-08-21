@@ -41,8 +41,8 @@ function NoSurat($letter)
         $this->Cell(8);
         $this->Cell(20, 5, 'Nomor Surat', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->Cell(96, 5, ucwords($letter->letter_no), 0, 0, 'L');
-        $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
+        $this->Cell(96, 5, ucwords($letter[0]->letter_no), 0, 0, 'L');
+        $this->Cell(30, 5, ucwords($letter[0]->letter_place) .', '. DateFormatHelper::dateIn($letter[0]->letter_date), 0, 0, 'L');
 
         $this->Ln(5);
         $this->Cell(8);
@@ -55,21 +55,21 @@ function NoSurat($letter)
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,ucwords($letter->letter_category_name),0,'L',0);
+        $this->MultiCell(70,5,ucwords($letter[0]->letter_category_name),0,'L',0);
     }else{
         $this->Ln(5);
         $this->Cell(8);
         $this->Cell(20, 5, 'Lampiran', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
         $this->Cell(96, 5, ucwords('1(Satu) Bundel'), 0, 0, 'L');
-        $this->Cell(30, 5, ucwords($letter->letter_place) .', '. DateFormatHelper::dateIn($letter->letter_date), 0, 0, 'L');
+        $this->Cell(30, 5, ucwords($letter[0]->letter_place) .', '. DateFormatHelper::dateIn($letter[0]->letter_date), 0, 0, 'L');
 
         // Perihal
         $this->Ln(5);
         $this->cell(8);
         $this->Cell(20, 5, 'Perihal', 0, 0, 'L');
         $this->Cell(1, 5, ':', 0, 0, 'C');
-        $this->MultiCell(70,5,ucwords($letter->letter_category_name),0,'L',0);
+        $this->MultiCell(70,5,ucwords($letter[0]->letter_category_name),0,'L',0);
     }
 
 }
@@ -80,10 +80,10 @@ function TujuanSurat($letter)
     $this->Cell(20, 5,'Kepada', 0, 0);
     $this->Ln(5);
     $this->Cell(119);
-    $this->Cell(30, 5,'Yth. '.ucwords($letter->letter_purpose_name), 0, 0);
+    $this->Cell(30, 5,'Yth. '.ucwords($letter[0]->letter_purpose_name), 0, 0);
     $this->Ln(5);
     $this->Cell(125);
-    $this->MultiCell(15, 5,'Di '.ucwords($letter->letter_purpose_place), 0,'L',0);
+    $this->MultiCell(15, 5,'Di '.ucwords($letter[0]->letter_purpose_place), 0,'L',0);
 }
 
 function BodySatu($letter)
@@ -98,37 +98,37 @@ function BodySatu($letter)
     $this->Cell(15);
     $this->Cell(32, 5, 'Nama', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->name), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->name), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'Tempat/Tgl lahir', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->place_of_birth) . ', '. $letter->date_of_birth , 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->place_of_birth) . ', '. $letter[0]->date_of_birth , 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'Alamat KTP', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->MultiCell(120,5,ucwords($letter->address),0,'L',0);
+    $this->MultiCell(120,5,ucwords($letter[0]->address),0,'L',0);
 
     $this->Cell(15);
     $this->Cell(32, 5, 'Perkumpulan/ klub', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->club), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->club), 0, 0, 'L');
 
     $this->Ln(5);
     $this->Cell(15);
     $this->Cell(32, 5, 'No. KTA Perbakin', 0, 0, 'L');
     $this->Cell(1, 5, ':', 0, 0, 'C');
-    $this->Cell(120, 5, ucwords($letter->no_kta), 0, 0, 'L');
+    $this->Cell(120, 5, ucwords($letter[0]->no_kta), 0, 0, 'L');
 }
 
 function BodyDua($letter)
 {
     $this->Cell(10);
     $this->Cell(3, 5, '2. ', 0, 0, 'J');
-    $this->MultiCell(155,5,"Dengan ini mengajukan permohonan pindah / mutasi Atlet menembak dari Klub ".$letter->mutasi_dari." Perbakin Kabupaten Bandung pindah / mutasi ke klub menembak ".$letter->mutasi_menuju." Perbakin Cabang ".$letter->l9_cabang." di kerenakan ".$letter->mutasi_alasan,0,'J',0);
+    $this->MultiCell(155,5,"Dengan ini mengajukan permohonan pindah / mutasi Atlet menembak dari Klub ".$letter[0]->mutasi_dari." Perbakin Kabupaten Bandung pindah / mutasi ke klub menembak ".$letter[0]->mutasi_menuju." Perbakin Cabang ".$letter[0]->l9_cabang." di kerenakan ".$letter[0]->mutasi_alasan,0,'J',0);
 }
 
 function BodyTiga()
@@ -176,13 +176,13 @@ function TandaTangan($letter)
     $this->MultiCell(25, 5,'Hormat Kami Pemohon', 0,'C', 0);
     $this->Ln(15);
     $this->Cell(133);
-    $this->MultiCell(25, 5,ucwords($letter->pemohon), 0, 0);
+    $this->MultiCell(25, 5,ucwords($letter[0]->pemohon), 0, 0);
 }
 }
 
 $pdf = new PDF('P','mm','A4');
 $pdf->AddPage();
-$pdf->SetTitle(ucwords($letter->letter_category_name));
+$pdf->SetTitle(ucwords($letter[0]->letter_category_name));
 $pdf->SetFont('Arial','',8);
 
 // Nomor surat

@@ -158,6 +158,8 @@ class RecomendationLetterController extends Controller
                     'jumlah' => 'required',
 
                     'letter_category_id' => 'required',
+                    'letter_place' => 'required',
+                    'letter_date' => 'required',
                     'name' => 'required',
                     'name2' => 'required',
                     'place_of_birth' => 'required',
@@ -392,9 +394,8 @@ class RecomendationLetterController extends Controller
 
         switch ($categoryId) {
             case '1':
-                DB::beginTransaction();
                 try {
-
+                    DB::beginTransaction();
                     if (!$request->hasFile('file_buku_pas_senpi')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
                     }
@@ -478,12 +479,13 @@ class RecomendationLetterController extends Controller
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
-                    $email = [];
-                    foreach ($users as $user) {
-                        array_push($email, $user->user_email);
+                    if ($users) {
+                        $email = [];
+                        foreach ($users as $user) {
+                            array_push($email, $user->user_email);
+                        }
+                        Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    Mail::to($email)->send(new LetterSubmission($letter_id));
-
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -637,12 +639,13 @@ class RecomendationLetterController extends Controller
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
-                    $email = [];
-                    foreach ($users as $user) {
-                        array_push($email, $user->user_email);
+                    if ($users) {
+                        $email = [];
+                        foreach ($users as $user) {
+                            array_push($email, $user->user_email);
+                        }
+                        Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    Mail::to($email)->send(new LetterSubmission($letter_id));
-
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -673,7 +676,8 @@ class RecomendationLetterController extends Controller
                     $dataLetter = [
                         'letter_category_id' => $request->letter_category_id,
                         'firearm_id' => $firearmId,
-                        'letter_date' => date('Y-m-d H:i:s'),
+                        'letter_place' => $request->letter_place,
+                        'letter_date' => $request->letter_date,
                         'name' => $request->name,
                         'name2' => $request->name2,
                         'place_of_birth' => $request->place_of_birth,
@@ -695,12 +699,13 @@ class RecomendationLetterController extends Controller
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
-                    $email = [];
-                    foreach ($users as $user) {
-                        array_push($email, $user->user_email);
+                    if ($users) {
+                        $email = [];
+                        foreach ($users as $user) {
+                            array_push($email, $user->user_email);
+                        }
+                        Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    Mail::to($email)->send(new LetterSubmission($letter_id));
-
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -845,12 +850,13 @@ class RecomendationLetterController extends Controller
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
-                    $email = [];
-                    foreach ($users as $user) {
-                        array_push($email, $user->user_email);
+                    if ($users) {
+                        $email = [];
+                        foreach ($users as $user) {
+                            array_push($email, $user->user_email);
+                        }
+                        Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    Mail::to($email)->send(new LetterSubmission($letter_id));
-
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -896,7 +902,6 @@ class RecomendationLetterController extends Controller
                     $file_buku_pas_senpi = $request->file_buku_pas_senpi;
                     $name_file_buku_pas_senpi = DataHelper::getFileName($file_buku_pas_senpi);
                     $request->file('file_buku_pas_senpi')->storeAs($filePath . "category-" . $categoryId, $name_file_buku_pas_senpi, 'public');
-
                     $data = [
                         'l5_lampiran1' => $name_l5_lampiran1,
                         'file_nama_anggota_senjata_digunakan' => $name_file_nama_anggota_senjata_digunakan,
@@ -931,21 +936,20 @@ class RecomendationLetterController extends Controller
                         'letter_status' => 1
                     ];
 
-                    $letterId = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
+                    $letter_id = $this->_recomendationLetterRepository->insertGetId(array_merge($dataLetter, DataHelper::_signParams(true)));
                     $this->_logHelper->store($this->module, $request->letter_id, 'create');
 
                     DB::commit();
 
-                    // send mail
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
-                    $email = [];
-                    foreach ($users as $user) {
-                        array_push($email, $user->user_email);
+                    if ($users) {
+                        $email = [];
+                        foreach ($users as $user) {
+                            array_push($email, $user->user_email);
+                        }
+                        Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    Mail::to($email)->send(new LetterSubmission($letterId));
-
-
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -1047,12 +1051,13 @@ class RecomendationLetterController extends Controller
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
-                    $email = [];
-                    foreach ($users as $user) {
-                        array_push($email, $user->user_email);
+                    if ($users) {
+                        $email = [];
+                        foreach ($users as $user) {
+                            array_push($email, $user->user_email);
+                        }
+                        Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    Mail::to($email)->send(new LetterSubmission($letter_id));
-
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -1222,12 +1227,13 @@ class RecomendationLetterController extends Controller
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
-                    $email = [];
-                    foreach ($users as $user) {
-                        array_push($email, $user->user_email);
+                    if ($users) {
+                        $email = [];
+                        foreach ($users as $user) {
+                            array_push($email, $user->user_email);
+                        }
+                        Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    Mail::to($email)->send(new LetterSubmission($letter_id));
-
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -1319,12 +1325,13 @@ class RecomendationLetterController extends Controller
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
-                    $email = [];
-                    foreach ($users as $user) {
-                        array_push($email, $user->user_email);
+                    if ($users) {
+                        $email = [];
+                        foreach ($users as $user) {
+                            array_push($email, $user->user_email);
+                        }
+                        Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    Mail::to($email)->send(new LetterSubmission($letter_id));
-
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -1418,12 +1425,13 @@ class RecomendationLetterController extends Controller
 
                     $userGroup = $this->_userGroupRepository->getByParams(['group_name' => 'admin']);
                     $users = $this->_userRepository->getAllByParams(['group_id' => $userGroup->group_id]);
-                    $email = [];
-                    foreach ($users as $user) {
-                        array_push($email, $user->user_email);
+                    if ($users) {
+                        $email = [];
+                        foreach ($users as $user) {
+                            array_push($email, $user->user_email);
+                        }
+                        Mail::to($email)->send(new LetterSubmission($letter_id));
                     }
-                    Mail::to($email)->send(new LetterSubmission($letter_id));
-
                     return redirect('recomendationletter')->with('successMessage', 'Pengajuan surat berhasil dikirim');
                 } catch (\Throwable $th) {
 
@@ -1542,8 +1550,15 @@ class RecomendationLetterController extends Controller
      */
     public function printLetter($id)
     {
-        $letter = $this->_recomendationLetterRepository->getById($id);
-        $category = $letter->letter_category_id;
+        $letter = [];
+        $letters = $this->_recomendationLetterRepository->getById($id);
+
+        array_push($letter, $letters);
+        $category = $letters->letter_category_id;
+        if ($letters->firearm_id != null) {
+            $firearms = $this->_firearmRepository->getById($letters->firearm_id);
+            array_push($letter, $firearms);
+        }
 
         switch ($category) {
             case 1:
