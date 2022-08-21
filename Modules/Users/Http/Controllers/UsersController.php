@@ -256,7 +256,7 @@ class UsersController extends Controller
                     'user_club_cab' => $request->user_club_cab,
                 ];
             }
-            $data = $this->_usersRepository->update(array_merge($dataUser, DataHelper::_signParams(false, true)), $id);
+            $this->_usersRepository->update(array_merge($dataUser, DataHelper::_signParams(false, true)), $id);
         }
 
         $this->_logHelper->store($this->module, $request->user_name, 'update');
