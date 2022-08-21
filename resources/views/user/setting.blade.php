@@ -238,16 +238,6 @@
 @section('script')
 <script type="text/javascript">
 
-    let current_club = $('.current-club-id').val();
-    let options = document.getElementById("club_id").options;
-    for (let i = 0; i < options.length; i++) {
-        if (options[i].text == current_club) {
-            options[i].selected = true;
-            break;
-        }
-    }
-
-
     $('#generate_password').click(function () {
 
         let keylist = "123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*"
