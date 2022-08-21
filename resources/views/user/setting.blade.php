@@ -284,9 +284,9 @@
         }
     }
     // function for disable right right click
-    // window.oncontextmenu = function () {
-    //     return false;
-    // }
+    window.oncontextmenu = function () {
+        return false;
+    }
 
     // function for disable key shortcut
     $(window).on('keydown', function (event) {
