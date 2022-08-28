@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Modules\Users\Repositories\UsersRepository;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Support\Str;
 
 class DataHelper
 {
@@ -146,8 +147,9 @@ class DataHelper
      */
     public static function getFileName(UploadedFile $file)
     {
+        $random = Str::random(11);
         $filename = preg_replace('/\s+/', '_', $file->getClientOriginalName());
-        $filename = 'data_' . md5(Auth::user()->user_id) . '_' . round(microtime(true) * 1000) .  '.' . pathinfo($filename, PATHINFO_EXTENSION);
+        $filename = 'data_' . $random . md5(Auth::user()->user_id) . '_' . round(microtime(true) * 1000) .  '.' . pathinfo($filename, PATHINFO_EXTENSION);
         return $filename;
     }
 

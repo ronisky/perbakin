@@ -20,11 +20,6 @@
 @section('content')
 <!-- Container fluid  -->
 <!-- ============================================================== -->
-<!-- <div class="container-fluid"> -->
-<!-- ============================================================== -->
-<!-- Start Page Content -->
-<!-- ============================================================== -->
-<!-- basic table -->
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -89,8 +84,8 @@
                             @foreach ($letters as $letter)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $letter->name }}</td>
-                                <td>{{ $letter->club }}</td>
+                                <td>{{ $letter->user_name }}</td>
+                                <td>{{ $letter->club_name }}</td>
                                 <td>{{ $letter->created_at }}</td>
                                 <td title="{{ $letter->letter_category_name}}">
                                     @php
@@ -103,19 +98,18 @@
                                 </td>
                                 @php
                                 if (Auth::user()->group_id == 1) {
-                                    echo '<td>';
-                                        $status = $letter->admin_status;
-    
-                                        if($status == 1){
-                                        $admin_status = 'Diterima / ACC';
-                                        $class = 'badge badge-success';
-                                        }else if($status == 2){
-                                        $admin_status = 'Ditolak';
-                                        $class = 'badge badge-danger';
-                                        }else {
-                                        $admin_status = 'Diproses';
-                                        $class = 'badge badge-info';
-                                        }
+                                echo '<td>';
+                                    $status = $letter->letter_status;
+                                    if($status == 1){
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    }else if($status == 2){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else {
+                                    $admin_status = 'Perlu diproses';
+                                    $class = 'badge badge-secondary';
+                                    }
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
@@ -178,6 +172,14 @@
                                     echo '</td>';
                                 echo '<td>';
                                     $status = $letter->ketua_status;
+                                    $letter_status = $letter->letter_status;
+                                    if ($letter_status == 3) {
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    } elseif ($letter_status == 4){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else{
                                     if($status == 1){
                                     $ketua_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
@@ -187,8 +189,6 @@
                                     }else {
                                     $ketua_status = 'Perlu diproses';
                                     $class = 'badge badge-secondary';
-                                    }
-                                    echo '<span class="'. $class .'">'. $ketua_status .'</span>';
                                     echo '<select class="form-control letter_approval_ketua"
                                         name="letter_status_approval_ketua" data-id="'.$letter->letter_id.'"
                                         data-user="ketua">
@@ -196,10 +196,21 @@
                                         <option value="1">Terima</option>
                                         <option value="2">Tolak</option>
                                     </select>';
+                                    }
+                                    }
+                                    echo '<span class="'. $class .'">'. $ketua_status .'</span>';
                                     echo '</td>';
                                 }elseif (Auth::user()->group_id == 2){
                                 echo '<td>';
                                     $status = $letter->admin_status;
+                                    $letter_status = $letter->letter_status;
+                                    if ($letter_status == 3) {
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    } elseif ($letter_status == 4){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else{
                                     if($status == 1){
                                     $admin_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
@@ -209,8 +220,6 @@
                                     }else {
                                     $admin_status = 'Perlu diproses';
                                     $class = 'badge badge-secondary';
-                                    }
-                                    echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '<select class="form-control letter_approval_admin"
                                         name="letter_status_approval_admin" data-id="'.$letter->letter_id.'"
                                         data-user="admin">
@@ -218,11 +227,21 @@
                                         <option value="1">Terima</option>
                                         <option value="2">Tolak</option>
                                     </select>';
+                                    }
+                                    }
+                                    echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 }elseif(Auth::user()->group_id == 3){
                                 echo '<td>';
                                     $status = $letter->admin_status;
-
+                                    $letter_status = $letter->letter_status;
+                                    if ($letter_status == 3) {
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    } elseif ($letter_status == 4){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else{
                                     if($status == 1){
                                     $admin_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
@@ -233,10 +252,19 @@
                                     $admin_status = 'Perlu diproses';
                                     $class = 'badge badge-secondary';
                                     }
+                                    }
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
                                     $status = $letter->sekum_status;
+                                    $letter_status = $letter->letter_status;
+                                    if ($letter_status == 3) {
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    } elseif ($letter_status == 4){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else{
                                     if($status == 1){
                                     $sekum_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
@@ -246,8 +274,6 @@
                                     }else {
                                     $sekum_status = 'Perlu diproses';
                                     $class = 'badge badge-secondary';
-                                    }
-                                    echo '<span class="'. $class .'">'. $sekum_status .'</span>';
                                     echo '<select class="form-control letter_approval_sekum"
                                         name="letter_status_approval_sekum" data-id="'.$letter->letter_id.'"
                                         data-user="sekum">
@@ -255,6 +281,9 @@
                                         <option value="1">Terima</option>
                                         <option value="2">Tolak</option>
                                     </select>';
+                                    }
+                                    }
+                                    echo '<span class="'. $class .'">'. $sekum_status .'</span>';
                                     echo '</td>';
                                 }
                                 @endphp
@@ -304,11 +333,6 @@
         </div>
     </div>
 </div>
-
-<!-- ============================================================== -->
-<!-- End PAge Content -->
-<!-- ============================================================== -->
-<!-- </div> -->
 <!-- ============================================================== -->
 <!-- End Container fluid  -->
 
@@ -367,7 +391,7 @@
 </div>
 {{-- End Reject Letter Modal --}}
 
-{{-- Modal detail letter  --}}
+{{-- Modal detail letter --}}
 <div class=" modal detailModalLetter1" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -414,28 +438,29 @@
                                 <hr>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File buku pas
+                                <label for="label_file_buku_pas_detail1" class="col-md-5 col-form-label">File buku pas
                                     senpi</label>
                                 <div class="col-md-6">
-                                    <div id="file_buku_pas_senpi_detail1"></div>
+                                    <div id="label_file_buku_pas_detail1"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_kta" class="col-md-5 col-form-label">File KTA</label>
+                                <label for="label_file_kta_detail1" class="col-md-5 col-form-label">File KTA</label>
                                 <div class="col-md-6">
-                                    <div id="file_kta_detail1"></div>
+                                    <div id="label_file_kta_detail1"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <label for="label_file_ktp_detail1" class="col-md-5 col-form-label">File KTP</label>
                                 <div class="col-md-6">
-                                    <div id="file_ktp_detail1"></div>
+                                    <div id="label_file_ktp_detail1"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_foto_4x6" class="col-md-5 col-form-label">File foto</label>
+                                <label for="label_file_foto_4x6_detail1" class="col-md-5 col-form-label">File
+                                    foto</label>
                                 <div class="col-md-6">
-                                    <div id="file_foto_4x6_detail1"></div>
+                                    <div id="label_file_foto_4x6_detail1"></div>
                                 </div>
                             </div>
                         </div>
@@ -496,74 +521,80 @@
                                 <hr>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_surat_hibah_senpi" class="col-md-5 col-form-label">File surat
+                                <label for="label_file_surat_hibah_detail2" class="col-md-5 col-form-label">File surat
                                     pernyataan hibah senpi</label>
                                 <div class="col-md-6">
-                                    <div id="file_surat_hibah_senpi_detail2"></div>
+                                    <div id="label_file_surat_hibah_detail2"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File buku pas
+                                <label for="label_file_buku_pas_detail2" class="col-md-5 col-form-label">File buku pas
                                     senpi</label>
                                 <div class="col-md-6">
-                                    <div id="file_buku_pas_senpi_detail2"></div>
+                                    <div id="label_file_buku_pas_detail2"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_foto_senjata" class="col-md-5 col-form-label">Foto senjata</label>
+                                <label for="label_file_foto_senjata_detail2" class="col-md-5 col-form-label">Foto
+                                    senjata</label>
                                 <div class="col-md-6">
-                                    <div id="file_foto_senjata_detail2"></div>
+                                    <div id="label_file_foto_senjata_detail2"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_kta" class="col-md-5 col-form-label">File KTA</label>
+                                <label for="label_file_kta_detail2" class="col-md-5 col-form-label">File KTA</label>
                                 <div class="col-md-6">
-                                    <div id="file_kta_detail2"></div>
+                                    <div id="label_file_kta_detail2"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <label for="label_file_ktp_detail2" class="col-md-5 col-form-label">File KTP</label>
                                 <div class="col-md-6">
-                                    <div id="file_ktp_detail2"></div>
+                                    <div id="label_file_ktp_detail2"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_sertif_menembak" class="col-md-5 col-form-label">File sertifikat lulus
+                                <label for="label_file_sertif_detail2" class="col-md-5 col-form-label">File sertifikat
+                                    lulus
                                     penataran menembak perbakin bid. berburu/reaksi</label>
                                 <div class="col-md-6">
-                                    <div id="file_sertif_menembak_detail2"></div>
+                                    <div id="label_file_sertif_detail2"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_skck" class="col-md-5 col-form-label">File SKCK</label>
+                                <label for="label_file_skck_detail2" class="col-md-5 col-form-label">File SKCK</label>
                                 <div class="col-md-6">
-                                    <div id="file_skck_detail2"></div>
+                                    <div id="label_file_skck_detail2"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_surat_sehat" class="col-md-5 col-form-label">File surat keterangan
+                                <label for="label_file_surat_sehat_detail2" class="col-md-5 col-form-label">File surat
+                                    keterangan
                                     sehat dari dokter Polda </label>
                                 <div class="col-md-6">
-                                    <div id="file_surat_sehat_detail2"></div>
+                                    <div id="label_file_surat_sehat_detail2"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_tes_psikotes" class="col-md-5 col-form-label">File hasil lulus tes
+                                <label for="label_file_tes_psikotes_detail2" class="col-md-5 col-form-label">File hasil
+                                    lulus tes
                                     psikotes dari kepolisian/polda </label>
                                 <div class="col-md-6">
-                                    <div id="file_tes_psikotes_detail2"></div>
+                                    <div id="label_file_tes_psikotes_detail2"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_kk" class="col-md-5 col-form-label">File kartu keluarga </label>
+                                <label for="label_file_kk_detail2" class="col-md-5 col-form-label">File kartu keluarga
+                                </label>
                                 <div class="col-md-6">
-                                    <div id="file_kk_detail2"></div>
+                                    <div id="label_file_kk_detail2"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_foto_4x6" class="col-md-5 col-form-label">File foto</label>
+                                <label for="label_file_foto_4x6_detail2" class="col-md-5 col-form-label">File
+                                    foto</label>
                                 <div class="col-md-6">
-                                    <div id="file_foto_4x6_detail2"></div>
+                                    <div id="label_file_foto_4x6_detail2"></div>
                                 </div>
                             </div>
                         </div>
@@ -601,23 +632,29 @@
                                 </div>
                             </div>
                             <div class="col-md-6 row">
-                                <label for="user_name" class="col-md-5 col-form-label">Nama pemohon</label>
+                                <label for="firearm_category_name" class="col-md-5 col-form-label">Jenis Senjata</label>
                                 <div class="col-md-6">
-                                    <input type="text" readonly class="form-control-plaintext user_name">
+                                    <input type="text" readonly class="form-control-plaintext firearm_category_name">
                                 </div>
                             </div>
                             <div class="col-md-6 row">
-                                <label for="user_kta" class="col-md-5 col-form-label">Nomor KTA</label>
+                                <label for="merek" class="col-md-5 col-form-label">Merek Senjata</label>
                                 <div class="col-md-6">
-                                    <input type="text" readonly class="form-control-plaintext user_kta"
-                                        value="{{ old('user_kta') }}">
+                                    <input type="text" readonly class="form-control-plaintext merek">
                                 </div>
                             </div>
                             <div class="col-md-6 row">
-                                <label for="club_name" class="col-md-5 col-form-label">Nama club</label>
+                                <label for="pemohon" class="col-md-5 col-form-label">Nama pemberi hibah (Pihak
+                                    I)</label>
                                 <div class="col-md-6">
-                                    <input type="text" readonly class="form-control-plaintext club_name"
-                                        value="{{ old('club_name') }}">
+                                    <input type="text" readonly class="form-control-plaintext pemohon">
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <label for="pemohon_pihak_2" class="col-md-5 col-form-label">Nama penerima hibah (Pihak
+                                    II)</label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly class="form-control-plaintext pemohon_pihak_2">
                                 </div>
                             </div>
                         </div>
@@ -678,68 +715,75 @@
                                 <hr>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_si_impor_senjata" class="col-md-5 col-form-label">File SI impor senjata
+                                <label for="label_file_si_detail4" class="col-md-5 col-form-label">File SI
+                                    impor senjata
                                     api</label>
                                 <div class="col-md-6">
-                                    <div id="file_si_impor_senjata_detail4"></div>
+                                    <div id="label_file_si_detail4"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_sba_penitipan_senpi" class="col-md-5 col-form-label">File surat berita
+                                <label for="label_file_sba_detail4" class="col-md-5 col-form-label">File surat berita
                                     acara penitipan senpi dari Bid. Yanmas Mabes Polri </label>
                                 <div class="col-md-6">
-                                    <div id="file_sba_penitipan_senpi_detail4"></div>
+                                    <div id="label_file_sba_detail4"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_kta" class="col-md-5 col-form-label">File KTA Perbakin</label>
+                                <label for="label_file_kta_detail4" class="col-md-5 col-form-label">File KTA
+                                    Perbakin</label>
                                 <div class="col-md-6">
-                                    <div id="file_kta_detail4"></div>
+                                    <div id="label_file_kta_detail4"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <label for="label_file_ktp_detail4" class="col-md-5 col-form-label">File KTP</label>
                                 <div class="col-md-6">
-                                    <div id="file_ktp_detail4"></div>
+                                    <div id="label_file_ktp_detail4"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_sertif_menembak" class="col-md-5 col-form-label">File sertifikat lulus
+                                <label for="label_file_sertif_menembak_detail4" class="col-md-5 col-form-label">File
+                                    sertifikat lulus
                                     penataran menembak perbakin bid. berburu/reaksi</label>
                                 <div class="col-md-6">
-                                    <div id="file_sertif_menembak_detail4"></div>
+                                    <div id="label_file_sertif_menembak_detail4"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_skck" class="col-md-5 col-form-label">File SKCK</label>
+                                <label for="label_file_skck_detail4" class="col-md-5 col-form-label">File SKCK</label>
                                 <div class="col-md-6">
-                                    <div id="file_skck_detail4"></div>
+                                    <div id="label_file_skck_detail4"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_surat_sehat" class="col-md-5 col-form-label">File surat keterangan
+                                <label for="label_file_surat_sehat_detail4" class="col-md-5 col-form-label">File surat
+                                    keterangan
                                     sehat dari dokter Polda </label>
                                 <div class="col-md-6">
-                                    <div id="file_surat_sehat_detail4"></div>
+                                    <div id="label_file_surat_sehat_detail4"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_tes_psikotes" class="col-md-5 col-form-label">File hasil lulus tes
+                                <label for="label_file_tes_psikotes_detail4" class="col-md-5 col-form-label">File hasil
+                                    lulus tes
                                     psikotes dari Kepolisian/polda </label>
                                 <div class="col-md-6">
-                                    <div id="file_tes_psikotes_detail4"></div>
+                                    <div id="label_file_tes_psikotes_detail4"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_kk" class="col-md-5 col-form-label">File kartu keluarga </label>
+                                <label for="label_file_kk_detail4" class="col-md-5 col-form-label">File kartu keluarga
+                                </label>
                                 <div class="col-md-6">
-                                    <div id="file_kk_detail4"></div>
+                                    <div id="label_file_kk_detail4"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_foto_4x6" class="col-md-5 col-form-label">File foto</label>
+                                <label for="label_file_foto_4x6_detail4" class="col-md-5 col-form-label">File
+                                    foto</label>
                                 <div class="col-md-6">
-                                    <div id="file_foto_4x6_detail4"></div>
+                                    <div id="label_file_foto_4x6_detail4"></div>
                                 </div>
                             </div>
                         </div>
@@ -800,30 +844,33 @@
                                 <hr>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="l5_lampiran1" class="col-md-5 col-form-label">File izin penggunaan lapangan
+                                <label for="label_l5_lampiran1_detail5" class="col-md-5 col-form-label">File izin
+                                    penggunaan lapangan
                                     tembak Denma Mako Korpaskhas TNI AU Sulaiman</label>
                                 <div class="col-md-6">
-                                    <div id="l5_lampiran1_detail5"></div>
+                                    <div id="label_l5_lampiran1_detail5"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_nama_anggota_senjata_digunakan" class="col-md-5 col-form-label">File
+                                <label for="label_file_n_anggota_detail5" class="col-md-5 col-form-label">File
                                     nama anggota rombongan dan senjata api yang digunakan </label>
                                 <div class="col-md-6">
-                                    <div id="file_nama_anggota_senjata_digunakan_detail5"></div>
+                                    <div id="label_file_n_anggota_detail5"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_kta" class="col-md-5 col-form-label">File KTA Perbakin</label>
+                                <label for="label_file_kta_detail5" class="col-md-5 col-form-label">File KTA
+                                    Perbakin</label>
                                 <div class="col-md-6">
-                                    <div id="file_kta_detail5"></div>
+                                    <div id="label_file_kta_detail5"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File Buku Pas Senjata
+                                <label for="label_file_buku_pas_senpi_detail5" class="col-md-5 col-form-label">File Buku
+                                    Pas Senjata
                                     Api </label>
                                 <div class="col-md-6">
-                                    <div id="file_buku_pas_senpi_detail5"></div>
+                                    <div id="label_file_buku_pas_senpi_detail5"></div>
                                 </div>
                             </div>
                         </div>
@@ -884,38 +931,42 @@
                                 <hr>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="surat_rekomendasi_pengcab" class="col-md-5 col-form-label">File rekomendasi
+                                <label for="label_surat_rekomendasi_pengcab_detail6"
+                                    class="col-md-5 col-form-label">File rekomendasi
                                     dari pengcab Perbakin Kab.Bandung</label>
                                 <div class="col-md-6">
-                                    <div id="surat_rekomendasi_pengcab_detail6"></div>
+                                    <div id="label_surat_rekomendasi_pengcab_detail6"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_nama_anggota_senjata_digunakan" class="col-md-5 col-form-label">File
+                                <label for="label_file_n_anggta_detail6" class="col-md-5 col-form-label">File
                                     nama anggota
                                     rombongan dan senjata api yang digunakan</label>
                                 <div class="col-md-6">
-                                    <div id="file_nama_anggota_senjata_digunakan_detail6"></div>
+                                    <div id="label_file_n_anggta_detail6"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_kta" class="col-md-5 col-form-label">File KTA Perbakin</label>
+                                <label for="label_file_kta_detail6" class="col-md-5 col-form-label">File KTA
+                                    Perbakin</label>
                                 <div class="col-md-6">
-                                    <div id="file_kta_detail6"></div>
+                                    <div id="label_file_kta_detail6"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File buku pas senjata
+                                <label for="label_file_buku_pas_senpi_detail6" class="col-md-5 col-form-label">File buku
+                                    pas senjata
                                     api </label>
                                 <div class="col-md-6">
-                                    <div id="file_buku_pas_senpi_detail6"></div>
+                                    <div id="label_file_buku_pas_senpi_detail6"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="l6_undangan_berburu" class="col-md-5 col-form-label">File undangan berburu
+                                <label for="label_l6_undangan_berburu_detail6" class="col-md-5 col-form-label">File
+                                    undangan berburu
                                     dari Kepala Desa / Camat lokasi Berburu</label>
                                 <div class="col-md-6">
-                                    <div id="l6_undangan_berburu_detail6"></div>
+                                    <div id="label_l6_undangan_berburu_detail6"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
@@ -1045,73 +1096,82 @@
                                 <hr>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="l8_kta_anggota_baru" class="col-md-5 col-form-label">File KTA 4(empat) orang
+                                <label for="label_l8_kta_anggota_baru_detail8" class="col-md-5 col-form-label">File KTA
+                                    4(empat) orang
                                     anggota yang
                                     sudah memiliki KTA Perbakin dari PB</label>
                                 <div class="col-md-6">
-                                    <div id="l8_kta_anggota_baru_detail8"></div>
+                                    <div id="label_l8_kta_anggota_baru_detail8"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <label for="label_file_ktp_detail8" class="col-md-5 col-form-label">File KTP</label>
                                 <div class="col-md-6">
-                                    <div id="file_ktp_detail8"></div>
+                                    <div id="label_file_ktp_detail8"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="l8_adart" class="col-md-5 col-form-label">File AD/ART klub/perkumpulan
+                                <label for="label_l8_adart_detail8" class="col-md-5 col-form-label">File AD/ART
+                                    klub/perkumpulan
                                     menembak yang berisi nama lambang klub, logo klub/arti dan visi misi klub</label>
                                 <div class="col-md-6">
-                                    <div id="l8_adart_detail8"></div>
+                                    <div id="label_l8_adart_detail8"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="l8_struktur_organisasi" class="col-md-5 col-form-label">File struktur
+                                <label for="label_l8_struktur_organisasi_detail8" class="col-md-5 col-form-label">File
+                                    struktur
                                     organisasi pengurus klub </label>
                                 <div class="col-md-6">
-                                    <div id="l8_struktur_organisasi_detail8"></div>
+                                    <div id="label_l8_struktur_organisasi_detail8"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="l8_nama_para_pengurus" class="col-md-5 col-form-label">File daftar nama para
+                                <label for="label_l8_nama_para_pengurus_detail8" class="col-md-5 col-form-label">File
+                                    daftar nama para
                                     pengurus klub</label>
                                 <div class="col-md-6">
-                                    <div id="l8_nama_para_pengurus_detail8"></div>
+                                    <div id="label_l8_nama_para_pengurus_detail8"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="l8_pas_foto_pengurus" class="col-md-5 col-form-label">File berisi foto
+                                <label for="label_l8_pas_foto_pengurus_detail8" class="col-md-5 col-form-label">File
+                                    berisi foto
                                     pengurus klub ukuran 4X6 latar merah</label>
                                 <div class="col-md-6">
-                                    <div id="l8_pas_foto_pengurus_detail8"></div>
+                                    <div id="label_l8_pas_foto_pengurus_detail8"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="l8_data_anggota_club" class="col-md-5 col-form-label">File data anggota klub
+                                <label for="label_l8_data_anggota_club_detail8" class="col-md-5 col-form-label">File
+                                    data anggota klub
                                     minimal 20 orang</label>
                                 <div class="col-md-6">
-                                    <div id="l8_data_anggota_club_detail8"></div>
+                                    <div id="label_l8_data_anggota_club_detail8"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="l8_surat_keterangan_domisili" class="col-md-5 col-form-label">File surat
+                                <label for="label_l8_surat_keterangan_domisili_detail8"
+                                    class="col-md-5 col-form-label">File surat
                                     keterangan domisili sekretariat klub dari Desa/Kecamatan/Akte pendirian dari Notaris
                                 </label>
                                 <div class="col-md-6">
-                                    <div id="l8_surat_keterangan_domisili_detail8"></div>
+                                    <div id="label_l8_surat_keterangan_domisili_detail8"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_skck" class="col-md-5 col-form-label">File SKCK ketua klub </label>
+                                <label for="label_file_skck_detail8" class="col-md-5 col-form-label">File SKCK ketua
+                                    klub </label>
                                 <div class="col-md-6">
-                                    <div id="file_skck_detail8"></div>
+                                    <div id="label_file_skck_detail8"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="biaya_administrasi" class="col-md-5 col-form-label">File bukti biaya
+                                <label for="label_biaya_administrasi_detail8" class="col-md-5 col-form-label">File bukti
+                                    biaya
                                     administrasi sebesar Rp. 15.000.000 </label>
                                 <div class="col-md-6">
-                                    <div id="biaya_administrasi_detail8"></div>
+                                    <div id="label_biaya_administrasi_detail8"></div>
                                 </div>
                             </div>
                         </div>
@@ -1172,35 +1232,39 @@
                                 <hr>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <label for="label_file_ktp_detail9" class="col-md-5 col-form-label">File KTP</label>
                                 <div class="col-md-6">
-                                    <div id="file_ktp_detail9"></div>
+                                    <div id="label_file_ktp_detail9"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_kta_club" class="col-md-5 col-form-label">File KTA Klub</label>
+                                <label for="label_file_kta_club_detail9" class="col-md-5 col-form-label">File KTA
+                                    Klub</label>
                                 <div class="col-md-6">
-                                    <div id="file_kta_club_detail9"></div>
+                                    <div id="label_file_kta_club_detail9"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="surat_rekomendasi_club" class="col-md-5 col-form-label">File surat
+                                <label for="label_surat_rekomendasi_club_detail9" class="col-md-5 col-form-label">File
+                                    surat
                                     rekomendasi
                                     dari klub menembak</label>
                                 <div class="col-md-6">
-                                    <div id="surat_rekomendasi_club_detail9"></div>
+                                    <div id="label_surat_rekomendasi_club_detail9"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_kta" class="col-md-5 col-form-label">File KTA Perbakin</label>
+                                <label for="label_file_kta_detail9" class="col-md-5 col-form-label">File KTA
+                                    Perbakin</label>
                                 <div class="col-md-6">
-                                    <div id="file_kta_detail9"></div>
+                                    <div id="label_file_kta_detail9"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_foto_4x6" class="col-md-5 col-form-label">File foto</label>
+                                <label for="label_file_foto_4x6_detail9" class="col-md-5 col-form-label">File
+                                    foto</label>
                                 <div class="col-md-6">
-                                    <div id="file_foto_4x6_detail9"></div>
+                                    <div id="label_file_foto_4x6_detail9"></div>
                                 </div>
                             </div>
                         </div>
@@ -1261,28 +1325,31 @@
                                 <hr>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_kta" class="col-md-5 col-form-label">File KTA Perbakin</label>
+                                <label for="label_file_kta_detail10" class="col-md-5 col-form-label">File KTA
+                                    Perbakin</label>
                                 <div class="col-md-6">
-                                    <div id="file_kta_detail10"></div>
+                                    <div id="label_file_kta_detail10"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_ktp" class="col-md-5 col-form-label">File KTP</label>
+                                <label for="label_file_ktp_detail10" class="col-md-5 col-form-label">File KTP</label>
                                 <div class="col-md-6">
-                                    <div id="file_ktp_detail10"></div>
+                                    <div id="label_file_ktp_detail10"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_buku_pas_senpi" class="col-md-5 col-form-label">File buku pas senjata
+                                <label for="label_file_buku_pas_senpi_detail10" class="col-md-5 col-form-label">File
+                                    buku pas senjata
                                     api</label>
                                 <div class="col-md-6">
-                                    <div id="file_buku_pas_senpi_detail10"></div>
+                                    <div id="label_file_buku_pas_senpi_detail10"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_foto_4x6" class="col-md-5 col-form-label">File foto</label>
+                                <label for="label_file_foto_4x6_detail10" class="col-md-5 col-form-label">File
+                                    foto</label>
                                 <div class="col-md-6">
-                                    <div id="file_foto_4x6_detail10"></div>
+                                    <div id="label_file_foto_4x6_detail10"></div>
                                 </div>
                             </div>
                         </div>
@@ -1296,7 +1363,7 @@
         </div>
     </div>
 </div>
-{{-- End Modal detail letter  --}}
+{{-- End Modal detail letter --}}
 
 @endsection
 
@@ -1323,6 +1390,8 @@
         let user = $(this).attr('data-user');
         let status = $('.letter_approval_admin').val();
         let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
+
+        console.log( status + url);
         if (status == 1) {
             Swal.fire({
                 title: 'Ubah Status?',
@@ -1343,7 +1412,6 @@
                         },
                         url: url,
                         success: function (data) {
-                            console.log(data);
                             if (data.status == 1) {
                                 Swal.fire({
                                     icon: 'success',
@@ -1371,7 +1439,7 @@
                                 showConfirmButton: false,
                                 timer: 2000
                             })
-                            location.reload();
+                            // location.reload();
                         }
                     })
 
@@ -1393,7 +1461,7 @@
                 showConfirmButton: false,
                 timer: 2000
             })
-            location.reload();
+            // location.reload();
         }
     });
 
@@ -1637,7 +1705,6 @@
                     type: 'GET',
                     url: url,
                     success: function (data) {
-                        console.log(data);
                         if (data.status == 1) {
                             Swal.fire(
                                 'Terhapus!',
@@ -1661,10 +1728,10 @@
         })
     });
 
-    // Detail Data
-    $('.btnDetail').click(function () {
+ // Detail Data
+ $('.btnDetail').click(function () {
         let id = $(this).attr('data-id');
-        let url = "{{ url('recomendationletter/show') }}";
+        let url = "{{ url('recomendationletterapproval/show') }}";
 
         $.ajax({
             type: 'GET',
@@ -1673,7 +1740,7 @@
             success: function (data) {
                 if (data.status == 1) {
                     switch (data.result[1].letter_category_id) {
-                        case 1:
+                        case "1":
                             $('.detailModalLetter1 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter1').modal('show');
 
@@ -1689,23 +1756,23 @@
                             var filePath = 'storage/uploads/letters/category-' + data.result[1]
                                 .letter_category_id +
                                 "/";
-                            document.getElementById('file_buku_pas_senpi_detail1').innerHTML =
+                            document.getElementById('label_file_buku_pas_detail1').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_buku_pas_senpi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
 
-                            document.getElementById('file_kta_detail1').innerHTML =
+                            document.getElementById('label_file_kta_detail1').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2].file_kta +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_ktp_detail1').innerHTML =
+                            document.getElementById('label_file_ktp_detail1').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2].file_ktp +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_foto_4x6_detail1').innerHTML =
+                            document.getElementById('label_file_foto_4x6_detail1').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_foto_4x6 +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case 2:
+                        case "2":
                             $('.detailModalLetter2 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter2').modal('show');
 
@@ -1721,66 +1788,69 @@
                             var filePath = 'storage/uploads/letters/category-' + data.result[1]
                                 .letter_category_id +
                                 "/";
-                            document.getElementById('file_surat_hibah_senpi_detail2').innerHTML =
+                            document.getElementById('label_file_surat_hibah_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_surat_hibah_senpi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
 
-                            document.getElementById('file_buku_pas_senpi_detail2').innerHTML =
+                            document.getElementById('label_file_buku_pas_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_buku_pas_senpi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_foto_senjata_detail2').innerHTML =
+                            document.getElementById('label_file_foto_senjata_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_foto_senjata +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_kta_detail2').innerHTML =
+                            document.getElementById('label_file_kta_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_kta +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_ktp_detail2').innerHTML =
+                            document.getElementById('label_file_ktp_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_ktp +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_sertif_menembak_detail2').innerHTML =
+                            document.getElementById('label_file_sertif_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_sertif_menembak +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_skck_detail2').innerHTML =
+                            document.getElementById('label_file_skck_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_skck +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_surat_sehat_detail2').innerHTML =
+                            document.getElementById('label_file_surat_sehat_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_surat_sehat +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_tes_psikotes_detail2').innerHTML =
+                            document.getElementById('label_file_tes_psikotes_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_tes_psikotes +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_kk_detail2').innerHTML =
+                            document.getElementById('label_file_kk_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_kk +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_foto_4x6_detail2').innerHTML =
+                            document.getElementById('label_file_foto_4x6_detail2').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_foto_4x6 +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case 3:
+                        case "3":
                             $('.detailModalLetter3 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter3').modal('show');
-
+                                    console.log(data.result);
                             document.getElementById('letter_status_detail3').innerHTML =
                                 "<span class='" + data.result[1].style_class + "'>" + data.result[1]
                                 .approval_status + "</span>";
+                            $('.firearm_category_name').val(': ' + data.result[3]
+                                .firearm_category_name);
                             $('.letter_category_name').val(': ' + data.result[1]
                                 .letter_category_name);
-                            $('.user_name').val(': ' + data.result[1].name);
-                            $('.user_kta').val(': ' + data.result[1].no_kta);
-                            $('.club_name').val(': ' + data.result[1].club);
+                            $('.merek').val(': ' + data.result[3]
+                                .merek);
+                            $('.pemohon').val(': ' + data.result[1].pemohon);
+                            $('.pemohon_pihak_2').val(': ' + data.result[1].pemohon_pihak_2);
                             break;
-                        case 4:
+                        case "4":
                             $('.detailModalLetter4 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter4').modal('show');
 
@@ -1796,48 +1866,48 @@
                             var filePath = 'storage/uploads/letters/category-' + data.result[1]
                                 .letter_category_id +
                                 "/";
-                            document.getElementById('file_si_impor_senjata_detail4').innerHTML =
+                            document.getElementById('label_file_si_detail4').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_si_impor_senjata +
                                 "' class='btn btn-primary download'>Lihat File</i>";
 
-                            document.getElementById('file_sba_penitipan_senpi_detail4').innerHTML =
+                            document.getElementById('label_file_sba_detail4').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_sba_penitipan_senpi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_kta_detail4').innerHTML =
+                            document.getElementById('label_file_kta_detail4').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2].file_kta +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_ktp_detail4').innerHTML =
+                            document.getElementById('label_file_ktp_detail4').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_ktp +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_sertif_menembak_detail4').innerHTML =
+                            document.getElementById('label_file_sertif_menembak_detail4').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_sertif_menembak +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_skck_detail4').innerHTML =
+                            document.getElementById('label_file_skck_detail4').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_skck +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_surat_sehat_detail4').innerHTML =
+                            document.getElementById('label_file_surat_sehat_detail4').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_surat_sehat +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_tes_psikotes_detail4').innerHTML =
+                            document.getElementById('label_file_tes_psikotes_detail4').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_tes_psikotes +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_kk_detail4').innerHTML =
+                            document.getElementById('label_file_kk_detail4').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_kk +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_foto_4x6_detail4').innerHTML =
+                            document.getElementById('label_file_foto_4x6_detail4').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_foto_4x6 +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case 5:
+                        case "5":
                             $('.detailModalLetter5 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter5').modal('show');
 
@@ -1853,24 +1923,24 @@
                             var filePath = 'storage/uploads/letters/category-' + data.result[1]
                                 .letter_category_id +
                                 "/";
-                            document.getElementById('l5_lampiran1_detail5').innerHTML =
+                            document.getElementById('label_l5_lampiran1_detail5').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .l5_lampiran1 +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_nama_anggota_senjata_digunakan_detail5')
+                            document.getElementById('label_file_n_anggota_detail5')
                                 .innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_nama_anggota_senjata_digunakan +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_kta_detail5').innerHTML =
+                            document.getElementById('label_file_kta_detail5').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2].file_kta +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_buku_pas_senpi_detail5').innerHTML =
+                            document.getElementById('label_file_buku_pas_senpi_detail5').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_buku_pas_senpi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case 6:
+                        case "6":
                             $('.detailModalLetter6 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter6').modal('show');
 
@@ -1886,19 +1956,19 @@
                             var filePath = 'storage/uploads/letters/category-' + data.result[1]
                                 .letter_category_id +
                                 "/";
-                            document.getElementById('surat_rekomendasi_pengcab_detail6').innerHTML =
+                            document.getElementById('label_surat_rekomendasi_pengcab_detail6').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .surat_rekomendasi_pengcab +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_nama_anggota_senjata_digunakan_detail6')
+                            document.getElementById('label_file_n_anggta_detail6')
                                 .innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_nama_anggota_senjata_digunakan +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_kta_detail6').innerHTML =
+                            document.getElementById('label_file_kta_detail6').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2].file_kta +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_buku_pas_senpi_detail6').innerHTML =
+                            document.getElementById('label_file_buku_pas_senpi_detail6').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_buku_pas_senpi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
@@ -1906,12 +1976,12 @@
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_surat_sehat +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('l6_undangan_berburu_detail6').innerHTML =
+                            document.getElementById('label_l6_undangan_berburu_detail6').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .l6_undangan_berburu +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case 7:
+                        case "7":
                             $('.detailModalLetter7 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter7').modal('show');
 
@@ -1929,7 +1999,7 @@
                                 .l7_alasan_pengunduran);
 
                             break;
-                        case 8:
+                        case "8":
                             $('.detailModalLetter8 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter8').modal('show');
 
@@ -1938,56 +2008,56 @@
                                 .approval_status + "</span>";
                             $('.letter_category_name').val(': ' + data.result[1]
                                 .letter_category_name);
-                            $('.user_name').val(': ' + data.result[1].name);
-                            $('.user_kta').val(': ' + data.result[1].no_kta);
-                            $('.club_name').val(': ' + data.result[1].club);
+                            $('.user_name').val(': ' + data.result[1].pemohon);
+                            $('.user_kta').val(': ' + data.result[0].user_kta);
+                            $('.club_name').val(': ' + data.result[0].club_name);
 
                             var filePath = 'storage/uploads/letters/category-' + data.result[1]
                                 .letter_category_id +
                                 "/";
-                            document.getElementById('l8_kta_anggota_baru_detail8').innerHTML =
+                            document.getElementById('label_l8_kta_anggota_baru_detail8').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .l8_kta_anggota_baru +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_ktp_detail8')
+                            document.getElementById('label_file_ktp_detail8')
                                 .innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_ktp +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('l8_adart_detail8').innerHTML =
+                            document.getElementById('label_l8_adart_detail8').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2].l8_adart +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('l8_struktur_organisasi_detail8').innerHTML =
+                            document.getElementById('label_l8_struktur_organisasi_detail8').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .l8_struktur_organisasi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('l8_nama_para_pengurus_detail8').innerHTML =
+                            document.getElementById('label_l8_nama_para_pengurus_detail8').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .l8_nama_para_pengurus +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('l8_pas_foto_pengurus_detail8').innerHTML =
+                            document.getElementById('label_l8_pas_foto_pengurus_detail8').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .l8_pas_foto_pengurus +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('l8_data_anggota_club_detail8').innerHTML =
+                            document.getElementById('label_l8_data_anggota_club_detail8').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .l8_data_anggota_club +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('l8_surat_keterangan_domisili_detail8')
+                            document.getElementById('label_l8_surat_keterangan_domisili_detail8')
                                 .innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .l8_surat_keterangan_domisili +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_skck_detail8').innerHTML =
+                            document.getElementById('label_file_skck_detail8').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_skck +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('biaya_administrasi_detail8').innerHTML =
+                            document.getElementById('label_biaya_administrasi_detail8').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .biaya_administrasi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case 9:
+                        case "9":
                             $('.detailModalLetter9 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter9').modal('show');
 
@@ -2003,35 +2073,35 @@
                             var filePath = 'storage/uploads/letters/category-' + data.result[1]
                                 .letter_category_id +
                                 "/";
-                            document.getElementById('file_ktp_detail9').innerHTML =
+                            document.getElementById('label_file_ktp_detail9').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_ktp +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_kta_club_detail9')
+                            document.getElementById('label_file_kta_club_detail9')
                                 .innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_kta_club +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('surat_rekomendasi_club_detail9').innerHTML =
+                            document.getElementById('label_surat_rekomendasi_club_detail9').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .surat_rekomendasi_club +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             if (data.result[2].file_kta) {
-                                document.getElementById('file_kta_detail9').innerHTML =
+                                document.getElementById('label_file_kta_detail9').innerHTML =
                                     "<a target='_blank' href='" + filePath + data.result[2]
                                     .file_kta +
                                     "' class='btn btn-primary download'>Lihat File</i>";
                             } else {
-                                document.getElementById('file_kta_detail9').innerHTML =
-                                    "<label for='surat_rekomendasi_club' class='col-md-5 col-form-label'>Tidak ada file</label>";
+                                document.getElementById('label_file_kta_detail9').innerHTML =
+                                    "<label for='file_kta' class='col-md-10 col-form-label'>Tidak ada file</label>";
                             }
 
-                            document.getElementById('file_foto_4x6_detail9').innerHTML =
+                            document.getElementById('label_file_foto_4x6_detail9').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_foto_4x6 +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case 10:
+                        case "10":
                             $('.detailModalLetter10 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter10').modal('show');
 
@@ -2047,20 +2117,20 @@
                             var filePath = 'storage/uploads/letters/category-' + data.result[1]
                                 .letter_category_id +
                                 "/";
-                            document.getElementById('file_kta_detail10').innerHTML =
+                            document.getElementById('label_file_kta_detail10').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_kta +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_ktp_detail10')
+                            document.getElementById('label_file_ktp_detail10')
                                 .innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_ktp +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_buku_pas_senpi_detail10').innerHTML =
+                            document.getElementById('label_file_buku_pas_senpi_detail10').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_buku_pas_senpi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_foto_4x6_detail10').innerHTML =
+                            document.getElementById('label_file_foto_4x6_detail10').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_foto_4x6 +
                                 "' class='btn btn-primary download'>Lihat File</i>";

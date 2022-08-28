@@ -103,7 +103,7 @@ function BodyDua($letter)
 function BodyTiga()
 {
     $this->Cell(10);
-    $this->Cell(15, 5, '4. Demikian, atas perhatian dan kerjasamanya saya ucapkan terimakasih.', 0, 0, 'L');
+    $this->Cell(15, 5, '3. Demikian, atas perhatian dan kerjasamanya saya ucapkan terimakasih.', 0, 0, 'L');
 }
 
 function TandaTangan($letter)

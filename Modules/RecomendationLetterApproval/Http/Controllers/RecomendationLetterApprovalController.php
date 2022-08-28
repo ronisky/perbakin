@@ -94,11 +94,15 @@ class RecomendationLetterApprovalController extends Controller
 
         $user = $this->_userRepository->getById($getDetailLetter->created_by);
         $idLetterRequirement = $getDetailLetter->letter_requirement_id;
+        $idFirearm = $getDetailLetter->firearm_id;
+
         $idLetterRequirement != null ?  $letterRequireFile =  $this->_letterRequirementRepository->getById($getDetailLetter->letter_requirement_id) :  $letterRequireFile = null;
+        $idFirearm !=  null ? $letterFirearm = $this->_firearmRepository->getById($idFirearm) : $letterFirearm = null;
         $result = [
             $user,
             $getDetailLetter,
             $letterRequireFile,
+            $letterFirearm,
         ];
         if ($getDetailLetter) {
             return DataHelper::_successResponse($result, 'Data berhasil ditemukan');

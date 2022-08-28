@@ -140,10 +140,10 @@ function bodySatu($letter)
     $this->Cell(120, 5, ucwords($letter[0]->membership), 0, 0, 'L');
 }
 
-function BodySatuDesc()
+function BodySatuDesc($letter)
 {
     $this->Cell(10);
-    $this->MultiCell(160,5,"Dengan ini mengajukan Permohonan Rekomendasi Pindah/mutasi Gudang penyimpanan Senpi/amuniusi dari Gudang Senpi Polrestabes Bandung(Gudang Senpi Perbakin Kota Bandung) pindah  ke Gudang penyimpanan Senpi di Wasendak Sat Intelkam Polresta Bandung(Gudang Senpi Perbakin Kab. Bandung) dengan maksut agar lebih dekat dengan tempat tinggal, memudahkan dalam mengkoordinir Izin angkut Senjata dan mengikuti Program Kerja Perbakin Kab. Bandung Th.2021 -2022.",0,'J',0);
+    $this->MultiCell(160,5,"Dengan ini mengajukan Permohonan Rekomendasi Pindah/mutasi Gudang penyimpanan Senpi/amuniusi dari ".$letter[0]->mutasi_dari." pindah  ke ".$letter[0]->mutasi_menuju." dengan maksut agar lebih dekat dengan tempat tinggal, memudahkan dalam mengkoordinir Izin angkut Senjata dan mengikuti Program Kerja Perbakin Kab. Bandung Th.2021 -2022.",0,'J',0);
 
 }
 
@@ -268,7 +268,7 @@ $pdf->Ln(5);
 $pdf->BodySatu($letter);
 
 $pdf->Ln(8);
-$pdf->BodySatuDesc();
+$pdf->BodySatuDesc($letter);
 
 // body surat 2
 $pdf->Ln(2);

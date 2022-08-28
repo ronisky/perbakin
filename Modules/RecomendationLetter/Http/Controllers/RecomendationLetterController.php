@@ -103,6 +103,8 @@ class RecomendationLetterController extends Controller
                     'occupation' => 'required',
                     'address' => 'required',
                     'club' => 'required',
+                    'mutasi_dari' => 'required',
+                    'mutasi_menuju' => 'required',
                     'no_kta' => 'required',
                     'membership' => 'required',
                     'pemohon' => 'required'
@@ -193,6 +195,7 @@ class RecomendationLetterController extends Controller
                     'no_pabrik' => 'required',
                     'no_buku_pas_senpi' => 'required',
                     'no_si_impor' => 'required',
+                    'pelaksana_impor' => 'required',
                     'bap_senpi' => 'required',
                     'jumlah' => 'required',
                     'penyimpanan' => 'required',
@@ -386,11 +389,9 @@ class RecomendationLetterController extends Controller
             'created_by'            => Auth::user()->user_id
         ];
         $check = $this->_recomendationLetterRepository->getByParams($params);
-        if ($check) {
-            if ($check->letter_status != 3 || $check->letter_status != 4) {
+        if ($check)
+            if ($check->letter_status == 1 || $check->letter_status == 2)
                 return redirect('recomendationletter')->with('errorMessage', 'Gagal! Pengajuan sebelumnya masih diproses mohon ditunggu sampai pengajuan selesai! atau hubungi admin.');
-            }
-        }
 
         switch ($categoryId) {
             case '1':
@@ -466,6 +467,8 @@ class RecomendationLetterController extends Controller
                         'occupation' => $request->occupation,
                         'address' => $request->address,
                         'club' => $request->club,
+                        'mutasi_dari' => $request->mutasi_dari,
+                        'mutasi_menuju' => $request->mutasi_menuju,
                         'no_kta' => $request->no_kta,
                         'membership' => $request->membership,
                         'pemohon' => $request->pemohon,
@@ -816,6 +819,7 @@ class RecomendationLetterController extends Controller
                         'no_pabrik' => $request->no_pabrik,
                         'no_buku_pas_senpi' => $request->no_buku_pas_senpi,
                         'no_si_impor' => $request->no_si_impor,
+                        'pelaksana_impor' => $request->pelaksana_impor,
                         'bap_senpi' => $request->bap_senpi,
                         'nama_pemilik' => $request->nama_pemilik,
                         'jumlah' => $request->jumlah,
@@ -1192,7 +1196,7 @@ class RecomendationLetterController extends Controller
                     $request->file('file_skck')->storeAs($filePath . "category-" . $categoryId, $name_file_skck, 'public');
 
                     $biaya_administrasi = $request->biaya_administrasi;
-                    $name_biaya_administrasi = DataHelper::getFileName($biaya_administrasi);
+                    $name_biaya_administrasi = "l8_badm_" . DataHelper::getFileName($biaya_administrasi);
                     $request->file('biaya_administrasi')->storeAs($filePath . "category-" . $categoryId, $name_biaya_administrasi, 'public');
 
                     $data = [
@@ -1253,9 +1257,9 @@ class RecomendationLetterController extends Controller
                     if (!$request->hasFile('surat_rekomendasi_club')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File buku pas senpi harus dipilih!');
                     }
-                    if (!$request->hasFile('file_kta')) {
-                        return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file KTA Perbakin sesuai ketentuan');
-                    }
+                    // if (!$request->hasFile('file_kta')) {
+                    //     return redirect('recomendationletter')->with('errorMessage', 'Gagal menambahkan data! Pastikan format dan ukuran file KTA Perbakin sesuai ketentuan');
+                    // }
                     if (!$request->hasFile('file_foto_4x6')) {
                         return redirect('recomendationletter')->with('errorMessage', 'Gagal! File kta harus dipilih!');
                     }
@@ -1279,9 +1283,13 @@ class RecomendationLetterController extends Controller
                     $name_surat_rekomendasi_club = DataHelper::getFileName($surat_rekomendasi_club);
                     $request->file('surat_rekomendasi_club')->storeAs($filePath . "category-" . $categoryId, $name_surat_rekomendasi_club, 'public');
 
-                    $file_kta = $request->file_kta;
-                    $name_file_kta = DataHelper::getFileName($file_kta);
-                    $request->file('file_kta')->storeAs($filePath . "category-" . $categoryId, $name_file_kta, 'public');
+                    if ($request->hasFile('file_kta')) {
+                        $file_kta = $request->file_kta;
+                        $name_file_kta = DataHelper::getFileName($file_kta);
+                        $request->file('file_kta')->storeAs($filePath . "category-" . $categoryId, $name_file_kta, 'public');
+                    } else {
+                        $name_file_kta = null;
+                    }
 
                     $file_foto_4x6 = $request->file_foto_4x6;
                     $name_file_foto_4x6 = DataHelper::getFileName($file_foto_4x6);
@@ -1445,6 +1453,7 @@ class RecomendationLetterController extends Controller
         }
     }
 
+
     /**
      * Show the specified resource.
      * @param int $id
@@ -1461,11 +1470,15 @@ class RecomendationLetterController extends Controller
 
         $user = $this->_userRepository->getById($getDetailLetter->created_by);
         $idLetterRequirement = $getDetailLetter->letter_requirement_id;
+        $idFirearm = $getDetailLetter->firearm_id;
+
         $idLetterRequirement != null ?  $letterRequireFile =  $this->_letterRequirementRepository->getById($getDetailLetter->letter_requirement_id) :  $letterRequireFile = null;
+        $idFirearm !=  null ? $letterFirearm = $this->_firearmRepository->getById($idFirearm) : $letterFirearm = null;
         $result = [
             $user,
             $getDetailLetter,
             $letterRequireFile,
+            $letterFirearm,
         ];
         if ($getDetailLetter) {
             return DataHelper::_successResponse($result, 'Data berhasil ditemukan');

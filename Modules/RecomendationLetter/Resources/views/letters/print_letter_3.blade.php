@@ -75,7 +75,7 @@ function BodySatuDesc()
 function BodyDua($letter)
 {
     $this->Cell(10);
-    $this->Cell(15, 5, '2. Dengan ini menyatakan telah menghibahkan 1 (satu) Pucuk Senjata Api/amunisi  Kepada:', 0, 0, 'L');
+    $this->Cell(15, 5, '2. Dengan ini menyatakan telah menghibahkan '.$letter[1]->jumlah.' Pucuk Senjata Api/amunisi  Kepada:', 0, 0, 'L');
     // isi body 1
     $this->Ln(5);
     $this->Cell(15);
