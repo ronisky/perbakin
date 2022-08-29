@@ -970,10 +970,11 @@
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_surat_sehat" class="col-md-5 col-form-label">File surat keterangan
+                                <label for="label_file_surat_sehat_detail6" class="col-md-5 col-form-label">File surat
+                                    keterangan
                                     sehat dari dokter </label>
                                 <div class="col-md-6">
-                                    <div id="file_surat_sehat_detail6"></div>
+                                    <div id="label_file_surat_sehat_detail6"></div>
                                 </div>
                             </div>
                         </div>
@@ -1384,14 +1385,13 @@
         $('#nama_pemilik').val(name);
         $('#pemohon').val(name);
     });
-
-    $('.letter_approval_admin').change(function () {
+    
+    $('.letter_approval_admin').on('change', function () {
         let id = $(this).attr('data-id');
         let user = $(this).attr('data-user');
-        let status = $('.letter_approval_admin').val();
+        let status = this.value;
         let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
 
-        console.log( status + url);
         if (status == 1) {
             Swal.fire({
                 title: 'Ubah Status?',
@@ -1420,6 +1420,7 @@
                                     showConfirmButton: false,
                                     timer: 2000
                                 })
+                                location.reload();
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -1439,7 +1440,7 @@
                                 showConfirmButton: false,
                                 timer: 2000
                             })
-                            // location.reload();
+                            location.reload();
                         }
                     })
 
@@ -1465,11 +1466,12 @@
         }
     });
 
-    $('.letter_approval_sekum').change(function () {
+    $('.letter_approval_sekum').on('change', function () {
         let id = $(this).attr('data-id');
         let user = $(this).attr('data-user');
-        let status = $('.letter_approval_sekum').val();
+        let status = this.value;
         let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
+
         if (status == 1) {
             Swal.fire({
                 title: 'Ubah Status?',
@@ -1499,6 +1501,7 @@
                                     showConfirmButton: false,
                                     timer: 2000
                                 })
+                                location.reload();
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -1544,11 +1547,12 @@
         }
     });
 
-    $('.letter_approval_ketua').change(function () {
+    $('.letter_approval_ketua').on('change', function () {
         let id = $(this).attr('data-id');
         let user = $(this).attr('data-user');
-        let status = $('.letter_approval_ketua').val();
+        let status = this.value;
         let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
+        
         if (status == 1) {
             Swal.fire({
                 title: 'Ubah Status?',
@@ -1578,6 +1582,7 @@
                                     showConfirmButton: false,
                                     timer: 2000
                                 })
+                                location.reload();
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -1663,6 +1668,7 @@
                             showConfirmButton: false,
                             timer: 2000
                         })
+                        location.reload();
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -1731,13 +1737,16 @@
  // Detail Data
  $('.btnDetail').click(function () {
         let id = $(this).attr('data-id');
-        let url = "{{ url('recomendationletterapproval/show') }}";
-
+        let url = "{{ url('recomendationletter/show') }}";
+        console.log(id);
+        
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
+            console.log(data);
+
                 if (data.status == 1) {
                     switch (data.result[1].letter_category_id) {
                         case "1":
@@ -1972,7 +1981,7 @@
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_buku_pas_senpi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_surat_sehat_detail6').innerHTML =
+                            document.getElementById('label_file_surat_sehat_detail6').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_surat_sehat +
                                 "' class='btn btn-primary download'>Lihat File</i>";
@@ -2093,7 +2102,7 @@
                                     "' class='btn btn-primary download'>Lihat File</i>";
                             } else {
                                 document.getElementById('label_file_kta_detail9').innerHTML =
-                                    "<label for='file_kta' class='col-md-10 col-form-label'>Tidak ada file</label>";
+                                    "<label for='label_file_kta_detail9' class='col-md-10 col-form-label'>Tidak ada file</label>";
                             }
 
                             document.getElementById('label_file_foto_4x6_detail9').innerHTML =

@@ -16,12 +16,10 @@ use Modules\RecomendationLetterApproval\Http\Controllers\RecomendationLetterAppr
 
 Route::prefix('recomendationletterapproval')->group(function () {
     Route::get('/', [RecomendationLetterApprovalController::class, 'index']);
-    Route::get('/create', [RecomendationLetterApprovalController::class, 'create']);
-    Route::get('/show/{id}', [RecomendationLetterApprovalController::class, 'show']);
-    Route::post('/store', [RecomendationLetterApprovalController::class, 'store']);
     Route::post('/update/{id}', [RecomendationLetterApprovalController::class, 'update']);
+    Route::get('/show/{id}', [RecomendationLetterApprovalController::class, 'show']);
+    // Route::get('/show/{id}', [RecomendationLetterApprovalController::class, 'show']);
     Route::post('/updatestatus/{id}', [RecomendationLetterApprovalController::class, 'updatestatus']);
     Route::get('/delete/{id}', [RecomendationLetterApprovalController::class, 'destroy']);
-    Route::get('/getdata/{id}', [RecomendationLetterApprovalController::class, 'getdata']);
     Route::get('/printletter/{id}', [RecomendationLetterApprovalController::class, 'printLetter']);
 });

@@ -2914,10 +2914,11 @@
                                 </div>
                             </div>
                             <div class="col-md-6 row my-1">
-                                <label for="file_surat_sehat" class="col-md-5 col-form-label">File surat keterangan
+                                <label for="label_file_surat_sehat_detail6" class="col-md-5 col-form-label">File surat
+                                    keterangan
                                     sehat dari dokter </label>
                                 <div class="col-md-6">
-                                    <div id="file_surat_sehat_detail6"></div>
+                                    <div id="label_file_surat_sehat_detail6"></div>
                                 </div>
                             </div>
                         </div>
@@ -4818,7 +4819,7 @@
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_buku_pas_senpi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
-                            document.getElementById('file_surat_sehat_detail6').innerHTML =
+                            document.getElementById('label_file_surat_sehat_detail6').innerHTML =
                                 "<a target='_blank' href='" + filePath + data.result[2]
                                 .file_surat_sehat +
                                 "' class='btn btn-primary download'>Lihat File</i>";
