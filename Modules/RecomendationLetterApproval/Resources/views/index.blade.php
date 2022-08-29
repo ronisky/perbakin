@@ -99,7 +99,15 @@
                                 @php
                                 if (Auth::user()->group_id == 1) {
                                 echo '<td>';
-                                    $status = $letter->letter_status;
+                                    $status = $letter->admin_status;
+                                    $letter_status = $letter->letter_status;
+                                    if ($letter_status == 3) {
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    } elseif ($letter_status == 4){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else{
                                     if($status == 1){
                                     $admin_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
@@ -110,10 +118,19 @@
                                     $admin_status = 'Perlu diproses';
                                     $class = 'badge badge-secondary';
                                     }
+                                    }
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
                                     $status = $letter->sekum_status;
+                                    $letter_status = $letter->letter_status;
+                                    if ($letter_status == 3) {
+                                    $sekum_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    } elseif ($letter_status == 4){
+                                    $sekum_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else{
                                     if($status == 1){
                                     $sekum_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
@@ -124,10 +141,19 @@
                                     $sekum_status = 'Perlu diproses';
                                     $class = 'badge badge-secondary';
                                     }
+                                    }
                                     echo '<span class="'. $class .'">'. $sekum_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
                                     $status = $letter->ketua_status;
+                                    $letter_status = $letter->letter_status;
+                                    if ($letter_status == 3) {
+                                    $ketua_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    } elseif ($letter_status == 4){
+                                    $ketua_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else{
                                     if($status == 1){
                                     $ketua_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
@@ -138,12 +164,20 @@
                                     $ketua_status = 'Perlu diproses';
                                     $class = 'badge badge-secondary';
                                     }
+                                    }
                                     echo '<span class="'. $class .'">'. $ketua_status .'</span>';
                                     echo '</td>';
                                 }elseif(Auth::user()->group_id == 4){
                                 echo '<td>';
                                     $status = $letter->admin_status;
-
+                                    $letter_status = $letter->letter_status;
+                                    if ($letter_status == 3) {
+                                    $admin_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    } elseif ($letter_status == 4){
+                                    $admin_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else{
                                     if($status == 1){
                                     $admin_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
@@ -154,10 +188,19 @@
                                     $admin_status = 'Perlu diproses';
                                     $class = 'badge badge-secondary';
                                     }
+                                    }
                                     echo '<span class="'. $class .'">'. $admin_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
                                     $status = $letter->sekum_status;
+                                    $letter_status = $letter->letter_status;
+                                    if ($letter_status == 3) {
+                                    $sekum_status = 'Diterima / ACC';
+                                    $class = 'badge badge-success';
+                                    } elseif ($letter_status == 4){
+                                    $sekum_status = 'Ditolak';
+                                    $class = 'badge badge-danger';
+                                    }else{
                                     if($status == 1){
                                     $sekum_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
@@ -168,16 +211,17 @@
                                     $sekum_status = 'Perlu diproses';
                                     $class = 'badge badge-secondary';
                                     }
+                                    }
                                     echo '<span class="'. $class .'">'. $sekum_status .'</span>';
                                     echo '</td>';
                                 echo '<td>';
                                     $status = $letter->ketua_status;
                                     $letter_status = $letter->letter_status;
                                     if ($letter_status == 3) {
-                                    $admin_status = 'Diterima / ACC';
+                                    $ketua_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
                                     } elseif ($letter_status == 4){
-                                    $admin_status = 'Ditolak';
+                                    $ketua_status = 'Ditolak';
                                     $class = 'badge badge-danger';
                                     }else{
                                     if($status == 1){
