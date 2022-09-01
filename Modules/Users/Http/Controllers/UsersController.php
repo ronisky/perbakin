@@ -285,22 +285,21 @@ class UsersController extends Controller
                 $userActived = date("Y-m", strtotime($getUser->user_active_date));
 
                 $compareDate = strtotime($userActived) < strtotime($currentDate);
-                if ($compareDate == true) {
-                    return DataHelper::_errorResponse(null, 'Opps! Masa aktif KTA user sudah tidak aktif, silahkan perbaharui keanggotaan terlebih dahulu');
+                if (!$compareDate) {
+                    DB::beginTransaction();
+                    try {
+                        $this->_usersRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
+                        $this->_logHelper->store($this->module, $request->user_id, 'update');
+
+                        DB::commit();
+                        return DataHelper::_successResponse(null, 'Status user berhasil diubah');
+                    } catch (\Throwable $th) {
+
+                        DB::rollBack();
+                        return DataHelper::_errorResponse(null, 'Gagal mengubah data');
+                    }
                 }
-
-                DB::beginTransaction();
-                try {
-                    $this->_usersRepository->update(DataHelper::_normalizeParams($request->all(), false, true), $id);
-                    $this->_logHelper->store($this->module, $request->user_id, 'update');
-
-                    DB::commit();
-                    return DataHelper::_successResponse(null, 'Status user berhasil diubah');
-                } catch (\Throwable $th) {
-
-                    DB::rollBack();
-                    return DataHelper::_errorResponse(null, 'Gagal mengubah data');
-                }
+                return DataHelper::_errorResponse(null, 'Opps! Masa aktif KTA user sudah tidak aktif, silahkan perbaharui keanggotaan terlebih dahulu');
             } else {
                 return DataHelper::_errorResponse(null, 'Data super admin tidak bisa diubah');
             }

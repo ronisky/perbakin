@@ -675,7 +675,9 @@
                                     showConfirmButton: false,
                                     timer: 4000
                                 });
-                                setTimeout(location.reload.bind(location), 4000);
+                                setTimeout(function() {                                    
+                                document.location.reload(true);
+                                }, 4000);
                             }
                         },
                         error: function (XMLHttpRequest, textStatus, errorThrown) {
