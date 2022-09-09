@@ -90,7 +90,11 @@ class UserController extends Controller
         }
 
         if (Auth::attempt(['user_username' => $credentials['user_username'], 'user_password' => $credentials['password'], 'user_status' => 1])) {
-            return redirect()->intended('dashboard');
+            if ($getUser->group_id == 5) {
+                return redirect()->intended('recomendationletter');
+            } else {
+                return redirect()->intended('dashboard');
+            }
         } else {
             return redirect('login')->with('error', 'Nomor KTA atau kata sandi salah!');
         }
