@@ -202,7 +202,7 @@
                 <div class="card-header">
                     <h2>Data Pengajuan Surat</h2>
                     <div class="row">
-                        <div class="col-md-8 col-lg-5 mt-5 mr-5">
+                        <div class="col-md-8 col-lg-5 mt-4 mr-5">
                             <div class="chart chart-sm">
                                 <canvas id="chartjs-doughnut"></canvas>
                             </div>
@@ -212,12 +212,6 @@
                                 <div class="col-md-12">
                                     <p class="inline">
                                         <span class="mr-1 badge badge-pill badge-primary">-</span>Surat Baru
-                                    </p>
-                                </div>
-                                <div class="col-md-12">
-                                    <p class="inline"><span class="mr-1 badge badge-pill badge-warning">-</span>Suat
-                                        Perlu
-                                        Diproses
                                     </p>
                                 </div>
                                 <div class=" col-md-12">
@@ -305,12 +299,11 @@
 				data: {
 					labels: ["Suarat Baru", "Surat Disetujui", "Surat Ditolak", "Suat Perlu Diproses"],
 					datasets: [{
-						data: [260, 125, 54, 146],
+						data: [{{$letterProcess}}, {{$letterSuccess}}, {{$letterReject}}],
 						backgroundColor: [
 							window.theme.primary,
 							window.theme.success,
 							window.theme.danger,
-							window.theme.warning
 						],
 						borderColor: "transparent"
 					}]

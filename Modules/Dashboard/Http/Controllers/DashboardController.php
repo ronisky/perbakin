@@ -39,6 +39,7 @@ class DashboardController extends Controller
         $articleAll = $this->_articleRepository->getAllByParams(['publish_status' => 1]);
         $processLetterAll = $this->_letterRepository->getAllByParams(['letter_status' => 1]);
         $successLetterAll = $this->_letterRepository->getAllByParams(['letter_status' => 3]);
+        $rejectLetterAll = $this->_letterRepository->getAllByParams(['letter_status' => 4]);
 
         $totalUser = count($userAll);
         $totalClub = count($clubAll);
@@ -47,9 +48,10 @@ class DashboardController extends Controller
 
         $letterProcess = count($processLetterAll);
         $letterSuccess = count($successLetterAll);
+        $letterReject = count($rejectLetterAll);
 
 
-        return view('dashboard::index', compact('user', 'totalUser', 'totalClub', 'totalSponsor', 'totalArticle', 'letterProcess', 'letterSuccess'));
+        return view('dashboard::index', compact('user', 'totalUser', 'totalClub', 'totalSponsor', 'totalArticle', 'letterProcess', 'letterSuccess', 'letterReject'));
     }
 
     /**
