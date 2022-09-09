@@ -1798,23 +1798,20 @@
             }
         })
     });
-
- // Detail Data
- $('.btnDetail').click(function () {
+    
+        // Detail Data
+        $('.btnDetail').click(function () {
         let id = $(this).attr('data-id');
         let url = "{{ url('recomendationletter/show') }}";
-        console.log(id);
-        
+
         $.ajax({
             type: 'GET',
             url: url + '/' + id,
             dataType: 'JSON',
             success: function (data) {
-            console.log(data);
-
                 if (data.status == 1) {
                     switch (data.result[1].letter_category_id) {
-                        case "1":
+                        case 1 :
                             $('.detailModalLetter1 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter1').modal('show');
 
@@ -1846,7 +1843,7 @@
                                 .file_foto_4x6 +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case "2":
+                        case 2 :
                             $('.detailModalLetter2 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter2').modal('show');
 
@@ -1908,7 +1905,7 @@
                                 .file_foto_4x6 +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case "3":
+                        case 3 :
                             $('.detailModalLetter3 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter3').modal('show');
                                     console.log(data.result);
@@ -1924,7 +1921,7 @@
                             $('.pemohon').val(': ' + data.result[1].pemohon);
                             $('.pemohon_pihak_2').val(': ' + data.result[1].pemohon_pihak_2);
                             break;
-                        case "4":
+                        case 4 :
                             $('.detailModalLetter4 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter4').modal('show');
 
@@ -1981,7 +1978,7 @@
                                 .file_foto_4x6 +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case "5":
+                        case 5 :
                             $('.detailModalLetter5 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter5').modal('show');
 
@@ -2014,7 +2011,7 @@
                                 .file_buku_pas_senpi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case "6":
+                        case 6 :
                             $('.detailModalLetter6 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter6').modal('show');
 
@@ -2055,7 +2052,7 @@
                                 .l6_undangan_berburu +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case "7":
+                        case 7 :
                             $('.detailModalLetter7 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter7').modal('show');
 
@@ -2073,7 +2070,7 @@
                                 .l7_alasan_pengunduran);
 
                             break;
-                        case "8":
+                        case 8 :
                             $('.detailModalLetter8 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter8').modal('show');
 
@@ -2131,7 +2128,7 @@
                                 .biaya_administrasi +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case "9":
+                        case 9 :
                             $('.detailModalLetter9 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter9').modal('show');
 
@@ -2175,7 +2172,7 @@
                                 .file_foto_4x6 +
                                 "' class='btn btn-primary download'>Lihat File</i>";
                             break;
-                        case "10":
+                        case 10 :
                             $('.detailModalLetter10 .modal-title').text('Detail Data Letter');
                             $('.detailModalLetter10').modal('show');
 
@@ -2224,6 +2221,5 @@
             }
         });
     });
-
 </script>
 @endsection
