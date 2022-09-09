@@ -224,15 +224,17 @@ class RecomendationLetterApprovalController extends Controller
                     break;
             }
         } else {
+
             switch ($status) {
                 case 'admin':
                     $userletter = $this->_recomendationLetterRepository->getByParams(['letter_id' => $id]);
-                    $user = $this->_userRepository->getByParams(['user_kta' => $userletter->no_kta]);
+                    $user = $this->_userRepository->getByParams(['user_id' => $userletter->created_by]);
 
                     $email = $user->user_email;
 
                     $checkData = $request->checkbox;
                     $other_note = $request->other_note;
+
                     if ($checkData != null) {
                         if ($request->other_note != null) {
                             array_push($checkData, $request->other_note);
@@ -247,6 +249,7 @@ class RecomendationLetterApprovalController extends Controller
                         ];
 
                         $result = $this->_updateStatus($updateData, $id);
+
                         if ($result) {
                             Mail::to($email)->send(new LetterSubmissionFaild($id, 'admin'));
                             return DataHelper::_successResponse(null, 'Status surat berhasil diubah');
@@ -275,7 +278,7 @@ class RecomendationLetterApprovalController extends Controller
                     break;
                 case 'sekum':
                     $userletter = $this->_recomendationLetterRepository->getByParams(['letter_id' => $id]);
-                    $user = $this->_userRepository->getByParams(['user_kta' => $userletter->no_kta]);
+                    $user = $this->_userRepository->getByParams(['user_id' => $userletter->created_by]);
 
                     $email = $user->user_email;
 
@@ -323,7 +326,7 @@ class RecomendationLetterApprovalController extends Controller
                     break;
                 case 'ketua':
                     $userletter = $this->_recomendationLetterRepository->getByParams(['letter_id' => $id]);
-                    $user = $this->_userRepository->getByParams(['user_kta' => $userletter->no_kta]);
+                    $user = $this->_userRepository->getByParams(['user_id' => $userletter->created_by]);
 
                     $email = $user->user_email;
 

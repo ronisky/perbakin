@@ -303,10 +303,10 @@
                                     $status = $letter->sekum_status;
                                     $letter_status = $letter->letter_status;
                                     if ($letter_status == 3) {
-                                    $admin_status = 'Diterima / ACC';
+                                    $sekum_status = 'Diterima / ACC';
                                     $class = 'badge badge-success';
                                     } elseif ($letter_status == 4){
-                                    $admin_status = 'Ditolak';
+                                    $sekum_status = 'Ditolak';
                                     $class = 'badge badge-danger';
                                     }else{
                                     if($status == 1){
@@ -394,12 +394,13 @@
             <div class="modal-body">
                 <form action="{{ url('recomendationletterapproval/updatestatus') }}" method="POST"
                     id="rejectLetterForm">
+                    @csrf
                     <fieldset class="form-group">
                         <div class="row">
                             <div class="col-sm-12">
-                                <input type="hidden" id="letter-id">
-                                <input type="hidden" id="data-user">
-                                <input type="hidden" id="data-status-code">
+                                <input type="hidden" class="letter-id" id="letter-id">
+                                <input type="hidden" class="data-user" id="data-user">
+                                <input type="hidden" class="data-status-code" id="data-status-code">
                                 <legend class="col-form-label col-sm-5 pt-0"><strong>Pilih Catatan Penolakan</strong>
                                 </legend>
                                 <div class="form-check">
@@ -427,7 +428,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="rejectLetterFormSubmit">Tolak Pengajuan</button>
+                <button type="button" class="btn btn-danger rejectLetterFormSubmit" id="rejectLetterFormSubmit">Tolak
+                    Pengajuan</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -1506,7 +1508,7 @@
                 showConfirmButton: false,
                 timer: 2000
             })
-            // location.reload();
+            location.reload();
         }
     });
 
@@ -1578,6 +1580,7 @@
             $('#data-user').val(user);
             $('#data-status-code').val(status);
             $('.rejectLetter .modal-title').text('Tolak Pengajuan Surat Rekomendasi');
+            document.getElementById("rejectLetterForm").reset();
             $('.rejectLetter').modal('show');
         } else {
             Swal.fire({
@@ -1617,7 +1620,7 @@
                         },
                         url: url,
                         success: function (data) {
-
+                            console.log(data);
                             if (data.status == 1) {
                                 Swal.fire({
                                     icon: 'success',
@@ -1672,26 +1675,30 @@
         }
     });
 
-    $("#rejectLetterFormSubmit").click(function () {
-
-        let id = $('#letter-id').val();
-        let user = $('#data-user').val();
-        let status = $('#data-status-code').val();
+    $('.rejectLetterFormSubmit').on('click', function () {
+        let id = $('.letter-id').val();
+        let user = $('.data-user').val();
+        let status =$('.data-status-code').val();
         let url = "{{ url('recomendationletterapproval/updatestatus') }}" + '/' + id;
         let otherNote = $('#reject-note-other').val();
+
+        $('.rejectLetterFormSubmit').attr('disabled', true);
+        $('.rejectLetterFormSubmit').text('Update status diproses... ');
 
         let checkboxes = document.querySelectorAll('input[name="checkedData"]:checked');
         let checkNote = [];
         checkboxes.forEach((checkbox) => {
             checkNote.push(checkbox.value);
         });
-
         if (checkNote.length == 0 && otherNote == "") {
             Swal.fire({
                 icon: 'warning',
                 title: 'Tambahkan Catatan',
                 text: 'Pilih atau Tambahkan catatan penolakan!',
             });
+
+            $('.rejectLetterFormSubmit').attr('disabled', false);
+            $('.rejectLetterFormSubmit').text('Tolak Pengajuan');
         } else {
             $.ajax({
                 type: 'POST',
@@ -1704,6 +1711,7 @@
                 },
                 url: url,
                 success: function (data) {
+                    console.log(data);
                     if (data.status == 1) {
                         Swal.fire({
                             icon: 'success',
@@ -1711,8 +1719,10 @@
                             text: data.messages,
                             showConfirmButton: false,
                             timer: 2000
-                        })
-                        location.reload();
+                        })                                   
+                        document.location.reload(true);
+                        $('.rejectLetterFormSubmit').attr('disabled', false);
+                        $('.rejectLetterFormSubmit').text('Tolak Pengajuan');
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -1721,7 +1731,13 @@
                             showConfirmButton: false,
                             timer: 2000
                         })
-                        location.reload();
+
+                        setTimeout(function() {                                    
+                            document.location.reload(true);
+                        }, 4000);
+                        $('.rejectLetterFormSubmit').attr('disabled', false);
+                        $('.rejectLetterFormSubmit').text('Tolak Pengajuan');
+
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -1732,7 +1748,12 @@
                         showConfirmButton: false,
                         timer: 2000
                     })
-                    location.reload();
+                    setTimeout(function() {                                    
+                            document.location.reload(true);
+                    }, 4000);
+
+                    $('.rejectLetterFormSubmit').attr('disabled', false);
+                    $('.rejectLetterFormSubmit').text('Tolak Pengajuan');
                 }
             });
         }
