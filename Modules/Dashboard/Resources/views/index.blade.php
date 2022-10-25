@@ -95,11 +95,13 @@
                                 <svg width="18" height="22" viewBox="0 0 18 22" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
-                                        d="M10.125 1H3.41667C2.90834 1 2.42082 1.20193 2.06138 1.56138C1.70193 1.92082 1.5 2.40834 1.5 2.91667V18.25C1.5 18.7583 1.70193 19.2458 2.06138 19.6053C2.42082 19.9647 2.90834 20.1667 3.41667 20.1667H14.9167C15.425 20.1667 15.9125 19.9647 16.272 19.6053C16.6314 19.2458 16.8333 18.7583 16.8333 18.25V7.70833L10.125 1Z"
+                                        d="M1 18.5C1 17.837 1.26339 17.2011 1.73223 16.7322C2.20107 16.2634 2.83696 16 3.5 16H17"
                                         stroke="black" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round" />
-                                    <path d="M10.125 1V7.70833H16.8333" stroke="black" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path
+                                        d="M3.5 1H17V21H3.5C2.83696 21 2.20107 20.7366 1.73223 20.2678C1.26339 19.7989 1 19.163 1 18.5V3.5C1 2.83696 1.26339 2.20107 1.73223 1.73223C2.20107 1.26339 2.83696 1 3.5 1V1Z"
+                                        stroke="black" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
                             </div>
                         </div>
